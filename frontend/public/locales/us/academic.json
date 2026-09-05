@@ -1,0 +1,398 @@
+{
+  "subject": {
+    "subject": "Subjects",
+    "titles": {
+      "edit": "Edit Subject",
+      "list": "Subjects"
+    },
+    "fields": {
+      "id": "ID",
+      "name": "Name",
+      "full_name": "Full Name",
+      "code": "Code",
+      "isLocal": "Local Subject",
+      "th_credit": "TH Credit",
+      "in_credit": "IN Credit",
+      "class": "Class",
+      "subject": "Subject",
+      "type": "Type"
+    },
+    "actions": {
+      "add": "Add new subject",
+      "edit": "Edit subject"
+    },
+    "hints": {
+      "selectClassFirst": "Select a class first"
+    },
+    "messages": {
+      "delete_confirm": "Are you sure you want to delete this subject?"
+    }
+  },
+  "classSubject": {
+    "classSubject": "Class Subject",
+    "titles": {
+      "edit": "Edit Class Subject",
+      "list": "Class Subjects"
+    },
+    "fields": {
+      "id": "ID",
+      "subject": "Subject",
+      "code": "Code",
+      "sno": "S.No",
+      "class": "Class",
+      "course_type": "Course Type"
+    },
+    "actions": {
+      "add": "Add new subject",
+      "edit": "Edit subject",
+      "update": "Update"
+    }
+  },
+  "lesson": {
+    "lesson": "Lesson",
+    "titles": {
+      "edit": "Edit Lesson",
+      "list": "Lessons"
+    },
+    "fields": {
+      "id": "ID",
+      "unit": "Unit",
+      "name": "Name",
+      "sno": "SNO"
+    },
+    "messages": {
+      "delete_confirm": "Are you sure you want to delete this lesson?"
+    },
+    "validations": {
+      "fill_required_fields": "Please fill all required fields."
+    },
+    "actions": {
+      "add": "Add new lesson",
+      "edit": "Edit lesson"
+    }
+  },
+  "setting": {
+    "setting": "Settings"
+  },
+  "batch": {
+    "batch": "Batches",
+    "titles": {
+      "edit": "Edit Batch",
+      "list": "Batches"
+    },
+    "fields": {
+      "id": "ID",
+      "name": "Name",
+      "sort": "Sort",
+      "start_date": "Start Date",
+      "end_date": "End Date",
+      "is_current": "Is Current"
+    },
+    "actions": {
+      "add": "Add new batch",
+      "edit": "Edit batch"
+    }
+  },
+  "program": {
+    "program": "Program",
+    "titles": {
+      "edit": "Edit Program",
+      "list": "Programs"
+    },
+    "fields": {
+      "id": "ID",
+      "name": "Name",
+      "faculty": "Faculty",
+      "affiliation": "Affiliation",
+      "type": "Type"
+    },
+    "actions": {
+      "add": "Add new program",
+      "edit": "Edit program"
+    }
+  },
+  "class": {
+    "class": "Class",
+    "titles": {
+      "edit": "Edit Class",
+      "list": "Classes"
+    },
+    "fields": {
+      "id": "ID",
+      "name": "Name",
+      "code": "Code",
+      "shift": "Shift",
+      "program": "Program",
+      "regulation": "Regulation",
+      "medium": "Medium",
+      "sessions": "Sessions",
+      "totalSubjects": "Total Subject",
+      "sort": "Sort",
+      "status": "Status"
+    },
+    "actions": {
+      "add": "Add new class",
+      "edit": "Edit class"
+    }
+  },
+  "section": {
+    "section": "Section",
+    "titles": {
+      "edit": "Edit Section",
+      "list": "Sections"
+    },
+    "fields": {
+      "id": "ID",
+      "name": "Name",
+      "sort": "Sort"
+    },
+    "actions": {
+      "add": "Add new section",
+      "edit": "Edit section"
+    }
+  },
+  "period": {
+    "period": "Period",
+    "titles": {
+      "edit": "Edit Period",
+      "list": "Periods"
+    },
+    "fields": {
+      "id": "ID",
+      "name": "Name",
+      "sort": "Sort",
+      "start_time": "Start Time",
+      "duration": "Duration",
+      "end_time": "End Time"
+    },
+    "validation": {
+      "greaterThan": "End Time should greater than Start Time"
+    },
+    "actions": {
+      "add": "Add new period",
+      "edit": "Edit period"
+    }
+  },
+  "room": {
+    "room": "Room",
+    "titles": {
+      "edit": "Edit Room",
+      "list": "Rooms"
+    },
+    "fields": {
+      "id": "ID",
+      "name": "Name",
+      "class": "Class",
+      "section": "Section",
+      "size": "Size",
+      "row": "Rows",
+      "column": "Columns",
+      "floor": "Floor",
+      "seats_per_desk": "Seats Per Desk"
+    },
+    "filter": {
+      "title": "Filters",
+      "search": {
+        "label": "Search",
+        "placeholder": "Search"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Search Name"
+      },
+      "class": {
+        "label": "Class",
+        "placeholder": "Search Class"
+      },
+      "createdAt": {
+        "label": "Created At"
+      },
+      "submit": "Filter"
+    },
+    "actions": {
+      "add": "Add new room",
+      "edit": "Edit room"
+    }
+  },
+  "hostel": {
+    "hostel": "Hostel",
+    "titles": {
+      "edit": "Edit Hostel",
+      "list": "Hostels"
+    },
+    "fields": {
+      "id": "ID",
+      "name": "Name"
+    },
+    "actions": {
+      "add": "Add new hostel",
+      "edit": "Edit hostel"
+    }
+  },
+  "house": {
+    "house": "House",
+    "titles": {
+      "edit": "Edit House",
+      "list": "Houses"
+    },
+    "fields": {
+      "id": "ID",
+      "name": "Name",
+      "color": "Color"
+    },
+    "actions": {
+      "add": "Add new house",
+      "edit": "Edit house"
+    }
+  },
+  "session": {
+    "session": "Session",
+    "titles": {
+      "edit": "Edit Session",
+      "list": "Sessions"
+    },
+    "fields": {
+      "id": "ID",
+      "name": "Name",
+      "sort": "Sort",
+      "week": "Week"
+    },
+    "actions": {
+      "add": "Add new session",
+      "edit": "Edit session"
+    },
+    "info": {
+      "confirmDelete": "Deleting this session will also remove all timetable and mark-entry assignments scheduled on it. This cannot be undone. Are you sure?"
+    }
+  },
+  "dashboard": {
+    "dashboard": "Dashboard",
+    "labels": {
+      "totalSubject": "Total Subject",
+      "totalTeachers": "Total Teachers",
+      "assignedTeachers": "Assigned To Teachers",
+      "activeBatch": "Active Batch",
+      "subjectTypePie": "Subject By Type",
+      "runningSchedule": "Running Schedule",
+      "unassignedSubject": "Unassigned Subject"
+    },
+    "info": {
+      "totalBirthday": "You have {{count}} birthday today",
+      "noBirthday": "There is not birthday today"
+    },
+    "actions": {
+      "viewAll": "View all"
+    }
+  },
+  "timeline": {
+    "timeline": "Timelines",
+    "titles": {
+      "list": "Timelines",
+      "section": "Timetable for {{section}}",
+      "head": "Times",
+      "printSchednule": "Schedule for Class {{class}} as of {{date}}"
+    },
+    "fields": {
+      "class": "Class",
+      "session": "Session",
+      "subject": "Subject",
+      "period": "Period",
+      "section": "Section",
+      "teachers": "Teachers"
+    },
+    "info": {
+      "selectClassSession": "Please select class and session",
+      "dragTeacher": "Drag a teacher and drop into a slot. Double click teacher to view info."
+    },
+    "actions": {
+      "save": "Save timetable",
+      "add": "Add timeline",
+      "clone": "Clone timeline"
+    }
+  },
+  "calendar": {
+    "calendar": "Calendar",
+    "titles": {
+      "list": "Calendar",
+      "events": "Events",
+      "new": "New event",
+      "edit": "Edit event",
+      "add": "Add event"
+    },
+    "labels": {
+      "range": "Range",
+      "type": "Type",
+      "filters": "Filters"
+    },
+    "fields": {
+      "title": "Title",
+      "description": "Description",
+      "dateRange": "Date Range",
+      "start": "Start",
+      "end": "End",
+      "type": "Type",
+      "links": "Links",
+      "image": "Image"
+    },
+    "actions": {
+      "save": "Save event",
+      "edit": "Edit event",
+      "add": "Add event"
+    }
+  },
+  "syllabus": {
+    "syllabus": "Syllabus",
+    "titles": {
+      "list": "Syllabus",
+      "progress": "Syllabus Progress",
+      "editor": "Syllabus Editor",
+      "view": "Syllabus Overview",
+      "content": "Course Content"
+    },
+    "labels": {
+      "content": "Course Content",
+      "section": "Section",
+      "completed": "Completed",
+      "inProgress": "In Progress",
+      "hours": "CH"
+    },
+    "fields": {
+      "id": "ID",
+      "category": "Category",
+      "type": "Type",
+      "examples": "Examples",
+      "activities": "Activities",
+      "name": "Name",
+      "description": "Description",
+      "hour": "Hours",
+      "lessons": "Lessons",
+      "subject": "Subject",
+      "class": "Class"
+    },
+    "actions": {
+      "add": "Add Syllabus",
+      "edit": "Edit Syllabus",
+      "delete": "Delete",
+      "addUnit": "Add Unit",
+      "addChild": "Add Child",
+      "saveChanges": "Save Changes",
+      "dragToReorder": "Drag to reorder",
+      "updateProgress": "Update Progress",
+      "expand": "Expand",
+      "collapse": "Collapse"
+    },
+    "messages": {
+      "deleteConfirm": "Delete this item and its children?",
+      "hourMismatch": "Parent hour doesn't match sum of child hours",
+      "noClassSubjectId": "No class subject ID provided",
+      "noSyllabusData": "No syllabus data available"
+    },
+    "stats": {
+      "totalUnits": "{{count}} Units",
+      "totalTopics": "{{count}} Topics",
+      "totalHours": "{{hours}} Hours",
+      "validationErrors": "{{count}} Validation Errors"
+    },
+    "hourLabel": "{{hour}}h"
+  }
+}

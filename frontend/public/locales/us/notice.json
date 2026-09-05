@@ -1,0 +1,260 @@
+{
+    "dashboard": {
+        "dashboard": "Dashboard"
+    },
+    "sms": {
+        "sms": "SMS",
+        "titles": {
+            "create": "Create SMS",
+            "edit": "Edit SMS",
+            "list": "SMS",
+            "show": "Show SMS",
+            "audiance": "Audiances"
+        },
+        "tabs": {
+            "group": "Group",
+            "student": "Student",
+            "staff": "Staff",
+            "parent": "Parent",
+            "staffGroup": "Staff Group",
+            "class": "Class"
+        },
+        "info": {
+            "resend": "Are you sure you want to resend this?",
+            "cancel": "Are you sure you want to cancel this?"
+        },
+        "labels": {
+            "section": "Section",
+            "class": "Select Class",
+            "staff": "Select Staff",
+            "parent": "Select Parent",
+            "staffgroup": "Select Staff Group",
+            "student": "Select Student",
+            "studentState": "Student State",
+            "selectAudiance": "Select Audiance",
+            "searchAudiance": "Search Audiance",
+            "noticeSms": "SMS",
+            "noticeEmail": "Email",
+            "notice": "Notice",
+            "markAll": "Mark All",
+            "parents": "Parent's Number",
+            "students": "Student's Number"
+        },
+        "fields": {
+            "id": "ID",
+            "title": "Title",
+            "date": "Date",
+            "audiance": "Audiance",
+            "created_by": "Created By",
+            "created_at": "Created At",
+            "status": "Status",
+            "state": "State",
+            "schedule": "Schedule",
+            "template": "Template",
+            "message": "Message",
+            "noticeTypes": "Types"
+        },
+        "actions": {
+            "add": "Send SMS",
+            "edit": "Edit SMS",
+            "addAudiance": "Add Audiance",
+            "clearAudiance": "Clear",
+            "resend": "Resend",
+            "reload": "Reload"
+        }
+    },
+    "smsMeta": {
+        "smsMeta": "SMS Audiances",
+        "titles": {
+            "list": "Audiances",
+            "show": "SMS Details"
+        },
+        "fields": {
+            "name": "Name",
+            "phone": "Phone",
+            "state": "State",
+            "status": "Status",
+            "message": "Message",
+            "credit": "Credit",
+            "created_at": "Created At",
+            "created_by": "Created By"
+        },
+        "info": {
+            "toggleState": "Are you sure you want to toggle status?",
+            "resend": "Are you sure you want to resend this?"
+        }
+    },
+    "email": {
+        "email": "Email",
+        "titles": {
+            "create": "Create Email",
+            "edit": "Edit Email",
+            "list": "Email",
+            "show": "Show Email",
+            "audiance": "Audiances"
+        },
+        "tabs": {
+            "group": "Group",
+            "student": "Student",
+            "staff": "Staff",
+            "parent": "Parent",
+            "staffGroup": "Staff Group",
+            "class": "Class"
+        },
+        "info": {
+            "resend": "Are you sure you want to resend this?",
+            "cancel": "Are you sure you want to cancel this?"
+        },
+        "labels": {
+            "section": "Section",
+            "class": "Select Class",
+            "staff": "Select Staff",
+            "parent": "Select Parent",
+            "staffgroup": "Select Staff Group",
+            "student": "Select Student",
+            "studentState": "Student State",
+            "selectAudiance": "Select Audiance",
+            "searchAudiance": "Search Audiance"
+        },
+        "fields": {
+            "id": "ID",
+            "title": "Title",
+            "date": "Date",
+            "audiance": "Audiance",
+            "created_by": "Created By",
+            "created_at": "Created At",
+            "status": "Status",
+            "state": "State",
+            "schedule": "Schedule",
+            "template": "Template",
+            "message": "Message"
+        },
+        "actions": {
+            "add": "Send Email",
+            "edit": "Edit Email",
+            "addAudiance": "Add Audiance",
+            "clearAudiance": "Clear",
+            "resend": "Resend",
+            "reload": "Reload"
+        }
+    },
+    "emailMeta": {
+        "smsMeta": "Email Audiances",
+        "titles": {
+            "list": "Audiances",
+            "show": "Email Details"
+        },
+        "fields": {
+            "name": "Name",
+            "email": "Email",
+            "state": "State",
+            "status": "Status",
+            "message": "Message",
+            "credit": "Credit",
+            "created_at": "Created At",
+            "created_by": "Created By"
+        },
+        "info": {
+            "toggleState": "Are you sure you want to toggle status?",
+            "resend": "Are you sure you want to resend this?"
+        }
+    },
+    "notice": {
+        "notice": "Messages",
+        "titles": {
+            "create": "Create Message",
+            "list": "Messages",
+            "show": "Show Message",
+            "audiance": "Audiances"
+        },
+        "tabs": {
+            "group": "Group",
+            "student": "Student",
+            "staff": "Staff",
+            "parent": "Parent",
+            "staffGroup": "Staff Group",
+            "class": "Class"
+        },
+        "info": {
+            "cancel": "Are you sure you want to cancel this?"
+        },
+        "labels": {
+            "section": "Section",
+            "class": "Select Class",
+            "staff": "Select Staff",
+            "parent": "Select Parent",
+            "staffgroup": "Select Staff Group",
+            "student": "Select Student",
+            "studentState": "Student State",
+            "selectAudiance": "Select Audiance",
+            "searchAudiance": "Search Audiance",
+            "sms": "SMS"
+        },
+        "fields": {
+            "id": "ID",
+            "title": "Title",
+            "date": "Date",
+            "created_by": "Created By",
+            "created_at": "Created At",
+            "status": "Status",
+            "audiance": "Audiance",
+            "message": "Message",
+            "image": "Image",
+            "schedule": "Schedule",
+            "template": "Template"
+        },
+        "actions": {
+            "add": "Send Message",
+            "edit": "Edit Message",
+            "addAudiance": "Add Audiance",
+            "clearAudiance": "Clear",
+            "resend": "Resend",
+            "reload": "Reload"
+        }
+    },
+    "noticeMeta": {
+        "noticeMeta": "Audiances",
+        "titles": {
+            "list": "Audiances",
+            "show": "Message Details"
+        },
+        "fields": {
+            "name": "Name",
+            "scope": "scope",
+            "status": "Status",
+            "message": "Message",
+            "created_at": "Created At",
+            "created_by": "Created By"
+        },
+        "info": {
+            "toggleState": "Are you sure you want to toggle status?"
+        }
+    },
+    "template": {
+        "template": "Templates",
+        "titles": {
+            "list": "Templates",
+            "show": "Template Details"
+        },
+        "info": {
+            "toggleState": "Are you sure you want to toggle status?"
+        },
+        "fields": {
+            "id": "ID",
+            "name": "Name",
+            "type": "Type",
+            "template": "Content",
+            "status": "Status"
+        },
+        "actions": {
+            "add": "Add New Template",
+            "edit": "Edit Template"
+        }
+    },
+    "setting": {
+        "setting": "Settings"
+    },
+    "datavalue": {
+        "datavalue": "Data Value"
+    }
+}

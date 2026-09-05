@@ -1,0 +1,116 @@
+{
+    "dashboard": {
+        "dashboard": "Dashboard",
+        "labels": {
+            "students": "Students",
+            "locations": "Locations",
+            "routes": "Routes",
+            "buses": "Buses",
+            "dataActivity": "Data Activity",
+            "vehicleStudent": "Vehicle Student",
+            "locationPie": "Location Pie",
+            "recentAddedStudent": "Recent Added Student"
+        }
+    },
+    "location": {
+        "location": "Locations",
+        "titles": {
+            "edit": "Edit Location",
+            "list": "Locations"
+        },
+        "fields": {
+            "id": "ID",
+            "name": "Name",
+            "duration": "Duration (Minutes)"
+        },
+        "actions": {
+            "add": "Add new location",
+            "edit": "Edit location"
+        }
+    },
+    "student": {
+        "student": "Student",
+        "titles": {
+            "edit": "Edit Student",
+            "list": "Students"
+        },
+        "fields": {
+            "id": "ID",
+            "student": "Student",
+            "name": "Name",
+            "regid": "Regid",
+            "class": "Class",
+            "route": "Route",
+            "location": "Location",
+            "price": "Price"
+        },
+        "actions": {
+            "add": "Add new student",
+            "edit": "Edit student"
+        }
+    },
+    "info": {
+        "info": "Buses",
+        "titles": {
+            "edit": "Edit Bus",
+            "list": "Buses"
+        },
+        "fields": {
+            "id": "ID",
+            "image": "Image",
+            "name": "Name",
+            "number": "Number",
+            "type": "Type",
+            "staff": "Staff",
+            "gps_device_id": "GPS Device ID",
+            "enable_gps": "Enable GPS"
+        },
+        "actions": {
+            "add": "Add new info",
+            "edit": "Edit info"
+        }
+    },
+    "route": {
+        "route": "Route",
+        "titles": {
+            "edit": "Edit route",
+            "list": "Routes",
+            "show": "Route Info"
+        },
+        "fields": {
+            "id": "ID",
+            "name": "Name",
+            "pickup_time": "Pickup",
+            "drop_time": "Drop",
+            "staff":"Staff",
+            "bus": "Bus",
+            "bus_number": "Bus Number",
+            "map": "Map"
+        },
+        "actions": {
+            "add": "Add new route",
+            "edit": "Edit route",
+            "map": "View on map"
+        }
+    },
+    "routeLocation": {
+        "route": "Route",
+        "titles": {
+            "add": "Add location",
+            "edit": "Edit location",
+            "list": "Locations",
+            "student": "Student List"
+        },
+        "fields": {
+            "id": "ID",
+            "location": "Locations",
+            "price": "Price",
+            "pickup_time": "Pickup",
+            "drop_time": "Drop"
+        },
+        "actions": {
+            "add": "Add location",
+            "edit": "Edit location"
+        }
+    }
+}

@@ -1,0 +1,505 @@
+{
+    "dashboard": {
+        "dashboard": "Dashboard",
+        "titles": {
+            "fine": "Fine",
+            "book": "Book",
+            "total_copies": "Total Copies",
+            "patron": "Patron"
+        }
+    },
+    "book": {
+        "book": "Book List",
+        "titles": {
+            "codes": "Codes and Control No",
+            "statement": "Title Statement",
+            "newBook": "New Books",
+            "detail": "Book Detail",
+            "edit": "Edit Book",
+            "list": "Books",
+            "copies": "Copies",
+            "ebooks": "E-Books",
+            "addEbook": "Add E-Book",
+            "otherInfo": "Other Info",
+            "addQuantity": "Add Copies Quantity",
+            "importBooks": "Import Books"
+        },
+        "info": {
+            "confirm": "Are you sure to clear this entry?"
+        },
+        "fields": {
+            "id": "ID",
+            "title": "Title",
+            "subtitle": "Subtitle",
+            "keyword": "Keyword",
+            "classification": "Classification",
+            "cutter_no": "Cutter Number",
+            "publisher": "Publisher",
+            "edition": "Edition",
+            "publish_date": "Publish Date",
+            "price": "Price",
+            "weight": "Weight",
+            "pages": "Pages",
+            "book_qty": "Quantity",
+            "source": "Source",
+            "authors": "Authors",
+            "series": "Series",
+            "series_no": "Series No",
+            "notes": "Notes",
+            "isbn": "ISBN",
+            "iccn": "ICCN",
+            "language": "Language",
+            "subject": "Subject",
+            "biblography": "Bibliography",
+            "min_qty": "Minimum Quantity",
+            "thesis_dec": "Thesis Declaration",
+            "new_book": "Book Quantity",
+            "ai_book_id": "AI Book ID",
+            "chat_with_ai": "Chat with AI",
+            "user_id": "User",
+            "status": "Status",
+            "entry_date": "Entry Date",
+            "file": "File",
+            "book_type": "Book Type",
+            "new_log": "New Log",
+            "is_public": "Is Public",
+            "remark": "Title",
+            "type": "Type",
+            "is_reference": "Is Reference",
+            "lccn": "LCCN"
+        },
+        "actions": {
+            "add": "Add new book",
+            "edit": "Edit book",
+            "addCopies": "Add Copies Quantity",
+            "export": "Export",
+            "addEbook": "Add E-Book",
+            "showMore": "Show More Info",
+            "showLess": "Show Less Info"
+        }
+    },
+    "author": {
+        "author": "Authors",
+        "titles": {
+            "edit": "Edit Author",
+            "list": "Authors"
+        },
+        "fields": {
+            "id": "ID",
+            "name": "Name",
+            "country": "Country",
+            "dob": "Date of Birth"
+        },
+        "actions": {
+            "add": "Add new author",
+            "edit": "Edit author"
+        }
+    },
+    "fine": {
+        "fine": "Fines",
+        "titles": {
+            "edit": "Edit Fine",
+            "list": "Fines"
+        },
+        "info": {
+            "discard": "Are you sure you want to discard this fine?",
+            "paid": "Are you sure you want to mark this fines as paid?"
+        },
+        "fields": {
+            "transaction_id": "Transaction ID",
+            "accession_no": "Accession Number",
+            "patron": "Patron",
+            "book_name": "Book Name",
+            "fine_amount": "Fine Amount",
+            "fine_days": "Fine Days",
+            "status": "Status",
+            "remark": "Remark",
+            "issued_by": "Issued By",
+            "issued_on": "Issued On",
+            "checkout_date": "Checkout Date",
+            "received_by": "Received By",
+            "checkin_date": "Checkin Date",
+            "due_date": "Due Date",
+            "overdue_date": "Overdue Date",
+            "overdue_days": "Overdue Days",
+            "total_fine": "Total Fine",
+            "posted_by": "Posted By",
+            "paid_date": "Paid Date",
+            "fine": "Fine",
+            "amount": "Amount",
+            "total_amount": "Total Amount"
+        },
+        "actions": {
+            "add": "Add new fine",
+            "edit": "Edit fine",
+            "discard": "Discard",
+            "receive": "Receive"
+        }
+    },
+    "missing": {
+        "missing": "Missing Books",
+        "titles": {
+            "edit": "Edit Missing Book Record",
+            "list": "Missing Books"
+        },
+        "fields": {
+            "book_id": "Book",
+            "accession_no": "Accession Number",
+            "missing_date": "Missing Date",
+            "found_date": "Found Date",
+            "lost_by": "Lost By"
+        },
+        "actions": {
+            "add": "Add missing book record",
+            "edit": "Edit missing book record"
+        }
+    },
+    "patron": {
+        "patron": "Patrons",
+        "titles": {
+            "edit": "Edit Patron",
+            "count": "Cards To Print :",
+            "show": "Patrons",
+            "personalInfo": "Personal Information",
+            "studentDetail": "Student Detail",
+            "patronInfo": "Patron Information",
+            "cardInfo": "Card Information",
+            "contactInfo": "Contact Information",
+            "checkout": "Checkout List"
+        },
+        "tabs": {
+            "patronDetail": "Patron Details",
+            "checkouts": "Checkouts",
+            "activities": "Activities",
+            "fine": "Fines"
+        },
+        "fields": {
+            "id": "ID",
+            "p_type": "Patron Type",
+            "patron_id": "Patron ID",
+            "patron_no": "Patron No.",
+            "name": "Name",
+            "contact": "Contact",
+            "added_by": "Added By",
+            "address": "Address",
+            "email": "Email",
+            "checkout_count": "Checkouts",
+            "patron_type": "Patron Type",
+            "valid_till": "Valid Till",
+            "added_on": "Added On",
+            "renewal_status": "Renewal Status",
+            "user_id": "User ID",
+            "status": "Status",
+            "notification_status": "Notification Status",
+            "image": "Image",
+            "fine_booked": "Fine",
+            "card": "Card"
+        },
+        "confirm":{
+            "syncAll":"This will update detail of patron from student/staff profile. Are you sure you want to do it?"
+        },
+        "actions": {
+            "add": "Add new patron",
+            "edit": "Edit patron"
+        },
+        "buttons": {
+            "clear_all": "Clear All",
+            "get_card": "Get Card"
+        }
+    },
+    "patronType": {
+        "patronType": "Patron Types",
+        "titles": {
+            "edit": "Edit Patron Type",
+            "list": "Patron Types"
+        },
+        "fields": {
+            "patron_type": "Patron Type",
+            "allow_days": "Allowed Days",
+            "per_day_fine": "Per Day Fine",
+            "number_of_books": "Number of Books",
+            "template": "Template",
+            "valid_till": "Valid Till"
+        },
+        "actions": {
+            "add": "Add new patron type",
+            "edit": "Edit patron type"
+        }
+    },
+    "publisher": {
+        "publisher": "Publisher",
+        "titles": {
+            "edit": "Edit Publisher",
+            "list": "Publishers"
+        },
+        "fields": {
+            "id": "ID",
+            "name": "Name",
+            "country": "Country"
+        },
+        "actions": {
+            "add": "Add new publisher",
+            "edit": "Edit publisher"
+        }
+    },
+    "transaction": {
+        "transactions": "Transactions",
+        "titles": {
+            "edit": "Edit Transaction",
+            "list": "Transactions"
+        },
+        "fields": {
+            "accession_no": "Accession Number",
+            "patron": "Patron",
+            "checkout_date": "Checkout",
+            "checkin_date": "Checkin",
+            "due_date": "Due Date",
+            "issued_by": "Issued By",
+            "received_by": "Received By",
+            "fine": "Fine",
+            "book": "Book",
+            "status": "Book Status"
+        },
+        "actions": {
+            "add": "Add new transaction",
+            "edit": "Edit transaction"
+        }
+    },
+    "bookCopy": {
+        "bookCopy": "Book Copies",
+        "titles": {
+            "edit": "Edit Book Copy",
+            "all_fine_paid": "All Fine Paid",
+            "list": "Book Copies",
+            "patron_no": "Patron Number",
+            "foundedConfirm": "Confirm Founded",
+            "foundedConfirmSubtitle": "Once confirmed, the book's status will be marked as found in the system",
+            "accession_no": "Accession Number",
+            "auto_check_in": "Auto Check In",
+            "addAccession": "Add Accession",
+            "barcodeConfirm": "Barcode Note",
+            "barcodeSubTitle": "Are you sure you want to add this copy to note?",
+            "discardConfirm": "Confirm Discard",
+            "discardSubTitle": "Once discard, you will not be able to recover this book",
+            "spikeConfirm": "Spike Note",
+            "bookDetail": "Book Detail",
+            "missingConfirm": "Missing Confirm",
+            "missingSubTitle": "Are you sure want to mark this book Missing?",
+            "patronDetail": "Patron Detail",
+            "spikeSubTitle": "Are you sure you want to mark this book spike?",
+            "get_spine": "Get Spine",
+            "get_barcode": "Get Barcode",
+            "count": "Copies To Print :",
+            "bookList": "Book List",
+            "checkouts": "Checkouts",
+            "bookActivity": "Book Activity"
+        },
+        "labels": {
+            "patron": "Patron",
+            "accession_no": "Accession No",
+            "reminingNewBook": "Remaining New Book"
+        },
+        "validation": {
+            "prefix": "Prefix should be of 2 to 5 characters"
+        },
+        "fields": {
+            "id": "ID",
+            "finePaid": "Fine Paid",
+            "last_accession_no": "Last Accession No",
+            "next_accession_id": "Next Accession ID",
+            "accession_no": "Acc No",
+            "accession_id": "Accession ID",
+            "prefix": "Prefix",
+            "edition": "Edition",
+            "is_gifted": "Is Gifted",
+            "taken_by": "Received By",
+            "bookName": "Book Name",
+            "issued_to": "Issued To",
+            "checkout_date": "Checkout Date",
+            "checkin_date": "Checkin Date",
+            "due_date": "Due Date",
+            "due_days": "Due Days",
+            "issue_date": "Issue Date",
+            "price": "Price",
+            "fineAmount": "Fine Amount",
+            "overdueDays": "OverDue Days",
+            "book": "Book",
+            "book_id": "Book ID",
+            "patronType": "Patron Types",
+            "patronName": "Patron Name",
+            "checkout": "Check out",
+            "checkin": "Check In",
+            "dueDate": "Due On",
+            "status": "Status",
+            "mark_spine": "Mark Spine",
+            "mark_barcode": "Mark Barcode",
+            "classification": "Classification",
+            "title": "Title",
+            "action": "Action",
+            "book_type": "Book Type"
+        },
+        "actions": {
+            "add": "Add New Book Copy",
+            "edit": "Edit Book Copy",
+            "checkout": "Check Out",
+            "checkin": "Check In",
+            "clearCurrent": "Clear Current",
+            "clearAll": "Clear All",
+            "getSpine": "Get Spine",
+            "getBarcode": "Get Barcode"
+        },
+        "buttons": {
+            "saveAndClose": "Save And Close",
+            "saveAndContinue": "Save And Continue"
+        }
+    },
+    "spine": {
+        "spine": "Spine"
+    },
+    "datavalue": {
+        "datavalue": "Data Value"
+    },
+    "ebook": {
+        "ebook": "E-Book",
+        "titles": {
+            "add": "Add New",
+            "edit": "Edit E-Book",
+            "list": "E-Book"
+        },
+        "info": {
+            "confirm": "Are you sure to delete this ebook?"
+        },
+        "fields": {
+            "id": "ID",
+            "type": "Type",
+            "remark": "Title",
+            "files": "Files"
+        },
+        "actions": {
+            "add": "Add new book",
+            "edit": "Edit book"
+        }
+    },
+    "setting": {
+        "setting": "Setting"
+    },
+    "cataloging": {
+        "cataloging": "Cataloging"
+    },
+    "import": {
+        "titles": {
+            "import_books": "Import Library Books"
+        },
+        "info": {
+            "importing": "Loading excel file...",
+            "missingColumn": "Following required column(s) are missing : "
+        },
+        "fields": {
+            "excel": "Select Excel"
+        },
+        "actions": {
+            "import": "Import",
+            "deleteRow": "Delete Row",
+            "downloadTemplate": "Download Template"
+        }
+    },
+    "labels": {
+        "labels": "Labels"
+    },
+    "checkInOut": {
+        "checkInOut": "Check In/Out",
+        "checkIn": "Check In",
+        "checkOut": "Check Out",
+        "receiveFine": "Receive Fine",
+        "ebook": "E-Book",
+        "fields": {
+            "accession_no": "Accession Number",
+            "check_in": "Auto Check In"
+        }
+    },
+    "report": {
+        "report": "Reports",
+        "titles": {
+            "bookActivity": "Book Activity",
+            "duesAndFines": "Dues & Fines",
+            "missingCopies": "Missing Copies",
+            "discardedCopies": "Discarded Copies"
+        }
+    },
+    "patronCard": {
+        "patronCard": "Patron Card",
+        "fields": {
+            "patron_no": "Patron No",
+            "name": "Name",
+            "contact": "Contact",
+            "email": "Email",
+            "p_type": "Patron Type",
+            "staff": "Staff",
+            "student": "Student",
+            "class": "Class",
+            "section": "Section",
+            "status": "Status"
+        },
+        "actions": {
+            "clearAll": "Clear All",
+            "clearCurrent": "Clear Current",
+            "getCards": "Get Cards",
+            "addToCard": "Add To Card"
+        }
+    },
+    "barcode": {
+        "barcode": "Barcode",
+        "fields": {
+            "id": "ID",
+            "title": "Title",
+            "last_barcode_number": "Last Barcode Number",
+            "number_of_barcode": "Number of Barcode To Generate",
+            "subtitle": "Subtitle",
+            "keyword": "Keyword",
+            "classification": "Classification",
+            "cutter_no": "Cutter Number",
+            "publisher": "Publisher",
+            "edition": "Edition",
+            "publish_date": "Publish Date",
+            "weight": "Weight",
+            "pages": "Pages",
+            "book_qty": "Book Quantity",
+            "shortage_threshold": "Shortage Threshold",
+            "source": "Source",
+            "authors": "Authors",
+            "series": "Series",
+            "series_no": "Series No",
+            "notes": "Notes",
+            "isbn": "ISBN",
+            "iccn": "ICCN",
+            "language": "Language",
+            "is_nepali": {
+                "label": "Is Nepali",
+                "true": "Yes",
+                "false": "No"
+            },
+            "subject": "Subject",
+            "biblography": "Bibliography",
+            "thesis_dec": "Thesis Declaration",
+            "is_cat": {
+                "label": "Catalogued",
+                "true": "Yes",
+                "false": "No"
+            },
+            "user_id": "User",
+            "status": "Status",
+            "entry_date": "Entry Date",
+            "file": "File",
+            "book_type": "Book Type",
+            "new_log": "New Log",
+            "is_public": {
+                "label": "Public",
+                "true": "Yes",
+                "false": "No"
+            }
+        },
+        "actions": {
+            "add": "Numbers of Barcode to Generate"
+        }
+    }
+}

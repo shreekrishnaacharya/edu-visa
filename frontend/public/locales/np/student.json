@@ -1,0 +1,815 @@
+{
+    "program": {
+        "program": "कार्यक्रमहरू",
+        "titles": {
+            "list": "कार्यक्रमहरू"
+        },
+        "filter": {
+            "title": "फिल्टरहरू",
+            "search": {
+                "label": "खोज्नुहोस्",
+                "placeholder": "खोज्नुहोस्"
+            },
+            "submit": "फिल्टर गर्नुहोस्"
+        }
+    },
+    "notes": {
+        "notes": "नोटहरू",
+        "titles": {
+            "list": "नोटहरू"
+        },
+        "fields": {
+            "notes": "सन्देश",
+            "rating": "मूल्याङ्कन"
+        },
+        "filter": {
+            "title": "फिल्टरहरू",
+            "search": {
+                "label": "खोज्नुहोस्",
+                "placeholder": "खोज्नुहोस्"
+            },
+            "submit": "फिल्टर गर्नुहोस्"
+        }
+    },
+    "transfer": {
+        "transfer": "स्थानान्तरण",
+        "titles": {
+            "list": "स्थानान्तरण"
+        },
+        "alert": {
+            "notice": "वर्तमान कक्षाबाट विद्यार्थीलाई अर्को कक्षामा स्थानान्तरण गर्दा अर्को सत्रमा उनीहरूको भर्ना सिर्जना हुनेछ"
+        },
+        "fields": {
+            "batch": "ब्याच",
+            "class": "कक्षा",
+            "section": "सेक्सन"
+        },
+        "validation": {
+            "toClass": "एउटै कक्षामा स्थानान्तरण गर्न मिल्दैन"
+        },
+        "labels": {
+            "transferFrom": "कक्षाबाट स्थानान्तरण",
+            "transferTo": "कक्षामा स्थानान्तरण",
+            "switchTransfer": "स्थानान्तरण स्विच गर्नुहोस्",
+            "from": "बाट",
+            "to": "गर्न"
+        },
+        "filter": {
+            "title": "फिल्टरहरू",
+            "search": {
+                "label": "खोज्नुहोस्",
+                "placeholder": "खोज्नुहोस्"
+            },
+            "submit": "फिल्टर गर्नुहोस्"
+        },
+        "actions": {
+            "check": "प्रबन्ध गर्नुहोस्",
+            "save": "स्थानान्तरण गर्नुहोस्",
+            "reset": "रीसेट गर्नुहोस्",
+            "search": "खोज्नुहोस्"
+        }
+    },
+    "setup": {
+        "setup": "सेटअप",
+        "titles": {
+            "list": "सेटअप"
+        },
+        "message": {
+            "note": "कृपया आवश्यक फिल्ड अपडेट गर्न कलम चयन गर्नुहोस्, त्यसपछि पहिलो फिल्डमा मान प्रविष्ट गर्नुहोस् र क्लिक गर्नुहोस्"
+        },
+        "fields": {
+            "roll_no": "रोल नं.",
+            "symbol": "प्रतीक",
+            "uni_reg": "विश्वविद्यालय दर्ता नं.",
+            "batch": "ब्याच",
+            "house": "घर",
+            "hostel": "होस्टल",
+            "state": "अवस्था",
+            "section": "सेक्सन"
+        },
+        "filter": {
+            "title": "फिल्टरहरू",
+            "search": {
+                "label": "खोज्नुहोस्",
+                "placeholder": "खोज्नुहोस्"
+            },
+            "submit": "फिल्टर गर्नुहोस्"
+        },
+        "actions": {
+            "save": "परिवर्तनहरू पेश गर्नुहोस्",
+            "auto": "स्वत: उत्पन्न गर्नुहोस्",
+            "reset": "रीसेट गर्नुहोस्"
+        }
+    },
+    "manage": {
+        "manage": "प्रबन्ध गर्नुहोस्",
+        "titles": {
+            "list": "प्रबन्ध गर्नुहोस्"
+        },
+        "message": {
+            "noselection": "कुनै विद्यार्थी चयन गरिएको छैन",
+            "requiredStudent": "कृपया अगाडि बढ्न केही विद्यार्थीहरू चयन गर्नुहोस्"
+        },
+        "fields": {
+            "batch": "ब्याच",
+            "house": "घर",
+            "hostel": "होस्टल",
+            "state": "अवस्था",
+            "section": "सेक्सन"
+        },
+        "filter": {
+            "title": "फिल्टरहरू",
+            "search": {
+                "label": "खोज्नुहोस्",
+                "placeholder": "खोज्नुहोस्"
+            },
+            "submit": "फिल्टर गर्नुहोस्"
+        },
+        "actions": {
+            "check": "प्रबन्ध गर्नुहोस्",
+            "save": "स्थानान्तरण गर्नुहोस्",
+            "reset": "रीसेट गर्नुहोस्"
+        }
+    },
+    "log": {
+        "log": "लग",
+        "titles": {
+            "list": "लगहरू",
+            "repeated": "दोहोरिएको",
+            "escalation": "एस्कालेसन",
+            "dropped": "छोडिएको",
+            "almuni": "पूर्वविद्यार्थी",
+            "current": "हालको",
+            "rejoined": "पुन: सामेल भएको"
+        },
+        "labels": {
+            "escalation": "एस्कालेसन गर्न ",
+            "repeated": "दोहोरिएको ",
+            "dropped": "छोडिएको ",
+            "almuni": "पूर्वविद्यार्थी ",
+            "current": "हालको ",
+            "rejoined": "पुन: सामेल भएको "
+        },
+        "filter": {
+            "title": "फिल्टरहरू",
+            "search": {
+                "label": "खोज्नुहोस्",
+                "placeholder": "खोज्नुहोस्"
+            },
+            "submit": "फिल्टर गर्नुहोस्"
+        }
+    },
+    "info": {
+        "student": "विद्यार्थीहरू",
+        "titles": {
+            "edit": "विद्यार्थी सम्पादन गर्नुहोस्",
+            "list": "विद्यार्थीहरू",
+            "studentInfo": "विद्यार्थी जानकारी",
+            "personalInfo": "व्यक्तिगत जानकारी",
+            "basicInfo": "आधारभूत जानकारी",
+            "contactInfo": "सम्पर्क जानकारी",
+            "siblings": "भाइबहिनीहरू",
+            "parentInfo": "अभिभावकहरू",
+            "docInfo": "कागजातहरू",
+            "vehicleInfo": "सवारी साधन",
+            "academicInfo": "शैक्षिक जानकारी",
+            "otherInfo": "अन्य जानकारी"
+        },
+        "tabs": {
+            "studentInfo": "विद्यार्थी विवरण",
+            "libraryInfo": "पुस्तकालय",
+            "leaveInfo": "उपस्थिति",
+            "timeline": "टाइमलाइन",
+            "notes": "नोटहरू",
+            "exams": "परीक्षाहरू",
+            "certificates": "प्रमाणपत्रहरू",
+            "accounts": "खाताहरू"
+        },
+        "fields": {
+            "id": "आईडी",
+            "regid": "दर्ता नं.",
+            "uni_reg": "विश्वविद्यालय दर्ता नं.",
+            "first_name": "पहिलो नाम",
+            "last_name": "थर",
+            "full_name": "पुरा नाम",
+            "gender": "लिङ्ग",
+            "admission_date_en": "भर्ना मिति",
+            "class": "कक्षा",
+            "batch": "ब्याच",
+            "roll_no": "रोल नं.",
+            "dob": "जन्म मिति",
+            "dob_en": "जन्म मिति (अंग्रेजी)",
+            "dob_np": "जन्म मिति (नेपाली)",
+            "father_name": "बुबाको नाम",
+            "mother_name": "आमाको नाम",
+            "father_phone": "बुबाको फोन",
+            "mother_phone": "आमाको फोन",
+            "guardian_name": "अभिभावकको नाम",
+            "guardian_phone": "अभिभावकको फोन",
+            "guardian_relation": "अभिभावकको नाता",
+            "phone": "फोन नं.",
+            "email": "इमेल ठेगाना",
+            "blood_group": "रक्त समूह",
+            "house": "घर",
+            "hostel": "होस्टल",
+            "symbol": "प्रतीक",
+            "wallet_balance": "वालेट ब्यालेन्स",
+            "nationality": "राष्ट्रियता",
+            "religion": "धर्म",
+            "caste": "जात",
+            "ethnic": "जातीयता",
+            "disability": "असक्षमता",
+            "address": "ठेगाना",
+            "address1": "प्राथमिक ठेगाना",
+            "address2": "द्वितीयक ठेगाना",
+            "image": "प्रोफाइल चित्र",
+            "user": "प्रयोगकर्ता खाता",
+            "section": "सेक्सन",
+            "state": "अवस्था",
+            "action": "कार्यहरू"
+        },
+        "labels": {
+            "id": "आईडी",
+            "regid": "दर्ता नं.",
+            "uni_reg": "विश्वविद्यालय दर्ता नं.",
+            "first_name": "पहिलो नाम",
+            "last_name": "थर",
+            "full_name": "पुरा नाम",
+            "name": "नाम",
+            "gender": "लिङ्ग",
+            "program": "कार्यक्रमहरू",
+            "admission_date_en": "भर्ना मिति",
+            "class": "कक्षा",
+            "batch": "ब्याच",
+            "roll_no": "रोल नं.",
+            "symbol": "प्रतीक",
+            "dob": "जन्म मिति",
+            "dob_en": "जन्म मिति (अंग्रेजी)",
+            "dob_np": "जन्म मिति (नेपाली)",
+            "phone": "फोन",
+            "email": "इमेल",
+            "blood_group": "रक्त समूह",
+            "house": "घर",
+            "hostel": "होस्टल",
+            "nationality": "राष्ट्रियता",
+            "religion": "धर्म",
+            "caste": "जात",
+            "ethnic": "जातीयता",
+            "disability": "असक्षमता",
+            "address": "ठेगाना",
+            "address1": "ठेगाना १",
+            "address2": "ठेगाना २",
+            "image": "प्रोफाइल चित्र",
+            "user": "प्रयोगकर्ता खाता",
+            "section": "सेक्सन",
+            "relation": "नाता"
+        },
+        "filter": {
+            "tabs": {
+                "filter": "फिल्टर गर्नुहोस्",
+                "select": "चयन"
+            },
+            "title": "विद्यार्थी खोज्नुहोस्",
+            "search": {
+                "label": "खोज्नुहोस्",
+                "placeholder": "खोज्नुहोस्"
+            },
+            "name": {
+                "label": "नाम",
+                "placeholder": "नाम खोज्नुहोस्"
+            },
+            "createdAt": {
+                "label": "सिर्जना मिति"
+            },
+            "submit": "फिल्टर गर्नुहोस्"
+        },
+        "actions": {
+            "add": "नयाँ विद्यार्थी थप्नुहोस्",
+            "edit": "विद्यार्थी सम्पादन गर्नुहोस्"
+        }
+    },
+    "sibling": {
+        "sibling": "भाइबहिनी",
+        "titles": {
+            "edit": "भाइबहिनी सम्पादन गर्नुहोस्",
+            "list": "भाइबहिनीहरू"
+        },
+        "fields": {
+            "id": "आईडी",
+            "sibling": "भाइबहिनी",
+            "relation": "नाता"
+        },
+        "filter": {
+            "title": "फिल्टरहरू",
+            "search": {
+                "label": "खोज्नुहोस्",
+                "placeholder": "खोज्नुहोस्"
+            },
+            "sibling": {
+                "label": "भाइबहिनी",
+                "placeholder": "दाजुभाइ/दिदीबहिनी खोज्नुहोस्"
+            },
+            "submit": "फिल्टर गर्नुहोस्"
+        },
+        "actions": {
+            "add": "नयाँ भाइबहिनी थप्नुहोस्",
+            "edit": "भाइबहिनी सम्पादन गर्नुहोस्"
+        }
+    },
+    "parent": {
+        "parent": "अभिभावक",
+        "titles": {
+            "edit": "अभिभावक सम्पादन गर्नुहोस्",
+            "list": "अभिभावकहरू"
+        },
+        "fields": {
+            "id": "आईडी",
+            "name": "नाम",
+            "relation": "नाता",
+            "gender": "लिङ्ग",
+            "phone": "फोन",
+            "email": "इमेल",
+            "blood_group": "रक्त समूह",
+            "occupation": "पेशा",
+            "address1": "ठेगाना १",
+            "address2": "ठेगाना २",
+            "image": "चित्र",
+            "isGuardian": "अभिभावक"
+        },
+        "filter": {
+            "title": "फिल्टरहरू",
+            "search": {
+                "label": "खोज्नुहोस्",
+                "placeholder": "खोज्नुहोस्"
+            },
+            "name": {
+                "label": "नाम",
+                "placeholder": "नाम खोज्नुहोस्"
+            },
+            "createdAt": {
+                "label": "सिर्जना मिति"
+            },
+            "submit": "फिल्टर गर्नुहोस्"
+        },
+        "actions": {
+            "add": "नयाँ अभिभावक थप्नुहोस्",
+            "edit": "अभिभावक सम्पादन गर्नुहोस्"
+        }
+    },
+    "student_parent": {
+        "student_parent": "अभिभावक",
+        "titles": {
+            "edit": "अभिभावक सम्पादन गर्नुहोस्",
+            "list": "अभिभावकहरू"
+        },
+        "fields": {
+            "id": "आईडी",
+            "parent": "अभिभावक",
+            "relation": "नाता",
+            "isGuardian": "संरक्षक हो?"
+        },
+        "filter": {
+            "title": "फिल्टरहरू",
+            "search": {
+                "label": "खोज्नुहोस्",
+                "placeholder": "खोज्नुहोस्"
+            },
+            "name": {
+                "label": "नाम",
+                "placeholder": "नाम खोज्नुहोस्"
+            },
+            "createdAt": {
+                "label": "सिर्जना मिति"
+            },
+            "submit": "फिल्टर गर्नुहोस्"
+        },
+        "actions": {
+            "add": "नयाँ अभिभावक थप्नुहोस्",
+            "edit": "अभिभावक सम्पादन गर्नुहोस्"
+        }
+    },
+    "student_academic": {
+        "student_academic": "शैक्षिक विवरण",
+        "titles": {
+            "edit": "शैक्षिक विवरण सम्पादन गर्नुहोस्",
+            "list": "शैक्षिक विवरणहरू"
+        },
+        "fields": {
+            "id": "आईडी",
+            "type": "प्रकार",
+            "institute_name": "संस्थाको नाम",
+            "regid": "दर्ता नं.",
+            "remark": "टिप्पणी",
+            "score": "अंक",
+            "image": "कागजात फाइल",
+            "symbol": "प्रतीक",
+            "passed_year_en": "पास गरेको वर्ष (अंग्रेजी)"
+        },
+        "filter": {
+            "title": "फिल्टरहरू",
+            "search": {
+                "label": "खोज्नुहोस्",
+                "placeholder": "खोज्नुहोस्"
+            },
+            "name": {
+                "label": "नाम",
+                "placeholder": "नाम खोज्नुहोस्"
+            },
+            "createdAt": {
+                "label": "सिर्जना मिति"
+            },
+            "submit": "फिल्टर गर्नुहोस्"
+        },
+        "actions": {
+            "add": "नयाँ शैक्षिक विवरण थप्नुहोस्",
+            "edit": "शैक्षिक विवरण सम्पादन गर्नुहोस्"
+        }
+    },
+    "student_doc": {
+        "student_doc": "कागजातहरू",
+        "titles": {
+            "edit": "कागजात सम्पादन गर्नुहोस्",
+            "list": "कागजातहरू"
+        },
+        "fields": {
+            "id": "आईडी",
+            "type": "प्रकार",
+            "remark": "टिप्पणी",
+            "image": "कागजात फाइल"
+        },
+        "filter": {
+            "title": "फिल्टरहरू",
+            "search": {
+                "label": "खोज्नुहोस्",
+                "placeholder": "खोज्नुहोस्"
+            },
+            "name": {
+                "label": "नाम",
+                "placeholder": "नाम खोज्नुहोस्"
+            },
+            "createdAt": {
+                "label": "सिर्जना मिति"
+            },
+            "submit": "फिल्टर गर्नुहोस्"
+        },
+        "actions": {
+            "add": "नयाँ कागजात थप्नुहोस्",
+            "edit": "कागजात सम्पादन गर्नुहोस्"
+        }
+    },
+    "vehicle": {
+        "vehicle": "सवारी साधन",
+        "titles": {
+            "edit": "सवारी साधन सम्पादन गर्नुहोस्",
+            "list": "सवारी साधन"
+        },
+        "fields": {
+            "id": "आईडी",
+            "route": "मार्ग",
+            "location": "स्थान",
+            "price": "मूल्य",
+            "arrivalTime": "आगमन समय",
+            "departTime": "प्रस्थान समय"
+        },
+        "filter": {
+            "title": "फिल्टरहरू",
+            "search": {
+                "label": "खोज्नुहोस्",
+                "placeholder": "खोज्नुहोस्"
+            },
+            "name": {
+                "label": "नाम",
+                "placeholder": "नाम खोज्नुहोस्"
+            },
+            "createdAt": {
+                "label": "सिर्जना मिति"
+            },
+            "submit": "फिल्टर गर्नुहोस्"
+        },
+        "actions": {
+            "add": "नयाँ कागजात थप्नुहोस्",
+            "edit": "कागजात सम्पादन गर्नुहोस्"
+        }
+    },
+    "admission": {
+        "admission": "भर्ना",
+        "titles": {
+            "list": "भर्ना",
+            "import": "विद्यार्थी डाटा आयात गर्नुहोस्"
+        },
+        "fields": {
+            "id": "आईडी",
+            "code": "कोड",
+            "first_name": "पहिलो नाम",
+            "last_name": "थर",
+            "full_name": "पुरा नाम",
+            "phone": "फोन नं.",
+            "address": "ठेगाना",
+            "address1": "ठेगाना १",
+            "address2": "ठेगाना २",
+            "dob_en": "जन्म मिति (अंग्रेजी)",
+            "phone1": "फोन नं.",
+            "blood_group": "रक्त समूह",
+            "gender": "लिङ्ग",
+            "email": "इमेल ठेगाना",
+            "image": "प्रोफाइल चित्र",
+            "parent": "अभिभावक विवरण",
+            "class": "कक्षा",
+            "batch": "ब्याच",
+            "status": "स्थिति",
+            "importType": "आयात प्रकार",
+            "excel": "विद्यार्थी एक्सेल चयन गर्नुहोस्",
+            "created_at": "सिर्जना गरिएको मिति",
+            "updated_at": "अद्यावधिक गरिएको मिति"
+        },
+        "info": {
+            "importing": "एक्सेल फाइल लोड गर्दै...",
+            "missingColumn": "निम्न आवश्यक कलमहरू हराइरहेका छन् : "
+        },
+        "filter": {
+            "title": "फिल्टरहरू",
+            "search": {
+                "label": "खोज्नुहोस्",
+                "placeholder": "खोज्नुहोस्"
+            },
+            "submit": "फिल्टर गर्नुहोस्"
+        },
+        "actions": {
+            "add": "नयाँ भर्ना",
+            "edit": "भर्ना सम्पादन गर्नुहोस्",
+            "import": "आयात गर्नुहोस्",
+            "export": "निर्यात गर्नुहोस्",
+            "deleteRow": "पङ्क्ति मेट्नुहोस्",
+            "setStudent": "विद्यार्थी सिर्जना गर्नुहुन्छ?"
+        }
+    },
+    "subject": {
+        "subject": "विषय",
+        "titles": {
+            "assignment": "विषय नियुक्ति",
+            "subject": "विषयहरू"
+        },
+        "fields": {
+            "id": "आईडी",
+            "regid": "दर्ता नं.",
+            "student_name": "विद्यार्थीको नाम",
+            "section": "सेक्सन",
+            "sno": "क्र.सं.",
+            "courseType": "पाठ्यक्रम प्रकार",
+            "assigned": "नियुक्त गरिएको",
+            "class": "कक्षा",
+            "subject": "विषय",
+            "subject_code": "विषय कोड",
+            "totalStudent": "कुल विद्यार्थी"
+        },
+        "filter": {
+            "title": "फिल्टरहरू",
+            "search": {
+                "label": "खोज्नुहोस्",
+                "placeholder": "खोज्नुहोस्"
+            },
+            "name": {
+                "label": "नाम",
+                "placeholder": "नाम खोज्नुहोस्"
+            },
+            "createdAt": {
+                "label": "सिर्जना मिति"
+            },
+            "submit": "फिल्टर गर्नुहोस्"
+        },
+        "actions": {
+            "reset": "रीसेट गर्नुहोस्",
+            "submit": "पेश गर्नुहोस्"
+        }
+    },
+    "certificateType": {
+        "certificateType": "प्रमाणपत्र प्रकार",
+        "titles": {
+            "list": "प्रमाणपत्र प्रकारहरू",
+            "add": "प्रमाणपत्र प्रकार थप्नुहोस्",
+            "edit": "प्रमाणपत्र प्रकार सम्पादन गर्नुहोस्"
+        },
+        "fields": {
+            "name": "नाम",
+            "template": "टेम्प्लेट",
+            "prefix": "उपसर्ग",
+            "type": "प्रकार"
+        },
+        "validation": {
+            "prefixLength": "३ वर्णको हुनुपर्छ"
+        },
+        "actions": {
+            "add": "नयाँ प्रमाणपत्र प्रकार थप्नुहोस्",
+            "edit": "प्रमाणपत्र प्रकार सम्पादन गर्नुहोस्"
+        }
+    },
+    "certificate": {
+        "issue": "जारी गरिएको",
+        "type": "प्रकार",
+        "certificate": "प्रमाणपत्र",
+        "titles": {
+            "list": "प्रमाणपत्र सूची",
+            "add": "प्रमाणपत्र थप्नुहोस्",
+            "edit": "प्रमाणपत्र सम्पादन गर्नुहोस्",
+            "show": "प्रमाणपत्र देखाउनुहोस्"
+        },
+        "fields": {
+            "student": "विद्यार्थी",
+            "certificate_no": "प्रमाणपत्र नं.",
+            "issue_date": "जारी मिति",
+            "issued_by": "जारी गर्ने",
+            "type": "प्रकार",
+            "name": "नाम",
+            "issuedBy": "जारी गर्ने",
+            "staff": "कर्मचारी",
+            "status": "स्थिति",
+            "remark": "टिप्पणी"
+        },
+        "filters": {
+            "created_by_name": "जारीकर्ताको नाम",
+            "student_name": "विद्यार्थीको नाम",
+            "type_name": "प्रकार नाम",
+            "student_regid": "विद्यार्थी दर्ता ID"
+        },
+        "actions": {
+            "add": "नयाँ प्रमाणपत्र जारी गर्नुहोस्",
+            "edit": "प्रमाणपत्र सम्पादन गर्नुहोस्"
+        }
+    },
+    "dashboard": {
+        "dashboard": "ड्यासबोर्ड",
+        "labels": {
+            "currentStudent": "हालका विद्यार्थीहरू",
+            "almuniStudent": "पूर्वविद्यार्थीहरू",
+            "dropoutStudent": "छोडेर जाने",
+            "totalCertificates": "कुल प्रमाणपत्रहरू",
+            "pendingAdmission": "बाकी भर्नाहरू",
+            "totalParents": "कुल अभिभावकहरू",
+            "todayBirthday": "आजको जन्मदिन",
+            "genderRatio": "लिङ्ग अनुपात",
+            "ethenicityRatio": "जातीयता अनुपात",
+            "studentInClass": "कक्षामा विद्यार्थी",
+            "allBirthday": "सबै जन्मदिन",
+            "recentCertificate": "हालैका प्रमाणपत्रहरू",
+            "certificatePie": "प्रमाणपत्र पाइ"
+        },
+        "info": {
+            "totalBirthday": "तपाईंसँग आज {{count}} जन्मदिन छ",
+            "noBirthday": "आज कुनै जन्मदिन छैन"
+        },
+        "actions": {
+            "viewAll": "सबै हेर्नुहोस्"
+        }
+    },
+    "attendance": {
+        "attendance": "हाजिरी",
+        "titles": {
+            "list": "हाजिरी सूची",
+            "add": "हाजिरी थप्नुहोस्",
+            "edit": "हाजिरी सम्पादन गर्नुहोस्",
+            "show": "हाजिरी देखाउनुहोस्",
+            "leave": "बिदाको कारण"
+        },
+        "fields": {
+            "period": "पीरियड",
+            "regid": "दर्ता नं.",
+            "full_name": "नाम",
+            "student": "विद्यार्थी",
+            "attendance": "हाजिरी",
+            "reason": "कारण",
+            "section": "सेक्सन",
+            "date": "मिति",
+            "status": "स्थिति"
+        },
+        "actions": {
+            "add": "नयाँ हाजिरी थप्नुहोस्",
+            "edit": "हाजिरी सम्पादन गर्नुहोस्"
+        }
+    },
+    "setting": {
+        "setting": "सेटिङहरू"
+    },
+    "datavalue": {
+        "datavalue": "डाटा मान"
+    },
+    "assignment": {
+        "assignment": "गृहकार्य",
+        "titles": {
+            "assignment": "गृहकार्य",
+            "list": "गृहकार्यहरू",
+            "create": "गृहकार्य सिर्जना गर्नुहोस्",
+            "edit": "गृहकार्य सम्पादन गर्नुहोस्",
+            "view": "गृहकार्य हेर्नुहोस्",
+            "uploads": "फाइलहरू अपलोड गर्नुहोस्",
+            "assignment_detail": "असाइनमेन्ट विवरण",
+            "assignment_information": "गृहकार्य जानकारी"
+        },
+        "actions": {
+            "add": "गृहकार्य सिर्जना गर्नुहोस्",
+            "edit": "गृहकार्य सम्पादन गर्नुहोस्",
+            "update": "गृहकार्य अपडेट गर्नुहोस्",
+            "delete": "गृहकार्य मेट्नुहोस्",
+            "view": "गृहकार्य हेर्नुहोस्"
+        },
+        "messages": {
+            "delete_confirm": "के तपाईं यो गृहकार्य मेट्न निश्चित हुनुहुन्छ?"
+        },
+        "fields": {
+            "code": "कोड",
+            "type": "प्रकार",
+            "description": "विवरण",
+            "deadline": "अन्तिम मिति",
+            "total_mark": "पूर्ण अङ्क",
+            "progress": "प्रगति",
+            "state": "अवस्था",
+            "created_at": "सिर्जना मिति",
+            "created_by": "सिर्जनाकर्ता",
+            "class": "कक्षा",
+            "subject": "विषय",
+            "batch": "ब्याच",
+            "sections": "सेक्सन",
+            "syllabus": "पाठ्यक्रम",
+            "student": "विद्यार्थी",
+            "assignment": "गृहकार्य",
+            "files": "गृहकार्यका फाइलहरू",
+            "status": "स्थिति"
+        }
+    },
+    "assignment-submit": {
+        "titles": {
+            "submission": "गृहकार्य बुझाउने",
+            "submissions": "गृहकार्य बुझाइएका कार्यहरू"
+        },
+        "actions": {
+            "reassign": "असाइनमेन्ट पुनः तोक्नुहोस्",
+            "edit": "बुझाइएको कार्य सम्पादन गर्नुहोस्",
+            "update": "बुझाइएको कार्य अपडेट गर्नुहोस्",
+            "delete": "बुझाइएको कार्य मेट्नुहोस्",
+            "view": "बुझाइएको कार्य हेर्नुहोस्",
+            "create": "गृहकार्य बुझाउनुहोस्"
+        },
+        "messages": {
+            "delete_confirm": "के तपाईं यो बुझाइएको कार्य मेट्न निश्चित हुनुहुन्छ?",
+            "reassign_confirm": "के तपाईं यो असाइनमेन्ट पुनः तोक्न निश्चित हुनुहुन्छ? यसले विद्यार्थीका लागि नयाँ बुझाइ सिर्जना गर्नेछ।"
+        },
+        "fields": {
+            "student": "विद्यार्थी",
+            "roll_no": "रोल नं.",
+            "assignment": "गृहकार्य",
+            "submitted_at": "बुझाइएको मिति",
+            "mark": "अङ्क",
+            "files": "फाइलहरू",
+            "notes": "टिप्पणीहरू",
+            "assignment_info": "गृहकार्य जानकारी",
+            "type": "गृहकार्य प्रकार",
+            "state": "अवस्था",
+            "total_mark": "पूर्ण अङ्क",
+            "description": "विवरण",
+            "deadline": "अन्तिम मिति",
+            "submission_files": "बुझाइएका फाइलहरू"
+        }
+    },
+    "assignment-grading": {
+        "titles": {
+            "review": "गृहकार्य समीक्षा",
+            "grading_panel": "ग्रेडिङ प्यानल",
+            "current_grade": "हालको ग्रेड"
+        },
+        "fields": {
+            "student_description": "विद्यार्थीको विवरण",
+            "submitted_files": "बुझाइएका फाइलहरू",
+            "score": "अंक",
+            "remarks_feedback": "टिप्पणी र प्रतिक्रिया",
+            "state": {
+                "label": "अवस्था",
+                "complete": "पूर्ण",
+                "redo": "पुनः गर्नुहोस्",
+                "rejected": "अस्वीकृत"
+            }
+        },
+        "labels": {
+            "assignment_progress": "गृहकार्य {{current}} को {{total}}",
+            "score_display": "अंक: {{score}} / {{total}}"
+        },
+        "actions": {
+            "assign_grade": "ग्रेड तोक्नुहोस्",
+            "save_grade_continue": "ग्रेड सेभ गर्नुहोस् र जारी राख्नुहोस्",
+            "previous": "अघिल्लो",
+            "next": "अर्को"
+        },
+        "status": {
+            "submitted": "बुझाइएको",
+            "not_submitted": "बुझाइएको छैन"
+        },
+        "messages": {
+            "no_description": "विद्यार्थीले कुनै विवरण प्रदान गरेको छैन",
+            "no_files_submitted": "विद्यार्थीले कुनै फाइल बुझाएको छैन"
+        },
+        "placeholders": {
+            "provide_feedback": "विद्यार्थीका लागि प्रतिक्रिया प्रदान गर्नुहोस्..."
+        },
+        "common": {
+            "of": "को"
+        }
+    }
+}

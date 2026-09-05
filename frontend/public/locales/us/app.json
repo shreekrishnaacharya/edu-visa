@@ -1,0 +1,638 @@
+{
+    "dashboard": {
+        "dashboard": "Dashboard"
+    },
+    "org": {
+        "org": "Orginations",
+        "titles": {
+            "editAddress": "Edit Address",
+            "editSocial": "Edit Social",
+            "editAppFeatures": "Edit App Features",
+            "list": "Settings"
+        },
+        "fields": {
+            "name": "Name",
+            "address": "Address",
+            "phone1": "Phone1",
+            "phone2": "Phone2",
+            "email1": "Email1",
+            "email2": "Email2",
+            "facebook": "Facebook",
+            "twitter": "Twitter",
+            "instagram": "Instagram",
+            "youtube": "Youtube",
+            "linkedin": "Linkedin",
+            "website": "Website",
+            "logo": "Logo",
+            "cover": "Cover",
+            "about_us": "About Us",
+            "social": "Social",
+            "location": "Location",
+            "app_features": "App Features"
+        },
+        "parentFeatures": {
+            "attendance": "Attendance",
+            "results": "Results",
+            "vehicle": "Vehicle",
+            "bills": "Bills",
+            "schedules": "Schedules",
+            "fee": "Fee",
+            "leave": "Leave",
+            "assignment": "Assignment",
+            "notes": "Notes",
+            "certificates": "Certificates",
+            "books": "Books",
+            "cas": "CAS",
+            "syllabus": "Syllabus"
+        },
+        "actions": {
+            "add": "Add new setting",
+            "edit": "Edit setting",
+            "update_feature": "Update Feature"
+        }
+    },
+    "users": {
+        "users": "Users",
+        "titles": {
+            "create": "Create User",
+            "edit": "Edit User",
+            "list": "Users",
+            "bulk_add": "Bulk Add",
+            "about": "About",
+            "recentActivity": "Recent Activity",
+            "staff": "Staff",
+            "library": "Library",
+            "subject": "Subject",
+            "schedule": "Schedule",
+            "notes": "Notes",
+            "account": "Account",
+            "features": "App Features",
+            "profile": "Profile",
+            "changePassword": "Change Password",
+            "updateProfile": "Update Profile",
+            "dashboard": "Dashboard",
+            "home": "Home"
+        },
+        "labels": {
+            "active": "Active",
+            "activeDescription": "Apply disable account"
+        },
+        "validation": {
+            "match_password": "{{field}} does not match",
+            "min_password": "Password must be at least 6 characters long",
+            "employee_ids": "Select any employee to create account"
+        },
+        "fields": {
+            "id": "ID",
+            "image": "Image",
+            "name": "Name",
+            "email": "Email",
+            "phone": "Phone",
+            "address": "Address",
+            "online_status": "Online Status",
+            "online_message": "Online Message",
+            "staff": "Staff",
+            "account_type": "Account Type",
+            "old_password": "Old Password",
+            "new_password": "New Password",
+            "password": "Password",
+            "confirm_password": "Confirm Password",
+            "roles": "Roles",
+            "status": "Status"
+        },
+        "actions": {
+            "add": "Add new user",
+            "edit": "Edit user"
+        }
+    },
+    "roles": {
+        "roles": "Roles",
+        "titles": {
+            "edit": "Edit Role",
+            "list": "Roles",
+            "access_assign": "Access Control Assign",
+            "app_features": "App Features"
+        },
+        "fields": {
+            "id": "ID",
+            "name": "Name",
+            "users": "Users",
+            "description": "Description",
+            "app_features": "App Features",
+            "permissions": "Permissions",
+            "status": "Status"
+        },
+        "features": {
+            "student_attendance": "Student Attendance",
+            "student_results": "Student Results",
+            "student_photos": "Student Photos",
+            "schedules": "Schedules",
+            "leave_application": "Leave Application",
+            "employee_list": "Employee List",
+            "payroll": "Payroll",
+            "student_assignment": "Student Assignment",
+            "library_books": "Library Books",
+            "syllabus": "Syllabus",
+            "cas": "CAS",
+            "mark_entry": "Mark Entry",
+            "student_profile": "Student Profile",
+            "student_notes": "Student Note",
+            "subject": "Subject",
+            "ai_assistant": "AI Assistant",
+            "gate_pass": "Gate Pass",
+            "home_visit": "Home Visit",
+            "student_profile_gate_pass": "Student Profile Gate Pass",
+            "student_profile_attendance": "Student Profile Attendance",
+            "student_profile_bill": "Student Profile Bill",
+            "student_profile_fee": "Student Profile Fee",
+            "student_profile_acc": "Student Profile Account",
+            "student_profile_exam": "Student Profile Exam",
+            "student_profile_home_visit": "Student Profile Home Visit",
+            "employee_profile_notes": "Employee Profile Notes",
+            "employee_profile_documents": "Employee Profile Documents",
+            "employee_profile_training": "Employee Profile Training",
+            "employee_profile_subject": "Employee Profile Subject",
+            "employee_profile_schedule": "Employee Profile Schedule",
+            "employee_profile_library": "Employee Profile Library",
+            "employee_profile_attendance": "Employee Profile Attendance",
+            "employee_profile_salary": "Employee Profile Salary",
+            "employee_profile_payslip": "Employee Profile Payslip",
+            "employee_profile_students": "Employee Profile Students",
+            "employee_profile_relations": "Employee Profile Relations",
+            "employee_profile_edit": "Employee Profile Edit",
+            "student_profile_edit": "Student Profile Edit"
+        },
+        "actions": {
+            "add": "Add new role",
+            "edit": "Edit role",
+            "update": "Update role",
+            "update_feature": "Update Feature"
+        }
+    },
+    "config": {
+        "config": "Api Configuration",
+        "titles": {
+            "list": "Api Configuration",
+            "add": "Add new configuration",
+            "edit": "Edit configuration"
+        },
+        "fields": {
+            "name": "Config Type",
+            "smtp_host": "SMTP Host",
+            "smtp_port": "SMTP Port",
+            "smtp_user": "SMTP User",
+            "smtp_password": "SMTP Password",
+            "smtp_secure": "SMTP Secure (TLS)",
+            "from_name": "From Name",
+            "host": "Host",
+            "client_id": "Client ID",
+            "app_id": "App ID",
+            "secret_key": "Secret Key",
+            "api_key": "API Key",
+            "is_tested": "Tested",
+            "status": "Status"
+        },
+        "validation": {
+            "valid_config": "Configuration must be tested successfully"
+        },
+        "helpers": {
+            "email_config": "Make sure to test the configuration before saving. You won't be able to save unless the configuration is tested successfully."
+        },
+        "placeholders": {
+            "smtp_host": "Enter SMTP Host",
+            "smtp_port": "Enter SMTP Port",
+            "smtp_user": "Enter SMTP User",
+            "smtp_password": "Enter SMTP Password",
+            "from_email": "Enter From Email",
+            "from_name": "Enter From Name",
+            "test_email": "Enter Test Email"
+        },
+        "actions": {
+            "add": "Add new configuration",
+            "edit": "Edit Configuration",
+            "test": "Test Configuration"
+        }
+    },
+    "email-template": {
+        "email-template": "Email Template",
+        "titles": {
+            "edit": "Edit Email Template",
+            "list": "Email Templates"
+        },
+        "fields": {
+            "id": "ID",
+            "name": "Name",
+            "data_key": "Data Key",
+            "data_value": "Data Value",
+            "constrants": "Constrants",
+            "design": "Design",
+            "html": "HTML"
+        },
+        "placeholders": {
+            "name": "Enter template name",
+            "data_key": "Enter data key"
+        },
+        "actions": {
+            "edit": "Edit Email Template"
+        }
+    },
+    "attendance": {
+        "attendance": "Attendance",
+        "device": {
+            "device": "Attendance Devices",
+            "titles": {
+                "list": "Devices",
+                "create": "Add Device",
+                "edit": "Edit Device",
+                "show": "Device Details"
+            },
+            "fields": {
+                "name": "Name",
+                "mac_address": "MAC Address",
+                "serial_number": "Serial Number",
+                "status": "Status",
+                "ip": "IP Address",
+                "attendance_source": "Push Mode",
+                "last_seen_at": "Last Seen",
+                "attlog_stamp": "Attendance Sync Watermark",
+                "server_ip": "Server IP",
+                "server_port": "Server Port",
+                "server_host_name": "Server Hostname",
+                "server_target_mode": "Target Mode",
+                "enable_https": "Enable HTTPS",
+                "enable_proxy": "Enable Proxy"
+            },
+            "server_target_mode": {
+                "ip": "IP",
+                "hostname": "Hostname"
+            },
+            "attlog_stamp_helper": "Recovery override only - clients use this to decide which pulled attendance records are already known. Setting it forward can make a client skip records it never actually delivered.",
+            "server_address_section": "Device Server Address",
+            "server_address_helper": "Where the device itself should push its own attendance data - not this app's connection to it (that's the IP Address above). Written onto the device via the Set Server Address command. Server IP and Server Hostname both write to the same device field - Target Mode picks which is currently active, so switching between them doesn't lose the other saved value.",
+            "enable_https_helper": "Writes IsSupportHttps/IsSupportSSL to the device - confirmed writable, not confirmed to change live behavior.",
+            "enable_proxy_helper": "Writes the same Server IP/Hostname above as the proxy target - no separate proxy address.",
+            "actions": {
+                "add": "Add Device",
+                "edit": "Edit Device"
+            },
+            "online": "Online",
+            "offline": "Offline",
+            "last_seen": "Last seen",
+            "never_seen": "Never connected",
+            "attendance_source": {
+                "cloud": "Direct to Cloud",
+                "local": "Local Relay"
+            }
+        },
+        "biometric": {
+            "student_biometric": "Student Biometric",
+            "staff_biometric": "Staff Biometric",
+            "biometric": "Biometric Identifiers",
+            "import": "Import",
+            "titles": {
+                "list": "Biometric Identifiers",
+                "create": "Add Biometric Identifier",
+                "edit": "Edit Biometric Identifier",
+                "show": "Biometric Details",
+                "import": "Import Biomatric Number",
+                "bulk_add": "Bulk Add Students to Biometric System"
+            },
+            "fields": {
+                "staff": "Staff",
+                "student": "Student",
+                "student_name": "Student Name",
+                "class": "Class",
+                "section": "Section",
+                "batch": "Batch",
+                "user_number": "User Number",
+                "user_pin": "User PIN",
+                "card_number": "Card Number",
+                "fingerprint": "Fingerprint",
+                "last_synced": "Last Synced",
+                "created_at": "Created At",
+                "status": "Status",
+                "reg_id": "Reg ID",
+                "starting_pin": "Starting PIN",
+                "import": "Import Excel"
+            },
+            "actions": {
+                "add": "Add Biometric Identifier",
+                "edit": "Edit Biometric Identifier",
+                "bulk_add": "Bulk Add",
+                "search": "Search",
+                "searching": "Searching...",
+                "adding": "Adding...",
+                "select_all": "Select All",
+                "import": "Import",
+                "deleteRow": "Delete Row",
+                "add_students": "Add {{count}} Student{{plural}}"
+            },
+            "bulk_add": {
+                "search_filters": "Search Filters",
+                "next_available": "Next available: {{pin}}",
+                "filter_by_class": "Filter by Class (Optional)",
+                "info_message": "Click \"Search\" to find eligible students. Each student will be auto-assigned a PIN starting from {{pin}}. Students must be active, current, and not already enrolled in the biometric system.",
+                "found_students": "Found {{count}} eligible students",
+                "selected_summary": "Each student has been auto-assigned a PIN (starting from {{pin}}). You can edit any PIN in the table if needed.",
+                "selected_count": "Selected {{count}} student(s)",
+                "success_message": "Successfully added {{count}} students to biometric system",
+                "error_select_one": "Please select at least one student",
+                "error_min_pin": "Starting PIN must be at least 10001"
+            }
+        },
+        "command": {
+            "command": "Device Commands",
+            "titles": {
+                "list": "Device Command Queue",
+                "create": "Dispatch Command",
+                "summary": "Device Status Overview"
+            },
+            "fields": {
+                "device": "Device",
+                "devices": "Target Devices",
+                "devices_placeholder": "Search devices (leave empty for ALL)",
+                "devices_hint": "Leave empty to broadcast to all active devices.",
+                "command_type": "Command",
+                "status": "Status",
+                "command_string": "Command String",
+                "sent_at": "Sent At",
+                "executed_at": "Executed At",
+                "created_at": "Created At",
+                "result": "Result",
+                "error": "Error",
+                "payload_pin": "User PIN",
+                "payload_name": "Name",
+                "payload_card_no": "Card Number",
+                "payload_privilege": "Privilege (0=User, 14=Admin)",
+                "payload_time": "Date & Time",
+                "payload_time_hint": "Leave empty to use current server time.",
+                "payload_no": "No",
+                "payload_index": "Finger Index",
+                "payload_template": "Biometric Template (Base64)"
+            },
+            "status": {
+                "pending": "Pending",
+                "sent": "Sent",
+                "executed": "Executed",
+                "failed": "Failed"
+            },
+            "actions": {
+                "dispatch": "Dispatch Command",
+                "cancel": "Cancel",
+                "retry": "Retry"
+            },
+            "filters": {
+                "all_commands": "All Commands",
+                "all_statuses": "All Statuses"
+            },
+            "dialogs": {
+                "cancel_title": "Cancel Command",
+                "cancel_description": "Are you sure you want to cancel this pending command?",
+                "retry_title": "Retry Command",
+                "retry_description": "Reset this failed command to pending so it will be sent again?"
+            },
+            "messages": {
+                "dispatched": "{{count}} command(s) dispatched successfully.",
+                "no_devices": "No active devices found.",
+                "dispatch_failed": "Failed to dispatch command. Please try again."
+            },
+            "errors": {
+                "dispatch_failed": "Failed to dispatch. Please try again."
+            },
+            "device": {
+                "online": "Online",
+                "offline": "Offline",
+                "last_seen": "Last seen",
+                "never_seen": "Never connected"
+            }
+        }
+    },
+    "gate_pass": {
+        "gate_pass": "Gate Pass",
+        "titles": {
+            "list": "Gate Passes",
+            "create": "New Gate Pass",
+            "edit": "Edit Gate Pass",
+            "show": "Gate Pass Details",
+            "report": "Gate Pass Report"
+        },
+        "fields": {
+            "pass_no": "Pass #",
+            "student": "Student",
+            "students": "Students",
+            "class": "Class",
+            "section": "Section",
+            "reason": "Reason",
+            "pass_type": "Pass Type",
+            "duration_minutes": "Duration (min)",
+            "escort_name": "Escort Name",
+            "escort_phone": "Escort Phone",
+            "checkout": "Checkout Time",
+            "checkin": "Check-In Time",
+            "created_by": "Created By",
+            "remark": "Remark",
+            "state": "State",
+            "status": "Status",
+            "granted_by": "Granted By",
+            "checkout_by": "Checked Out By",
+            "checkin_by": "Checked In By",
+            "created_at": "Created At",
+            "date_range": "Date Range",
+            "minutes_out": "Minutes Out"
+        },
+        "type": {
+            "OutReturn": "Out & Return",
+            "OutOnly": "Out Only"
+        },
+        "state": {
+            "Pending": "Pending",
+            "CheckedOut": "Checked Out",
+            "Completed": "Completed",
+            "NotReturned": "Not Returned",
+            "Cancelled": "Cancelled",
+            "Overdue": "Overdue"
+        },
+        "actions": {
+            "add": "New Gate Pass",
+            "edit": "Edit Gate Pass",
+            "check_out": "Check Out",
+            "check_in": "Check In",
+            "cancel_pass": "Cancel Pass",
+            "print": "Print Slip",
+            "view": "View"
+        },
+        "messages": {
+            "checkout_confirm": "Record the student's exit from the school gate.",
+            "checkin_confirm": "Record the student's return to school.",
+            "cancel_confirm": "Cancel this unused gate pass?",
+            "no_return_expected": "No return expected for this pass."
+        },
+        "report": {
+            "generate": "Generate",
+            "total": "Total",
+            "pending": "Pending",
+            "checked_out": "Checked Out",
+            "completed": "Completed",
+            "not_returned": "Not Returned",
+            "cancelled": "Cancelled",
+            "overdue": "Overdue",
+            "out_only": "Out Only",
+            "by_class": "By Class",
+            "details": "Details",
+            "no_data": "No gate passes found for the selected range."
+        },
+        "slip": {
+            "title": "STUDENT GATE PASS",
+            "authorized_by": "Authorized By",
+            "guard_signature": "Guard Signature",
+            "issued_at": "Issued At"
+        }
+    },
+    "home_visit": {
+        "home_visit": "Home Visit",
+        "titles": {
+            "list": "Home Visits",
+            "create": "New Home Visit",
+            "edit": "Edit Home Visit",
+            "questions": "Visit Questions",
+            "collect": "Collect Answers",
+            "report": "Home Visit Report",
+            "answers": "Home Visit Answers"
+        },
+        "fields": {
+            "visit_no": "Visit #",
+            "visit": "Home Visit",
+            "title": "Title",
+            "title_placeholder": "e.g. Term 1 Home Visit",
+            "student": "Student",
+            "class": "Class",
+            "classes": "Classes",
+            "section": "Section",
+            "batch": "Batch",
+            "any_batch": "Any Batch",
+            "start_date": "Start Date",
+            "end_date": "End Date",
+            "visited_at": "Visited At",
+            "purpose": "Purpose",
+            "address": "Address",
+            "location": "Location",
+            "persons_met": "Persons Met",
+            "summary": "Observation Summary",
+            "follow_up": "Follow Up",
+            "follow_up_note": "Follow-Up Note",
+            "staff": "Teacher",
+            "visited_by": "Visited By",
+            "created_by": "Created By",
+            "questions": "Questions",
+            "state": "State",
+            "status": "Status",
+            "date_range": "Date Range"
+        },
+        "state": {
+            "Open": "Open",
+            "Closed": "Closed"
+        },
+        "student_state": {
+            "NotVisited": "Not Visited",
+            "Draft": "Draft",
+            "Completed": "Completed"
+        },
+        "actions": {
+            "add": "New Home Visit",
+            "edit": "Edit Home Visit",
+            "close": "Close Visit",
+            "reopen": "Reopen Visit",
+            "collect_answers": "Collect Answers",
+            "review_answers": "Review Answers",
+            "print": "Print"
+        },
+        "form": {
+            "selected_count": "{{count}} selected",
+            "search_questions": "Search questions...",
+            "no_questions": "No questions in the bank yet. Create questions first.",
+            "filtered_by_class": "Showing questions for: {{classes}} (plus questions for all classes)",
+            "no_matching_questions": "No questions match the selected classes or search."
+        },
+        "question": {
+            "fields": {
+                "question": "Question",
+                "type": "Type",
+                "audience": "Ask To",
+                "options": "Options",
+                "add_option": "Add an option and press Enter",
+                "classes": "Classes",
+                "all_classes": "All Classes",
+                "is_required": "Required",
+                "hint": "Interviewer Hint",
+                "hint_placeholder": "Guidance shown to the teacher while asking",
+                "sort": "Order",
+                "status": "Status"
+            },
+            "type": {
+                "Subjective": "Subjective",
+                "SingleChoice": "Single Choice",
+                "MultipleChoice": "Multiple Choice",
+                "YesNo": "Yes / No",
+                "Rating": "Rating (1-5)"
+            },
+            "audience": {
+                "Student": "Student",
+                "Parent": "Parent",
+                "Both": "Both"
+            },
+            "actions": {
+                "add": "New Question",
+                "edit": "Edit Question"
+            }
+        },
+        "collect": {
+            "roster": "Students",
+            "roster_progress": "{{completed}} of {{total}} students completed",
+            "search_student": "Search name or reg id...",
+            "no_students": "No students found for the classes of this visit.",
+            "no_search_results": "No students match your search.",
+            "student_position": "Student {{current}} of {{total}}",
+            "previous_student": "Previous Student",
+            "next_student": "Next Student",
+            "interview": "Interview",
+            "progress": "{{answered}} of {{total}} answered",
+            "persons_met_placeholder": "e.g. Father, Mother",
+            "summary_placeholder": "Overall observation of the home environment",
+            "answer_placeholder": "Write the response...",
+            "remark_placeholder": "Remark (optional)",
+            "needs_follow_up": "Needs Follow-Up",
+            "yes": "Yes",
+            "no": "No",
+            "save_draft": "Save Draft",
+            "complete_visit": "Complete Visit",
+            "update_answers": "Update Answers",
+            "completed": "Home visit recorded",
+            "draft_saved": "Draft saved",
+            "missing_required": "{{count}} required question(s) not answered yet",
+            "no_questions": "This home visit has no questions selected.",
+            "closed_note": "This home visit is closed; answers are read-only until it is reopened.",
+            "discard_changes_confirm": "Discard unsaved changes and continue?",
+            "discard": "Discard"
+        },
+        "report": {
+            "generate": "Generate",
+            "eligible": "Students",
+            "visited": "Visited",
+            "completed": "Completed",
+            "draft": "Draft",
+            "follow_up": "Follow Up",
+            "coverage": "Coverage",
+            "by_class": "By Class",
+            "question_analysis": "Question Analysis",
+            "answered": "{{count}} answered",
+            "answers": "Answers",
+            "details": "Details",
+            "no_data": "No data for the selected home visit."
+        },
+        "answers": {
+            "search_student": "Search student name or reg id...",
+            "view_print": "View & Print Answers",
+            "answer_sheet": "Home Visit Answer Sheet"
+        }
+    }
+}

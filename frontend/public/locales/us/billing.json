@@ -1,0 +1,760 @@
+{
+    "dashboard": {
+        "dashboard": "Dashboard",
+        "titles": {
+            "main": "Billing Dashboard"
+        },
+        "description": "Monitor fee collection, track defaulters and analyze financial performance",
+        "labels": {
+            "totalFee": "Total Fee",
+            "totalReceive": "Total Receive",
+            "totalDue": "Total Due",
+            "totalScholar": "Total Scholar",
+            "totalStudents": "Total Students",
+            "totalClasses": "Total Classes",
+            "totalInvoices": "Total Receipts",
+            "totalAmount": "Total Amount",
+            "totalPaid": "Total Paid",
+            "totalBalance": "Total Balance",
+            "totalCustomers": "Total Customers"
+        },
+        "fields": {
+            "year": "Account Year"
+        },
+        "actions": {
+            "printAll": "Print All Reports"
+        },
+        "pages": {
+            "feeDueByClassSubheader": "Fee collection status across classes",
+            "billingSummary": "Billing Summary",
+            "collectionTrend": "Collection Trend",
+            "todayStatus": "Today Status",
+            "topDefaulters": {
+                "title": "Top Defaulters",
+                "columns": {
+                    "rank": "#",
+                    "student": "Student",
+                    "outstanding": "Outstanding",
+                    "urgency": "Urgency",
+                    "percent": "%"
+                },
+                "urgency": {
+                    "critical": "Critical",
+                    "high": "High",
+                    "medium": "Medium"
+                },
+                "noData": "No defaulters found"
+            },
+            "scholarshipAnalytics": {
+                "title": "Scholarship Analytics",
+                "metrics": {
+                    "totalAllocated": "Total Allocated",
+                    "amountGiven": "Amount Given",
+                    "remaining": "Remaining",
+                    "nonAllocatedGiven": "Non Allocated Given",
+                    "utilizationRate": "Utilization Rate",
+                    "totalRecipients": "Total Recipients",
+                    "studentsReceiving": "Students receiving scholarships",
+                    "amountReceived": "Scholarship amount received"
+                },
+                "tabs": {
+                    "summary": "Summary",
+                    "byType": "By Type",
+                    "recipients": "Recipients"
+                },
+                "noTypes": "No scholarship types available",
+                "noRecipients": "No scholarship recipients",
+                "highestRecipient": "Highest Recipient",
+                "distributionByType": "Scholarship Distribution by Type",
+                "topRecipients": "Top Scholarship Recipients",
+                "recipientLabel": "Scholarship recipient"
+            },
+            "feeDueByClass": {
+                "title": "Fee Due By Class",
+                "columns": {
+                    "class": "Class",
+                    "students": "Students",
+                    "due": "Due",
+                    "collected": "Collected",
+                    "outstanding": "Outstanding",
+                    "rate": "Rate",
+                    "status": "Status"
+                },
+                "status": {
+                    "complete": "Complete",
+                    "good": "Good",
+                    "attention": "Attention"
+                },
+                "subheader": "Fee collection status across {{count}} classes"
+            },
+            "feeHeadBreakdown": {
+                "title": "Fee Head Breakdown",
+                "analysis": "Analysis of {{count}} fee categories",
+                "bestPerforming": "Best Performing",
+                "needsAttention": "Needs Attention",
+                "collectionRate": "collection rate",
+                "noData": "No fee head data available"
+            },
+            "recentReceivedBills": {
+                "title": "Recent Receive Bills",
+                "latest": "Latest {{count}} payment receipts",
+                "viewAll": "View All Bills",
+                "refresh": "Refresh",
+                "paymentMethods": {
+                    "cash": "Cash",
+                    "online": "Online",
+                    "cheque": "Cheque",
+                    "bank_transfer": "Bank Transfer"
+                }
+            },
+            "collectionTrendSubheader": {
+                "daily": "Daily collection trends",
+                "monthly": "Monthly collection trends"
+            }
+        },
+        "messages": {
+            "loading": "Loading...",
+            "error": "Error loading data",
+            "noData": "No data available.",
+            "viewDetails": "View Detailed Analysis",
+            "viewAll": "View All",
+            "ofTotal": "of total",
+            "refresh": "Refresh"
+        },
+        "pdf": {
+            "title": "Billing Dashboard Report",
+            "generatedOn": "Generated on:",
+            "groups": {
+                "overview": "Overview & Performance",
+                "details": "Details & Breakdowns"
+            }
+        }
+    },
+    "wallet": {
+        "wallet": "Wallet",
+        "titles": {
+            "list": "Student Wallet List",
+            "show": "Wallet Detail",
+            "transaction": "Transactions"
+        },
+        "fields": {
+            "id": "ID",
+            "student": "Student",
+            "class": "Class",
+            "section": "Section",
+            "regid": "Regid",
+            "date": "Date",
+            "dr_cr": "Dr/Cr",
+            "description": "Description",
+            "amount": "Amount",
+            "balance": "Balance",
+            "status": "Status"
+        },
+        "actions": {
+            "add": "Add Balance"
+        }
+    },
+    "feeItem": {
+        "feeItem": "Fee Items",
+        "titles": {
+            "create": "Create Fee",
+            "edit": "Edit Fee",
+            "list": "Fee Items",
+            "show": "Show Fee"
+        },
+        "fields": {
+            "id": "ID",
+            "name": "Name",
+            "module": "Module",
+            "module_type": "Module Type",
+            "type": "Fee Type",
+            "ledger": "Ledger",
+            "isDeposit": "Is Deposit",
+            "isDefaultFee": "Is Default Fee",
+            "isAdvance": "Is Advance",
+            "post_type": "Post Type",
+            "discount": "Discount",
+            "status": "Status"
+        },
+        "actions": {
+            "add": "Create Fee",
+            "edit": "Edit Fee"
+        }
+    },
+    "feeClass": {
+        "feeClass": "Fee In Class",
+        "titles": {
+            "create": "Create Fee In Class",
+            "edit": "Edit Fee In Class",
+            "list": "Fee In Class",
+            "show": "Show Class"
+        },
+        "fields": {
+            "id": "ID",
+            "sno": "SNO",
+            "class": "Class",
+            "year": "Year",
+            "subject": "Subject",
+            "student": "Student",
+            "fee": "Fee",
+            "amount": "Amount",
+            "post_type": "Post Type",
+            "module_type": "Module Type",
+            "module": "Module",
+            "status": "Status"
+        },
+        "filter": {
+            "title": "Filters",
+            "search": {
+                "label": "Search",
+                "placeholder": "Search"
+            },
+            "submit": "Filter"
+        },
+        "actions": {
+            "add": "Add Fee In Class",
+            "edit": "Edit Fee In Class"
+        }
+    },
+    "feeStudent": {
+        "feeStudent": "Fee Student",
+        "titles": {
+            "create": "Add Student Fee",
+            "edit": "Edit Student Fee",
+            "list": "Student Fee List",
+            "show": "Show Student Fee"
+        },
+        "validation": {
+            "student_ids": "Please select any one student"
+        },
+        "fields": {
+            "id": "ID",
+            "sno": "SNO",
+            "class": "Class",
+            "section": "Section",
+            "roll_no": "Roll No",
+            "regid": "Regid",
+            "name": "Name",
+            "student": "Student",
+            "fee": "Fee",
+            "total": "Total",
+            "discount": "Discount",
+            "discount_amount": "Discount Amount",
+            "discount_amt": "$",
+            "discount_per": "%",
+            "months": "Months",
+            "amount": "Amount",
+            "discount_type": "Dis. Type"
+        },
+        "actions": {
+            "action": "Action",
+            "add": "Create Student Fee",
+            "addFee": "Add Fee",
+            "edit": "Edit Student Fee"
+        }
+    },
+    "feeReceive": {
+        "feeReceive": "Fee Receive",
+        "titles": {
+            "create": "Fee Receive",
+            "feeLedger": "Fee Ledger",
+            "feeReport": "Fee Report",
+            "release": "Fee Release",
+            "scholar": "Scholar",
+            "billDetail": "Bill Detail",
+            "feeHeads": "Fee Heads",
+            "billHistory": "Bill History"
+        },
+        "validation": {
+            "receiveAmountLessThanTotal": "Receive amount should not be less than total amount"
+        },
+        "labels": {
+            "sno": "SNO",
+            "student": "Student",
+            "particular": "Particular",
+            "dr_amount": "Dr Amount",
+            "cr_amount": "Cr Amount",
+            "date": "Date",
+            "released": "Released",
+            "due": "Due",
+            "advance": "Advance",
+            "discount": "Discount",
+            "paid": "Paid",
+            "scholar": "Scholar",
+            "siblings": "Siblings",
+            "parents": "Parents",
+            "balance": "Balance",
+            "regid": "Regid",
+            "fee": "Fee",
+            "name": "Name",
+            "month": "Month",
+            "year": "Year",
+            "qty": "Qty",
+            "address": "Address",
+            "remarks": "Remarks",
+            "amount": "Amount",
+            "dueAmount": "Due Amount",
+            "total": "Total",
+            "net_total": "Net Total",
+            "receiveAmount": "Receive",
+            "paymentMode": "Payment Mode",
+            "releaseFee": "Release Fee",
+            "sendNotice": "Send Notice",
+            "sendSms": "Send SMS",
+            "taxable_amount": "Taxable Amount",
+            "tax_amount": "Tax Amount",
+            "payable": "Payable"
+        },
+        "actions": {
+            "receive": "Receive",
+            "release": "Release",
+            "scholar": "Scholar",
+            "addItem": "Add Item",
+            "addAllDue": "Add All Due",
+            "assign": "Assign Fee"
+        }
+    },
+    "feeRelease": {
+        "feeRelease": "Fee Release",
+        "titles": {
+            "create": "Individual Release",
+            "edit": "Release By Class",
+            "list": "Fee Release - Class List",
+            "show": "Release Detail",
+            "students": "Release By Student",
+            "student_list": "Student List",
+            "addScholar": "Add Scholar"
+        },
+        "labels": {
+            "selectClass": "Start with selecting class"
+        },
+        "fields": {
+            "id": "ID",
+            "program": "Program",
+            "release_date": "Post Date",
+            "release_month": "Month",
+            "entry": "Entry",
+            "class": "Class",
+            "batch": "Batch",
+            "regid": "Regid",
+            "name": "Name",
+            "student": "Student",
+            "section": "Section",
+            "roll_no": "Roll No",
+            "fee": "Fee",
+            "fee_type": "Type",
+            "amount": "Amount",
+            "post_amount": "Post Amount",
+            "old_release": "Old Release",
+            "year": "Year",
+            "year_batch":"B/Y",
+            "duplicate_release": "Duplicate Release",
+            "account_type": "Account Type",
+            "type": "Type",
+            "created_by": "Created By",
+            "created_at": "Created At",
+            "total_amount": "Total",
+            "avg_amount": "Avg",
+            "total_post": "Total Post",
+            "remark": "Remark",
+            "scholar": "Scholar",
+            "status": "Status"
+        },
+        "actions": {
+            "add": "Individual Release",
+            "edit": "Release By Class",
+            "getReleaseData": "Get Release Data",
+            "editFee": "Edit Fee",
+            "submit": "Submit",
+            "reset": "Reset"
+        }
+    },
+    "scholarItem": {
+        "scholarItem": "Scholar Items",
+        "titles": {
+            "create": "Create Scholar",
+            "edit": "Edit Scholar",
+            "list": "Scholar Items",
+            "show": "Show Scholar"
+        },
+        "fields": {
+            "id": "ID",
+            "name": "Name",
+            "fee": "Fee",
+            "ledger": "Ledger",
+            "status": "Status"
+        },
+        "actions": {
+            "add": "Create Scholar",
+            "edit": "Edit Scholar"
+        }
+    },
+    "scholarPost": {
+        "scholarPost": "Scholar By Posts",
+        "titles": {
+            "create": "Create Scholar By Post",
+            "edit": "Edit Scholar By Post",
+            "list": "Scholar By Posts",
+            "show": "Show Scholar By Post"
+        },
+        "fields": {
+            "id": "ID",
+            "class": "Class",
+            "regid": "Regid",
+            "student": "Student",
+            "scholar": "Scholar",
+            "amount": "Amount",
+            "post_over": "Post Over",
+            "post_count": "Post Count",
+            "alloted": "Alloted",
+            "given": "Given",
+            "months": "Months",
+            "status": "Status"
+        },
+        "actions": {
+            "add": "Create Scholar By Post",
+            "edit": "Edit Scholar By Post"
+        }
+    },
+    "scholarPercent": {
+        "scholarPercent": "Scholar By Percents",
+        "titles": {
+            "create": "Create Scholar By Percent",
+            "edit": "Edit Scholar By Percent",
+            "list": "Scholar By Percent",
+            "show": "Show Scholar By Percent"
+        },
+        "fields": {
+            "id": "ID",
+            "class": "Class",
+            "section": "Section",
+            "regid": "Regid",
+            "student": "Student",
+            "scholar": "Scholar",
+            "percent": "Percent",
+            "total_allotment": "Total Allotment",
+            "created_by": "Created By",
+            "created_at": "Created At",
+            "end_date": "End Date",
+            "status": "Status"
+        },
+        "actions": {
+            "addMore": "Add Scholardhip",
+            "add": "Create Scholar By Percent",
+            "edit": "Edit Scholar By Percent"
+        }
+    },
+    "invoice": {
+        "invoice": "Receipts",
+        "titles": {
+            "create": "Create Receipt",
+            "edit": "Edit Receipt",
+            "list": "Receipt List",
+            "show": "Show Receipt",
+            "history": "Receipt History",
+            "items": "Receipt Items"
+        },
+        "fields": {
+            "id": "ID",
+            "month": "Month",
+            "customer_name": "Customer Name",
+            "customer_address": "Address",
+            "customer_pan": "PAN",
+            "ledger": "Ledger",
+            "amount": "Amount",
+            "discount": "Discount",
+            "address": "Address",
+            "taxable_amount": "Taxable Amount",
+            "tax_amount": "Tax Amount",
+            "total_amount": "Total Amount",
+            "remarks": "Remarks",
+            "bill_date": "Bill Date",
+            "bill_no": "Bill No",
+            "remark": "Remark",
+            "created_by": "Created By",
+            "created_by_id": "Created By",
+            "created_at": "Created At",
+            "student": "Student",
+            "fee": "Fee",
+            "year_batch":"B/Y",
+            "class": "Class",
+            "sno": "SNO",
+            "item_name": "Item Name",
+            "qty": "Qty",
+            "other_item": "Other Item",
+            "receiveAmount": "Receive",
+            "receiveLedger": "Receive Ledger",
+            "status": "Status",
+            "grand_total": "Grand Total"
+        },
+        "actions": {
+            "add": "Create Receipt",
+            "edit": "Edit Receipt"
+        }
+    },
+    "report": {
+        "report": "Reports",
+        "titles": {
+            "feeCollection": "Fee Collection",
+            "receiptLedger": "Receipt Ledger",
+            "feeDue": "Fee Due",
+            "feeDueLedger": "Fee Due Ledger",
+            "feeSummary": "Fee Summary",
+            "feeScholar": "Scholar",
+            "receiptSummary": "Receipt Summary",
+            "feeStudentAssignment": "Fee Student Assignment",
+            "feeRelease": "Fee Release"
+        },
+        "feedue": {
+            "sno": "SNO",
+            "class": "Class",
+            "uptoDate": "Upto Date",
+            "total_amount": "Total Amount",
+            "dr_amount": "Dr Amount",
+            "cr_amount": "Cr Amount",
+            "balance": "Balance",
+            "student": "Student",
+            "section": "Section",
+            "regid": "Regid",
+            "level": "Level",
+            "phone": "Phone",
+            "address": "Address",
+            "bill_remark": "Bill Remark",
+            "print_due": "Print Due",
+            "exclude_advance": "Exclude Advance"
+        },
+        "feeCollection": {
+            "title": "Fee Collection",
+            "filters": {
+                "dateRange": "Date Range",
+                "class": "Class",
+                "student": "Student",
+                "ledger": "Ledger"
+            },
+            "columns": {
+                "date": "Date",
+                "regid": "Reg ID",
+                "student": "Student",
+                "invoice": "Receipt",
+                "amount": "Amount",
+                "received_by": "Received By",
+                "payment_method": "Payment Method"
+            },
+            "noData": "No fee collection data available"
+        },
+        "receiptLedger": {
+            "title": "Receipt Ledger",
+            "columns": {
+                "date": "Date",
+                "invoice_no": "Receipt No",
+                "customer": "Customer",
+                "amount": "Amount",
+                "status": "Status"
+            },
+            "noData": "No receipt ledger data available"
+        },
+        "receiptSummary": {
+            "title": "Receipt Summary",
+            "columns": {
+                "date": "Date",
+                "invoice_no": "Receipt No",
+                "customer": "Customer",
+                "month": "month",
+                "amount": "Amount",
+                "discount": "Discount",
+                "total_amount": "Total Amount",
+                "status": "Status"
+            },
+            "noData": "No receipt summary data available"
+        },
+        "feeDue": {
+            "title": "Fee Due",
+            "columns": {
+                "class": "Class",
+                "student": "Student",
+                "regid": "Regid",
+                "due": "Due",
+                "outstanding": "Outstanding",
+                "uptoDate": "Upto Date"
+            },
+            "noData": "No fee due data available"
+        },
+        "feeDueLedger": {
+            "title": "Fee Due Ledger",
+            "noData": "No fee due ledger data available"
+        },
+        "feeSummary": {
+            "title": "Fee Summary",
+            "noData": "No fee summary data available"
+        },
+        "feeScholar": {
+            "title": "Scholar",
+            "noData": "No scholarship report data available"
+        },
+        "feeStudentAssignment": {
+            "selectRequired": "Please select at least one class and one month to view the report.",
+            "month": "Month",
+            "showDetail": "Show Detail"
+        }
+    },
+    "closing": {
+        "closing": "Bill Closing",
+        "titles": {
+            "list": "Closing List",
+            "create": "Create Closing",
+            "transactions": "Transactions"
+        },
+        "messages": {
+            "selectFromBatch": "Please Select from batch to view transactions",
+            "selectFromBatchAndClass": "Please select a batch and class to view transactions",
+            "saveConfirm": "Are you sure you want to close this transactions?",
+            "reopenConfirm": "Are you sure you want to reopen this closing?"
+        },
+        "fields": {
+            "closing_date": "Closing Date",
+            "month": "Month",
+            "class": "Class",
+            "due_fee": "Due Fee",
+            "adv_fee": "Advance Fee",
+            "from_batch": "From Batch",
+            "batch": "Batch",
+            "year": "Year",
+            "to_batch": "To Batch",
+            "adv_amount": "Advance Amount",
+            "due_amount": "Due Amount",
+            "import_source": "Source",
+            "native": "Native"
+        },
+        "actions": {
+            "add": "Save Closing",
+            "reopen": "Reopen"
+        },
+        "wizard": {
+            "steps": {
+                "setup": "Setup",
+                "settlement": "Settlement",
+                "review": "Review",
+                "result": "Done"
+            },
+            "setup": {
+                "description": "Select one or more classes to close together for the same batch. Each class is closed as its own event, so partial failures for one class won't affect the others."
+            },
+            "settlement": {
+                "description": "All billing transactions for the selected classes must be settled into vouchers before they can be closed.",
+                "clear": "All billing transactions are settled - you're good to continue.",
+                "pending_count": "Pending items",
+                "item": "Item",
+                "type": "Type",
+                "go_to_settlement": "Go to Settlement",
+                "recheck": "Recheck & Continue"
+            },
+            "review": {
+                "description": "Review the due/advance amounts to be carried forward for each class before closing.",
+                "noTransactions": "No due or advance to carry forward for this class."
+            },
+            "result": {
+                "title": "Closing Complete",
+                "success": "Closed successfully",
+                "failed": "Failed to close",
+                "done": "Done"
+            }
+        }
+    },
+    "entrance": {
+        "entrance": "Entrance",
+        "form": "New Form",
+        "application": "Applications",
+        "admission": "Admissions",
+        "titles": {
+            "create": "New Entrance Form",
+            "billview": "Bill View",
+            "feeReceive": "Fee Receive"
+        },
+        "fields": {
+            "date": "Date",
+            "class": "Class",
+            "batch": "Batch",
+            "form_no": "Form Number",
+            "full_name": "Full Name",
+            "ledger": "Ledger",
+            "month": "Month",
+            "name": "Name",
+            "address": "Address",
+            "amount": "Amount",
+            "remark": "Remark",
+            "parents": "Parents",
+            "phone": "Phone",
+            "persist": "Persist Form",
+            "receiveLedger": "Receive Ledger",
+            "state": "State"
+        },
+        "filters": {
+            "class_name": "Class Name",
+            "batch_name": "Batch Name",
+            "student_regid": "Student Reg ID",
+            "student_name": "Student Name",
+            "student": "Student",
+            "date_range": "Date Range"
+        },
+        "actions": {
+            "add": "Create Entrance",
+            "invoice": "Receipt",
+            "withdraw": "Withdraw",
+            "reject": "Reject",
+            "accept": "Accept",
+            "cancel": "Cancel",
+            "admit": "Admit"
+        }
+    },
+    "ledger": {
+        "ledger": "Ledger",
+        "fields": {
+            "name": "Name",
+            "amount": "Amount",
+            "ledger_id": "Ledger ID",
+            "ledger_type": "Ledger Type"
+        },
+        "actions": {
+            "add": "Create Ledger",
+            "edit": "Edit Ledger"
+        }
+    },
+    "import": {
+        "import_due": "Import Fee Due",
+        "import_fee_structure": "Import Fee Structure",
+        "import_fee_opening": "Import Fee Opening",
+        "titles": {
+            "import_due": "Import Fee Due",
+            "import_fee_structure": "Import Fee Structure",
+            "import_fee_opening": "Import Fee Opening"
+        },
+        "info": {
+            "importing": "Loading excel file...",
+            "missingColumn": "Following required column(s) are missing : "
+        },
+        "fields": {
+            "fee": "Fee",
+            "date": "Date",
+            "month": "Month",
+            "excel": "Select Excel",
+            "type": "Import Type"
+        },
+        "actions": {
+            "export": "Export",
+            "import": "Import",
+            "deleteRow": "Delete Row"
+        }
+    },
+    "fee": {
+        "fee": "Fees"
+    },
+    "scholar": {
+        "scholar": "Scholarship"
+    },
+    "setting": {
+        "setting": "Settings"
+    },
+    "datavalue": {
+        "datavalue": "Data Value"
+    }
+}

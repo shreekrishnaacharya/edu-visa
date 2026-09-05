@@ -1,0 +1,112 @@
+{
+    "editor": {
+        "menu": {
+            "delete": "Delete",
+            "lock": "Lock",
+            "unlock": "Unlock",
+            "show": "Show",
+            "hide": "Hide",
+            "edit": "Edit",
+            "top": "Top",
+            "bottom": "Bottom",
+            "clone": "Clone"
+        },
+        "labels": {
+            "paperSize": "Paper Size",
+            "attributeSettings": "Attribute Settings",
+            "componentVisibility": "Component Visibility",
+            "styleSettings": "Style Settings",
+            "questionInformation": "Question Information",
+            "questionProperties": "Question Properties",
+            "headerProperties": "Header Properties",
+            "questionSettings": "Question Settings",
+            "type": "Type",
+            "group": "Group",
+            "question": "Question",
+            "subQuestions": "Sub-questions",
+            "options": "Options",
+            "hints": "Hints"
+        },
+        "fields": {
+            "name": "Name",
+            "rotation": "Rotation",
+            "width": "Width",
+            "height": "Height",
+            "x": "X",
+            "y": "Y",
+            "scaleX": "Scale X",
+            "scaleY": "Scale Y",
+            "fontSize": "Font Size",
+            "text": "Text",
+            "color": "Color",
+            "bold": "Bold",
+            "italic": "Italic",
+            "textAlign": "Text Align",
+            "opacity": "Opacity",
+            "tableRows": "Table Rows",
+            "cellPadding": "Cell Padding",
+            "rowHeight": "Row Height",
+            "colHeight": "Column Height",
+            "borderWidth": "Border Width",
+            "showBorder": "Show Border",
+            "borderSize": "Border Size",
+            "borderColor": "Border Color",
+            "backgroundColor": "Background Color",
+            "showQuestionText": "Show Question Text",
+            "showOptions": "Show Options",
+            "showHints": "Show Hints",
+            "showSubQuestions": "Show Sub-questions",
+            "showImages": "Show Images",
+            "questionText": "Question Text",
+            "questionNumber": "Question Number",
+            "options": "Options",
+            "marks": "Mark",
+            "hints": "Hints",
+            "subQuestions": "Sub-questions",
+            "optionPrefix": "Option Prefix",
+            "images": "Images",
+            "content": "Content",
+            "fontWeight": "Font Weight",
+            "fontStyle": "Font Style",
+            "align": "Align",
+            "school_name": "School Name",
+            "exam_name": "Exam Name",
+            "class_name": "Class Name",
+            "subject_name": "Subject Name",
+            "year_name": "Year Name",
+            "duration": "Duration",
+            "full_mark": "Full Mark",
+            "pass_mark": "Pass Mark",
+            "notes": "Notes"
+        },
+        "validation":{
+            "greaterThan":"Pass Mark must be less than Full Mark"
+        },
+        "actions": {
+            "list": "List",
+            "create": "Create",
+            "edit": "Edit",
+            "save": "Show",
+            "cancel": "Cancel"
+        }
+    },
+    "datavalue": {
+        "datavalue": "Data Value",
+        "info": {
+            "editToView": "Edit to view"
+        },
+        "fields": {
+            "name": "Name",
+            "module": "Module",
+            "data_key": "Data Key",
+            "data_type": "Type",
+            "data_value": "Value",
+            "constants": "Constants"
+        },
+        "actions": {
+            "add": "Add new data value",
+            "edit": "Edit data value",
+            "clone": "Clone data value"
+        }
+    }
+}

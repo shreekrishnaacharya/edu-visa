@@ -1,0 +1,638 @@
+{
+    "dashboard": {
+        "dashboard": "ड्यासबोर्ड"
+    },
+    "org": {
+        "org": "संस्थाहरू",
+        "titles": {
+            "editAddress": "ठेगाना सम्पादन गर्नुहोस्",
+            "editSocial": "सामाजिक सम्पादन गर्नुहोस्",
+            "editAppFeatures": "एप फिचरहरू सम्पादन गर्नुहोस्",
+            "list": "सेटिङहरू"
+        },
+        "fields": {
+            "name": "नाम",
+            "address": "ठेगाना",
+            "phone1": "फोन१",
+            "phone2": "फोन२",
+            "email1": "इमेल१",
+            "email2": "इमेल२",
+            "facebook": "Facebook",
+            "twitter": "Twitter",
+            "instagram": "Instagram",
+            "youtube": "Youtube",
+            "linkedin": "Linkedin",
+            "website": "वेबसाइट",
+            "logo": "लोगो",
+            "cover": "कभर",
+            "about_us": "हाम्रो बारेमा",
+            "social": "सामाजिक",
+            "location": "स्थान",
+            "app_features": "एप फिचरहरू"
+        },
+        "parentFeatures": {
+            "attendance": "हाजिरी",
+            "results": "नतिजा",
+            "vehicle": "सवारी साधन",
+            "bills": "बिलहरू",
+            "schedules": "तालिकाहरू",
+            "fee": "शुल्क",
+            "leave": "बिदा",
+            "assignment": "असाइनमेन्ट",
+            "notes": "टिप्पणी",
+            "certificates": "प्रमाणपत्रहरू",
+            "books": "पुस्तकहरू",
+            "cas": "CAS",
+            "syllabus": "पाठ्यक्रम"
+        },
+        "actions": {
+            "add": "नयाँ सेटिङ थप्नुहोस्",
+            "edit": "सेटिङ सम्पादन गर्नुहोस्",
+            "update_feature": "फिचर अद्यावधिक गर्नुहोस्"
+        }
+    },
+    "users": {
+        "users": "प्रयोगकर्ताहरू",
+        "titles": {
+            "create": "प्रयोगकर्ता सिर्जना गर्नुहोस्",
+            "edit": "प्रयोगकर्ता सम्पादन गर्नुहोस्",
+            "list": "प्रयोगकर्ताहरू",
+            "bulk_add": "बल्क थप्नुहोस्",
+            "about": "बारेमा",
+            "recentActivity": "हालैको गतिविधि",
+            "staff": "कर्मचारी",
+            "library": "पुस्तकालय",
+            "subject": "विषय",
+            "schedule": "तालिका",
+            "notes": "नोटहरू",
+            "account": "खाता",
+            "features": "एप फिचरहरू",
+            "profile": "प्रोफाइल",
+            "changePassword": "पासवर्ड परिवर्तन गर्नुहोस्",
+            "updateProfile": "प्रोफाइल अद्यावधिक गर्नुहोस्",
+            "dashboard": "ड्यासबोर्ड"
+        },
+        "labels": {
+            "active": "सक्रिय",
+            "activeDescription": "खाता निष्क्रिय लागू गर्नुहोस्"
+        },
+        "validation": {
+            "match_password": "{{field}} मेल खाँदैन",
+            "min_password": "पासवर्ड कम्तीमा ६ अक्षरको हुनुपर्छ",
+            "employee_ids": "खाता सिर्जना गर्न कुनै कर्मचारी चयन गर्नुहोस्"
+        },
+        "fields": {
+            "id": "आईडी",
+            "image": "तस्वीर",
+            "name": "नाम",
+            "email": "इमेल",
+            "phone": "फोन",
+            "address": "ठेगाना",
+            "online_status": "अनलाइन स्थिति",
+            "online_message": "अनलाइन सन्देश",
+            "staff": "कर्मचारी",
+            "account_type": "खाता प्रकार",
+            "old_password": "पुरानो पासवर्ड",
+            "new_password": "नयाँ पासवर्ड",
+            "password": "पासवर्ड",
+            "confirm_password": "पासवर्ड पुष्टि गर्नुहोस्",
+            "roles": "भूमिकाहरू",
+            "status": "स्थिति"
+        },
+        "actions": {
+            "add": "नयाँ प्रयोगकर्ता थप्नुहोस्",
+            "edit": "प्रयोगकर्ता सम्पादन गर्नुहोस्"
+        }
+    },
+    "roles": {
+        "roles": "भूमिकाहरू",
+        "titles": {
+            "edit": "भूमिका सम्पादन गर्नुहोस्",
+            "list": "भूमिकाहरू",
+            "access_assign": "पहुँच नियन्त्रण तोक्नुहोस्",
+            "app_features": "एप फिचरहरू"
+        },
+        "fields": {
+            "id": "आईडी",
+            "name": "नाम",
+            "users": "प्रयोगकर्ताहरू",
+            "description": "विवरण",
+            "app_features": "एप फिचरहरू",
+            "permissions": "अनुमतिहरू",
+            "status": "स्थिति"
+        },
+        "features": {
+            "student_attendance": "विद्यार्थी हाजिरी",
+            "student_results": "विद्यार्थी नतिजा",
+            "student_photos": "विद्यार्थी फोटोहरू",
+            "schedules": "तालिकाहरू",
+            "leave_application": "बिदा निवेदन",
+            "employee_list": "कर्मचारी सूची",
+            "payroll": "पेरोल",
+            "student_assignment": "विद्यार्थी असाइनमेन्ट",
+            "library_books": "पुस्तकालय पुस्तकहरू",
+            "syllabus": "पाठ्यक्रम",
+            "mark_entry": "अंक प्रविष्टि",
+            "student_profile": "विद्यार्थी प्रोफाइल",
+            "student_notes": "विद्यार्थी टिप्पणी",
+            "subject": "विषय",
+            "ai_assistant": "एआई सहायक",
+            "gate_pass": "गेट पास",
+            "home_visit": "गृह भ्रमण",
+            "student_profile_gate_pass": "विद्यार्थी प्रोफाइल गेट पास",
+            "student_profile_attendance": "विद्यार्थी प्रोफाइल हाजिरी",
+            "student_profile_bill": "विद्यार्थी प्रोफाइल बिल",
+            "student_profile_fee": "विद्यार्थी प्रोफाइल शुल्क",
+            "student_profile_acc": "विद्यार्थी प्रोफाइल खाता",
+            "student_profile_exam": "विद्यार्थी प्रोफाइल परीक्षा",
+            "student_profile_home_visit": "विद्यार्थी प्रोफाइल गृह भ्रमण",
+            "employee_profile_notes": "कर्मचारी प्रोफाइल टिप्पणी",
+            "employee_profile_documents": "कर्मचारी प्रोफाइल कागजात",
+            "employee_profile_training": "कर्मचारी प्रोफाइल तालिम",
+            "employee_profile_subject": "कर्मचारी प्रोफाइल विषय",
+            "employee_profile_schedule": "कर्मचारी प्रोफाइल समय तालिका",
+            "employee_profile_library": "कर्मचारी प्रोफाइल पुस्तकालय",
+            "employee_profile_attendance": "कर्मचारी प्रोफाइल हाजिरी",
+            "employee_profile_salary": "कर्मचारी प्रोफाइल तलब",
+            "employee_profile_payslip": "कर्मचारी प्रोफाइल तलब पर्ची",
+            "employee_profile_students": "कर्मचारी प्रोफाइल विद्यार्थी",
+            "employee_profile_relations": "कर्मचारी प्रोफाइल सम्बन्ध",
+            "employee_profile_edit": "कर्मचारी प्रोफाइल सम्पादन",
+            "student_profile_edit": "विद्यार्थी प्रोफाइल सम्पादन"
+        },
+        "actions": {
+            "add": "नयाँ भूमिका थप्नुहोस्",
+            "edit": "भूमिका सम्पादन गर्नुहोस्",
+            "update": "भूमिका अद्यावधिक गर्नुहोस्",
+            "update_feature": "सुविधा अद्यावधिक गर्नुहोस्"
+        }
+    },
+    "config": {
+        "config": "API कन्फिगरेसन",
+        "titles": {
+            "list": "API कन्फिगरेसन",
+            "add": "नयाँ कन्फिगरेसन थप्नुहोस्",
+            "edit": "कन्फिगरेसन सम्पादन गर्नुहोस्"
+        },
+        "fields": {
+            "name": "कन्फिग प्रकार",
+            "smtp_host": "SMTP होस्ट",
+            "smtp_port": "SMTP पोर्ट",
+            "smtp_user": "SMTP प्रयोगकर्ता",
+            "smtp_password": "SMTP पासवर्ड",
+            "smtp_secure": "SMTP सुरक्षित (TLS)",
+            "from_name": "प्रेषक नाम",
+            "host": "होस्ट",
+            "client_id": "Client ID",
+            "app_id": "App ID",
+            "secret_key": "गोप्य कुञ्जी",
+            "api_key": "API कुञ्जी",
+            "is_tested": "परीक्षण भयो",
+            "status": "स्थिति"
+        },
+        "validation": {
+            "valid_config": "कन्फिगरेसन सफलतापूर्वक परीक्षण हुनुपर्छ"
+        },
+        "helpers": {
+            "email_config": "सुरक्षित गर्नुअघि कन्फिगरेसन परीक्षण गर्न निश्चित गर्नुहोस्। कन्फिगरेसन सफलतापूर्वक परीक्षण नभएसम्म तपाईं सुरक्षित गर्न सक्नुहुने छैन।"
+        },
+        "placeholders": {
+            "smtp_host": "SMTP होस्ट प्रविष्ट गर्नुहोस्",
+            "smtp_port": "SMTP पोर्ट प्रविष्ट गर्नुहोस्",
+            "smtp_user": "SMTP प्रयोगकर्ता प्रविष्ट गर्नुहोस्",
+            "smtp_password": "SMTP पासवर्ड प्रविष्ट गर्नुहोस्",
+            "from_email": "प्रेषक इमेल प्रविष्ट गर्नुहोस्",
+            "from_name": "प्रेषक नाम प्रविष्ट गर्नुहोस्",
+            "test_email": "परीक्षण इमेल प्रविष्ट गर्नुहोस्"
+        },
+        "actions": {
+            "add": "नयाँ कन्फिगरेसन थप्नुहोस्",
+            "edit": "कन्फिगरेसन सम्पादन गर्नुहोस्",
+            "test": "कन्फिगरेसन परीक्षण गर्नुहोस्"
+        }
+    },
+    "email-template": {
+        "email-template": "इमेल टेम्प्लेट",
+        "titles": {
+            "edit": "इमेल टेम्प्लेट सम्पादन गर्नुहोस्",
+            "list": "इमेल टेम्प्लेटहरू"
+        },
+        "fields": {
+            "id": "आईडी",
+            "name": "नाम",
+            "data_key": "डाटा कुञ्जी",
+            "data_value": "डाटा मान",
+            "constrants": "अवरोधहरू",
+            "design": "डिजाइन",
+            "html": "HTML"
+        },
+        "placeholders": {
+            "name": "टेम्प्लेट नाम प्रविष्ट गर्नुहोस्",
+            "data_key": "डाटा कुञ्जी प्रविष्ट गर्नुहोस्"
+        },
+        "actions": {
+            "edit": "इमेल टेम्प्लेट सम्पादन गर्नुहोस्"
+        }
+    },
+    "attendance": {
+        "attendance": "हाजिरी",
+        "device": {
+            "device": "हाजिरी उपकरणहरू",
+            "titles": {
+                "list": "उपकरणहरू",
+                "create": "उपकरण थप्नुहोस्",
+                "edit": "उपकरण सम्पादन गर्नुहोस्",
+                "show": "उपकरण विवरण"
+            },
+            "fields": {
+                "name": "नाम",
+                "mac_address": "MAC ठेगाना",
+                "serial_number": "क्रम संख्या",
+                "status": "स्थिति",
+                "ip": "IP ठेगाना",
+                "attendance_source": "पुश मोड",
+                "last_seen_at": "अन्तिम देखिएको",
+                "attlog_stamp": "हाजिरी सिङ्क वाटरमार्क",
+                "server_ip": "सर्भर IP",
+                "server_port": "सर्भर पोर्ट",
+                "server_host_name": "सर्भर होस्टनेम",
+                "server_target_mode": "लक्ष्य मोड",
+                "enable_https": "HTTPS सक्षम गर्नुहोस्",
+                "enable_proxy": "प्रोक्सी सक्षम गर्नुहोस्"
+            },
+            "server_target_mode": {
+                "ip": "IP",
+                "hostname": "होस्टनेम"
+            },
+            "attlog_stamp_helper": "रिकभरीका लागि मात्र - कुन तानिएका हाजिरी रेकर्डहरू पहिले नै थाहा छ भन्ने कुरा क्लाइन्टहरूले यसैबाट निर्णय गर्छन्। अगाडि सार्दा क्लाइन्टले वास्तवमा नपठाएका रेकर्ड पनि छुट्न सक्छ।",
+            "server_address_section": "उपकरण सर्भर ठेगाना",
+            "server_address_helper": "उपकरणले आफ्नो हाजिरी डाटा कहाँ पठाउने हो - यो एपको उपकरणसँगको जडान (माथिको IP ठेगाना) होइन। Set Server Address कमाण्डमार्फत उपकरणमा लेखिन्छ। सर्भर IP र सर्भर होस्टनेम दुवैले उपकरणको उही फिल्डमा लेख्छन् - लक्ष्य मोडले कुन हाल सक्रिय छ भनी छनोट गर्छ, अर्को मान नगुमाई।",
+            "enable_https_helper": "उपकरणमा IsSupportHttps/IsSupportSSL लेख्छ - लेख्न सकिन्छ भनी पुष्टि भएको छ, तर वास्तविक व्यवहार बदल्छ भनी पुष्टि भएको छैन।",
+            "enable_proxy_helper": "माथिको सर्भर IP/होस्टनेमलाई नै प्रोक्सी लक्ष्यको रूपमा लेख्छ - छुट्टै प्रोक्सी ठेगाना छैन।",
+            "actions": {
+                "add": "उपकरण थप्नुहोस्",
+                "edit": "उपकरण सम्पादन गर्नुहोस्"
+            },
+            "online": "अनलाइन",
+            "offline": "अफलाइन",
+            "last_seen": "अन्तिम देखिएको",
+            "never_seen": "कहिल्यै जोडिएको छैन",
+            "attendance_source": {
+                "cloud": "क्लाउडमा सिधा",
+                "local": "स्थानीय रिले"
+            }
+        },
+        "biometric": {
+            "student_biometric": "विद्यार्थी बायोमेट्रिक",
+            "staff_biometric": "कर्मचारी बायोमेट्रिक",
+            "biometric": "बायोमेट्रिक पहिचानहरू",
+            "import": "आयात गर्नुहोस्",
+            "titles": {
+                "list": "बायोमेट्रिक पहिचानहरू",
+                "create": "बायोमेट्रिक पहिचान थप्नुहोस्",
+                "edit": "बायोमेट्रिक पहिचान सम्पादन गर्नुहोस्",
+                "show": "बायोमेट्रिक विवरण",
+                "import": "बायोमेट्रिक नम्बर आयात गर्नुहोस्",
+                "bulk_add": "बायोमेट्रिक प्रणालीमा बल्क विद्यार्थी थप्नुहोस्"
+            },
+            "fields": {
+                "staff": "कर्मचारी",
+                "student": "विद्यार्थी",
+                "student_name": "विद्यार्थीको नाम",
+                "class": "कक्षा",
+                "section": "सेक्सन",
+                "batch": "ब्याच",
+                "user_number": "प्रयोगकर्ता नम्बर",
+                "user_pin": "प्रयोगकर्ता PIN",
+                "card_number": "कार्ड नम्बर",
+                "fingerprint": "औंठाछाप",
+                "last_synced": "अन्तिम सिंक",
+                "created_at": "सिर्जना मिति",
+                "status": "स्थिति",
+                "reg_id": "दर्ता ID",
+                "starting_pin": "सुरुवात PIN",
+                "import": "एक्सेल आयात गर्नुहोस्"
+            },
+            "actions": {
+                "add": "बायोमेट्रिक पहिचान थप्नुहोस्",
+                "edit": "बायोमेट्रिक पहिचान सम्पादन गर्नुहोस्",
+                "bulk_add": "बल्क थप्नुहोस्",
+                "search": "खोज्नुहोस्",
+                "searching": "खोज्दै...",
+                "adding": "थप्दै...",
+                "select_all": "सबै चयन गर्नुहोस्",
+                "import": "आयात गर्नुहोस्",
+                "deleteRow": "पंक्ति मेटाउनुहोस्",
+                "add_students": "{{count}} विद्यार्थी{{plural}} थप्नुहोस्"
+            },
+            "bulk_add": {
+                "search_filters": "खोज फिल्टरहरू",
+                "next_available": "अर्को उपलब्ध: {{pin}}",
+                "filter_by_class": "कक्षा अनुसार फिल्टर (वैकल्पिक)",
+                "info_message": "योग्य विद्यार्थी खोज्न \"खोज्नुहोस्\" क्लिक गर्नुहोस्। प्रत्येक विद्यार्थीलाई {{pin}} बाट सुरु हुने PIN स्वतः तोकिनेछ। विद्यार्थीहरू सक्रिय, चालु, र पहिले नै बायोमेट्रिक प्रणालीमा दर्ता नभएका हुनुपर्छ।",
+                "found_students": "{{count}} योग्य विद्यार्थी फेला परे",
+                "selected_summary": "प्रत्येक विद्यार्थीलाई PIN स्वतः तोकिएको छ ({{pin}} बाट सुरु)। आवश्यक भएमा तपाईं तालिकामा कुनै पनि PIN सम्पादन गर्न सक्नुहुन्छ।",
+                "selected_count": "{{count}} विद्यार्थी चयन गरियो",
+                "success_message": "बायोमेट्रिक प्रणालीमा {{count}} विद्यार्थी सफलतापूर्वक थपियो",
+                "error_select_one": "कृपया कम्तीमा एउटा विद्यार्थी चयन गर्नुहोस्",
+                "error_min_pin": "सुरुवात PIN कम्तीमा 10001 हुनुपर्छ"
+            }
+        },
+        "command": {
+            "command": "उपकरण कमाण्डहरू",
+            "titles": {
+                "list": "उपकरण कमाण्ड पंक्ति",
+                "create": "कमाण्ड पठाउनुहोस्",
+                "summary": "उपकरण स्थिति अवलोकन"
+            },
+            "fields": {
+                "device": "उपकरण",
+                "devices": "लक्षित उपकरणहरू",
+                "devices_placeholder": "उपकरण खोज्नुहोस् (सबैका लागि खाली छोड्नुहोस्)",
+                "devices_hint": "सबै सक्रिय उपकरणमा प्रसारण गर्न खाली छोड्नुहोस्।",
+                "command_type": "कमाण्ड",
+                "status": "स्थिति",
+                "command_string": "कमाण्ड स्ट्रिङ",
+                "sent_at": "पठाइएको मिति",
+                "executed_at": "कार्यान्वित मिति",
+                "created_at": "सिर्जना मिति",
+                "result": "नतिजा",
+                "error": "त्रुटि",
+                "payload_pin": "प्रयोगकर्ता PIN",
+                "payload_name": "नाम",
+                "payload_card_no": "कार्ड नम्बर",
+                "payload_privilege": "विशेषाधिकार (0=प्रयोगकर्ता, 14=एडमिन)",
+                "payload_time": "मिति र समय",
+                "payload_time_hint": "हालको सर्भर समय प्रयोग गर्न खाली छोड्नुहोस्।",
+                "payload_no": "होईन",
+                "payload_index": "औंला अनुक्रमणिका",
+                "payload_template": "बायोमेट्रिक टेम्प्लेट (Base64)"
+            },
+            "status": {
+                "pending": "बाँकी",
+                "sent": "पठाइयो",
+                "executed": "कार्यान्वित",
+                "failed": "असफल"
+            },
+            "actions": {
+                "dispatch": "कमाण्ड पठाउनुहोस्",
+                "cancel": "रद्द गर्नुहोस्",
+                "retry": "पुनः प्रयास गर्नुहोस्"
+            },
+            "filters": {
+                "all_commands": "सबै कमाण्ड",
+                "all_statuses": "सबै स्थिति"
+            },
+            "dialogs": {
+                "cancel_title": "कमाण्ड रद्द गर्नुहोस्",
+                "cancel_description": "के तपाईं यो बाँकी कमाण्ड रद्द गर्न निश्चित हुनुहुन्छ?",
+                "retry_title": "कमाण्ड पुनः प्रयास गर्नुहोस्",
+                "retry_description": "यो असफल कमाण्डलाई बाँकीमा रिसेट गर्ने ताकि यो पुनः पठाइयोस्?"
+            },
+            "messages": {
+                "dispatched": "{{count}} कमाण्ड सफलतापूर्वक पठाइयो।",
+                "no_devices": "कुनै सक्रिय उपकरण फेला परेन।",
+                "dispatch_failed": "कमाण्ड पठाउन असफल। कृपया पुनः प्रयास गर्नुहोस्।"
+            },
+            "errors": {
+                "dispatch_failed": "पठाउन असफल। कृपया पुनः प्रयास गर्नुहोस्।"
+            },
+            "device": {
+                "online": "अनलाइन",
+                "offline": "अफलाइन",
+                "last_seen": "अन्तिम देखिएको",
+                "never_seen": "कहिल्यै जोडिएको छैन"
+            }
+        }
+    },
+    "setting": {
+        "setting": "सेटिङ"
+    },
+    "gate_pass": {
+        "gate_pass": "गेट पास",
+        "titles": {
+            "list": "गेट पासहरू",
+            "create": "नयाँ गेट पास",
+            "edit": "गेट पास सम्पादन",
+            "show": "गेट पास विवरण",
+            "report": "गेट पास रिपोर्ट"
+        },
+        "fields": {
+            "pass_no": "पास नं.",
+            "student": "विद्यार्थी",
+            "students": "विद्यार्थीहरू",
+            "class": "कक्षा",
+            "section": "सेक्सन",
+            "reason": "कारण",
+            "pass_type": "पास प्रकार",
+            "duration_minutes": "अवधि (मिनेट)",
+            "escort_name": "साथमा जाने व्यक्ति",
+            "escort_phone": "साथमा जाने व्यक्तिको फोन",
+            "checkout": "बाहिरिएको समय",
+            "checkin": "फर्किएको समय",
+            "remark": "कैफियत",
+            "state": "अवस्था",
+            "status": "स्थिति",
+            "granted_by": "स्वीकृत गर्ने",
+            "checkout_by": "बाहिर पठाउने",
+            "checkin_by": "फर्किएको जनाउने",
+            "created_at": "बनाइएको मिति",
+            "date_range": "मिति सीमा",
+            "minutes_out": "बाहिर रहेको मिनेट"
+        },
+        "type": {
+            "OutReturn": "बाहिर गई फर्कने",
+            "OutOnly": "बाहिर मात्र"
+        },
+        "state": {
+            "Pending": "प्रक्रियामा",
+            "CheckedOut": "बाहिर गएको",
+            "Completed": "पूरा भएको",
+            "NotReturned": "नफर्केको",
+            "Cancelled": "रद्द गरिएको",
+            "Overdue": "समय नाघेको"
+        },
+        "actions": {
+            "add": "नयाँ गेट पास",
+            "edit": "गेट पास सम्पादन",
+            "check_out": "बाहिर पठाउनुहोस्",
+            "check_in": "फर्किएको जनाउनुहोस्",
+            "cancel_pass": "पास रद्द गर्नुहोस्",
+            "print": "स्लिप प्रिन्ट",
+            "view": "हेर्नुहोस्"
+        },
+        "messages": {
+            "checkout_confirm": "विद्यार्थी विद्यालयको गेटबाट बाहिरिएको रेकर्ड गर्नुहोस्।",
+            "checkin_confirm": "विद्यार्थी विद्यालय फर्किएको रेकर्ड गर्नुहोस्।",
+            "cancel_confirm": "यो प्रयोग नभएको गेट पास रद्द गर्ने हो?",
+            "no_return_expected": "यस पासमा फर्किने अपेक्षा छैन।"
+        },
+        "report": {
+            "generate": "रिपोर्ट निकाल्नुहोस्",
+            "total": "जम्मा",
+            "pending": "प्रक्रियामा",
+            "checked_out": "बाहिर गएको",
+            "completed": "पूरा भएको",
+            "not_returned": "नफर्केको",
+            "cancelled": "रद्द",
+            "overdue": "समय नाघेको",
+            "out_only": "बाहिर मात्र",
+            "by_class": "कक्षा अनुसार",
+            "details": "विवरण",
+            "no_data": "चयन गरिएको अवधिमा कुनै गेट पास भेटिएन।"
+        },
+        "slip": {
+            "title": "विद्यार्थी गेट पास",
+            "authorized_by": "स्वीकृत गर्ने",
+            "guard_signature": "गार्डको हस्ताक्षर",
+            "issued_at": "जारी मिति"
+        }
+    },
+    "home_visit": {
+        "home_visit": "गृह भ्रमण",
+        "titles": {
+            "list": "गृह भ्रमणहरू",
+            "create": "नयाँ गृह भ्रमण",
+            "edit": "गृह भ्रमण सम्पादन",
+            "questions": "भ्रमण प्रश्नहरू",
+            "collect": "उत्तर सङ्कलन",
+            "report": "गृह भ्रमण प्रतिवेदन",
+            "answers": "गृह भ्रमण उत्तरहरू"
+        },
+        "fields": {
+            "visit_no": "भ्रमण #",
+            "visit": "गृह भ्रमण",
+            "title": "शीर्षक",
+            "title_placeholder": "जस्तै: पहिलो त्रैमासिक गृह भ्रमण",
+            "student": "विद्यार्थी",
+            "class": "कक्षा",
+            "classes": "कक्षाहरू",
+            "section": "सेक्सन",
+            "batch": "ब्याच",
+            "any_batch": "जुनसुकै ब्याच",
+            "start_date": "सुरु मिति",
+            "end_date": "अन्त्य मिति",
+            "visited_at": "भ्रमण समय",
+            "purpose": "उद्देश्य",
+            "address": "ठेगाना",
+            "location": "स्थान",
+            "persons_met": "भेटिएका व्यक्तिहरू",
+            "summary": "अवलोकन सारांश",
+            "follow_up": "फलो अप",
+            "follow_up_note": "फलो अप टिप्पणी",
+            "staff": "शिक्षक",
+            "visited_by": "भ्रमण गर्ने",
+            "created_by": "सिर्जना गर्ने",
+            "questions": "प्रश्नहरू",
+            "state": "अवस्था",
+            "status": "स्थिति",
+            "date_range": "मिति सीमा"
+        },
+        "state": {
+            "Open": "खुला",
+            "Closed": "बन्द"
+        },
+        "student_state": {
+            "NotVisited": "भ्रमण भएको छैन",
+            "Draft": "ड्राफ्ट",
+            "Completed": "सम्पन्न"
+        },
+        "actions": {
+            "add": "नयाँ गृह भ्रमण",
+            "edit": "गृह भ्रमण सम्पादन",
+            "close": "भ्रमण बन्द गर्नुहोस्",
+            "reopen": "भ्रमण पुनः खोल्नुहोस्",
+            "collect_answers": "उत्तर सङ्कलन गर्नुहोस्",
+            "review_answers": "उत्तर समीक्षा गर्नुहोस्",
+            "print": "प्रिन्ट"
+        },
+        "form": {
+            "selected_count": "{{count}} छानियो",
+            "search_questions": "प्रश्न खोज्नुहोस्...",
+            "no_questions": "प्रश्न बैंक खाली छ। पहिले प्रश्न बनाउनुहोस्।",
+            "filtered_by_class": "{{classes}} का लागि तयार प्रश्नहरू देखाइँदै (सबै कक्षाका प्रश्नहरू सहित)",
+            "no_matching_questions": "छानिएका कक्षा वा खोजसँग मिल्ने कुनै प्रश्न छैन।"
+        },
+        "question": {
+            "fields": {
+                "question": "प्रश्न",
+                "type": "प्रकार",
+                "audience": "कसलाई सोध्ने",
+                "options": "विकल्पहरू",
+                "add_option": "विकल्प थपेर Enter थिच्नुहोस्",
+                "classes": "कक्षाहरू",
+                "all_classes": "सबै कक्षा",
+                "is_required": "अनिवार्य",
+                "hint": "अन्तर्वार्ता सङ्केत",
+                "hint_placeholder": "सोध्दा शिक्षकलाई देखाइने निर्देशन",
+                "sort": "क्रम",
+                "status": "स्थिति"
+            },
+            "type": {
+                "Subjective": "विषयगत",
+                "SingleChoice": "एकल छनोट",
+                "MultipleChoice": "बहु छनोट",
+                "YesNo": "हो / होइन",
+                "Rating": "मूल्याङ्कन (१-५)"
+            },
+            "audience": {
+                "Student": "विद्यार्थी",
+                "Parent": "अभिभावक",
+                "Both": "दुवै"
+            },
+            "actions": {
+                "add": "नयाँ प्रश्न",
+                "edit": "प्रश्न सम्पादन"
+            }
+        },
+        "collect": {
+            "roster": "विद्यार्थीहरू",
+            "roster_progress": "{{total}} मध्ये {{completed}} विद्यार्थी सम्पन्न",
+            "search_student": "नाम वा दर्ता नम्बर खोज्नुहोस्...",
+            "no_students": "यस भ्रमणका कक्षाहरूमा कुनै विद्यार्थी भेटिएन।",
+            "no_search_results": "तपाईंको खोजसँग मिल्ने विद्यार्थी भेटिएन।",
+            "student_position": "विद्यार्थी {{total}} मध्ये {{current}}",
+            "previous_student": "अघिल्लो विद्यार्थी",
+            "next_student": "अर्को विद्यार्थी",
+            "interview": "अन्तर्वार्ता",
+            "progress": "{{total}} मध्ये {{answered}} उत्तर दिइयो",
+            "persons_met_placeholder": "जस्तै: बुबा, आमा",
+            "summary_placeholder": "घरको वातावरणको समग्र अवलोकन",
+            "answer_placeholder": "उत्तर लेख्नुहोस्...",
+            "remark_placeholder": "टिप्पणी (वैकल्पिक)",
+            "needs_follow_up": "फलो अप आवश्यक",
+            "yes": "हो",
+            "no": "होइन",
+            "save_draft": "ड्राफ्ट सुरक्षित गर्नुहोस्",
+            "complete_visit": "भ्रमण पूरा गर्नुहोस्",
+            "update_answers": "उत्तर अद्यावधिक गर्नुहोस्",
+            "completed": "गृह भ्रमण दर्ता भयो",
+            "draft_saved": "ड्राफ्ट सुरक्षित भयो",
+            "missing_required": "{{count}} अनिवार्य प्रश्नको उत्तर दिइएको छैन",
+            "no_questions": "यस गृह भ्रमणमा कुनै प्रश्न छानिएको छैन।",
+            "closed_note": "यो गृह भ्रमण बन्द छ; पुनः नखोलेसम्म उत्तरहरू परिवर्तन गर्न मिल्दैन।",
+            "discard_changes_confirm": "असुरक्षित परिवर्तनहरू त्यागेर अगाडि बढ्ने हो?",
+            "discard": "त्याग्नुहोस्"
+        },
+        "report": {
+            "generate": "तयार गर्नुहोस्",
+            "eligible": "विद्यार्थीहरू",
+            "visited": "भ्रमण गरिएको",
+            "completed": "सम्पन्न",
+            "draft": "ड्राफ्ट",
+            "follow_up": "फलो अप",
+            "coverage": "कभरेज",
+            "by_class": "कक्षा अनुसार",
+            "question_analysis": "प्रश्न विश्लेषण",
+            "answered": "{{count}} उत्तर",
+            "answers": "उत्तरहरू",
+            "details": "विवरण",
+            "no_data": "छानिएको गृह भ्रमणका लागि कुनै डाटा छैन।"
+        },
+        "answers": {
+            "search_student": "विद्यार्थीको नाम वा दर्ता नम्बर खोज्नुहोस्...",
+            "view_print": "उत्तरहरू हेर्नुहोस् र प्रिन्ट गर्नुहोस्",
+            "answer_sheet": "गृह भ्रमण उत्तर पाना"
+        }
+    }
+}

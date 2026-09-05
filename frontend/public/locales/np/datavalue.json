@@ -1,0 +1,110 @@
+{
+    "editor": {
+        "menu": {
+            "delete": "मेटाउनुहोस्",
+            "lock": "लक गर्नुहोस्",
+            "unlock": "अनलक गर्नुहोस्",
+            "show": "देखाउनुहोस्",
+            "hide": "लुकाउनुहोस्",
+            "edit": "सम्पादन गर्नुहोस्",
+            "top": "शीर्ष",
+            "bottom": "तल",
+            "clone": "क्लोन गर्नुहोस्"
+        },
+        "labels": {
+            "paperSize": "कागजको आकार",
+            "attributeSettings": "विशेषता सेटिङ",
+            "componentVisibility": "कम्पोनेन्ट दृश्यता",
+            "styleSettings": "शैली सेटिङ",
+            "questionInformation": "प्रश्न जानकारी",
+            "questionProperties": "प्रश्न गुणहरू",
+            "headerProperties": "हेडर गुणहरू",
+            "questionSettings": "प्रश्न सेटिङ",
+            "type": "प्रकार",
+            "group": "समूह",
+            "question": "प्रश्न",
+            "subQuestions": "उप-प्रश्नहरू",
+            "options": "विकल्पहरू",
+            "hints": "संकेतहरू"
+        },
+        "fields": {
+            "name": "नाम",
+            "rotation": "घुमाउरो",
+            "width": "चौडाइ",
+            "height": "उचाइ",
+            "x": "X",
+            "y": "Y",
+            "scaleX": "स्केल X",
+            "scaleY": "स्केल Y",
+            "fontSize": "फन्ट साइज",
+            "text": "पाठ",
+            "color": "रङ",
+            "bold": "मोटो",
+            "italic": "छड्के",
+            "textAlign": "पाठ पङ्क्तिबद्ध",
+            "opacity": "अस्पष्टता",
+            "tableRows": "तालिका पङ्क्तिहरू",
+            "cellPadding": "सेल प्याडिङ",
+            "rowHeight": "पङ्क्ति उचाइ",
+            "colHeight": "स्तम्भ उचाइ",
+            "borderWidth": "किनारा चौडाइ",
+            "borderColor": "किनारा रङ",
+            "backgroundColor": "पृष्ठभूमि रङ",
+            "showQuestionText": "प्रश्न पाठ देखाउनुहोस्",
+            "showOptions": "विकल्पहरू देखाउनुहोस्",
+            "showHints": "संकेतहरू देखाउनुहोस्",
+            "showSubQuestions": "उप-प्रश्नहरू देखाउनुहोस्",
+            "showImages": "छविहरू देखाउनुहोस्",
+            "questionText": "प्रश्न पाठ",
+            "questionNumber": "प्रश्न नम्बर",
+            "options": "विकल्पहरू",
+            "marks": "अङ्क",
+            "hints": "संकेतहरू",
+            "subQuestions": "उप-प्रश्नहरू",
+            "optionPrefix": "विकल्प उपसर्ग",
+            "images": "छविहरू",
+            "content": "सामग्री",
+            "fontWeight": "फन्ट मोटाइ",
+            "fontStyle": "फन्ट शैली",
+            "align": "पङ्क्तिबद्ध",
+            "school_name": "विद्यालयको नाम",
+            "exam_name": "परीक्षाको नाम",
+            "class_name": "कक्षाको नाम",
+            "subject_name": "विषयको नाम",
+            "year_name": "वर्ष नाम",
+            "duration": "अवधि",
+            "full_mark": "पूर्ण अङ्क",
+            "pass_mark": "उत्तीर्ण अङ्क",
+            "notes": "नोटहरू"
+        },
+        "validation": {
+            "greaterThan": "उत्तीर्ण अंक पूर्णांकभन्दा कम हुनुपर्छ"
+        },
+        "actions": {
+            "list": "सूची",
+            "create": "सिर्जना गर्नुहोस्",
+            "edit": "सम्पादन गर्नुहोस्",
+            "save": "देखाउनुहोस्",
+            "cancel": "रद्द गर्नुहोस्"
+        }
+    },
+    "datavalue": {
+        "datavalue": "डाटा मान",
+        "info": {
+            "editToView": "हेर्नका लागि सम्पादन गर्नुहोस्"
+        },
+        "fields": {
+            "name": "नाम",
+            "module": "मोड्युल",
+            "data_key": "डाटा कुञ्जी",
+            "data_type": "प्रकार",
+            "data_value": "मान",
+            "constants": "स्थिरांकहरू"
+        },
+        "actions": {
+            "add": "नयाँ डाटा मान थप्नुहोस्",
+            "edit": "डाटा मान सम्पादन गर्नुहोस्",
+            "clone": "डाटा मान क्लोन गर्नुहोस्"
+        }
+    }
+}

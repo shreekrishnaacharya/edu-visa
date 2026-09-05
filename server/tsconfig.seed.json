@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist-seed",
+    "noEmit": false,
+    "rootDir": ".."
+  },
+  "include": ["src/**/*.ts", "../frontend/src/mocks/db/**/*.ts", "../frontend/src/mocks/types.ts"],
+  "exclude": ["node_modules", "dist", "dist-seed", "test", "**/*.spec.ts"]
+}

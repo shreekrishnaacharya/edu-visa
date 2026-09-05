@@ -1,0 +1,361 @@
+{
+    "staff": {
+        "staff": "Staffs",
+        "titles": {
+            "edit": "Edit Staff",
+            "list": "Staffs",
+            "employeeDetail": "Staff Info",
+            "personalInfo": "Personal Information",
+            "contactInfo": "Contact Information",
+            "studentRelation": "Student Relations",
+            "staffRelation": "Staff Relations",
+            "payrollBank": "Payroll and Bank Info",
+            "uploadDoc": "Uploads",
+            "staffDoc": "Staff Documents",
+            "staffTraining": "Staff Trainings",
+            "otherInfo": "Other Info",
+            "scheduleHead": "Periods",
+            "groups": "Groups",
+            "import": "Import Staff"
+        },
+        "tabs": {
+            "staffInfo": "Staff Info",
+            "libraryInfo": "Library",
+            "leaveInfo": "Attendance",
+            "periodSchedule": "Period Schedule",
+            "subject": "Subject",
+            "notes": "Notes",
+            "exams": "Exams",
+            "certificates": "Certificates",
+            "accounts": "Accounts",
+            "payrollBank": "Payroll & Bank Info"
+        },
+        "fields": {
+            "id": "ID",
+            "name": "Name",
+            "code": "Code",
+            "image": "Profile Image",
+            "email": "Email",
+            "phone": "Phone",
+            "post": "Post",
+            "married": "Marital Status",
+            "emp_type": "Employee Type",
+            "type": "Type",
+            "contract_type": "Contract",
+            "cit_no": "CIT Number",
+            "pan_no": "PAN Number",
+            "pf_no": "PF Number",
+            "ssf_no": "SSF Number",
+            "bank_detail": "Bank Detail",
+            "bank_name": "Bank Name",
+            "account_no": "Account Number",
+            "account_name": "Account Name",
+            "licenses_no": "Licenses Number",
+            "qualification": "Qualification",
+            "address": "Address",
+            "address1": "Address1",
+            "address2": "Address2",
+            "blood_group": "Blood Group",
+            "gender": "Gender",
+            "date_of_birth": "Date of Birth",
+            "date_of_join": "Date of Join",
+            "work_shift": "Work Shift",
+            "require_attendance": "Required Attendance",
+            "department": "Department",
+            "payroll": "Payroll",
+            "ledger": "Ledger",
+            "groups": "Groups",
+            "status": "Status",
+            "salary": "Salary",
+            "excel": "Excel File"
+        },
+        "actions": {
+            "add": "Add new user",
+            "edit": "Edit user",
+            "setLedger": "Set Ledger",
+            "import": "Import Staff",
+            "deleteRow": "Delete Row"
+        }
+    },
+    "groups": {
+        "groups": "Groups",
+        "titles": {
+            "show": "Group Details",
+            "list": "Group List"
+        },
+        "labels": {
+            "filter": "Filter",
+            "from": "From",
+            "to": "To"
+        },
+        "fields": {
+            "name": "Name",
+            "tot_mem": "Total Members",
+            "employees": "Employees",
+            "members": "Members"
+        },
+        "actions": {
+            "add": "Add New Group",
+            "edit": "Edit Group",
+            "check": "Manage",
+            "save": "Save",
+            "reset": "Reset",
+            "transfer": "Transfer"
+        }
+    },
+    "student": {
+        "student": "Student",
+        "titles": {
+            "edit": "Edit Student",
+            "list": "Students"
+        },
+        "fields": {
+            "student": "Student Name",
+            "relation": "Relation"
+        },
+        "actions": {
+            "add": "Add student",
+            "edit": "Edit student"
+        }
+    },
+    "staff_relation": {
+        "staff_relation": "Staff Relation",
+        "titles": {
+            "edit": "Edit Relation",
+            "list": "Staff Relations"
+        },
+        "fields": {
+            "staff": "Staff Name",
+            "relation": "Relation"
+        },
+        "actions": {
+            "add": "Add Staff Relation",
+            "edit": "Edit Staff Relation"
+        }
+    },
+    "staff_doc": {
+        "staff_doc": "Documents",
+        "titles": {
+            "edit": "Edit Document",
+            "list": "Staff Documents"
+        },
+        "fields": {
+            "image": "File",
+            "type": "Type",
+            "remark": "Remark"
+        },
+        "actions": {
+            "add": "Add Document",
+            "edit": "Edit Document"
+        }
+    },
+    "department": {
+        "department": "Department",
+        "titles": {
+            "edit": "Edit Department",
+            "list": "Departments"
+        },
+        "fields": {
+            "id": "ID",
+            "name": "Name",
+            "description": "Description"
+        },
+        "actions": {
+            "add": "Add new department",
+            "edit": "Edit department"
+        }
+    },
+    "group": {
+        "group": "Group",
+        "titles": {
+            "edit": "Edit Group",
+            "list": "Groups"
+        },
+        "fields": {
+            "id": "ID",
+            "name": "Name"
+        },
+        "actions": {
+            "add": "Add new user",
+            "edit": "Edit user"
+        }
+    },
+    "post": {
+        "post": "Post",
+        "titles": {
+            "edit": "Edit Post",
+            "list": "Posts"
+        },
+        "fields": {
+            "id": "ID",
+            "name": "Name",
+            "level": "Level",
+            "description": "Description"
+        },
+        "actions": {
+            "add": "Add new post",
+            "edit": "Edit post"
+        }
+    },
+    "shift": {
+        "shift": "Shift",
+        "titles": {
+            "edit": "Edit Shift",
+            "list": "Shifts"
+        },
+        "fields": {
+            "id": "ID",
+            "name": "Name",
+            "check_in": "Check In",
+            "check_out": "Check Out",
+            "required_hour": "Required Hour",
+            "late_check": "Late Check",
+            "auto_absent": "Auto Absent",
+            "late_notification": "Late Notify",
+            "absent_message": "Message"
+        },
+        "actions": {
+            "add": "Add new shift",
+            "edit": "Edit shift"
+        }
+    },
+    "staff_training": {
+        "staff_training": "Staff Training",
+        "titles": {
+            "edit": "Edit Training",
+            "list": "Staff Trainings"
+        },
+        "fields": {
+            "id": "ID",
+            "name": "Name",
+            "type": "Type",
+            "organizer": "Organizer",
+            "duration": "Duration",
+            "year": "Year"
+        },
+        "actions": {
+            "add": "Add new training",
+            "edit": "Edit training"
+        }
+    },
+    "dashboard": {
+        "dashboard": "Dashboard",
+        "labels": {
+            "totalStaff": "Total Staffs",
+            "totalGroup": "Total Groups",
+            "totalPost": "Total Posts",
+            "totalDepartment": "Total Departments",
+            "staffByType": "Staff By Type",
+            "todayBirthday": "Today's Birthday",
+            "newStaff": "New Staff",
+            "groupPie": "Group Pie"
+        },
+        "info": {
+            "totalBirthday": "You have {{count}} birthday today",
+            "noBirthday": "There is not birthday today"
+        },
+        "actions": {
+            "viewAll": "View all"
+        }
+    },
+    "attendance": {
+        "attendance": "Attendance",
+        "records": {
+            "records": "Records",
+            "titles": {
+                "list": "Records",
+                "create": "Add Record",
+                "edit": "Edit Record",
+                "show": "Record Details",
+                "bulk_add": "Bulk Add Attendance"
+            },
+            "fields": {
+                "staff": "Staff",
+                "check_type": "Check Type",
+                "check_time": "Check Time",
+                "device_type": "Device Type",
+                "device_name": "Device Name",
+                "attendance": "Attendance",
+                "biometric": "Biometric",
+                "device": "Device",
+                "latitude": "Latitude",
+                "longitude": "Longitude",
+                "remarks": "Remarks"
+            },
+            "filters": {
+                "staff_name": "Staff Name",
+                "date_range": "Date Range"
+            },
+            "actions": {
+                "add": "Add Record",
+                "edit": "Edit Record",
+                "checkin": "Check In",
+                "checkout": "Check Out",
+                "bulk_add": "Bulk Add",
+                "adding": "Adding..."
+            },
+            "bulk_add": {
+                "dates": "Dates",
+                "staff_hint": "Only staff with attendance tracking enabled (Required Attendance = Yes) are listed.",
+                "summary": "This will create up to {{records}} record(s) for {{staff}} staff across {{dates}} date(s).",
+                "success_message": "Successfully added {{count}} attendance record(s)",
+                "skipped_message": "{{count}} record(s) already existed and were skipped",
+                "failed_message": "{{count}} staff were skipped",
+                "error_select_staff": "Please select at least one staff",
+                "error_select_dates": "Please select at least one date",
+                "error_select_time": "Please set a check-in or check-out time"
+            }
+        },
+        "summary": {
+            "summary": "Summary",
+            "titles": {
+                "list": "Summary",
+                "create": "Add Summary",
+                "edit": "Edit Summary",
+                "show": "Summary Details"
+            },
+            "fields": {
+                "staff": "Staff",
+                "attendance_date": "Date",
+                "first_checkin": "First Check In",
+                "last_checkout": "Last Check Out",
+                "total_working_hours": "Total Hours",
+                "is_late": "Late",
+                "is_absent": "Absent",
+                "attendance": "Attendance",
+                "state": "State",
+                "remark": "Remark",
+                "response": "Response",
+                "created_at": "Created At",
+                "updated_at": "Updated At"
+            },
+            "filters": {
+                "staff_name": "Staff Name",
+                "date_range": "Date Range"
+            },
+            "actions": {
+                "add": "Add Summary",
+                "edit": "Edit Summary"
+            }
+        },
+        "report": {
+            "report": "Report"
+        }
+    },
+    "setting": {
+        "setting": "Setting"
+    },
+    "staff_subject": {
+        "subject": "Staff Subject",
+        "titles": {
+            "list": "Subjects",
+            "edit": "Edit Subjects"
+        },
+        "fields": {
+            "app_features": "Features"
+        },
+        "actions": {
+            "add": "Add Subject"
+        }
+    }
+}

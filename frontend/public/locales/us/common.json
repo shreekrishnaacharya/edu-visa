@@ -1,0 +1,252 @@
+{
+ "pages": {
+  "login": {
+   "title": "Sign in to your account",
+   "signin": "Sign in",
+   "signup": "Sign up",
+   "divider": "or",
+   "fields": {
+    "email": "Email",
+    "password": "Password"
+   },
+   "errors": {
+    "validEmail": "Invalid email address"
+   },
+   "buttons": {
+    "submit": "Login",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don’t have an account?",
+    "rememberMe": "Remember me"
+   }
+  },
+  "forgotPassword": {
+   "title": "Forgot your password?",
+   "fields": {
+    "email": "Email"
+   },
+   "errors": {
+    "validEmail": "Invalid email address"
+   },
+   "buttons": {
+    "submit": "Send reset instructions"
+   }
+  },
+  "updatePassword": {
+   "title": "Update password",
+   "fields": {
+    "password": "New Password",
+    "confirmPassword": "Confirm new password"
+   },
+   "errors": {
+    "confirmPasswordNotMatch": "Passwords do not match"
+   },
+   "buttons": {
+    "submit": "Update"
+   }
+  },
+  "error": {
+   "info": "You may have forgotten to add the {{action}} component to {{resource}} resource.",
+   "404Title": "Sorry, page not found!",
+   "404Description": "Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve mistyped the URL? Be sure to check your spelling.",
+   "403Title": "403 - No permission",
+   "403Description": "The page you’re trying to access has restricted access. Please refer to your system administrator.",
+   "500Title": "500 - Something went wrong",
+   "500Description": "There was an error, please try again later.",
+   "backHome": "Back Home",
+   "goHome": "Go To Home"
+  }
+ },
+ "titles": {
+  "confirmDelete": "Delete the item",
+  "confirm": "Are you sure?",
+  "filter": "Filter"
+ },
+ "description": {
+  "confirmDelete": "Are you sure you want to delete?",
+  "confirm": "Are you sure?"
+ },
+ "actions": {
+  "list": "List",
+  "create": "Create",
+  "edit": "Edit",
+  "show": "Show",
+  "delete": "Delete",
+  "cancel": "Cancel",
+  "save": "Save",
+  "back": "Back",
+  "stepNext": "Save and next",
+  "addRecord": "Add Record",
+  "skip": "Skip",
+  "next": "Next",
+  "close": "Close",
+  "finish": "Finish"
+ },
+ "buttons": {
+  "add": "Add",
+  "addMore": "Add More",
+  "create": "Create",
+  "save": "Save",
+  "logout": "Logout",
+  "delete": "Delete",
+  "edit": "Edit",
+  "cancel": "Cancel",
+  "close": "Close",
+  "reset": "Reset",
+  "print": "Print",
+  "confirm": "Are you sure?",
+  "filter": "Filter",
+  "clear": "Clear",
+  "refresh": "Refresh",
+  "search": "Search",
+  "show": "Show",
+  "undo": "Undo",
+  "showMore": "Show More",
+  "showLess": "Show Less",
+  "import": "Import",
+  "export": "Export",
+  "update": "Update",
+  "clone": "Clone",
+  "accept": "Accept",
+  "acceptAll": "Accept all",
+  "reject": "Reject",
+  "rejectAll": "Reject all",
+  "approve": "Approve",
+  "approveAll": "Approve All",
+  "discard": "Discard",
+  "discardAll": "Discard All",
+  "nextStep": "Next",
+  "previousStep": "Previous",
+  "uploadImage": "Upload Image",
+  "upload": "Upload",
+  "yes": "Yes",
+  "no": "No",
+  "viewAll": "View all"
+ },
+ "labels": {
+  "sno": "SNO.",
+  "image": "Image",
+  "note": "Note",
+  "name": "Name",
+  "phone": "Phone",
+  "email": "Email",
+  "blood_group": "Blood Group",
+  "address": "Address",
+  "address1": "Address1",
+  "address2": "Address2",
+  "occupation": "Occupation",
+  "optional": "Optional",
+  "required": "Required"
+ },
+ "other": {
+  "enter": "Enter "
+ },
+ "loading": "Loading",
+ "tags": {
+  "clone": "Clone"
+ },
+ "table": {
+  "actions": "Actions",
+  "inTotal": "in total",
+  "noData": "No records found"
+ },
+ "search": {
+  "placeholder": "Search by Store ID, E-mail, Keyword",
+  "more": "more"
+ },
+ "isActive": {
+  "placeholder": "Search by Status",
+  "label": "Status",
+  "true": "Active",
+  "false": "Ideal"
+ },
+ "status": {
+  "label": "Status",
+  "enable": "Enable",
+  "disable": "Disable"
+ },
+ "onFooter": {
+  "label": "On Footer",
+  "enable": "Yes",
+  "disable": "No"
+ },
+ "yesno": {
+  "label": "Status",
+  "yes": "Yes",
+  "no": "No"
+ },
+ "read": {
+  "label": "Read",
+  "read": "read",
+  "new": "new"
+ },
+ "gender": {
+  "label": "Gender",
+  "Male": "Male",
+  "Female": "Female",
+  "Unisex": "Unisex"
+ },
+ "warnWhenUnsavedChanges": "Are you sure you want to leave? You have unsaved changes.",
+ "notifications": {
+  "success": "Successful",
+  "error": "Error (status code: {{statusCode}})",
+  "undoable": "You have {{seconds}} seconds to undo",
+  "createSuccess": "Successfully created {{resource}}",
+  "createError": "There was an error creating {{resource}} (status code: {{statusCode}})",
+  "deleteSuccess": "Successfully deleted {{resource}}",
+  "deleteError": "Error when deleting {{resource}} (status code: {{statusCode}})",
+  "editSuccess": "Successfully edited {{resource}}",
+  "editError": "Error when editing {{resource}} (status code: {{statusCode}})",
+  "importProgress": "Importing: {{processed}}/{{total}}"
+ },
+ "validation": {
+  "required": "Cannot be empty",
+  "email": "Invalid email",
+  "min": "The minimum length is {{min}}",
+  "max": "The maximum length is {{max}}",
+  "minLength": "The minimum length is {{min}}",
+  "maxLength": "The maximum length is {{max}}",
+  "pattern": "Invalid pattern",
+  "unique": "Already exists",
+  "minValue": "The minimum value is {{min}}",
+  "maxValue": "The maximum value is {{max}}",
+  "minNumber": "The minimum value is {{min}}",
+  "maxNumber": "The maximum value is {{max}}",
+  "minDate": "The minimum date is {{min}}",
+  "maxDate": "The maximum date is {{max}}",
+  "minFileSize": "The minimum file size is {{min}}",
+  "maxFileSize": "The maximum file size is {{max}}",
+  "minFileCount": "The minimum file count is {{min}}",
+  "maxFileCount": "The maximum file count is {{max}}"
+ },
+ "menus": {
+  "dashboard": "Dashboard",
+  "student": "Student",
+  "academic": "Academic",
+  "employee": "Employee",
+  "library": "Library",
+  "exam": "Exams",
+  "account": "Accounts",
+  "vehicle": "Vehicle",
+  "inventory": "Inventory",
+  "notice": "Notice",
+  "file": "Files",
+  "repo": "Repository",
+  "bill": "Billing",
+  "app": "Application",
+  "setting": "Setting"
+ },
+ "dashboard": {
+  "title": "Dashboard",
+  "overview": {
+   "title": "Overview"
+  },
+  "filter": {
+   "title": "Filters",
+   "date": {
+    "lastWeek": "Last Week",
+    "lastMonth": "Last Month",
+    "lastYear": "Last Year"
+   }
+  }
+ }
+}

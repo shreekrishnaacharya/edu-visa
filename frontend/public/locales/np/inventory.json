@@ -1,0 +1,487 @@
+{
+    "dashboard": {
+        "dashboard": "ड्यासबोर्ड",
+        "titles": {
+            "total_product": "कुल उत्पादन",
+            "total_in": "कुल आगमन",
+            "total_out": "कुल निर्गमन",
+            "bill_amount": "बिल रकम",
+            "total_requisition": "कुल माग",
+            "total_vendor": "कुल आपूर्तिकर्ता",
+            "total_groups": "कुल समूहहरू",
+            "total_bills": "कुल बिलहरू",
+            "recent_activities": "हालका गतिविधिहरू",
+            "low_stock_products": "कम स्टक भएका उत्पादनहरू",
+            "stock_detail": "स्टक विवरण",
+            "product_details_list": "उत्पादन विवरण सूची",
+            "packet": "प्याकेट",
+            "liquid": "तरल",
+            "weight": "तौल",
+            "recent_in_entry_details": "हालको आगमन प्रविष्टि विवरण",
+            "procurement_title": "खरिद शीर्षक :",
+            "user": " | प्रयोगकर्ता : ",
+            "title": "शीर्षक : ",
+            "recent_out_entry_details": "हालको निर्गमन प्रविष्टि विवरण",
+            "bill_revenue_statistics": "बिल राजस्व तथ्याङ्क",
+            "requisition_detail": "माग विवरण",
+            "requisition_statistics": "माग तथ्याङ्क",
+            "recent_bill_details": "हालका बिल विवरणहरू"
+        },
+        "fields": {
+            "id": "आईडी",
+            "name": "नाम",
+            "product_name": "उत्पादन नाम",
+            "date": "मिति",
+            "code": "कोड",
+            "type": "प्रकार",
+            "quantity": "मात्रा",
+            "life_expn": "उपयोग अवधि",
+            "category": "श्रेणी",
+            "min_qty": "न्यूनतम मात्रा",
+            "description": "विवरण",
+            "si_units": "एसआई एकाइहरू",
+            "house_id": "भवन आईडी",
+            "life": "अवधि",
+            "status": "स्थिति",
+            "unit": "एकाइ",
+            "stock": "स्टक",
+            "rate": "दर",
+            "total": "जम्मा",
+            "bill_no": "बिल नं",
+            "user_party_name": "प्रयोगकर्ता / पार्टी नाम",
+            "user_type": "प्रयोगकर्ता प्रकार",
+            "amount": "रकम"
+        }
+    },
+    "menu": {
+        "menu": "क्यान्टिन मेनु",
+        "titles": {
+            "show": "मेनु विवरण",
+            "list": "मेनु सूची"
+        },
+        "fields": {
+            "id": "आईडी",
+            "name": "उत्पादन नाम",
+            "sno": "क्रम संख्या",
+            "price": "मूल्य",
+            "status": "स्थिति"
+        },
+        "actions": {
+            "edit": "मेनु सम्पादन गर्नुहोस्"
+        }
+    },
+    "product": {
+        "product": "उत्पादन",
+        "titles": {
+            "show": "उत्पादन विवरण",
+            "statement": "शीर्षक कथन",
+            "list": "उत्पादन सूची",
+            "codes": "कोडहरू र नियन्त्रण नं",
+            "otherInfo": "अन्य जानकारी",
+            "addQuantity": "मात्रा थप्नुहोस्",
+            "history": "इतिहास"
+        },
+        "fields": {
+            "id": "आईडी",
+            "image": "चित्र",
+            "name": "नाम",
+            "code": "कोड",
+            "life_expn": "उपयोग अवधि",
+            "category": "श्रेणी",
+            "min_qty": "न्यूनतम मात्रा",
+            "description": "विवरण",
+            "si_units": "एसआई एकाइहरू",
+            "flow": "प्रवाह",
+            "in_price": "खरिद मूल्य",
+            "out_price": "बिक्री मूल्य",
+            "house_id": "भवन आईडी",
+            "type": "प्रकार",
+            "status": "स्थिति"
+        },
+        "actions": {
+            "add": "नयाँ उत्पादन थप्नुहोस्",
+            "edit": "उत्पादन सम्पादन गर्नुहोस्",
+            "export": "निर्यात गर्नुहोस्"
+        }
+    },
+    "procurement": {
+        "procurement": "खरिदहरू",
+        "titles": {
+            "show": "खरिद विवरण",
+            "list": "खरिद सूची",
+            "documents": "कागजातहरू",
+            "comments": "टिप्पणीहरू"
+        },
+        "info": {
+            "deleteComment": "के तपाईं यो टिप्पणी मेटाउन निश्चित हुनुहुन्छ?"
+        },
+        "fields": {
+            "name": "नाम",
+            "proc_regid": "दर्ता आईडी",
+            "entry_date": "प्रविष्टि मिति",
+            "remark": "टिप्पणी",
+            "user": "प्रविष्टि गर्ने",
+            "type": "प्रकार",
+            "house": "भवन",
+            "year": "वर्ष",
+            "comment": "टिप्पणी",
+            "approved_by_id": "स्वीकृत गर्ने",
+            "amount": "रकम",
+            "discount": "छुट",
+            "total_amount": "कुल रकम",
+            "state": "अवस्था",
+            "vat_rate": "भ्याट दर",
+            "vat_amount": "भ्याट रकम",
+            "status": "स्थिति",
+            "items": "वस्तुहरू"
+        },
+        "actions": {
+            "add": "नयाँ खरिद थप्नुहोस्",
+            "edit": "खरिद सम्पादन गर्नुहोस्",
+            "export": "खरिदहरू निर्यात गर्नुहोस्",
+            "comment": "टिप्पणी थप्नुहोस्",
+            "print": "प्रिन्ट गर्नुहोस्"
+        }
+    },
+    "inEntry": {
+        "inEntry": "आगमन प्रविष्टिहरू",
+        "titles": {
+            "show": "प्रविष्टि विवरण",
+            "product": "उत्पादन",
+            "statement": "प्रविष्टि कथन",
+            "codes": "कोडहरू र नियन्त्रण नंहरू",
+            "otherInfo": "थप जानकारी",
+            "addQuantity": "मात्रा थप्नुहोस्",
+            "list": "प्रविष्टि सूची"
+        },
+        "labels": {
+            "total_product": "कुल उत्पादन",
+            "sub_total": "उप-योग",
+            "discount": "छुट (रु)",
+            "vatRate": "भ्याट दर(%)",
+            "vatAmount": "भ्याट (रु)",
+            "total": "जम्मा"
+        },
+        "fields": {
+            "id": "आईडी",
+            "user": "प्रविष्टि गर्ने",
+            "vendor": "आपूर्तिकर्ता",
+            "house": "भवन",
+            "year": "वर्ष",
+            "proc_regid": "खरिद नं",
+            "title": "प्रविष्टि शीर्षक",
+            "dep_name": "विभाग नाम",
+            "product_name": "उत्पादन नाम",
+            "payment_amount": "भुक्तानी रकम",
+            "amount": "रकम",
+            "vat_rate": "भ्याट दर",
+            "vat_amt": "भ्याट रकम",
+            "dis_per": "छुट प्रतिशत",
+            "dis_amt": "छुट रकम",
+            "total_amount": "कुल रकम",
+            "remark": "टिप्पणी",
+            "entry_date": "प्रविष्टि मिति",
+            "procument": "खरिद",
+            "procument_title": "खरिद शीर्षक",
+            "status": "स्थिति",
+            "quantity": "मात्रा",
+            "unit_price": "एकाइ मूल्य",
+            "life_expn": "उपयोग अवधि",
+            "expiry_date": "समाप्ति मिति"
+        },
+        "actions": {
+            "add": "नयाँ प्रविष्टि थप्नुहोस्",
+            "edit": "प्रविष्टि सम्पादन गर्नुहोस्",
+            "export": "प्रविष्टिहरू निर्यात गर्नुहोस्",
+            "addItem": "वस्तु थप्नुहोस्"
+        }
+    },
+    "setting": {
+        "setting": "सेटिङ"
+    },
+    "vendor": {
+        "vendor": "आपूर्तिकर्ताहरू",
+        "titles": {
+            "show": "आपूर्तिकर्ता विवरण"
+        },
+        "id": "आईडी",
+        "name": "आपूर्तिकर्ता सूची",
+        "product": "आपूर्ति गरिएका उत्पादनहरू",
+        "titleStatement": "आपूर्तिकर्ता कथन",
+        "codes": "आपूर्तिकर्ता कोडहरू",
+        "otherInfo": "थप जानकारी",
+        "addVendor": "आपूर्तिकर्ता थप्नुहोस्",
+        "fields": {
+            "id": "आईडी",
+            "name": "आपूर्तिकर्ता नाम",
+            "phone": "सम्पर्क",
+            "address": "ठेगाना",
+            "email": "इमेल",
+            "house_id": "भवन",
+            "status": "स्थिति",
+            "description": "विवरण"
+        },
+        "actions": {
+            "add": "नयाँ आपूर्तिकर्ता थप्नुहोस्",
+            "edit": "आपूर्तिकर्ता सम्पादन गर्नुहोस्",
+            "export": "आपूर्तिकर्ताहरू निर्यात गर्नुहोस्"
+        }
+    },
+    "outEntry": {
+        "outEntry": "निर्गमन प्रविष्टि"
+    },
+    "itemCheckout": {
+        "itemCheckout": "वस्तु चेकआउट",
+        "titles": {
+            "show": "वस्तु चेकआउट विवरण",
+            "total_product": "कुल उत्पादन",
+            "sub_total": "उप-योग",
+            "discount": "छुट",
+            "total": "जम्मा"
+        },
+        "id": "आईडी",
+        "name": "वस्तु चेकआउट सूची",
+        "product": "खरिद गरिएका वस्तुहरू",
+        "titleStatement": "वस्तु चेकआउट कथन",
+        "codes": "चेकआउट कोडहरू",
+        "otherInfo": "थप जानकारी",
+        "addItemCheckout": "वस्तु चेकआउट थप्नुहोस्",
+        "fields": {
+            "id": "आईडी",
+            "product_name": "उत्पादन नाम",
+            "title": "शीर्षक",
+            "quantity": "मात्रा",
+            "unit_price": "एकाइ मूल्य",
+            "dis_amt": "छुट रकम",
+            "entered_by": "प्रविष्टि गर्ने",
+            "house_id": "भवन आईडी",
+            "year_id": "वर्ष आईडी",
+            "discount": "छुट",
+            "amount": "रकम",
+            "total_amount": "कुल रकम",
+            "remark": "टिप्पणी",
+            "date_en": "अंग्रेजी मिति",
+            "date_np": "नेपाली मिति",
+            "status": "स्थिति",
+            "entry_date": "प्रविष्टि मिति"
+        },
+        "actions": {
+            "add": "नयाँ वस्तु चेकआउट थप्नुहोस्",
+            "edit": "वस्तु चेकआउट सम्पादन गर्नुहोस्",
+            "export": "वस्तु चेकआउटहरू निर्यात गर्नुहोस्"
+        }
+    },
+    "template": {
+        "template": "टेम्प्लेटहरू",
+        "titles": {
+            "show": "टेम्प्लेट विवरण"
+        },
+        "id": "आईडी",
+        "name": "टेम्प्लेट सूची",
+        "templateContent": "टेम्प्लेट सामग्री",
+        "titleStatement": "टेम्प्लेट कथन",
+        "codes": "टेम्प्लेट कोडहरू र नियन्त्रण नंहरू",
+        "otherInfo": "थप जानकारी",
+        "addTemplate": "टेम्प्लेट थप्नुहोस्",
+        "fields": {
+            "id": "आईडी",
+            "name": "टेम्प्लेट नाम",
+            "house": "भवन",
+            "template": "टेम्प्लेट सामग्री",
+            "status": "स्थिति"
+        },
+        "actions": {
+            "add": "नयाँ टेम्प्लेट थप्नुहोस्",
+            "edit": "टेम्प्लेट सम्पादन गर्नुहोस्",
+            "export": "टेम्प्लेटहरू निर्यात गर्नुहोस्"
+        }
+    },
+    "billing": {
+        "billing": "बिलिङ",
+        "order": "अर्डरहरू",
+        "titles": {
+            "show": "बिलिङ विवरण",
+            "latest_bill": "नवीनतम बिल",
+            "list": "बिलिङ सूची",
+            "singleForm": "एकल बिलिङ फारम",
+            "multiForm": "बहु बिलिङ फारम",
+            "items": "वस्तुहरू"
+        },
+        "info": {
+            "deleteTitle": "के तपाईं यो बिल मेटाउन निश्चित हुनुहुन्छ?"
+        },
+        "labels": {
+            "total_product": "कुल उत्पादन",
+            "sub_total": "उप-योग",
+            "discount": "छुट (रु)",
+            "vatRate": "भ्याट दर(%)",
+            "vatAmount": "भ्याट (रु)",
+            "total": "जम्मा"
+        },
+        "fields": {
+            "bill_no": "बिल नं",
+            "customer_name": "प्रयोगकर्ता नाम",
+            "student_name": "विद्यार्थी नाम",
+            "product_name": "उत्पादन नाम",
+            "quantity": "मात्रा",
+            "unit_price": "एकाइ मूल्य",
+            "dis_amt": "छुट",
+            "vat_rate": "भ्याट दर",
+            "vat_amt": "भ्याट रकम",
+            "user": "प्रविष्टि गर्ने",
+            "house": "भवन",
+            "year": "वर्ष",
+            "amount": "रकम",
+            "total_amount": "जम्मा",
+            "user_type": "प्रयोगकर्ता प्रकार",
+            "remark": "टिप्पणी",
+            "entry_date": "प्रविष्टि मिति",
+            "status": "स्थिति",
+            "created_at": "बिल मिति",
+            "month": "महिना",
+            "class": "कक्षा",
+            "section": "सेक्सन",
+            "dep_name": "विभाग नाम",
+            "state": "अवस्था"
+        },
+        "actions": {
+            "add": "नयाँ बिलिङ थप्नुहोस्",
+            "edit": "बिलिङ सम्पादन गर्नुहोस्",
+            "export": "बिलिङहरू निर्यात गर्नुहोस्",
+            "addItem": "वस्तु थप्नुहोस्"
+        }
+    },
+    "requisition": {
+        "requisition": "माग",
+        "titles": {
+            "show": "माग विवरण",
+            "list": "माग सूची",
+            "product": "खरिद गरिएका वस्तुहरू",
+            "titleStatement": "माग कथन",
+            "codes": "माग कोडहरू",
+            "otherInfo": "थप जानकारी"
+        },
+        "labels": {
+            "total_product": "कुल उत्पादन",
+            "sub_total": "उप-योग",
+            "discount": "छुट",
+            "total": "जम्मा"
+        },
+        "fields": {
+            "id": "आईडी",
+            "user": "प्रविष्टि गर्ने",
+            "product_name": "उत्पादन नाम",
+            "quantity": "मात्रा",
+            "unit_price": "एकाइ मूल्य",
+            "title": "शीर्षक",
+            "dep_name": "विभाग नाम",
+            "dis_amt": "छुट रकम",
+            "house_id": "भवन आईडी",
+            "year_id": "वर्ष आईडी",
+            "discount": "छुट",
+            "amount": "रकम",
+            "total_amount": "कुल रकम",
+            "remark": "टिप्पणी",
+            "date_en": "अंग्रेजी मिति",
+            "date_np": "नेपाली मिति",
+            "status": "स्थिति",
+            "requisition_name": "माग नाम",
+            "entry_date": "प्रविष्टि मिति",
+            "entered_by": "प्रविष्टि गर्ने"
+        },
+        "actions": {
+            "add": "नयाँ माग थप्नुहोस्",
+            "edit": "माग सम्पादन गर्नुहोस्",
+            "export": "मागहरू निर्यात गर्नुहोस्",
+            "addItem": "वस्तु थप्नुहोस्"
+        }
+    },
+    "reports": {
+        "reports": "प्रतिवेदनहरू",
+        "stockSummary": "स्टक सारांश",
+        "labels": {
+            "product": "उत्पादन",
+            "opening": "सुरुको स्टक",
+            "closing": "अन्तिम स्टक",
+            "total_in": "कुल आगमन",
+            "total_out": "कुल निर्गमन"
+        },
+        "inputs": {
+            "dateRange": "मिति दायरा"
+        }
+    },
+    "groups": {
+        "groups": "समूहहरू",
+        "titles": {
+            "show": "समूह विवरण",
+            "list": "समूह सूची"
+        },
+        "labels": {
+            "filter": "फिल्टर",
+            "class": "कक्षा",
+            "section": "सेक्सन",
+            "from": "बाट",
+            "to": "सम्म"
+        },
+        "fields": {
+            "regid": "दर्ता आईडी",
+            "name": "नाम",
+            "type": "प्रकार",
+            "tot_mem": "कुल सदस्य",
+            "students": "विद्यार्थीहरू",
+            "employees": "कर्मचारीहरू",
+            "members": "सदस्यहरू"
+        },
+        "actions": {
+            "add": "नयाँ समूह थप्नुहोस्",
+            "edit": "समूह सम्पादन गर्नुहोस्",
+            "check": "प्रबन्ध गर्नुहोस्",
+            "save": "सुरक्षित गर्नुहोस्",
+            "reset": "रीसेट गर्नुहोस्",
+            "transfer": "सार्नुहोस्"
+        }
+    },
+    "billSummary": {
+        "billSummary": "बिल सारांश",
+        "titles": {
+            "show": "बिलिङ विवरण",
+            "latest_bill": "नवीनतम बिल"
+        },
+        "id": "आईडी",
+        "name": "बिलिङ सूची",
+        "product": "खरिद गरिएका वस्तुहरू",
+        "titleStatement": "बिलिङ कथन",
+        "codes": "बिलिङ कोडहरू",
+        "otherInfo": "थप जानकारी",
+        "addBilling": "बिलिङ थप्नुहोस्",
+        "fields": {
+            "id": "आईडी",
+            "bill_no": "बिल नं",
+            "customer_name": "प्रयोगकर्ता नाम",
+            "product_name": "उत्पादन नाम",
+            "quantity": "मात्रा",
+            "unit_price": "एकाइ मूल्य",
+            "title": "शीर्षक",
+            "dis_amt": "छुट रकम",
+            "entered_by": "प्रविष्टि गर्ने",
+            "house_id": "भवन आईडी",
+            "year_id": "वर्ष आईडी",
+            "discount": "छुट",
+            "amount": "रकम",
+            "total_amount": "कुल रकम",
+            "user_type": "प्रयोगकर्ता प्रकार",
+            "remark": "टिप्पणी",
+            "date_en": "अंग्रेजी मिति",
+            "date_np": "नेपाली मिति",
+            "academic_year": "शैक्षिक वर्ष",
+            "status": "स्थिति",
+            "created_at": "बिल मिति",
+            "month": "महिना"
+        },
+        "actions": {
+            "add": "नयाँ बिलिङ थप्नुहोस्",
+            "edit": "बिलिङ सम्पादन गर्नुहोस्",
+            "export": "बिलिङहरू निर्यात गर्नुहोस्"
+        }
+    }
+}

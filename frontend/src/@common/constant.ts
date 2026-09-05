@@ -1,0 +1,16 @@
+export const LANG_DASHBOARD = "dashboard";
+export const LANG_ACADEMIC = "academic";
+export const LANG_STUDENT = "student";
+export const LANG_VEHICLE = "vehicle";
+export const LANG_ACCOUNT = "account";
+export const LANG_EMPLOYEE = "employee";
+export const LANG_EXAM = "exam";
+export const LANG_REPO = "repo";
+export const LANG_COMMON = "common";
+export const LANG_DATAVALUE = "datavalue";
+export const LANG_LIBRARY = "library";
+export const LANG_INVENTORY = "inventory";
+export const LANG_NOTICE = "notice";
+export const LANG_BILLING = "billing";
+export const LANG_AUTH = "auth";
+export const LANG_APP = "app";

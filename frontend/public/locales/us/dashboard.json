@@ -1,0 +1,17 @@
+{
+    "dashboard": {
+        "dashboard": "Dashboard",
+        "main": "Main Dashboard",
+        "academic": "Academic Dashboard",
+        "student": "Student Dashboard",
+        "exam": "Exam Dashboard",
+        "library": "Library Dashboard",
+        "inventory": "Inventory Dashboard",
+        "notice": "Notice Dashboard",
+        "billing": "Billing Dashboard",
+        "account": "Account Dashboard",
+        "vehicle": "Vehicle Dashboard",
+        "repo": "Repository Dashboard",
+        "employee": "Employee Dashboard"
+    }
+}

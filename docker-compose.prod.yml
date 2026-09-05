@@ -1,0 +1,95 @@
+# Full-stack production deploy — one VPS, everything containerized.
+# See DEPLOYMENT.md for the full runbook (data migration, TLS, first-run steps).
+#
+# Usage:
+#   docker compose -f docker-compose.prod.yml --env-file server/.env.production up -d --build
+#
+# db/redis/minio are NOT exposed to the host here (unlike server/docker-compose.yml,
+# which is the local dev version) — only reachable from other containers on the
+# compose network. Only Caddy (80/443) touches the public interface.
+#
+# All persistent data (Postgres — including the pgvector knowledge base —
+# Redis, MinIO, Caddy's TLS certs) is bind-mounted from ./docker/ instead of
+# opaque named Docker volumes: stop the stack, zip the whole project
+# directory (or just ./docker/), copy it to any server, unzip, run — the
+# exact same data comes back up. See DEPLOYMENT.md.
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-eduvisa}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD is required}
+      POSTGRES_DB: ${DB_NAME:-eduvisa}
+    volumes:
+      - ./docker/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-eduvisa}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - ./docker/redis:/data
+
+  minio:
+    image: minio/minio:latest
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${S3_ACCESS_KEY:-eduvisa}
+      MINIO_ROOT_PASSWORD: ${S3_SECRET_KEY:?S3_SECRET_KEY is required}
+    volumes:
+      - ./docker/minio:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: ./server
+    restart: unless-stopped
+    env_file: server/.env.production
+    environment:
+      DB_HOST: db
+      REDIS_HOST: redis
+      S3_ENDPOINT: minio
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      minio:
+        condition: service_healthy
+
+  web:
+    build:
+      context: ./frontend
+      args:
+        VITE_SERVER_URL: ${VITE_SERVER_URL:?VITE_SERVER_URL (the API's public URL) is required}
+    restart: unless-stopped
+    depends_on:
+      - api
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./docker/caddy/data:/data
+      - ./docker/caddy/config:/config
+    depends_on:
+      - web
+      - api
+
+# No top-level `volumes:` — see the note at the top of this file.

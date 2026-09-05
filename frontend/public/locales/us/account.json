@@ -1,0 +1,548 @@
+{
+    "dashboard": {
+        "dashboard": "Dashboard"
+    },
+    "year": {
+        "year": "Account Year",
+        "titles": {
+            "create": "Create Year",
+            "edit": "Edit Year",
+            "list": "Years",
+            "show": "Show Year",
+            "close": "Close Year"
+        },
+        "fields": {
+            "id": "ID",
+            "name": "Name",
+            "sort": "Sort",
+            "bill_counter": "Bill Counter",
+            "start_date": "Start Date",
+            "end_date": "End Date",
+            "is_current": "Is Current",
+            "is_closed": "Is Closed",
+            "previous_year": "Previous Year",
+            "create_note": "This year will be chained after the current year and will itself become the current year.",
+            "status": "Status"
+        },
+        "actions": {
+            "add": "Create Year",
+            "edit": "Edit Year",
+            "close": "Close Year",
+            "reopen": "Reopen Year"
+        },
+        "closing": {
+            "title": "Close Year",
+            "steps": {
+                "settlement": "Settlement",
+                "approve": "Approve Vouchers",
+                "fix_dates": "Fix Dates",
+                "setup": "Next Year",
+                "review": "Review",
+                "result": "Done"
+            },
+            "settlement": {
+                "description": "All billing transactions must be settled into vouchers before this year can be closed.",
+                "clear": "All billing transactions are settled - you're good to continue.",
+                "pending_count": "Pending items",
+                "go_to_settlement": "Go to Settlement",
+                "next": "Recheck & Continue"
+            },
+            "approve": {
+                "description": "The following vouchers are still pending approval. Approve or discard each one to continue.",
+                "empty": "No pending vouchers - you're good to continue.",
+                "approve_confirm": "Approve this voucher?",
+                "discard_confirm": "Discard this voucher?"
+            },
+            "fix_dates": {
+                "description": "The following vouchers have a transaction date outside this year's range. Fix each one to continue.",
+                "empty": "No out-of-range vouchers - you're good to continue.",
+                "save": "Save"
+            },
+            "setup": {
+                "next_year": "Next Year",
+                "use_existing": "Use an existing year",
+                "create_new": "Create a new year",
+                "name": "Name",
+                "start_date": "Start Date",
+                "end_date": "End Date",
+                "bill_counter": "Bill Counter (always starts at 1 for a new year)"
+            },
+            "review": {
+                "net_profit": "Net Profit",
+                "net_loss": "Net Loss",
+                "retained_earning_ledger": "Retained Earnings Ledger",
+                "closing_voucher_date": "Closing Voucher Date",
+                "opening_voucher_date": "Opening Voucher Date",
+                "closing_lines": "Closing Entries (this year)",
+                "opening_lines": "Opening Entries (next year)",
+                "note": "The net profit/loss above is transferred to the retained earnings ledger you select. It is not yet reflected in the opening entries shown - it is applied automatically when you close.",
+                "confirm_description": "This will permanently close {{name}} and open {{next}}.",
+                "button": "Close Year"
+            },
+            "result": {
+                "title": "Year Closed",
+                "closing_voucher": "Closing Voucher",
+                "opening_voucher": "Opening Voucher",
+                "none": "No entries were needed",
+                "done": "Done"
+            }
+        },
+        "reopen": {
+            "confirm": "Reopen this year? Its closing entry (and the next year's opening entry) will be discarded so you can post adjusting journal entries. You can re-close it afterwards.",
+            "button": "Reopen"
+        },
+        "set_current": {
+            "confirm": "Switch the current year to this one? All new billing, payroll and voucher activity will be posted here until you switch again.",
+            "button": "Switch Current"
+        },
+        "lock": {
+            "locked_tooltip": "This year is locked and cannot be reopened."
+        }
+    },
+    "ledgerGroup": {
+        "ledgerGroup": "Ledger Group",
+        "titles": {
+            "create": "Create Ledger Group",
+            "edit": "Edit Ledger Group",
+            "list": "Ledger Groups",
+            "show": "Show Ledger Group"
+        },
+        "fields": {
+            "id": "ID",
+            "name": "Name",
+            "bs_head": "BS Head",
+            "bs_type": "BS Type",
+            "group_type": "Group Type",
+            "is_fixed": "Is Fixed",
+            "status": "Status"
+        },
+        "actions": {
+            "add": "Create Ledger Group",
+            "edit": "Edit Ledger Group"
+        }
+    },
+    "ledger": {
+        "ledger": "Ledger",
+        "titles": {
+            "create": "Create Ledger",
+            "edit": "Edit Ledger",
+            "list": "Ledgers",
+            "show": "Show Ledger"
+        },
+        "fields": {
+            "id": "ID",
+            "name": "Name",
+            "code": "Code",
+            "type": "Type",
+            "is_fixed": "Is Fixed",
+            "ledgerGroup": "Ledger Group",
+            "status": "Status"
+        },
+        "actions": {
+            "add": "Create Ledger",
+            "edit": "Edit Ledger"
+        }
+    },
+    "bookledger": {
+        "bookledger": "Book Ledger",
+        "titles": {
+            "create": "Create Book Ledger",
+            "edit": "Edit Book Ledger",
+            "list": "Book Ledgers",
+            "show": "Show Book Ledger"
+        },
+        "fields": {
+            "id": "ID",
+            "type": "Type",
+            "ledger": "Ledger"
+        },
+        "actions": {
+            "add": "Create Book Ledger",
+            "edit": "Edit Book Ledger"
+        }
+    },
+    "payrollSetting": {
+        "payrollSetting": "Payroll Setting",
+        "titles": {
+            "create": "Create Payroll Setting",
+            "edit": "Edit Payroll Setting",
+            "list": "Payroll Settings",
+            "show": "Show Payroll Setting"
+        },
+        "fields": {
+            "id": "ID",
+            "ledger": "Ledger",
+            "max_amount": "Max Amount"
+        },
+        "actions": {
+            "add": "Create Payroll Setting",
+            "edit": "Edit Payroll Setting"
+        }
+    },
+    "payroll": {
+        "payroll": "Payroll",
+        "titles": {
+            "create": "Create Payroll",
+            "edit": "Edit Payroll",
+            "list": "Payroll",
+            "show": "Show Payroll",
+            "payroll": "Payroll"
+        },
+        "fields": {
+            "id": "ID",
+            "ledger": "Ledger",
+            "type": "Type",
+            "employee": "Employee",
+            "amount": "Amount"
+        },
+        "actions": {
+            "add": "Add Payroll",
+            "edit": "Edit Payroll"
+        }
+    },
+    "payrollPost": {
+        "payrollPost": "Payroll Post",
+        "titles": {
+            "create": "Create Post",
+            "edit": "Edit Payroll Post",
+            "list": "Payroll Post",
+            "show": "Show Payroll",
+            "payroll": "Payroll",
+            "setup": "Payroll Setup"
+        },
+        "info": {
+            "success": "Successfully created payroll post for month : "
+        },
+        "fields": {
+            "id": "ID",
+            "code": "Code",
+            "name": "Name",
+            "post": "Post",
+            "date": "Date",
+            "particular": "Particular",
+            "month": "Month",
+            "total": "Total",
+            "voucher_no": "Voucher No",
+            "dr_amount": "Dr Amount",
+            "cr_amount": "Cr Amount",
+            "balance": "Balance"
+        },
+        "actions": {
+            "add": "Add Payroll",
+            "edit": "Edit Payroll"
+        }
+    },
+    "payrollRelease": {
+        "payrollRelease": "Payroll Release",
+        "titles": {
+            "list": "Payroll Release",
+            "post_list": "Post List"
+        },
+        "info": {
+            "release": "Are you sure want to release?"
+        },
+        "fields": {
+            "code": "Code",
+            "name": "Name",
+            "post": "Post",
+            "ledger": "Ledger",
+            "type": "Type",
+            "amount": "Amount",
+            "date": "Date",
+            "month": "Month",
+            "auto_amount": "Auto Amount",
+            "previous_amount": "Previous Amount",
+            "employee": "Employee",
+            "voucher_no": "Voucher No",
+            "transaction_no": "Trn No",
+            "createdBy": "Created By",
+            "particular": "Particular",
+            "status": "Status"
+        },
+        "actions": {
+            "getRelease": "Get Release",
+            "updateRelease": "Update Release",
+            "edit": "Edit Payroll Release",
+            "release": "Release"
+        }
+    },
+    "entry": {
+        "entry": "Entry",
+        "titles": {
+            "history": "History",
+            "receipt": "Receipt Entry",
+            "receipt_entry": "Receipt Entry",
+            "purchase": "Purchase Entry",
+            "purchase_entry": "Purchase Entry",
+            "sales": "Sales Entry",
+            "sales_entry": "Sales Entry",
+            "contra": "Contra Entry",
+            "contra_entry": "Contra Entry",
+            "journal": "Journal Entry",
+            "journal_entry": "Journal Entry",
+            "expense": "Expense Entry",
+            "expense_entry": "Expense Entry"
+        },
+        "descriptions": {
+            "contra": "Transfer funds between cash and bank accounts.",
+            "receipt": "Record incoming payments and cash receipts.",
+            "purchase": "Record purchase transactions and accounts payable.",
+            "sales": "Record sales transactions and revenue.",
+            "journal": "General journal entries for adjustments and corrections.",
+            "expense": "Record day-to-day operational expenses."
+        },
+        "validation": {
+            "total": "Dr and Cr should be equal"
+        },
+        "fields": {
+            "id": "ID",
+            "account": "Account",
+            "ledger": "Ledger",
+            "amount": "Amount",
+            "transaction_date": "Date",
+            "year": "Year",
+            "by": "By",
+            "to": "To",
+            "dr": "Dr",
+            "cr": "Cr",
+            "debit": "Debit",
+            "credit": "Credit",
+            "total": "Total",
+            "remark": "Remark",
+            "narration": "Narration",
+            "status": "Status"
+        },
+        "actions": {
+            "add": "Create Entry",
+            "edit": "Edit Entry"
+        }
+    },
+    "voucher": {
+        "voucher": "Voucher",
+        "titles": {
+            "create": "Create Voucher",
+            "edit": "Edit Voucher",
+            "list": "Vouchers",
+            "show": "Show Voucher"
+        },
+        "info": {
+            "approve": "Are you sure you want to approve this voucher?",
+            "discard": {
+                "title": "Are you sure you want to discard this voucher?",
+                "label": "Enter your reason"
+            },
+            "approveAll": "Are you sure you want to approve all {{count}} pending vouchers?",
+            "discardAll": {
+                "title": "Are you sure you want to discard all {{count}} pending vouchers?",
+                "label": "Enter your reason"
+            }
+        },
+        "labels": {
+            "type": "Voucher Type",
+            "account": "Ledger",
+            "account_code": "LFC",
+            "particular": "Particular",
+            "voucher_no": "Voucher No",
+            "dr_amount": "Dr Amount",
+            "cr_amount": "Cr Amount",
+            "balance": "Balance",
+            "amount": "Amount",
+            "total": "Total",
+            "transaction_date": "Date",
+            "narration": "Narration",
+            "transaction_no": "Transaction No",
+            "year": "Year",
+            "postedBy": "Posted By",
+            "approvedBy": "Approved By",
+            "discardedBy": "Discarded By"
+        },
+        "fields": {
+            "id": "ID",
+            "voucher_no": "Voucher No",
+            "amount": "Amount",
+            "state": "State",
+            "type": "Type",
+            "transaction_date": "Date",
+            "narration": "Narration",
+            "transaction_no": "Transaction No",
+            "year": "Year",
+            "postedBy": "Posted By",
+            "approvedBy": "Approved By",
+            "discardedBy": "Discarded By"
+        },
+        "actions": {
+            "add": "Create Voucher",
+            "edit": "Edit Voucher"
+        }
+    },
+    "employee": {
+        "employee": "Employee",
+        "titles": {
+            "salaryPost": "Salary Post",
+            "salarySetup": "Salary Setup",
+            "annualDeduction": "Annual Deduction",
+            "taxInfo": "Tax Info"
+        },
+        "info": {
+            "ledgerNotSet": "Please set the salary ledger data first"
+        },
+        "fields": {
+            "ledger": "Ledger"
+        }
+    },
+    "deduction": {
+        "deduction": "Annual Deduction",
+        "fields": {
+            "ledger": "Ledger",
+            "amount": "Amount"
+        }
+    },
+    "setting": {
+        "setting": "Settings"
+    },
+    "payrollHistory": {
+        "payrollHistory": "Payroll History"
+    },
+    "payrollReport": {
+        "payrollReport": "Payroll Report",
+        "titles": {
+            "release": "Payroll Release",
+            "prepost": "Payroll Prepost",
+            "bankvoucher": "Payroll Bank Voucher"
+        }
+    },
+    "billledger": {
+        "billledger": "Bill Ledger",
+        "fields": {
+            "name": "Name",
+            "amount": "Amount",
+            "ledger": "Ledger",
+            "ledger_id": "Ledger ID",
+            "ledger_type": "Ledger Type",
+            "is_taxable": "Taxable",
+            "tax_rate": "Tax Rate (%)"
+        },
+        "actions": {
+            "add": "Create Ledger",
+            "edit": "Edit Ledger"
+        }
+    },
+    "report": {
+        "report": "Reports",
+        "titles": {
+            "ledger": "Ledger",
+            "trial": "Trial",
+            "pl": "Profit and loss",
+            "bs": "Balance sheet",
+            "dayBook": "Day Book",
+            "cashBook": "Cash Book"
+        },
+        "info": {
+            "payrollRelease": "Select month and type to get payroll release",
+            "payrollBankvoucher": "Select month and ledger to get payroll bank voucher"
+        },
+        "labels": {
+            "dateRange": "Select Date Range",
+            "date": "Date",
+            "ledger": "Ledger",
+            "transaction_date": "Date",
+            "particular": "Particular",
+            "dr_amount": "Dr Amount",
+            "cr_amount": "Cr Amount",
+            "dr": "Dr",
+            "cr": "Cr",
+            "grand_total": "Grand Total",
+            "voucher_total": "Voucher Total",
+            "lfo": "LFO",
+            "narration": "Narration",
+            "voucher_no": "Voucher No",
+            "vno": "VNO",
+            "balance": "Balance",
+            "total_balance": "Total Balance",
+            "total": "Total",
+            "name": "Name",
+            "code": "Code",
+            "post": "Post",
+            "month": "Month",
+            "type": "Type",
+            "bank_name": "Bank Name",
+            "account_number": "Account No.",
+            "cashbook_report": "Cash Book Report",
+            "cashbook_description": "Cash and bank transactions with running balances.",
+            "cashbook_closing": "Closing Cash & Bank Summary",
+            "cashbook_closing_description": "Includes all fixed bank and cash ledgers.",
+            "opening": "Opening",
+            "closing": "Closing",
+            "receipt": "Receipt",
+            "payment": "Payment",
+            "cash_bank": "Cash / Bank",
+            "total_receipt": "TOTAL RECEIPT",
+            "total_payment": "TOTAL PAYMENT"
+        }
+    },
+    "settlement": {
+        "settlement": "Settlement",
+        "titles": {
+            "missing": "Missing Ledger",
+            "overview": "Overview",
+            "transactions": "Transactions",
+            "vouchers": "Vouchers",
+            "invoice_voucher": "Invoice Voucher",
+            "fee_voucher": "Fee Voucher"
+        },
+        "labels": {
+            "class_name": "Class",
+            "ledger": "Ledger",
+            "month": "Month",
+            "name": "Name",
+            "head_name": "Head",
+            "dr_cr": "Dr/Cr",
+            "type": "Type",
+            "date": "Date",
+            "amount": "Amount",
+            "totalSettlement": "Total Settlement",
+            "no_date": "No data for settlement",
+            "upto_date_hint": "Only transactions on or before this date will be included in this settlement",
+            "confirm": "Are you sure you want to settel this journal?",
+            "confirmRevert": "Are you sure you want to revert this settlement? This will discard the created voucher(s) and unlink the related bills/invoices."
+        },
+        "fields": {
+            "month": "Month",
+            "amount": "Amount",
+            "settlement_type": "Type",
+            "transaction_no": "Transaction No",
+            "settlement_date": "Date",
+            "upto_date": "Upto Date",
+            "createdBy": "Created By",
+            "student_ledger": "Student Ledger",
+            "year": "Year"
+        },
+        "actions": {
+            "add": "Create New Settlement",
+            "settle": "Settle"
+        }
+    },
+    "import": {
+        "import_ledger": "Import Ledger",
+        "import_voucher": "Import Voucher",
+        "import_entries": "Import Entries",
+        "titles": {
+            "import_ledger": "Import Ledger",
+            "import_voucher": "Import Voucher",
+            "import_entries": "Import Entries"
+        },
+        "fields": {
+            "excel": "Select Excel",
+            "type": "Import Type",
+            "transaction_date": "Transaction Date"
+        },
+        "actions": {
+            "export": "Export",
+            "import": "Import",
+            "deleteRow": "Delete Row"
+        }
+    },
+    "datavalue": {
+        "datavalue": "Data Value"
+    }
+}

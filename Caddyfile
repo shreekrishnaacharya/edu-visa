@@ -1,0 +1,21 @@
+# Caddy gets automatic Let's Encrypt HTTPS for free, from just a domain name
+# pointed at this VPS — no certbot, no manual renewal. Replace the two
+# placeholders below with your real subdomains (see DEPLOYMENT.md) and make
+# sure both have an A record pointing at the VPS's IP before you start this.
+
+app.yourdomain.com {
+	reverse_proxy web:80
+}
+
+api.yourdomain.com {
+	reverse_proxy api:3000
+}
+
+# --- No domain yet? -----------------------------------------------------
+# Comment out the two blocks above and uncomment this one instead — serves
+# plain HTTP on the bare VPS IP (no TLS yet; fine for an initial smoke test,
+# not for real student data). Swap back once you have a domain.
+#
+# :80 {
+# 	reverse_proxy web:80
+# }

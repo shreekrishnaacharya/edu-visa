@@ -1,0 +1,810 @@
+{
+  "program": {
+    "program": "Programs",
+    "titles": {
+      "list": "Programs"
+    },
+    "filter": {
+      "title": "Filters",
+      "search": {
+        "label": "Search",
+        "placeholder": "Search"
+      },
+      "submit": "Filter"
+    }
+  },
+  "notes": {
+    "notes": "Notes",
+    "titles": {
+      "list": "Notes"
+    },
+    "fields": {
+      "notes": "Message",
+      "rating": "Rating"
+    },
+    "filter": {
+      "title": "Filters",
+      "search": {
+        "label": "Search",
+        "placeholder": "Search"
+      },
+      "submit": "Filter"
+    }
+  },
+  "transfer": {
+    "transfer": "Transfer",
+    "titles": {
+      "list": "Transfer"
+    },
+    "alert": {
+      "notice": "Prompting Student from the Present class to the Next Class will Create an enrollment of the student to the next Session"
+    },
+    "fields": {
+      "batch": "Batch",
+      "class": "Class",
+      "section": "Section"
+    },
+    "validation": {
+      "toClass": "Cannot transfer to same class"
+    },
+    "labels": {
+      "transferFrom": "Transfer From Class",
+      "transferTo": "Transfer To Class",
+      "switchTransfer": "Switch Transfer",
+      "from": "From",
+      "to": "To"
+    },
+    "filter": {
+      "title": "Filters",
+      "search": {
+        "label": "Search",
+        "placeholder": "Search"
+      },
+      "submit": "Filter"
+    },
+    "actions": {
+      "check": "Manage",
+      "save": "Transfer",
+      "reset": "Reset",
+      "search": "Search"
+    }
+  },
+  "setup": {
+    "setup": "Setup",
+    "titles": {
+      "list": "Setup"
+    },
+    "message": {
+      "note": "Please select column to update required field then enter value in first field and click on "
+    },
+    "fields": {
+      "roll_no": "Roll No.",
+      "symbol": "Symbol",
+      "uni_reg": "Uni Regid",
+      "batch": "Batch",
+      "house": "House",
+      "hostel": "Hostel",
+      "state": "State",
+      "section": "Section"
+    },
+    "filter": {
+      "title": "Filters",
+      "search": {
+        "label": "Search",
+        "placeholder": "Search"
+      },
+      "submit": "Filter"
+    },
+    "actions": {
+      "save": "Submit Changes",
+      "auto": "Auto Generate",
+      "reset": "Reset"
+    }
+  },
+  "manage": {
+    "manage": "Bulk Edit",
+    "titles": {
+      "list": "Bulk Edit"
+    },
+    "message": {
+      "noselection": "No student selected",
+      "requiredStudent": "Please select some students to proceed"
+    },
+    "fields": {
+      "batch": "Batch",
+      "house": "House",
+      "hostel": "Hostel",
+      "state": "State",
+      "section": "Section"
+    },
+    "filter": {
+      "title": "Filters",
+      "search": {
+        "label": "Search",
+        "placeholder": "Search"
+      },
+      "submit": "Filter"
+    },
+    "actions": {
+      "check": "Bulk Edit",
+      "save": "Transfer",
+      "reset": "Reset"
+    }
+  },
+  "log": {
+    "log": "Log",
+    "titles": {
+      "list": "Logs",
+      "repeated": "Repeated",
+      "escalation": "Excelation",
+      "dropped": "Dropped",
+      "almuni": "Almuni",
+      "current": "Current",
+      "rejoined": "Rejoined"
+    },
+    "labels": {
+      "escalation": "Excelation to ",
+      "repeated": "Repeated at ",
+      "dropped": "Dropped at ",
+      "almuni": "Almuni at ",
+      "current": "Current at ",
+      "rejoined": "Rejoined at "
+    },
+    "filter": {
+      "title": "Filters",
+      "search": {
+        "label": "Search",
+        "placeholder": "Search"
+      },
+      "submit": "Filter"
+    }
+  },
+  "info": {
+    "student": "Students",
+    "titles": {
+      "edit": "Edit Student",
+      "list": "Students",
+      "studentInfo": "Student Info",
+      "personalInfo": "Personal Information",
+      "basicInfo": "Basic Information",
+      "contactInfo": "Contact Information",
+      "siblings": "Siblings",
+      "parentInfo": "Parents",
+      "docInfo": "Documents",
+      "vehicleInfo": "Vehicle",
+      "academicInfo": "Academics",
+      "otherInfo": "Other Information"
+    },
+    "tabs": {
+      "studentInfo": "Student Details",
+      "libraryInfo": "Library",
+      "leaveInfo": "Attendance",
+      "timeline": "Timeline",
+      "notes": "Notes",
+      "exams": "Exams",
+      "certificates": "Certificates",
+      "accounts": "Accounts"
+    },
+    "fields": {
+      "id": "ID",
+      "regid": "Registration Number",
+      "uni_reg": "University Registration Number",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "full_name": "Full Name",
+      "gender": "Gender",
+      "admission_date_en": "Admission Date",
+      "class": "Class",
+      "batch": "Batch",
+      "roll_no": "Roll No.",
+      "dob": "Date of Birth",
+      "dob_en": "DOB",
+      "dob_np": "DOB(NP)",
+      "father_name": "Father's Name",
+      "mother_name": "Mother's Name",
+      "father_phone": "Father's Phone",
+      "mother_phone": "Mother's Phone",
+      "guardian_name": "Guardian's Name",
+      "guardian_phone": "Guardian's Phone",
+      "guardian_relation": "Guardian's Relation",
+      "phone": "Phone Number",
+      "email": "Email Address",
+      "blood_group": "Blood Group",
+      "house": "House",
+      "hostel": "Hostel",
+      "symbol": "Symbol",
+      "wallet_balance": "Wallet Balance",
+      "nationality": "Nationality",
+      "religion": "Religion",
+      "caste": "Caste",
+      "ethnic": "Ethnicity",
+      "disability": "Disability",
+      "address": "Address",
+      "address1": "Primary Address",
+      "address2": "Secondary Address",
+      "image": "Profile Image",
+      "user": "User Account",
+      "section": "Section",
+      "state": "State",
+      "action": "Actions"
+    },
+    "labels": {
+      "id": "ID",
+      "regid": "Regid",
+      "uni_reg": "Uni Regid",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "full_name": "Full Name",
+      "name": "Name",
+      "gender": "Gender",
+      "program": "Programs",
+      "admission_date_en": "Admission Date",
+      "class": "Class",
+      "batch": "Batch",
+      "roll_no": "Roll No.",
+      "symbol": "Symbol",
+      "dob": "Date of Birth",
+      "dob_en": "DOB",
+      "dob_np": "DOB(NP)",
+      "phone": "Phone",
+      "email": "Email",
+      "blood_group": "Blood Group",
+      "house": "House",
+      "hostel": "Hostel",
+      "nationality": "Nationality",
+      "religion": "Religion",
+      "caste": "Caste",
+      "ethnic": "Ethnicity",
+      "disability": "Disability",
+      "address": "Address",
+      "address1": "Address1",
+      "address2": "Address2",
+      "image": "Profile Image",
+      "user": "User Account",
+      "section": "Section",
+      "relation": "Relation"
+    },
+    "filter": {
+      "tabs": {
+        "filter": "Filter",
+        "select": "Selection"
+      },
+      "title": "Search Students",
+      "search": {
+        "label": "Search",
+        "placeholder": "Search"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Search Name"
+      },
+      "createdAt": {
+        "label": "Created At"
+      },
+      "submit": "Filter"
+    },
+    "actions": {
+      "add": "Add new student",
+      "edit": "Edit student"
+    }
+  },
+  "sibling": {
+    "sibling": "Sibling",
+    "titles": {
+      "edit": "Edit Sibling",
+      "list": "Siblings"
+    },
+    "fields": {
+      "id": "ID",
+      "sibling": "Sibling",
+      "relation": "Relation"
+    },
+    "filter": {
+      "title": "Filters",
+      "search": {
+        "label": "Search",
+        "placeholder": "Search"
+      },
+      "sibling": {
+        "label": "Sibling",
+        "placeholder": "Search Sibling"
+      },
+      "submit": "Filter"
+    },
+    "actions": {
+      "add": "Add new sibling",
+      "edit": "Edit sibling"
+    }
+  },
+  "parent": {
+    "parent": "Parent",
+    "titles": {
+      "edit": "Edit Parent",
+      "list": "Parents"
+    },
+    "fields": {
+      "id": "ID",
+      "name": "Name",
+      "relation": "Relation",
+      "gender": "Gender",
+      "phone": "Phone",
+      "email": "Email",
+      "blood_group": "Blood Group",
+      "occupation": "Occupation",
+      "address1": "Address1",
+      "address2": "Address2",
+      "image": "Image",
+      "isGuardian": "Guardian"
+    },
+    "filter": {
+      "title": "Filters",
+      "search": {
+        "label": "Search",
+        "placeholder": "Search"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Search Name"
+      },
+      "createdAt": {
+        "label": "Created At"
+      },
+      "submit": "Filter"
+    },
+    "actions": {
+      "add": "Add new parent",
+      "edit": "Edit parent"
+    }
+  },
+  "student_parent": {
+    "student_parent": "Parent",
+    "titles": {
+      "edit": "Edit Parent",
+      "list": "Parents"
+    },
+    "fields": {
+      "id": "ID",
+      "parent": "Parent's Number",
+      "relation": "Relation",
+      "isGuardian": "Is Guardian"
+    },
+    "filter": {
+      "title": "Filters",
+      "search": {
+        "label": "Search",
+        "placeholder": "Search"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Search Name"
+      },
+      "createdAt": {
+        "label": "Created At"
+      },
+      "submit": "Filter"
+    },
+    "actions": {
+      "add": "Add new parent",
+      "edit": "Edit parent"
+    }
+  },
+  "student_academic": {
+    "student_academic": "Academic Detail",
+    "titles": {
+      "edit": "Edit Academic Detail",
+      "list": "Academic Details"
+    },
+    "fields": {
+      "id": "ID",
+      "type": "Type",
+      "institute_name": "Institute name",
+      "regid": "Registration ID",
+      "remark": "Remark",
+      "score": "Score",
+      "image": "Doc File",
+      "symbol": "Symbol",
+      "passed_year_en": "Passed Year(EN)"
+    },
+    "filter": {
+      "title": "Filters",
+      "search": {
+        "label": "Search",
+        "placeholder": "Search"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Search Name"
+      },
+      "createdAt": {
+        "label": "Created At"
+      },
+      "submit": "Filter"
+    },
+    "actions": {
+      "add": "Add new academic detail",
+      "edit": "Edit academic detail"
+    }
+  },
+  "student_doc": {
+    "student_doc": "Documents",
+    "titles": {
+      "edit": "Edit Doc",
+      "list": "Documents"
+    },
+    "fields": {
+      "id": "ID",
+      "type": "Type",
+      "remark": "Remark",
+      "image": "Doc File"
+    },
+    "filter": {
+      "title": "Filters",
+      "search": {
+        "label": "Search",
+        "placeholder": "Search"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Search Name"
+      },
+      "createdAt": {
+        "label": "Created At"
+      },
+      "submit": "Filter"
+    },
+    "actions": {
+      "add": "Add new document",
+      "edit": "Edit document"
+    }
+  },
+  "vehicle": {
+    "vehicle": "Vehicle",
+    "titles": {
+      "edit": "Edit Vehicle",
+      "list": "Vehicle"
+    },
+    "fields": {
+      "id": "ID",
+      "route": "Route",
+      "location": "Location",
+      "price": "Price",
+      "arrivalTime": "Arrival Time",
+      "departTime": "Depart Time"
+    },
+    "filter": {
+      "title": "Filters",
+      "search": {
+        "label": "Search",
+        "placeholder": "Search"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Search Name"
+      },
+      "createdAt": {
+        "label": "Created At"
+      },
+      "submit": "Filter"
+    },
+    "actions": {
+      "add": "Add new document",
+      "edit": "Edit document"
+    }
+  },
+  "admission": {
+    "admission": "Admission",
+    "titles": {
+      "list": "Admission",
+      "import": "Import Student Data"
+    },
+    "fields": {
+      "id": "ID",
+      "code": "Code",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "full_name": "Full Name",
+      "phone": "Phone Number",
+      "address": "Address",
+      "address1": "Address1",
+      "address2": "Address2",
+      "dob_en": "Date of Birth (English)",
+      "phone1": "Phone Number",
+      "blood_group": "Blood Group",
+      "gender": "Gender",
+      "email": "Email Address",
+      "image": "Profile Image",
+      "parent": "Parent Details",
+      "class": "Class",
+      "batch": "Batch",
+      "status": "Status",
+      "importType": "Import Type",
+      "excel": "Select Student Excel",
+      "created_at": "Created At",
+      "updated_at": "Updated At"
+    },
+    "info": {
+      "importing": "Loading excel file...",
+      "missingColumn": "Following required column(s) are missing : "
+    },
+    "filter": {
+      "title": "Filters",
+      "search": {
+        "label": "Search",
+        "placeholder": "Search"
+      },
+      "submit": "Filter"
+    },
+    "actions": {
+      "add": "New admission",
+      "edit": "Edit admission",
+      "import": "Import",
+      "export": "Export",
+      "deleteRow": "Delete Row"
+    }
+  },
+  "subject": {
+    "subject": "Subject",
+    "titles": {
+      "assignment": "Subject Assignment",
+      "subject": "Subjects"
+    },
+    "fields": {
+      "id": "ID",
+      "regid": "Regid",
+      "student_name": "Student Name",
+      "section": "Section",
+      "sno": "S.No",
+      "courseType": "Course Type",
+      "assigned": "Assigned",
+      "class": "Class",
+      "subject": "Subject",
+      "subject_code": "Subject Code",
+      "totalStudent": "Total Student"
+    },
+    "filter": {
+      "title": "Filters",
+      "search": {
+        "label": "Search",
+        "placeholder": "Search"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Search Name"
+      },
+      "createdAt": {
+        "label": "Created At"
+      },
+      "submit": "Filter"
+    },
+    "actions": {
+      "reset": "Reset",
+      "submit": "Submit"
+    }
+  },
+  "certificateType": {
+    "certificateType": "Certificate Type",
+    "titles": {
+      "list": "Certificate Types",
+      "add": "Add Certificate Type",
+      "edit": "Edit Certificate Type"
+    },
+    "fields": {
+      "name": "Name",
+      "template": "Template",
+      "prefix": "Prefix",
+      "type": "Type"
+    },
+    "validation": {
+      "prefixLength": "Must be of at most 7 character"
+    },
+    "actions": {
+      "add": "Add new certificate type",
+      "edit": "Edit certificate type"
+    }
+  },
+  "certificate": {
+    "issue": "Issued",
+    "type": "Type",
+    "certificate": "Certificate",
+    "titles": {
+      "list": "Certificate List",
+      "add": "Add Certificate",
+      "edit": "Edit Certificate",
+      "show": "Show Certificate"
+    },
+    "fields": {
+      "student": "Student",
+      "certificate_no": "Certificate No",
+      "issue_date": "Issue Date",
+      "issued_by": "Issued By",
+      "type": "Type",
+      "name": "Name",
+      "issuedBy": "Issued By",
+      "staff": "Staff",
+      "status": "Status",
+      "remark": "Remark"
+    },
+    "filters": {
+      "created_by_name": "Issuer Name",
+      "student_name": "Student Name",
+      "type_name": "Type Name",
+      "student_regid": "Student Regid"
+    },
+    "actions": {
+      "add": "Issue new certificate",
+      "edit": "Edit certificate"
+    }
+  },
+  "dashboard": {
+    "dashboard": "Dashboard",
+    "labels": {
+      "currentStudent": "Current Students",
+      "almuniStudent": "Almuni Students",
+      "dropoutStudent": "Dropouts",
+      "totalCertificates": "Total Certificates",
+      "pendingAdmission": "Pending Admission",
+      "totalParents": "Total Parents",
+      "todayBirthday": "Today's Birthday",
+      "genderRatio": "Gender Ratio",
+      "ethenicityRatio": "Ethnicity Ratio",
+      "studentInClass": "Student In Class",
+      "allBirthday": "All Birthday",
+      "recentCertificate": "Recent Certificate",
+      "certificatePie": "Certificate Pie"
+    },
+    "info": {
+      "totalBirthday": "You have {{count}} birthday today",
+      "noBirthday": "There is not birthday today"
+    },
+    "actions": {
+      "viewAll": "View all"
+    }
+  },
+  "attendance": {
+    "attendance": "Attendance",
+    "titles": {
+      "list": "Attendance List",
+      "add": "Add Attendance",
+      "edit": "Edit Attendance",
+      "show": "Show Attendance",
+      "leave": "Leave Reason"
+    },
+    "fields": {
+      "period": "Period",
+      "regid": "Regid",
+      "full_name": "Name",
+      "student": "Student",
+      "attendance": "Attendance",
+      "reason": "Reason",
+      "section": "Section",
+      "date": "Date",
+      "status": "Status"
+    },
+    "actions": {
+      "add": "Add new attendance",
+      "edit": "Edit attendance"
+    }
+  },
+  "setting": {
+    "setting": "Settings"
+  },
+  "datavalue": {
+    "datavalue": "Data Value"
+  },
+  "assignment": {
+    "assignment": "Assignment",
+    "titles": {
+      "assignment": "Assignment",
+      "list": "Assignments",
+      "create": "Create Assignment",
+      "edit": "Edit Assignment",
+      "view": "View Assignment",
+      "uploads": "Upload Files",
+      "assignment_detail": "Assignment Details"
+    },
+    "actions": {
+      "add": "Create Assignment",
+      "edit": "Edit Assignment",
+      "update": "Update Assignment",
+      "delete": "Delete Assignment",
+      "view": "View Assignment"
+    },
+    "messages": {
+      "delete_confirm": "Are you sure you want to delete this assignment?"
+    },
+    "fields": {
+      "code": "Code",
+      "type": "Type",
+      "description": "Description",
+      "deadline": "Deadline",
+      "total_mark": "Marks",
+      "progress": "Progress",
+      "state": "State",
+      "created_at": "Created Date",
+      "created_by": "Created By",
+      "class": "Class",
+      "subject": "Subject",
+      "batch": "Batch",
+      "sections": "Sections",
+      "syllabus": "Syllabus",
+      "student": "Student",
+      "assignment": "Assignment",
+      "files": "Assignment Files"
+    }
+  },
+  "assignment-submit": {
+    "titles": {
+      "submission": "Assignment Submission",
+      "submissions": "Assignment Submissions"
+    },
+    "actions": {
+      "reassign": "Reassign Assignment",
+      "edit": "Edit Submission",
+      "update": "Update Submission",
+      "delete": "Delete Submission",
+      "view": "View Submission"
+    },
+    "messages": {
+      "delete_confirm": "Are you sure you want to delete this submission?",
+      "reassign_confirm": "Are you sure you want to reassign this assignment? This will create a new submission for the student."
+    },
+    "fields": {
+      "student": "Student",
+      "roll_no": "Roll No",
+      "assignment": "Assignment",
+      "submitted_at": "Submitted At",
+      "mark": "Mark",
+      "files": "Files",
+      "notes": "Notes",
+      "assignment_info": "Assignment Information",
+      "type": "Assignment Type",
+      "state": "State",
+      "total_mark": "Total Marks",
+      "description": "Description",
+      "deadline": "Deadline"
+    }
+  },
+  "assignment-grading": {
+    "titles": {
+      "review": "Assignment Review",
+      "grading_panel": "Grading Panel",
+      "current_grade": "Current Grade"
+    },
+    "fields": {
+      "student_description": "Student's Description",
+      "submitted_files": "Submitted Files",
+      "score": "Score",
+      "remarks_feedback": "Remarks & Feedback",
+      "state": {
+        "label": "State",
+        "complete": "Complete",
+        "redo": "Redo",
+        "rejected": "Rejected"
+      }
+    },
+    "labels": {
+      "assignment_progress": "Assignment {{current}} of {{total}}",
+      "score_display": "Score: {{score}} / {{total}}"
+    },
+    "actions": {
+      "assign_grade": "Assign Grade",
+      "save_grade_continue": "Save Grade & Continue",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "status": {
+      "submitted": "Submitted",
+      "not_submitted": "Not Submitted"
+    },
+    "messages": {
+      "no_description": "No description provided by student",
+      "no_files_submitted": "No files submitted by student"
+    },
+    "placeholders": {
+      "provide_feedback": "Provide feedback for the student..."
+    },
+    "common": {
+      "of": "of"
+    }
+  }
+}

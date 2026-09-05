@@ -1,0 +1,89 @@
+{
+    "dashboard": {
+        "dashboard": "Dashboard",
+        "labels": {
+            "storageCapicity": "Total Capacity",
+            "storageUsed": "Used Storage",
+            "storageAvailable": "Available Storage",
+            "dataActivity": "Data Activity",
+            "recentFiles": "Recent Files",
+            "recentFolders": "Recent Folders"
+        }
+    },
+    "setting": {
+        "setting": "Setting"
+    },
+    "dialog": {
+        "inputs": {
+            "rename": "Enter new name",
+            "newFolder": "Enter folder name",
+            "upload": "Select file"
+        },
+        "root": "Root",
+        "titles": {
+            "filemanager": "File Manager",
+            "rename": "Rename : ",
+            "move": "Move : ",
+            "restore": "Restore : ",
+            "newFolder": "New folder under : ",
+            "upload": "Upload file under : "
+        }
+    },
+    "root": "Root",
+    "properties": {
+        "type": "Type",
+        "file": "File",
+        "folder": "Folder",
+        "size": "Size",
+        "date": "Date",
+        "access": "Access",
+        "owner": "Owner",
+        "deleted": "Deleted On",
+        "parent": "Parent",
+        "shared": "Shared With",
+        "root": "Root"
+    },
+    "menu": {
+        "rename": "Rename",
+        "move": "Move",
+        "share": "Share",
+        "delete": "Delete",
+        "restore": "Restore",
+        "starred": "Starred",
+        "unstarred": "Unstarred",
+        "properties": "Properties",
+        "download": "Download",
+        "copylink": "Copy Link"
+    },
+    "repo": {
+        "repo": "My Folders",
+        "message": {
+            "noData": "No files found",
+            "createNew": "Create a new folder or upload a file."
+        },
+        "actions": {
+            "newFolder": "New Folder",
+            "upload": "Upload"
+        }
+    },
+    "starred": {
+        "starred": "Starred",
+        "message": {
+            "noData": "No files found",
+            "createNew": "Add file or folder to your starred."
+        },
+        "actions": {
+            "newFolder": "New Folder",
+            "upload": "Upload"
+        }
+    },
+    "trash": {
+        "trash": "Trash",
+        "message": {
+            "noData": "Trash is empty"
+        },
+        "actions": {
+            "clear": "Clear Trash"
+        }
+    }
+}

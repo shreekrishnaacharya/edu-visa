@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/logo/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1b2430" />
+    <meta
+      name="description"
+      content="Edu-Visa — prototype student ↔ university/course matching portal (dummy data)."
+    />
+    <title>Edu-Visa</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script>
+      // Prototype aid: surface bootstrap errors in the page instead of a blank screen.
+      window.__bootErr = function (label, e) {
+        var r = document.getElementById("root");
+        if (!r) return;
+        var msg = (e && (e.stack || e.message)) || String(e);
+        r.innerHTML =
+          '<pre style="white-space:pre-wrap;padding:24px;font:13px/1.5 ui-monospace,monospace;color:#b23a2b">' +
+          label + "\n\n" + msg.replace(/[<>&]/g, "") + "</pre>";
+      };
+      window.addEventListener("error", function (ev) {
+        window.__bootErr("Uncaught error", ev.error || ev.message);
+      });
+      window.addEventListener("unhandledrejection", function (ev) {
+        window.__bootErr("Unhandled promise rejection", ev.reason);
+      });
+    </script>
+    <script type="module" src="/src/index.tsx"></script>
+  </body>
+</html>

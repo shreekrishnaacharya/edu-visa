@@ -1,0 +1,487 @@
+{
+    "dashboard": {
+        "dashboard": "Dashboard",
+        "titles": {
+            "total_product": "Total Product",
+            "total_in": "Total In",
+            "total_out": "Total Out",
+            "bill_amount": "Bill Amount",
+            "total_requisition": "Total Requisition",
+            "total_vendor": "Total Vendor",
+            "total_groups": "Total Groups",
+            "total_bills": "Total Bills",
+            "recent_activities": "Recent Activities",
+            "low_stock_products": "Low Stock Products",
+            "stock_detail": "Stock Detail",
+            "product_details_list": "Product Details List",
+            "packet": "Packet",
+            "liquid": "Liquid",
+            "weight": "Weight",
+            "recent_in_entry_details": "Recent In Entry Details",
+            "procurement_title": "Procurement Title :",
+            "user": " | User : ",
+            "title": "Title : ",
+            "recent_out_entry_details": "Recent Out Entry Details",
+            "bill_revenue_statistics": "Bill Revenue Statistics",
+            "requisition_detail": "Requisition Detail",
+            "requisition_statistics": "Requisition Statistics",
+            "recent_bill_details": "Recent Bill Details"
+        },
+        "fields": {
+            "id": "id",
+            "name": "Name",
+            "product_name": "Product Name",
+            "date": "Date",
+            "code": "Code",
+            "type": "Type",
+            "quantity": "Quantity",
+            "life_expn": "Life Expectancy",
+            "category": "Category",
+            "min_qty": "Minimum Quantity",
+            "description": "Description",
+            "si_units": "SI Units",
+            "house_id": "House ID",
+            "life": "Life",
+            "status": "Status",
+            "unit": "Unit",
+            "stock": "Stock",
+            "rate": "Rate",
+            "total": "Total",
+            "bill_no": "Bill No",
+            "user_party_name": "User / Party Name",
+            "user_type": "User Type",
+            "amount": "Amount"
+        }
+    },
+    "menu": {
+        "menu": "Canteen Menu",
+        "titles": {
+            "show": "Menu Detail",
+            "list": "Menu List"
+        },
+        "fields": {
+            "id": "id",
+            "name": "Product Name",
+            "sno": "Serial No.",
+            "price": "Price",
+            "status": "Status"
+        },
+        "actions": {
+            "edit": "Edit menu"
+        }
+    },
+    "product": {
+        "product": "Product",
+        "titles": {
+            "show": "Product Detail",
+            "statement": "Title Statement",
+            "list": "Product List",
+            "codes": "Codes and Control No",
+            "otherInfo": "Other Info",
+            "addQuantity": "Add Quantity",
+            "history": "History"
+        },
+        "fields": {
+            "id": "id",
+            "image": "Image",
+            "name": "Name",
+            "code": "Code",
+            "life_expn": "Life Expectancy",
+            "category": "Category",
+            "min_qty": "Minimum Quantity",
+            "description": "Description",
+            "si_units": "SI Units",
+            "flow": "Flow",
+            "in_price": "In Price",
+            "out_price": "Out Price",
+            "house_id": "House ID",
+            "type": "Type",
+            "status": "Status"
+        },
+        "actions": {
+            "add": "Add new product",
+            "edit": "Edit product",
+            "export": "Export"
+        }
+    },
+    "procurement": {
+        "procurement": "Procurements",
+        "titles": {
+            "show": "Procurement Details",
+            "list": "Procurement List",
+            "documents": "Documents",
+            "comments": "Comments"
+        },
+        "info": {
+            "deleteComment": "Are you sure you want to delete this comment?"
+        },
+        "fields": {
+            "name": "Name",
+            "proc_regid": "Reg Id",
+            "entry_date": "Entry Date",
+            "remark": "Remark",
+            "user": "Entered By",
+            "type": "Type",
+            "house": "House",
+            "year": "Year",
+            "comment": "Comment",
+            "approved_by_id": "Approved By",
+            "amount": "Amount",
+            "discount": "Discount",
+            "total_amount": "Total Amount",
+            "state": "State",
+            "vat_rate": "VAT Rate",
+            "vat_amount": "VAT Amount",
+            "status": "Status",
+            "items": "Items"
+        },
+        "actions": {
+            "add": "Add New Procurement",
+            "edit": "Edit Procurement",
+            "export": "Export Procurements",
+            "comment": "Add Comment",
+            "print": "Print"
+        }
+    },
+    "inEntry": {
+        "inEntry": "In Entries",
+        "titles": {
+            "show": "Entry Details",
+            "product": "Product",
+            "statement": "Entry Statement",
+            "codes": "Codes and Control Numbers",
+            "otherInfo": "Additional Information",
+            "addQuantity": "Add Quantity",
+            "list": "Entry List"
+        },
+        "labels": {
+            "total_product": "Total Product",
+            "sub_total": "Sub Total",
+            "discount": "Discount (NPR)",
+            "vatRate": "VAT Rate(%)",
+            "vatAmount": "VAT (NPR)",
+            "total": "Total"
+        },
+        "fields": {
+            "id": "Id",
+            "user": "Entered By",
+            "vendor": "Vendor",
+            "house": "House",
+            "year": "Year",
+            "proc_regid": "Procument No",
+            "title": "Entry Title",
+            "dep_name": "Department Name",
+            "product_name": "Product Name",
+            "payment_amount": "Payment Amount",
+            "amount": "Amount",
+            "vat_rate": "VAT Rate",
+            "vat_amt": "VAT Amount",
+            "dis_per": "Discount Percentage",
+            "dis_amt": "Discount Amount",
+            "total_amount": "Total Amount",
+            "remark": "Remark",
+            "entry_date": "Entry Date",
+            "procument": "Procument",
+            "procument_title": "Procurement Title",
+            "status": "Status",
+            "quantity": "Quantity",
+            "unit_price": "Unit Price",
+            "life_expn": "Life Expectancy",
+            "expiry_date": "Expiry Date"
+        },
+        "actions": {
+            "add": "Add New Entry",
+            "edit": "Edit Entry",
+            "export": "Export Entries",
+            "addItem": "Add Item"
+        }
+    },
+    "setting": {
+        "setting": "Setting"
+    },
+    "vendor": {
+        "vendor": "Vendors",
+        "titles": {
+            "show": "Vendor Details"
+        },
+        "id": "id",
+        "name": "Vendor List",
+        "product": "Products Supplied",
+        "titleStatement": "Vendor Statement",
+        "codes": "Vendor Codes",
+        "otherInfo": "Additional Information",
+        "addVendor": "Add Vendor",
+        "fields": {
+            "id": "ID",
+            "name": "Vendor Name",
+            "phone": "Contact",
+            "address": "Address",
+            "email": "Email",
+            "house_id": "House",
+            "status": "Status",
+            "description": "Description"
+        },
+        "actions": {
+            "add": "Add New Vendor",
+            "edit": "Edit Vendor",
+            "export": "Export Vendors"
+        }
+    },
+    "outEntry": {
+        "outEntry": "Out Entry"
+    },
+    "itemCheckout": {
+        "itemCheckout": "Item Checkout",
+        "titles": {
+            "show": "Item Checkout Details",
+            "total_product": "Total Product",
+            "sub_total": "Sub Total",
+            "discount": "Discount",
+            "total": "Total"
+        },
+        "id": "id",
+        "name": "Item Checkout List",
+        "product": "Purchased Items",
+        "titleStatement": "Item Checkout Statement",
+        "codes": "Checkout Codes",
+        "otherInfo": "Additional Information",
+        "addItemCheckout": "Add Item Checkout",
+        "fields": {
+            "id": "Id",
+            "product_name": "Product Name",
+            "title": "Title",
+            "quantity": "Quantity",
+            "unit_price": "Unit Price",
+            "dis_amt": "Discount Amount",
+            "entered_by": "Entered By",
+            "house_id": "House ID",
+            "year_id": "Year ID",
+            "discount": "Discount",
+            "amount": "Amount",
+            "total_amount": "Total Amount",
+            "remark": "Remark",
+            "date_en": "English Date",
+            "date_np": "Nepali Date",
+            "status": "Status",
+            "entry_date": "Entry Date"
+        },
+        "actions": {
+            "add": "Add New Item Checkout",
+            "edit": "Edit Item Checkout",
+            "export": "Export Item Checkouts"
+        }
+    },
+    "template": {
+        "template": "Templates",
+        "titles": {
+            "show": "Template Details"
+        },
+        "id": "ID",
+        "name": "Template List",
+        "templateContent": "Template Content",
+        "titleStatement": "Template Statement",
+        "codes": "Template Codes and Control Numbers",
+        "otherInfo": "Additional Information",
+        "addTemplate": "Add Template",
+        "fields": {
+            "id": "ID",
+            "name": "Template Name",
+            "house": "House",
+            "template": "Template Content",
+            "status": "Status"
+        },
+        "actions": {
+            "add": "Add New Template",
+            "edit": "Edit Template",
+            "export": "Export Templates"
+        }
+    },
+    "billing": {
+        "billing": "Billing",
+        "order": "Orders",
+        "titles": {
+            "show": "Billing Details",
+            "latest_bill": "Latest Bill",
+            "list": "Billing List",
+            "singleForm": "Single Billing Form",
+            "multiForm": "Multiple Billing Form",
+            "items": "Items"
+        },
+        "info": {
+            "deleteTitle": "Are you sure you want to delete this bill?"
+        },
+        "labels": {
+            "total_product": "Total Product",
+            "sub_total": "Sub Total",
+            "discount": "Discount (NPR)",
+            "vatRate": "VAT Rate(%)",
+            "vatAmount": "VAT (NPR)",
+            "total": "Total"
+        },
+        "fields": {
+            "bill_no": "Bill No",
+            "customer_name": "User Name",
+            "student_name": "Student Name",
+            "product_name": "Product Name",
+            "quantity": "Quantity",
+            "unit_price": "Unit Price",
+            "dis_amt": "Discount",
+            "vat_rate": "VAT Rate",
+            "vat_amt": "VAT Amount",
+            "user": "Entered By",
+            "house": "House",
+            "year": "Year",
+            "amount": "Amount",
+            "total_amount": "Total",
+            "user_type": "User Type",
+            "remark": "Remark",
+            "entry_date": "Entry Date",
+            "status": "Status",
+            "created_at": "Bill Date",
+            "month": "Month",
+            "class": "Class",
+            "section": "Section",
+            "dep_name": "Department Name",
+            "state": "State"
+        },
+        "actions": {
+            "add": "Add New Billing",
+            "edit": "Edit Billing",
+            "export": "Export Billings",
+            "addItem": "Add Item"
+        }
+    },
+    "requisition": {
+        "requisition": "Requisition",
+        "titles": {
+            "show": "Requisition Details",
+            "list": "Requisition List",
+            "product": "Purchased Items",
+            "titleStatement": "Requisition Statement",
+            "codes": "Requisition Codes",
+            "otherInfo": "Additional Information"
+        },
+        "labels": {
+            "total_product": "Total Product",
+            "sub_total": "Sub Total",
+            "discount": "Discount",
+            "total": "Total"
+        },
+        "fields": {
+            "id": "Id",
+            "user": "Entered By",
+            "product_name": "Product Name",
+            "quantity": "Quantity",
+            "unit_price": "Unit Price",
+            "title": "Title",
+            "dep_name": "Department Name",
+            "dis_amt": "Discount Amount",
+            "house_id": "House ID",
+            "year_id": "Year ID",
+            "discount": "Discount",
+            "amount": "Amount",
+            "total_amount": "Total Amount",
+            "remark": "Remark",
+            "date_en": "English Date",
+            "date_np": "Nepali Date",
+            "status": "Status",
+            "requisition_name": "Requisition Name",
+            "entry_date": "Entry Date",
+            "entered_by": "Entered By"
+        },
+        "actions": {
+            "add": "Add New Requisition",
+            "edit": "Edit Requisition",
+            "export": "Export Requisitions",
+            "addItem": "Add Item"
+        }
+    },
+    "reports": {
+        "reports": "Reports",
+        "stockSummary": "Stock Summary",
+        "labels": {
+            "product": "Product",
+            "opening": "Opening Stock",
+            "closing": "Closing Stock",
+            "total_in": "Total In",
+            "total_out": "Total Out"
+        },
+        "inputs": {
+            "dateRange": "Date Range"
+        }
+    },
+    "groups": {
+        "groups": "Groups",
+        "titles": {
+            "show": "Group Details",
+            "list": "Group List"
+        },
+        "labels": {
+            "filter": "Filter",
+            "class": "Class",
+            "section": "Section",
+            "from": "From",
+            "to": "To"
+        },
+        "fields": {
+            "regid": "Regid",
+            "name": "Name",
+            "type": "Type",
+            "tot_mem": "Total Members",
+            "students": "Students",
+            "employees": "Employees",
+            "members": "Members"
+        },
+        "actions": {
+            "add": "Add New Group",
+            "edit": "Edit Group",
+            "check": "Manage",
+            "save": "Save",
+            "reset": "Reset",
+            "transfer": "Transfer"
+        }
+    },
+    "billSummary": {
+        "billSummary": "Bill Summary",
+        "titles": {
+            "show": "Billing Details",
+            "latest_bill": "Latest Bill"
+        },
+        "id": "id",
+        "name": "Billing List",
+        "product": "Purchased Items",
+        "titleStatement": "Billing Statement",
+        "codes": "Billing Codes",
+        "otherInfo": "Additional Information",
+        "addBilling": "Add Billing",
+        "fields": {
+            "id": "Id",
+            "bill_no": "Bill No",
+            "customer_name": "User Name",
+            "product_name": "Product Name",
+            "quantity": "Quantity",
+            "unit_price": "Unit Price",
+            "title": "Title",
+            "dis_amt": "Discount Amount",
+            "entered_by": "Entered By",
+            "house_id": "House ID",
+            "year_id": "Year ID",
+            "discount": "Discount",
+            "amount": "Amount",
+            "total_amount": "Total Amount",
+            "user_type": "User Type",
+            "remark": "Remark",
+            "date_en": "English Date",
+            "date_np": "Nepali Date",
+            "academic_year": "Academic Year",
+            "status": "Status",
+            "created_at": "Bill Date",
+            "month": "Month"
+        },
+        "actions": {
+            "add": "Add New Billing",
+            "edit": "Edit Billing",
+            "export": "Export Billings"
+        }
+    }
+}

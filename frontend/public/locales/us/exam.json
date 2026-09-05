@@ -1,0 +1,801 @@
+{
+  "dashboard": {
+    "dashboard": "Dashboard",
+    "titles": {
+      "list": "Dashboard"
+    },
+    "fields": {
+      "class": "Class",
+      "batch": "Batch",
+      "exam_type": "Exam Type"
+    },
+    "actions": {
+      "filter": "Filter",
+      "export": "Export PDF"
+    }
+  },
+  "setting": {
+    "setting": "Setting"
+  },
+  "type": {
+    "type": "Types",
+    "titles": {
+      "edit": "Edit Type",
+      "list": "Types"
+    },
+    "fields": {
+      "id": "ID",
+      "name": "Name",
+      "code": "Code",
+      "type": "Types"
+    },
+    "actions": {
+      "add": "Add new type",
+      "edit": "Edit type"
+    }
+  },
+  "esubject": {
+    "esubject": "Extra Activity",
+    "titles": {
+      "edit": "Edit Activity",
+      "list": "Activities"
+    },
+    "fields": {
+      "id": "ID",
+      "name": "Name",
+      "sort": "Sort Order",
+      "data_type": "Data Type",
+      "status": "Status"
+    },
+    "enums": {
+      "dataType": {
+        "Number": "Number",
+        "String": "Text"
+      }
+    },
+    "actions": {
+      "add": "Add new activity",
+      "edit": "Edit activity"
+    }
+  },
+  "formula": {
+    "formula": "Formula",
+    "titles": {
+      "edit": "Edit Formula",
+      "list": "Formulas"
+    },
+    "fields": {
+      "id": "ID",
+      "name": "Name",
+      "type": "Types",
+      "base": "Base",
+      "classes": "Classes",
+      "regulation": "Regulation",
+      "remark": "Remark",
+      "from": "From",
+      "to": "To",
+      "point": "Point",
+      "rank": "Rank"
+    },
+    "validation": {
+      "maxfrom": "Cannot be greater than to",
+      "maxto": "Cannot be greater than base",
+      "minfrom": "Must be greater than or equal to zero",
+      "minto": "Must be greater than zero"
+    },
+    "actions": {
+      "add": "Add new formula",
+      "edit": "Edit formula"
+    }
+  },
+  "question": {
+    "question": "Question Bank",
+    "titles": {
+      "edit": "Edit Question",
+      "list": "Question Bank",
+      "uploads": "Images & Attachments",
+      "advancedSearch": "Advanced Question Search"
+    },
+    "fields": {
+      "id": "ID",
+      "class": "Class",
+      "subject": "Subject",
+      "lesson": "Lesson",
+      "syllabus": "Syllabus",
+      "question": "Question",
+      "type": "Question Type",
+      "subQuestions": "Sub Questions",
+      "mark": "Mark",
+      "answer": "Answer",
+      "group": "Question Group",
+      "hint": "Hint",
+      "options": "Options",
+      "addOption": "Type option and click add",
+      "selectSingleAnswer": "Select the correct answer (radio button)",
+      "selectMultipleAnswer": "Select all correct answers (checkboxes)",
+      "examTypes": "Applicable for Exam Types",
+      "images": "Question Images"
+    },
+    "labels": {
+      "questionBank": "Question Bank",
+      "searchQuestions": "Search Questions...",
+      "questionType": "Question Type",
+      "group": "All Groups"
+    },
+    "validation": {
+      "examTypesRequired": "At least one exam type is required",
+      "answerRequired": "At least one answer must be selected"
+    },
+    "actions": {
+      "add": "Add new question",
+      "edit": "Edit question",
+      "update": "Update question",
+      "showMore": "Show More Filter",
+      "showLess": "Show Less Filter",
+      "advancedSearch": "Advanced Search"
+    },
+    "messages": {
+      "confirmDelete": "Are you sure you want to delete this question?",
+      "noImages": "No images uploaded",
+      "no_questions": "No questions found",
+      "select_class_subject": "Please select class and subject on paper header to load questions"
+    }
+  },
+  "question-paper": {
+    "onlineExam": "Online Exams",
+    "questionPaper": "Question Papers",
+    "titles": {
+      "edit": "Edit Question Paper",
+      "list": "Question Papers",
+      "examInfo": "Exam Information",
+      "curriculumCovered": "Curriculum Covered"
+    },
+    "validation": {
+      "exam_date_after_today": "Exam date must be after today",
+      "end_date_after_exam_date": "End date must be after exam date"
+    },
+    "confirm": {
+      "sendEmail": "Are you sure you want to send email notification to all students for this online exam?",
+      "completionConfirm": "Are you sure you want to mark this exam as completed? This action cannot be undone."
+    },
+    "fields": {
+      "id": "ID",
+      "code": "Code",
+      "examType": "Exam Type",
+      "subject": "Subject",
+      "class": "Class",
+      "batch": "Batch",
+      "program": "Program",
+      "duration": "Duration (Min)",
+      "progress": "Progress",
+      "exam_date": "Exam Date",
+      "pass_mark": "Pass Mark",
+      "full_mark": "Full Mark",
+      "end_date": "End Date",
+      "online_exam": "Online Exam",
+      "reexam": "Re-Exam",
+      "online_reexam": "Online Re-Exam",
+      "total_student": "Total Student",
+      "total_attendance": "Total Attendance",
+      "total_questions": "Total Questions",
+      "state": "State"
+    },
+    "actions": {
+      "add": "Add new question paper",
+      "edit": "Edit question paper"
+    }
+  },
+  "online-exam-result": {
+    "onlineExamResult": "Online Exams Results",
+    "titles": {
+      "edit": "Edit Exam Result",
+      "list": "Online Exam Results",
+      "review": "Review Exam Result"
+    },
+    "common": {
+      "of": "Of"
+    },
+    "messages": {
+      "reassign_confirm": "Are you sure you want to reassign students?"
+    },
+    "fields": {
+      "id": "ID",
+      "code": "Code",
+      "student_name": "Student Name",
+      "rollno": "Roll No.",
+      "regid": "Regid",
+      "section": "Section",
+      "correct_answer": "Correct Answer",
+      "total_attempt": "Total Attempt",
+      "total_question": "Total Question",
+      "obtain_marks": "Obtain Marks",
+      "full_mark": "Full Mark",
+      "pass_mark": "Pass Mark",
+      "start_time": "Start Time",
+      "remark": "Remark",
+      "state": "State"
+    },
+    "actions": {
+      "add": "Add new question paper",
+      "edit": "Edit question paper",
+      "reassign": "Reassign"
+    }
+  },
+  "esubjects": {
+    "esubjects": "Subjects",
+    "titles": {
+      "edit": "Edit Subject",
+      "list": "Subjects",
+      "show": "Exam Subject",
+      "marks": "Marks",
+      "addMissing": "Add Missing Subject"
+    },
+    "fields": {
+      "id": "ID",
+      "full_mark": "Full Mark",
+      "pass_mark": "Pass Mark",
+      "fm": "FM",
+      "pm": "PM",
+      "th_fm": "TH FM",
+      "th_pm": "TH PM",
+      "in_fm": "IN FM",
+      "in_pm": "IN PM",
+      "project": "Project FM",
+      "engage": "Engage FM",
+      "internalScale": "Internal Scale",
+      "thFMThreshold": "TH FM Thresh",
+      "thPassThreshold": "TH Pass Thresh",
+      "inFMThreshold": "IN FM Thresh",
+      "inPassThreshold": "IN Pass Thresh",
+      "routine": "Exam",
+      "class": "Class",
+      "batch": "Batch",
+      "term": "Term",
+      "subject_name": "Subject Name",
+      "subject_code": "Subject Code",
+      "code": "Code",
+      "subject_credit": "Credit",
+      "subject_th_credit": "TH Credit",
+      "subject_pr_credit": "IN Credit",
+      "subject": "Subject",
+      "course_type": "Course Type",
+      "post_status": "Post Status",
+      "post_date": "Post Date",
+      "start_time": "Start Time",
+      "exam_type": "Exam",
+      "start_date": "Start Date",
+      "duration": "Duration(Hr)",
+      "time": "Time(hr)",
+      "progress": "Progress",
+      "online_exam": "Online Exam",
+      "total_student": "Total Student",
+      "mark_student": "Marked Student",
+      "state": "State",
+      "status": "Status",
+      "type": "Types"
+    },
+    "actions": {
+      "add": "Add new subject",
+      "edit": "Edit subject",
+      "showMore": "Show More",
+      "showLess": "Show Less",
+      "postSelected": "Post Selected",
+      "unpostSelected": "Unpost Selected",
+      "addMissing": "Add Subject",
+      "postAnyway": "Post Anyway"
+    },
+    "info": {
+      "confirmBulkPost": "Post {{count}} selected subject(s)? This will lock their marks.",
+      "bulkPostSuccess": "{{count}} subject(s) posted successfully.",
+      "bulkPostPartial": "{{ok}} posted, {{fail}} failed.",
+      "bulkPostError": "Failed to post the selected subjects.",
+      "confirmBulkUnpost": "Unpost {{count}} selected subject(s)? This will unlock their marks for editing.",
+      "bulkUnpostSuccess": "{{count}} subject(s) unposted successfully.",
+      "bulkUnpostPartial": "{{ok}} unposted, {{fail}} failed.",
+      "bulkUnpostError": "Failed to unpost the selected subjects.",
+      "noMissing": "All subjects of this class are already added to the routine.",
+      "subjectNotAssigned": "Student are not assigned to following subjects : {{subjects}}",
+      "confirmBulkPostNotSet": "{{count}} student(s) across the selected subjects have no marks entered. Posting will lock those subjects with those students left unset. Type POST below to confirm.",
+      "confirmPostNotSetLabel": "Type POST to confirm"
+    }
+  },
+  "extraEsubjects": {
+    "extraEsubjects": "Extra Subjects",
+    "titles": {
+      "list": "Extra Subjects",
+      "markEntry": "Extra Subject Mark Entry",
+      "addMissing": "Add Extra Subject",
+      "edit": "Edit Extra Subject"
+    },
+    "fields": {
+      "subject": "Activity",
+      "status": "Status",
+      "total_student": "Total Student",
+      "mark_student": "Marked Student",
+      "progress": "Progress",
+      "mark": "Obtain",
+      "prefix": "Prefix",
+      "suffix": "Suffix",
+      "student_name": "Student",
+      "roll_no": "Roll No",
+      "regid": "Reg ID",
+      "section": "Section"
+    },
+    "actions": {
+      "addMissing": "Add Missing",
+      "edit": "Edit",
+      "post": "Post",
+      "unpost": "Unpost",
+      "reset": "Reset",
+      "clear": "Clear",
+      "submit": "Submit",
+      "postSelected": "Post Selected",
+      "postAnyway": "Post Anyway"
+    },
+    "info": {
+      "noMissing": "All extra subjects are already added to this routine.",
+      "confirmPost": "Post marks for this extra subject? This will lock further changes.",
+      "confirmReset": "Clear all entered marks for this extra subject?",
+      "postSuccess": "Marks posted successfully.",
+      "resetSuccess": "Marks reset successfully.",
+      "marksUpdated": "Marks updated successfully.",
+      "confirmBulkPost": "Post {{count}} selected extra subject(s)? This will lock their marks.",
+      "bulkPostSuccess": "{{count}} extra subject(s) posted successfully.",
+      "bulkPostPartial": "{{ok}} posted, {{fail}} failed.",
+      "bulkPostError": "Failed to post the selected extra subjects.",
+      "confirmPostNotSet": "{{count}} student(s) have no marks entered. Posting will lock this extra subject with those students left unset. Type POST below to confirm.",
+      "confirmBulkPostNotSet": "{{count}} student(s) across the selected extra subjects have no marks entered. Posting will lock those extra subjects with those students left unset. Type POST below to confirm.",
+      "confirmPostNotSetLabel": "Type POST to confirm"
+    },
+    "validation": {
+      "maxLength": "Maximum {{count}} characters allowed"
+    }
+  },
+  "rule": {
+    "rule": "Rules",
+    "titles": {
+      "edit": "Edit Rule",
+      "list": "Rules"
+    },
+    "validation": {
+      "maxtpm": "Cannot be greater than theory full mark",
+      "maxppm": "Cannot be greater than practical full mark",
+      "codeLength": "Code length must be between 3 and 10"
+    },
+    "fields": {
+      "name": "Name",
+      "th_fm": "TH FM",
+      "th_pm": "TH PM",
+      "in_fm": "IN FM",
+      "in_pm": "IN PM",
+      "enable_grace": "Enable Grace",
+      "failed_subjects": "Failed Subjects",
+      "minimum_marks": "Minimum Marks",
+      "theory": "Theory",
+      "internal": "Internal",
+      "formula_mark": "Mark Formula",
+      "formula_grade": "Grade Formula",
+      "regulation": "Regulation",
+      "cas_type": "CAS Type",
+      "rank_by": "Rank By",
+      "internal_pass_by": "Internal Pass",
+      "subject_pass_by": "Subject Pass"
+    },
+    "actions": {
+      "add": "Add new rule",
+      "edit": "Edit rule"
+    }
+  },
+  "routine": {
+    "routine": "Exam",
+    "titles": {
+      "create": "Create Exam",
+      "edit": "Edit Exam",
+      "list": "Exams",
+      "subjects": "Subjects",
+      "extraSubjects": "Extra Activities",
+      "show": "Exam Detail"
+    },
+    "validation": {
+      "maxtpm": "Cannot be greater than theory full mark",
+      "maxppm": "Cannot be greater than practical full mark"
+    },
+    "fields": {
+      "id": "ID",
+      "code": "Code",
+      "class": "Class",
+      "batch": "Batch",
+      "type": "Types",
+      "rule": "Rules",
+      "full_mark": "Full Mark",
+      "pass_mark": "Pass Mark",
+      "process": "Process",
+      "duration": "Duration",
+      "template": "Template",
+      "grade_template": "Grade Ledger",
+      "mark_template": "Mark Ledger",
+      "start_time": "Start Time",
+      "end_time": "End Time",
+      "start_date": "Start Date",
+      "result_date": "Result Date",
+      "last_processed": "Last Processed",
+      "in_draft": "In Draft",
+      "is_online_exam": "Is Online Exam",
+      "is_cas_exam": "Is CAS Exam",
+      "state": "State",
+      "status": "Status",
+      "subject": "Subject",
+      "terminal1": "Terminal 1",
+      "terminal2": "Terminal 2",
+      "subject_code": "Subject Code",
+      "subject_name": "Subject Name",
+      "created_at": "Created At"
+    },
+    "actions": {
+      "subject": "Get Subjects",
+      "add": "Add new exam",
+      "edit": "Edit exam",
+      "showMore": "Show More",
+      "showLess": "Show Less",
+      "addSubject": "Add new subject",
+      "generate": "Generate Marks"
+    },
+    "buttons": {
+      "generate_result": "Generate Result",
+      "recalculate": "Recalculate for Current Rule",
+      "publish": "Publish",
+      "unpublish": "Unpublish",
+      "move_to": "Move to {{state}}",
+      "move_to_draft": "Hide (Set to Draft)",
+      "cancel_routine": "Cancel Exam",
+      "reactivate_routine": "Reactivate"
+    },
+    "messages": {
+      "generate_confirm": "Generate exam result? This starts processing marks for all subjects.",
+      "generate_confirm_incomplete": "Only {{progress}}% of subjects are marked complete. Generate the result anyway?",
+      "ready_confirm_incomplete": "Only {{progress}}% of subjects are marked complete. Move to Ready anyway?",
+      "recalculate_confirm": "Recalculate obtain mark and remark for every subject using the current rule? Use this after the exam rule has changed.",
+      "recalculate_done": "Marks recalculated for the current rule",
+      "publish_confirm": "Publish the result? It becomes visible to staff and parents.",
+      "unpublish_confirm": "Unpublish the result? It will no longer be visible to parents.",
+      "move_confirm": "Change the exam status to {{state}}?",
+      "cancel_confirm": "Cancel this exam routine? It will be marked inactive.",
+      "cancel_confirm_locked": "This exam's result is already {{state}}. Canceling now may hide a result already shared with parents. Continue?",
+      "reactivate_confirm": "Reactivate this exam routine?",
+      "canceled_banner": "This exam routine has been canceled."
+    },
+    "state_flow": {
+      "draft": "Draft",
+      "pending": "Pending",
+      "inprogress": "In Progress",
+      "ready": "Ready",
+      "preparing": "Preparing",
+      "completed": "Completed",
+      "published": "Published"
+    }
+  },
+  "marks": {
+    "marks": "Marks",
+    "titles": {
+      "edit": "Edit Mark",
+      "list": "Marks",
+      "show": "Exam Mark",
+      "import": "Import Marks"
+    },
+    "fields": {
+      "id": "ID",
+      "regid": "Regid",
+      "section": "Section",
+      "student_name": "Student Name",
+      "absent": "Absent",
+      "internal": "Internal",
+      "project": "Project",
+      "engage": "Engage",
+      "theory": "Theory",
+      "absent_min": "Abs",
+      "internal_min": "IN",
+      "project_min": "PW",
+      "engage_min": "PA",
+      "theory_min": "TH",
+      "total": "Total",
+      "remark": "Remark",
+      "sn": "S.N.",
+      "roll_no": "Roll No",
+      "roll_no_min": "Roll"
+    },
+    "info": {
+      "confirmReset": "Are you sure you want to clear all marks?",
+      "confirmPost": "Are you sure you want to post all marks?",
+      "confirmUnpost": "Are you sure you want to unpost marks?",
+      "excelRequiredField": "Excel file must consist of column 'REGID' and 'THEORY' or 'INTERNAL'",
+      "confirmPostNotSet": "{{count}} student(s) have no marks entered. Posting will lock this subject with those students left unset. Type POST below to confirm.",
+      "confirmPostNotSetLabel": "Type POST to confirm",
+      "confirmImportCas": "Import marks from the published CAS results? The internal mark of every student having a CAS result will be overwritten.",
+      "confirmImportOnline": "Import marks from the online exam results? The auto-filled mark of every student having an online result will be overwritten.",
+      "confirmRecalculate": "Recalculate obtain mark and remark for every student from their entered marks? Use this after the exam rule has changed.",
+      "importDone": "Marks imported"
+    },
+    "errors": {
+      "excelMissingField": "Excel file is missing required column {{field}}",
+      "excelInvalidRows": "Excel consist of unwanted rows",
+      "importFailed": "Import failed"
+    },
+    "actions": {
+      "submit": "Submit",
+      "export": "Export",
+      "import": "Import",
+      "clear": "Clear",
+      "reset": "Reset",
+      "edit": "Edit marks",
+      "post": "Post",
+      "unpost": "Unpost",
+      "postAnyway": "Post Anyway",
+      "importCas": "Import CAS",
+      "importOnline": "Import Online",
+      "recalculate": "Recalculate"
+    }
+  },
+  "result": {
+    "result": "Results",
+    "report": "Report",
+    "titles": {
+      "list": "Result List",
+      "reload": "Reload Student Detail",
+      "viewResult": "Result List",
+      "viewLedger": "Result Ledger",
+      "publishResult": "Publish Result"
+    },
+    "labels": {
+      "version": "Version",
+      "result": "Result",
+      "routine": "Exam",
+      "term": "Term",
+      "class": "Class",
+      "batch": "Batch",
+      "publishBy": "Publish By",
+      "publish": "Publish",
+      "passRatio": "Pass Ratio",
+      "resultSheet": "Result Sheet",
+      "nebLedger": "NEB Ledger",
+      "emisLedger": "EMIS Ledger",
+      "uploadEmis": "Upload to EMIS",
+      "gradeLedger": "Grade Ledger",
+      "markLedger": "Mark Ledger",
+      "exportResult": "Export Result",
+      "view": "View Selected"
+    },
+    "info": {
+      "datatableMissing": "Datatable is missing required Mark Listing Table"
+    },
+    "fields": {
+      "id": "ID",
+      "regid": "Regid",
+      "section": "Section",
+      "student": "Student Name",
+      "rollno": "Roll No",
+      "rank": "Rank",
+      "certificate_no": "Certificate No",
+      "cgpa": "CGPA",
+      "result": "Result",
+      "routine": "Exam"
+    },
+    "actions": {
+      "grade_sheet": "Grade Sheet",
+      "mark_sheet": "Mark Sheet",
+      "grade_ledger": "Grade Ledger",
+      "mark_ledger": "Mark Ledger"
+    }
+  },
+  "final": {
+    "final": "Finals Report",
+    "titles": {
+      "list": "Finals Report"
+    },
+    "fields": {
+      "id": "ID",
+      "code": "Exam Code",
+      "routine": "Exam",
+      "template": "Template",
+      "type": "Type",
+      "value": "Value",
+      "version": "Version",
+      "class": "Class",
+      "batch": "Batch",
+      "state": "State",
+      "cversion": "Current Version",
+      "updated_at": "Updated At"
+    },
+    "validation": {
+      "total": "Total value must be equal to 100",
+      "min": "Must be greater than zero"
+    },
+    "actions": {
+      "add": "Add new final",
+      "edit": "Edit final"
+    }
+  },
+  "import": {
+    "exam": "Import Exam",
+    "marks": "Import Marks",
+    "titles": {
+      "exam": "Import Exam",
+      "marks": "Import Marks"
+    },
+    "info": {
+      "importing": "Loading excel file...",
+      "missingColumn": "Following required column(s) are missing : "
+    },
+    "fields": {
+      "start_date": "Start Date",
+      "duration": "Duration",
+      "batch": "Batch",
+      "excel": "Select Excel",
+      "type": "Exam Type",
+      "class": "Class",
+      "result_date": "Result Date",
+      "template": "Template",
+      "grade": "Grade",
+      "mark": "Mark",
+      "rule": "Rules",
+      "exam": "Exam"
+    },
+    "actions": {
+      "export": "Export",
+      "import": "Import",
+      "deleteRow": "Delete Row"
+    }
+  },
+  "admit": {
+    "admit": "Admit Card",
+    "labels": {
+      "entranceCard": "Entrance / Admit Card",
+      "routine": "Exam",
+      "generate": "Generate Cards"
+    },
+    "fields": {
+      "name": "Name",
+      "section": "Section",
+      "rollno": "Roll No",
+      "regid": "Reg No"
+    },
+    "info": {
+      "selectBoth": "Select an entrance card and an exam to list students"
+    }
+  },
+  "seatPlan": {
+    "seatPlan": "Seat Planning"
+  },
+  "cas": {
+    "cas": "CAS",
+    "titles": {
+      "create": "Open CAS Assessment",
+      "list": "Continuous Assessment (CAS)",
+      "show": "CAS Detail",
+      "entry": "Mark Entry",
+      "result": "Results",
+      "themes": "Themes",
+      "report": "CAS Report",
+      "edit": "Edit CAS"
+    },
+    "fields": {
+      "sn": "SN",
+      "code": "Code",
+      "theme": "Theme",
+      "subject": "Subject",
+      "class": "Class",
+      "batch": "Batch",
+      "state": "State",
+      "status": "Status",
+      "progress": "Progress",
+      "flagged": "Flagged",
+      "roll_no": "Roll No",
+      "student_name": "Student",
+      "section": "Section",
+      "re_mark": "Re-mark",
+      "attempted": "Attempted",
+      "obtained": "Obtained",
+      "percentage": "Percentage",
+      "grade": "Grade",
+      "gpa": "GPA",
+      "remark": "Remark",
+      "indicators": "Indicators",
+      "in_draft": "In Draft",
+      "overall": "Overall"
+    },
+    "levels": {
+      "1": "1 · Beginning",
+      "2": "2 · Developing",
+      "3": "3 · Proficient",
+      "4": "4 · Advanced"
+    },
+    "statuses": {
+      "not_started": "Not Started",
+      "inprogress": "In Progress",
+      "remark": "Re-guidance",
+      "completed": "Completed"
+    },
+    "actions": {
+      "add": "Open CAS",
+      "create": "Open CAS",
+      "selectAll": "Select all",
+      "save": "Save",
+      "saveNext": "Save & Next",
+      "saveClose": "Save & Close",
+      "prev": "Previous",
+      "next": "Next",
+      "mark": "Mark student",
+      "fillRemaining": "Fill remaining with:",
+      "reset": "Reset",
+      "clear": "Clear All",
+      "generate": "Generate Result",
+      "regenerate": "Regenerate Result",
+      "publish": "Publish",
+      "unpublish": "Unpublish",
+      "report": "Report",
+      "loadReport": "Load Report",
+      "activate": "Activate",
+      "deactivate": "Deactivate",
+      "delete": "Delete",
+      "printCasMark": "Print CAS Mark"
+    },
+    "info": {
+      "themeMeta": "Theme Details",
+      "selectClassFirst": "Select a class first.",
+      "noThemes": "No CAS themes found for this class. Seed the CAS syllabus first.",
+      "noThemeSelected": "Select at least one theme to open.",
+      "studentOf": "{{current}} / {{total}}",
+      "studentsCompleted": "{{completed}} of {{total}} students fully marked",
+      "needsRemark": "{{count}} outcome(s) awaiting re-guidance",
+      "flaggedHint": "Outcomes whose final score is 1 or 2 need re-guidance until the student reaches level 3 or 4. Results stay blocked until then.",
+      "remarkHint": "Score after re-guidance. Repeat re-guidance until the student reaches 3 or 4 — a re-mark of 1-2 keeps the outcome flagged. The initial mark is kept for history.",
+      "confirmClear": "Delete ALL marks and results of this CAS?",
+      "confirmGenerate": "Generate results for this theme? Existing results will be recalculated.",
+      "confirmPublish": "Publish this CAS result? Mark entry will be locked.",
+      "confirmUnpublish": "Unpublish this CAS result? Mark entry will be unlocked.",
+      "notReady": "Result can be generated once every student scores level 3 or 4 (mark or re-mark) on every outcome (progress 100%).",
+      "resultCount": "{{count}} student result(s) · {{total}} outcomes per student",
+      "noResults": "No results generated yet.",
+      "generateHint": "Mark every student in the Mark Entry tab and re-guide flagged outcomes until every final score is 3 or 4, then generate the results here.",
+      "reportHint": "Pick a class and batch, then load the report. Only Completed or Published CAS are included.",
+      "reportEmpty": "No completed CAS results found for this selection.",
+      "remarkLeft": "{{count}} re-mark left",
+      "alreadyAdded": "Already added",
+      "alreadyAddedCount": "already added",
+      "allThemesAdded": "Every theme for this class, subject and batch already has a CAS opened.",
+      "noCurrentBatch": "No batch is marked as the current academic batch. Set one in Batch settings before opening a CAS.",
+      "confirmStateChange": "Change the state of this CAS? This can affect mark entry and result generation.",
+      "confirmActivate": "Activate this CAS?",
+      "confirmDeactivate": "Deactivate this CAS? This also cancels it and locks mark entry.",
+      "confirmDelete": "Permanently delete this CAS assessment, along with ALL its marks and results? This cannot be undone. Type DELETE below to confirm.",
+      "confirmDeleteLabel": "Type DELETE to confirm",
+      "selectedStudents": "{{count}} of {{total}} students selected",
+      "noMatchingStudents": "No students match the current search/filter."
+    },
+    "messages": {
+      "created": "CAS assessments opened",
+      "studentSaved": "Marks saved for {{name}}",
+      "resultGenerated": "CAS results generated",
+      "resultFailed": "Could not generate results",
+      "deleted": "CAS deleted"
+    },
+    "print": {
+      "title": "CAS Mark Report",
+      "subtitle": "Continuous Assessment System (CAS) — Outcome-wise Marks",
+      "print": "Print",
+      "regid": "Reg. No",
+      "outcome": "Outcome",
+      "mark": "Mark",
+      "final": "Final",
+      "scale": "Marking scale",
+      "needsReguidance": "needs re-guidance (final level 1–2)",
+      "parentSignature": "Parent/Guardian Signature",
+      "teacherSignature": "Class Teacher Signature",
+      "date": "Date",
+      "preparing": "Preparing report…",
+      "loadFailed": "Failed to load CAS marks. Close and try again.",
+      "noData": "No graded or published CAS found for this selection.",
+      "summary": "Summary",
+      "total": "Total"
+    }
+  }
+}
