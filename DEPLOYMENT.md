@@ -195,13 +195,16 @@ it again, or `pg_dump`/`pg_restore` between the two — never automatic.
 
 ## 6. Before you send this to real students — a short checklist
 
-- **`server/.env` and `frontend/.env` were previously committed to this
-  repo's git history** (commit `69d2473`) — untracked going forward
-  (`.gitignore` added), but **you're about to push this repo to a remote
-  for the first time** (§2), which is exactly the moment those old secret
-  values (OpenRouter key, JWT secret, PII key, DB password) stop being
-  merely "in local history" and start being "on GitHub/GitLab history."
-  Rotate them before or right after that push, not after.
+- **Check `git status` carefully before your first commit on this repo.**
+  Its history was reset to zero commits partway through this work — a fresh
+  start, so the earlier problem of `server/.env`/`frontend/.env` being
+  committed no longer applies (they're gitignored and untracked now). But a
+  `git add -A` run since then staged the entire `STUDENT VISA checklist/`
+  folder — real past-client PII, explicitly out of scope for this app — it's
+  been unstaged and gitignored, but re-run `git status` yourself before
+  pushing to a remote for the first time (§2) and confirm nothing unexpected
+  is in there. Once something's on a remote's history, deleting it later
+  doesn't remove it retroactively.
 - **The demo role-switcher is still live** (one click becomes any role,
   no real check) — a real security hole if left in a public build. Flagged
   in earlier session notes, intentionally not fixed yet; fix or gate it
