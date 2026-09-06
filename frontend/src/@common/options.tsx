@@ -4,7 +4,7 @@
 export const USE_MOCKS = import.meta.env.VITE_USE_MOCKS === "true";
 export const BASE_URL =
   (import.meta.env.VITE_SERVER_URL as string | undefined)?.replace(/\/$/, "") ||
-  "https://api.edu-visa.local";
+  "https://click-api.acharyatech.com";
 
 export const UPLOAD_URL = `${BASE_URL}/resources`;
 export const RESOURCE_URL = `${BASE_URL}/public/resources`;
