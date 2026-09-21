@@ -5,4 +5,8 @@ export class FollowUpSearchDto {
   @IsOptional()
   @PageSearch({ operation: 'eq', operator: 'and' })
   student_id?: string;
+
+  @IsOptional()
+  @PageSearch({ operation: 'eq', operator: 'and' })
+  kind?: string;
 }

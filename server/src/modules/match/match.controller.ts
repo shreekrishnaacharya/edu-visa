@@ -1,4 +1,4 @@
-import { Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Param, Post, Query } from '@nestjs/common';
 import { MatchService } from './match.service';
 import { RunMatchDto } from './dto/run-match.dto';
 import { AuthUser } from '../auth/auth-user.decorator';
@@ -40,5 +40,17 @@ export class MatchController {
     const run = await this.match.latestForStudent(id);
     if (!run) throw new NotFoundException(`no match run yet for student ${id}`);
     return run;
+  }
+
+  /** Deadlines derived from this student's latest MatchRun, urgency-banded. */
+  @Get('students/:id/deadlines')
+  deadlinesForStudent(@Param('id') id: string) {
+    return this.match.deadlinesForStudent(id);
+  }
+
+  /** Counsellor-wide deadline view across all students' latest MatchRuns. */
+  @Get('deadlines')
+  deadlinesAcrossStudents(@Query('filter') filter?: string) {
+    return this.match.deadlinesAcrossStudents(filter);
   }
 }

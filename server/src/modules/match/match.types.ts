@@ -19,6 +19,8 @@ export interface MatchResult {
   alternatives: string[];
   knockout: boolean;
   knockout_reasons: string[];
+  /** Presentation-only bucket derived from `overall` — see engine/run.ts. Null for closest-miss/knockout rows. */
+  tier: 'reach' | 'target' | 'safety' | null;
 }
 
 /** Derived profile as embedded in a MatchRun (mirrors StudentProfile entity). */

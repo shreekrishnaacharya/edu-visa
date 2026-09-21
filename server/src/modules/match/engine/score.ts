@@ -23,6 +23,7 @@ import {
 import { Currency } from '../../../common/enums';
 import { FX_TO_AUD, toAud as toAudDefault } from './reference';
 import { normalizeWeights } from './weights';
+import { deriveTier } from './tier';
 
 function makeToAud(fxRates: Record<Currency, number>) {
   return (amount: number, currency: Currency) =>
@@ -387,5 +388,9 @@ export function score(
     alternatives: [],
     knockout: !ko.passed,
     knockout_reasons: ko.reasons,
+    // Knockout rows always get `null` regardless of `overall` (see
+    // deriveTier) — true even for run.ts's closest-miss fallback, which only
+    // ever touches `overall` on rows that are still knockout:true.
+    tier: deriveTier(overall, !ko.passed),
   };
 }

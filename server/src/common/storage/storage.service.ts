@@ -26,14 +26,21 @@ export class StorageService implements OnModuleInit {
     }
   }
 
-  newKey(studentId: string, fileName: string): string {
-    return `students/${studentId}/${randomUUID()}-${fileName}`;
+  newKey(scope: string, ownerId: string, fileName: string): string {
+    return `${scope}/${ownerId}/${randomUUID()}-${fileName}`;
   }
 
   async put(key: string, buffer: Buffer, contentType: string): Promise<void> {
     await this.client.putObject(env.s3.bucket, key, buffer, buffer.length, {
       'Content-Type': contentType,
     });
+  }
+
+  async getBuffer(key: string): Promise<Buffer> {
+    const stream = await this.client.getObject(env.s3.bucket, key);
+    const chunks: Buffer[] = [];
+    for await (const chunk of stream) chunks.push(chunk as Buffer);
+    return Buffer.concat(chunks);
   }
 
   async presignedGetUrl(key: string, expirySeconds = 3600): Promise<string> {

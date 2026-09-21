@@ -95,6 +95,8 @@ function buildStudent(s: Seed, idx: number): Student {
       date_of_birth: `${dobYear + 1}-03-20`,
       accompanying: true,
       passport_status: s.passport === "held" ? "held" : "applied",
+      marriage_date: null,
+      qualification_level: null,
     });
   }
   if (s.work_years > 4) {
@@ -105,6 +107,8 @@ function buildStudent(s: Seed, idx: number): Student {
       date_of_birth: `${gradYear + 1}-07-11`,
       accompanying: true,
       passport_status: "none",
+      marriage_date: null,
+      qualification_level: null,
     });
   }
   return {
@@ -134,6 +138,7 @@ function buildStudent(s: Seed, idx: number): Student {
         gpa_value: s.gpa4,
         gpa_scale: "4.0",
         gap_months: idx % 3 === 0 ? 10 : 0,
+        backlogs: 0,
       },
     ],
     language_tests: [
@@ -192,6 +197,7 @@ function buildStudent(s: Seed, idx: number): Student {
         annual_income: s.income_npr,
         currency: "NPR",
         evidence: true,
+        bank_name: "",
       },
     ],
     visa_history: s.refusal

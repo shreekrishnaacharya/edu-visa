@@ -89,6 +89,22 @@ export class Course {
   @Column({ type: 'timestamptz', nullable: true })
   verified_at: Date | null;
 
+  /**
+   * 'verified' = the CRICOS-import / human-verified Tier-1 catalogue this
+   * system was built to treat as ground truth. 'unverified_aggregator' =
+   * sourced from third-party aggregators (Mastersportal, Shiksha,
+   * Collegedunia, ...) because the institution's own site blocked automated
+   * fetches — figures may be stale or conflict with the real current price.
+   * Read by OrchestratorService to pick the citation tag/wording so the AI
+   * never states an unverified fee with the same confidence as a real one.
+   */
+  @Column({ type: 'varchar', default: 'verified' })
+  data_confidence: 'verified' | 'unverified_aggregator';
+
+  /** Where an 'unverified_aggregator' figure actually came from — shown to the counsellor, not the student. */
+  @Column({ type: 'text', default: '' })
+  source_note: string;
+
   @CreateDateColumn({ type: 'timestamptz' })
   created_at: Date;
 

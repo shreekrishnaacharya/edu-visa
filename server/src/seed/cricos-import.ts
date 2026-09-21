@@ -11,7 +11,7 @@ import 'dotenv/config';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { parse } from 'csv-parse/sync';
-import { DataSource } from 'typeorm';
+import { DataSource, In, Not } from 'typeorm';
 import { dataSourceOptions } from '../config/data-source';
 import { University } from '../modules/university/university.entity';
 import { Course } from '../modules/course/course.entity';
@@ -113,12 +113,38 @@ async function main() {
     bom: true,
   });
 
-  // Wipe the old synthetic AU catalogue (cascades to scholarship/course_intake).
-  const oldCourses = await courseRepo.count({ where: { country: 'AU' } });
-  await courseRepo.delete({ country: 'AU' });
-  const oldUnis = await uniRepo.count({ where: { country: 'AU' } });
-  await uniRepo.delete({ country: 'AU' });
-  console.log(`  removed ${oldUnis} synthetic universities, ${oldCourses} synthetic courses`);
+  // Wipe the old synthetic AU catalogue (cascades to scholarship/course_intake)
+  // — but never a university/course seeded by a DIFFERENT import that this
+  // one doesn't own (e.g. src/seed/aggregator-research-import.ts's real
+  // courses for institutions outside the CRICOS CSV). A plain `country: 'AU'`
+  // wipe would silently delete those every time this import re-runs (the
+  // PRODUCT_PLAN's own "quarterly re-verify" cadence), since they share the
+  // same country code. Preserve any university that has at least one
+  // `data_confidence: 'unverified_aggregator'` course.
+  const protectedUniIds = (
+    await courseRepo
+      .createQueryBuilder('c')
+      .select('DISTINCT c.university_id', 'university_id')
+      .where('c.country = :country', { country: 'AU' })
+      .andWhere("c.data_confidence = 'unverified_aggregator'")
+      .getRawMany()
+  ).map((r: { university_id: string }) => r.university_id);
+
+  const courseWhere = protectedUniIds.length
+    ? { country: 'AU' as const, university_id: Not(In(protectedUniIds)) }
+    : { country: 'AU' as const };
+  const uniWhere = protectedUniIds.length
+    ? { country: 'AU' as const, id: Not(In(protectedUniIds)) }
+    : { country: 'AU' as const };
+
+  const oldCourses = await courseRepo.count({ where: courseWhere });
+  await courseRepo.delete(courseWhere);
+  const oldUnis = await uniRepo.count({ where: uniWhere });
+  await uniRepo.delete(uniWhere);
+  console.log(
+    `  removed ${oldUnis} synthetic universities, ${oldCourses} synthetic courses` +
+      (protectedUniIds.length ? ` (preserved ${protectedUniIds.length} universities with unverified-aggregator research data)` : ''),
+  );
 
   const uniIdByCode = new Map<string, string>();
   for (const inst of institutions) {

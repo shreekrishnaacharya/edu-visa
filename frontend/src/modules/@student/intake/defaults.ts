@@ -28,6 +28,7 @@ export const emptyIntake = (): IntakeForm => ({
       gpa_value: 3,
       gpa_scale: "4.0",
       gap_months: 0,
+      backlogs: 0,
     },
   ],
   language_tests: [],
@@ -50,7 +51,7 @@ export const emptyIntake = (): IntakeForm => ({
     liabilities: [],
   },
   sponsors: [
-    { id: "sp-new", relationship: "Father", occupation: "", annual_income: 2000000, currency: "NPR", evidence: true },
+    { id: "sp-new", relationship: "Father", occupation: "", annual_income: 2000000, currency: "NPR", evidence: true, bank_name: "" },
   ],
   visa_history: [],
   preferences: {

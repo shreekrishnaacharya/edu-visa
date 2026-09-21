@@ -31,6 +31,10 @@ export interface StudentAggregate {
     date_of_birth: string | null;
     accompanying: boolean;
     passport_status: PassportStatus;
+    /** Spouse-only in practice. Several admission policies gate on marriage duration. */
+    marriage_date: string | null;
+    /** Spouse's own academic level — some policies require "equal qualification" to the applicant. */
+    qualification_level: DegreeLevel | 'High School' | null;
   }[];
   state: StudentState;
   counsellor: string;
@@ -48,6 +52,8 @@ export interface StudentAggregate {
     gpa_value: number;
     gpa_scale: GpaScale;
     gap_months: number;
+    /** Failed/repeated subject count — an explicit numeric gate in several real admission policies. */
+    backlogs: number;
   }[];
   language_tests: {
     id?: string;
@@ -90,6 +96,8 @@ export interface StudentAggregate {
     annual_income: number;
     currency: Currency;
     evidence: boolean;
+    /** Bank/financial institution the funds are held with — several real admission policies exclude specific banks. */
+    bank_name: string;
   }[];
   visa_history: {
     id?: string;

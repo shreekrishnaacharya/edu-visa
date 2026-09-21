@@ -25,6 +25,8 @@ export interface AcademicRecord {
   gpa_value: number;
   gpa_scale: GpaScale;
   gap_months: number;
+  /** Failed/repeated subject count — several real admission policies gate on this. */
+  backlogs: number;
 }
 
 export interface LanguageTest {
@@ -93,6 +95,8 @@ export interface Sponsor {
   annual_income: number;
   currency: Currency;
   evidence: boolean;
+  /** Bank/financial institution the funds are held with — several real admission policies exclude specific banks. */
+  bank_name: string;
 }
 
 export interface VisaHistory {
@@ -112,6 +116,10 @@ export interface Dependant {
   /** travelling with the student — adds to the visa financial-capacity requirement */
   accompanying: boolean;
   passport_status: "none" | "applied" | "held";
+  /** Spouse-only in practice. Several real admission policies gate on marriage duration. */
+  marriage_date: string | null;
+  /** Spouse's own academic level — some policies require it to match/exceed the applicant's ("equal qualification"). */
+  qualification_level: DegreeLevel | "High School" | null;
 }
 
 export type FollowUpKind = "note" | "call" | "email" | "meeting" | "document";

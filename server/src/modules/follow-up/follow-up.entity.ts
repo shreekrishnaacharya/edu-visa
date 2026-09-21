@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { AttachmentRef } from '../document/attachment-ref';
 
-export type FollowUpKind = 'note' | 'call' | 'email' | 'meeting' | 'document';
+export type FollowUpKind = 'note' | 'call' | 'email' | 'meeting' | 'document' | 'escalation';
 
 /** A counsellor's follow-up / activity entry against a student. */
 @Entity('follow_up')

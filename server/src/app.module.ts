@@ -22,6 +22,7 @@ import { DocumentModule } from "./modules/document/document.module";
 import { FollowUpModule } from "./modules/follow-up/follow-up.module";
 import { AssistantModule } from "./modules/assistant/assistant.module";
 import { KnowledgeModule } from "./modules/knowledge/knowledge.module";
+import { AdmissionModule } from "./modules/admission/admission.module";
 import { AppController } from "./app.controller";
 
 @Module({
@@ -50,6 +51,7 @@ import { AppController } from "./app.controller";
     FollowUpModule,
     AssistantModule,
     KnowledgeModule,
+    AdmissionModule,
   ],
   controllers: [HealthController, AppController],
   providers: [

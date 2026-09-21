@@ -7,6 +7,10 @@ import { ProfileService } from '../profile/profile.service';
 import { MatchService } from '../match/match.service';
 import { CourseService } from '../course/course.service';
 import { DocType } from '../knowledge/doc.entity';
+import { AdmissionEligibilityService } from '../admission/admission-eligibility.service';
+import { ADMISSION_POLICIES } from '../admission/admission-policy.data';
+import { AdmissionPolicy } from '../admission/admission-policy.types';
+import { FollowUpService } from '../follow-up/follow-up.service';
 
 export interface OrchestratorResult {
   answer: string;
@@ -14,12 +18,15 @@ export interface OrchestratorResult {
   confidence: number;
   passes_run: string[];
   degraded: boolean;
+  escalated: boolean;
 }
 
 export interface RouteDecision {
   passes: DocType[];
   wants_catalogue: boolean;
   catalogue_keywords: string[];
+  wants_human: boolean;
+  handoff_reason: string;
 }
 
 const DISCLAIMER =
@@ -47,7 +54,35 @@ export class OrchestratorService {
     private readonly profiles: ProfileService,
     private readonly matches: MatchService,
     private readonly courses: CourseService,
+    private readonly admission: AdmissionEligibilityService,
+    private readonly followUps: FollowUpService,
   ) {}
+
+  // Fixed, small, known set (9 institutions) — matched deterministically for
+  // the same reason COMPOUND_ALIASES is: a short list of real proper nouns
+  // doesn't need an LLM call, and common short forms ("UON", "ACAP") won't
+  // literally appear inside the full institution name string, so this maps
+  // them explicitly rather than substring-matching the full name.
+  private static readonly ADMISSION_ALIASES: Record<string, string> = {
+    utas: 'utas',
+    'university of tasmania': 'utas',
+    'sydney met': 'sydney-met',
+    'mit sydney': 'sydney-met',
+    newcastle: 'newcastle',
+    uon: 'newcastle',
+    torrens: 'torrens-blue-mountains',
+    'blue mountains': 'torrens-blue-mountains',
+    scu: 'scu',
+    'southern cross': 'scu',
+    acap: 'acap-navitas',
+    navitas: 'acap-navitas',
+    excelsia: 'excelsia',
+    cqu: 'cqu',
+    'central queensland': 'cqu',
+    'curtin college': 'curtin-griffith-eynesbury',
+    'griffith college': 'curtin-griffith-eynesbury',
+    eynesbury: 'curtin-griffith-eynesbury',
+  };
 
   private static readonly VALID_PASSES: DocType[] = [
     'visa_guidance',
@@ -71,10 +106,12 @@ export class OrchestratorService {
    * of breaking.
    */
   private async route(message: string): Promise<RouteDecision> {
-    const system = `Classify one question for an Australia-focused study/visa consultancy assistant. Output ONLY strict JSON, no prose: {"passes": string[], "wants_catalogue": boolean, "catalogue_keywords": string[]}.
+    const system = `Classify one question for an Australia-focused study/visa consultancy assistant. Output ONLY strict JSON, no prose: {"passes": string[], "wants_catalogue": boolean, "catalogue_keywords": string[], "wants_human": boolean, "handoff_reason": string}.
 "passes": choose zero or more from exactly ["visa_guidance","cost_of_living","scholarship_terms","entry_requirement","visa_statistics"] — whichever knowledge-base topics the question touches (visa_statistics = grant/approval-rate/success-chance questions specifically). Empty array is fine.
 "wants_catalogue": true only if the question asks about specific real courses, subjects, fees, or universities that a database of actual Australian course listings could answer (not visa rules, not general advice).
-"catalogue_keywords": if wants_catalogue, 1-4 short search terms to look up — use the FULL real name/spelling where you know it (RMIT -> "Royal Melbourne Institute of Technology", UQ -> "University of Queensland", USYD -> "University of Sydney", Cybersecurity -> "Cyber Security" since Australian course titles spell it as two words). Otherwise empty array.`;
+"catalogue_keywords": if wants_catalogue, 1-4 short search terms to look up — use the FULL real name/spelling where you know it (RMIT -> "Royal Melbourne Institute of Technology", UQ -> "University of Queensland", USYD -> "University of Sydney", Cybersecurity -> "Cyber Security" since Australian course titles spell it as two words). Otherwise empty array.
+"wants_human": true ONLY if the student is explicitly asking to talk to a real person/counsellor/advisor, or explicitly asking to be contacted/called — not just asking a hard or personal question. False for ordinary questions, even emotional or complex ones.
+"handoff_reason": if wants_human, one short sentence on what they need a human for. Empty string otherwise.`;
 
     try {
       const text = await this.openrouter.chat(
@@ -111,6 +148,8 @@ export class OrchestratorService {
         passes: passes.length ? passes : ['visa_guidance'],
         wants_catalogue: !!json.wants_catalogue,
         catalogue_keywords,
+        wants_human: !!json.wants_human,
+        handoff_reason: typeof json.handoff_reason === 'string' ? json.handoff_reason : '',
       };
     } catch (e) {
       this.logger.warn(`routing call failed, falling back to regex heuristics: ${(e as Error).message}`);
@@ -118,8 +157,17 @@ export class OrchestratorService {
         passes: this.choosePasses(message),
         wants_catalogue: this.wantsCatalogueSearch(message),
         catalogue_keywords: this.extractCatalogueKeywords(message),
+        wants_human: this.wantsHumanHandoff(message),
+        handoff_reason: this.wantsHumanHandoff(message) ? 'Student asked to speak with a counsellor.' : '',
       };
     }
+  }
+
+  /** Fallback only — see `route()`. Deliberately narrow (explicit asks only) so a router-call failure never over-triggers escalation. */
+  private wantsHumanHandoff(message: string): boolean {
+    return /speak (to|with) (a |an )?(counsellor|advisor|adviser|human|agent|person)|talk to (a |an )?(real )?(person|human|counsellor|advisor)|call me|contact me|can (i|someone) (talk|speak) to (someone|a person)/i.test(
+      message,
+    );
   }
 
   /** Fallback only — see `route()`. */
@@ -277,7 +325,97 @@ export class OrchestratorService {
       .join('\n');
   }
 
-  async answer(message: string, studentId: string | null): Promise<OrchestratorResult> {
+  /**
+   * When a question names one of the 9 institutions with real admission
+   * criteria on file, surface it as a synthetic grounded "source" the
+   * generation call can quote directly — same pattern as `catalogueChunks`.
+   * With a student loaded this is a real deterministic eligibility check
+   * (pass/fail against their actual derived profile via
+   * `AdmissionEligibilityService`); without one it's still the institution's
+   * real criteria, just not evaluated against anyone.
+   */
+  private admissionChunks(message: string, student: any, profile: any): RetrievedChunk[] {
+    const lower = message.toLowerCase();
+    // ALL matching institutions, not just the first alias-table entry —
+    // a real test asking about two institutions in one question ("CQU" AND
+    // "Excelsia") only evaluated whichever key happened to iterate first in
+    // ADMISSION_ALIASES, then hallucinated a "not checked" verdict for the
+    // other one instead of just not mentioning it. Dedup by policy key since
+    // several aliases (e.g. "acap"/"navitas") point at the same institution.
+    const policyKeys = [...new Set(Object.entries(OrchestratorService.ADMISSION_ALIASES).filter(([needle]) => lower.includes(needle)).map(([, key]) => key))];
+    return policyKeys.flatMap((policyKey) => this.admissionChunksFor(policyKey, student, profile));
+  }
+
+  private admissionChunksFor(policyKey: string, student: any, profile: any): RetrievedChunk[] {
+    const policy = this.admission.getPolicy(policyKey);
+
+    if (student) {
+      try {
+        const verdict = this.admission.evaluate(policyKey, student, profile ?? null);
+        const text = [
+          `Admission-eligibility check for ${verdict.institution} (source: ${verdict.source}):`,
+          `Overall: ${verdict.overall.replace(/_/g, ' ')}.`,
+          ...verdict.checks.map((c) => `- ${c.rule} [${c.status}]: ${c.detail}`),
+        ].join('\n');
+        return [
+          {
+            id: `admission:${policyKey}:${student.id}`,
+            text,
+            source_url: '',
+            title: `${verdict.institution} — admission eligibility check (computed against this student)`,
+            effective_date: policy.effective_date ?? null,
+            doc_type: 'entry_requirement',
+            institution: policy.institution,
+            score: 1,
+            context_tag: 'ADMISSION ELIGIBILITY CHECK — real, computed against this student\'s actual profile, not an estimate',
+          },
+        ];
+      } catch (e) {
+        this.logger.warn(`admission eligibility check failed for ${policyKey}: ${(e as Error).message}`);
+      }
+    }
+
+    // No student loaded — still surface the institution's real criteria.
+    const parts = [`${policy.institution} — real admission criteria (source: ${policy.source}), no student profile evaluated against yet:`];
+    if (policy.academics.length) {
+      parts.push(
+        ...policy.academics.map(
+          (b) =>
+            `- ${b.label} (${b.level}): academic ${b.source_expression || 'not specified'}${b.min_ielts_overall != null ? `, IELTS ${b.min_ielts_overall}${b.min_ielts_band != null ? ` (no band below ${b.min_ielts_band})` : ''}` : ''}${b.min_pte_overall != null ? `, PTE ${b.min_pte_overall}${b.min_pte_band != null ? ` (no band below ${b.min_pte_band})` : ''}` : ''}`,
+        ),
+      );
+    }
+    if (policy.income_thresholds.length) {
+      parts.push(...policy.income_thresholds.map((t) => `- Income (${t.scenario}): ${t.min_annual_npr_lakh != null ? `NPR ${t.min_annual_npr_lakh} lakh/yr` : `AUD ${t.min_annual_aud}/yr`}`));
+    }
+    if (policy.age_limit) parts.push(`- Age limit: ${JSON.stringify(policy.age_limit)}`);
+    if (policy.marriage_rules?.length) parts.push(`- Marriage/dependant rules: ${policy.marriage_rules.join(' ')}`);
+    if (policy.visa_refusal_policy) parts.push(`- Visa refusal policy: ${policy.visa_refusal_policy}`);
+    if (policy.excluded_banks?.length) parts.push(`- Banks not accepted: ${policy.excluded_banks.join(', ')}`);
+    if (policy.other_notes.length) parts.push(...policy.other_notes.map((n) => `- ${n}`));
+    return [
+      {
+        id: `admission:${policyKey}`,
+        text: parts.join('\n'),
+        source_url: '',
+        title: `${policy.institution} — real admission criteria (${policy.scope})`,
+        effective_date: policy.effective_date ?? null,
+        doc_type: 'entry_requirement',
+        institution: policy.institution,
+        score: 1,
+        context_tag: 'INSTITUTION ADMISSION CRITERIA — real, not yet checked against a specific student',
+      },
+    ];
+  }
+
+  /**
+   * Everything `answer()` and `draftReply()` share: routing, retrieval
+   * (KB + catalogue + admission), and assembling the numbered context block.
+   * Each caller composes its own system prompt and generation call on top —
+   * a chat answer and a drafted reply need different tone/instructions, but
+   * identical grounding.
+   */
+  private async gatherContext(message: string, studentId: string | null) {
     const route = await this.route(message);
     const passes = route.passes;
     let student: any = null;
@@ -339,32 +477,50 @@ export class OrchestratorService {
           country: 'AU',
           limit: 6,
         });
-        catalogueChunks = rows.map((c) => ({
-          id: c.id,
-          text: `${c.title} — ${c.university_name}, ${c.city}. ${c.degree_level}, ${c.field}. Duration ${c.duration_months} months. Tuition A$${c.tuition_fee.toLocaleString()}/yr. CRICOS ${c.cricos}. ${c.scholarships?.length ? `Scholarships: ${c.scholarships.map((s) => `${s.name} (${s.pct}%)`).join(', ')}.` : 'No scholarship on file.'}`,
-          // Not a real link (no public course page on file) — a bare
-          // `catalogue:` string isn't a browser-openable URL, so leave
-          // source_url empty and let the title carry the citation instead.
-          source_url: '',
-          title: `${c.title} — ${c.university_name} (our course catalogue, CRICOS ${c.cricos})`,
-          effective_date: c.verified_at ? new Date(c.verified_at).toISOString().slice(0, 10) : null,
-          doc_type: 'entry_requirement',
-          institution: c.university_name,
-          score: 1,
-        }));
+        catalogueChunks = rows.map((c) => {
+          const unverified = c.data_confidence === 'unverified_aggregator';
+          return {
+            id: c.id,
+            text: `${c.title} — ${c.university_name}, ${c.city}. ${c.degree_level}, ${c.field}. Duration ${c.duration_months} months. Tuition A$${c.tuition_fee.toLocaleString()}/yr. CRICOS ${c.cricos}. ${c.scholarships?.length ? `Scholarships: ${c.scholarships.map((s) => `${s.name} (${s.pct}%)`).join(', ')}.` : 'No scholarship on file.'}${unverified ? ` [UNVERIFIED: ${c.source_note}]` : ''}`,
+            // Not a real link (no public course page on file) — a bare
+            // `catalogue:` string isn't a browser-openable URL, so leave
+            // source_url empty and let the title carry the citation instead.
+            source_url: '',
+            title: `${c.title} — ${c.university_name} (our course catalogue, CRICOS ${c.cricos})`,
+            effective_date: c.verified_at ? new Date(c.verified_at).toISOString().slice(0, 10) : null,
+            doc_type: 'entry_requirement',
+            institution: c.university_name,
+            score: 1,
+            context_tag: unverified
+              ? 'OUR CATALOGUE, UNVERIFIED — sourced from third-party aggregators, not the institution directly; the bracketed [UNVERIFIED: ...] note explains why'
+              : 'OUR CATALOGUE — authoritative for this course',
+          };
+        });
       } catch (e) {
         this.logger.warn(`catalogue search failed: ${(e as Error).message}`);
       }
     }
 
-    const allChunks = [...catalogueChunks, ...[...retrievedByPass.values()].flat()];
+    // Real, institution-specific admission-eligibility criteria (9 institutions
+    // not in the CRICOS catalogue — see admission-policy.data.ts). Fires when
+    // the question names one of them; if a student is loaded, this is a real
+    // computed pass/fail check against their derived profile, not just a
+    // criteria dump.
+    const admissionChunks = this.admissionChunks(message, student, profile);
+
+    const allChunks = [...catalogueChunks, ...admissionChunks, ...[...retrievedByPass.values()].flat()];
     const contextBlock = allChunks.length
       ? allChunks
           .map((c, i) => {
-            const tag = c.source_url.startsWith('catalogue:')
-              ? 'OUR CATALOGUE — authoritative for this course'
-              : 'external source';
-            return `[${i + 1}] (${tag}: ${c.source_url}, effective: ${c.effective_date ?? 'unknown'})\n${c.text.slice(0, 900)}`;
+            const tag = c.context_tag ?? 'external source';
+            // 900 silently truncated a real institution's admission criteria
+            // mid-list (e.g. Excelsia's ~1400-char summary cut off before its
+            // visa-refusal line, which the assistant then reported as "no
+            // information" even though it WAS retrieved, just chopped) — the
+            // chunk-count cap on each retrieval pass already bounds total
+            // prompt size, so this only needed to be long enough for one
+            // synthetic admission/catalogue summary, not tightened further.
+            return `[${i + 1}] (${tag}: ${c.source_url || c.title}, effective: ${c.effective_date ?? 'unknown'})\n${c.text.slice(0, 1600)}`;
           })
           .join('\n\n')
       : 'No matching grounded sources were retrieved for this question.';
@@ -376,7 +532,70 @@ export class OrchestratorService {
           .join('; ')}`
       : 'No match run yet for this student.';
 
-    const system = `You are a senior study/migration consultant assistant for an education consultancy (Australia-first). You explain and ground answers; you never invent a ranking or score — the deterministic matching engine already produced any scores mentioned above, you only narrate them. Sources tagged "OUR CATALOGUE" are live rows from our own database of 3,500+ real Australian courses (real titles, fees, CRICOS codes) — if any are listed below, you MUST use them directly to answer course/fee/university questions (name the actual courses and fees given); do not say you need a match run first, that only applies to personalised ranking, not listing what exists. Every other factual claim about a rule, requirement, fee, or right MUST be attributed to one of the numbered sources below using [n]; if you cannot support a claim with a source, say it is unconfirmed instead of stating it as fact — never invent a specific number (a fee, a grant rate, a deadline) that isn't in a numbered source. Keep visa-risk commentary clearly separate from any match score.
+    return { route, passes, student, profile, allChunks, contextBlock, matchContext, degraded };
+  }
+
+  /**
+   * Handles both "[5]" and combined "[5, 8]" citation styles, dedupes to one
+   * citation per source document (see inline comment below), and looks up
+   * the cited chunks by their [n] index into `allChunks`. Shared by `answer()`
+   * and `draftReply()` — same numbered-source contract either way.
+   */
+  private extractCites(text: string, allChunks: RetrievedChunk[]): OrchestratorResult['cites'] {
+    const citedIndices = [...text.matchAll(/\[(\d+(?:\s*,\s*\d+)*)\]/g)]
+      .flatMap((m) => m[1].split(',').map((s) => parseInt(s.trim(), 10)));
+    const citedChunks = [...new Set(citedIndices)]
+      .map((i) => allChunks[i - 1])
+      .filter(Boolean);
+    // Different chunks of the same source document are still the same
+    // reference to a reader — dedupe (first occurrence wins) so the UI
+    // doesn't show the same source as two or three separate chips. Key by
+    // source_url when there is one (multiple chunks of the same page);
+    // sources with no public URL (an internal doc, a catalogue row) have no
+    // URL to key on, so fall back to title — which is still per-document/
+    // per-course distinct, so different catalogue courses don't collapse
+    // into each other just for sharing an empty source_url.
+    const seen = new Set<string>();
+    return citedChunks
+      .filter((c) => {
+        const key = c.source_url || c.title || c.id;
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      })
+      .map((c) => ({ chunk_id: c.id, source_url: c.source_url, title: c.title }));
+  }
+
+  async answer(message: string, studentId: string | null): Promise<OrchestratorResult> {
+    const { route, passes, student, profile, allChunks, contextBlock, matchContext, degraded: retrievalDegraded } =
+      await this.gatherContext(message, studentId);
+    let degraded = retrievalDegraded;
+
+    // Escalation is logged BEFORE generation so the composed answer can
+    // naturally acknowledge it — writing the follow_up itself never blocks
+    // or fails the answer (a logging failure shouldn't break the chat).
+    let escalated = false;
+    if (route.wants_human && studentId) {
+      try {
+        await this.followUps.create({
+          student_id: studentId,
+          kind: 'escalation',
+          body: [
+            `Student asked to speak with a counsellor.`,
+            route.handoff_reason ? `Reason: ${route.handoff_reason}` : null,
+            `Question: "${message}"`,
+          ]
+            .filter(Boolean)
+            .join('\n'),
+          author: 'AI consultant',
+        });
+        escalated = true;
+      } catch (e) {
+        this.logger.warn(`failed to log escalation follow-up: ${(e as Error).message}`);
+      }
+    }
+
+    const system = `You are a senior study/migration consultant assistant for an education consultancy (Australia-first). You explain and ground answers; you never invent a ranking or score — the deterministic matching engine already produced any scores mentioned above, you only narrate them. Sources tagged "OUR CATALOGUE" are live rows from our own database of 3,500+ real Australian courses (real titles, fees, CRICOS codes) — if any are listed below, you MUST use them directly to answer course/fee/university questions (name the actual courses and fees given); do not say you need a match run first, that only applies to personalised ranking, not listing what exists. A source tagged "OUR CATALOGUE, UNVERIFIED" is a real course but its fee/CRICOS code came from a third-party aggregator, not the institution directly (see the bracketed note in its text) — you may still name it, but hedge the number explicitly (e.g. "approximately", "per [aggregator], unconfirmed with the institution") and never state it with the same certainty as an "OUR CATALOGUE" figure. A source tagged "ADMISSION ELIGIBILITY CHECK" is a real, already-computed pass/fail result for this exact student against one institution's actual admission rules — report its per-rule verdicts directly (pass/fail/unknown), do not re-derive or second-guess them, and do not call a 'fail' there just a risk factor — it means this institution's own stated criteria are not met. A source tagged "INSTITUTION ADMISSION CRITERIA" is that institution's real requirements but NOT yet checked against a student — present it as the criteria to meet, not as a verdict. Remember the real order of things these documents describe: a student must clear admission eligibility (these criteria) and receive an actual offer BEFORE any visa question is relevant — don't discuss visa chances for an institution the student is not yet eligible for without saying so. Every other factual claim about a rule, requirement, fee, or right MUST be attributed to one of the numbered sources below using [n]; if you cannot support a claim with a source, say it is unconfirmed instead of stating it as fact — never invent a specific number (a fee, a grant rate, a deadline) that isn't in a numbered source. Keep visa-risk commentary clearly separate from any match score.
 
 RESPONSE STYLE — be direct, not formulaic:
 - Lead with the actual answer in the first sentence. No throat-clearing ("It's worth noting that...", "There are several factors to consider...", "Great question..."). If the honest answer is "no" or a specific number, say that first, then support it.
@@ -384,6 +603,7 @@ RESPONSE STYLE — be direct, not formulaic:
 - Bold the few things a reader must not miss — a dollar figure, a deadline, a document name, a yes/no verdict. A handful of bold spans per answer, not whole sentences, not every number.
 - Markdown is rendered, so use real **bold** and - bullets / 1. numbered lists, not asterisked plain text.
 - Cite sources inline as [n]. Aim for the shortest complete answer — most questions need 80-200 words; let a genuinely multi-item list run longer rather than cramming it into prose.
+${escalated ? `- This question has been flagged for a counsellor to follow up (${route.handoff_reason || 'requested human contact'}). Acknowledge that naturally in the answer — e.g. confirm a counsellor will be in touch — while still answering what you can now.` : ''}
 
 Always end with: "${DISCLAIMER}"`;
 
@@ -408,36 +628,45 @@ Always end with: "${DISCLAIMER}"`;
         : `I could not generate a grounded answer right now (AI service unavailable). Please try again shortly.\n\n${DISCLAIMER}`;
     }
 
-    // Handles both "[5]" and combined "[5, 8]" citation styles.
-    const citedIndices = [...text.matchAll(/\[(\d+(?:\s*,\s*\d+)*)\]/g)]
-      .flatMap((m) => m[1].split(',').map((s) => parseInt(s.trim(), 10)));
-    const citedChunks = [...new Set(citedIndices)]
-      .map((i) => allChunks[i - 1])
-      .filter(Boolean);
-    // Different chunks of the same source document are still the same
-    // reference to a reader — dedupe (first occurrence wins) so the UI
-    // doesn't show the same source as two or three separate chips. Key by
-    // source_url when there is one (multiple chunks of the same page);
-    // sources with no public URL (an internal doc, a catalogue row) have no
-    // URL to key on, so fall back to title — which is still per-document/
-    // per-course distinct, so different catalogue courses don't collapse
-    // into each other just for sharing an empty source_url.
-    const seen = new Set<string>();
-    const cites = citedChunks
-      .filter((c) => {
-        const key = c.source_url || c.title || c.id;
-        if (seen.has(key)) return false;
-        seen.add(key);
-        return true;
-      })
-      .map((c) => ({ chunk_id: c.id, source_url: c.source_url, title: c.title }));
-
     return {
       answer: text,
-      cites,
+      cites: this.extractCites(text, allChunks),
       confidence: allChunks.length ? (degraded ? 0.5 : 0.75) : 0.3,
       passes_run: passes,
       degraded,
+      escalated,
     };
+  }
+
+  /**
+   * Drafts a reply for a counsellor to review and send — same grounding as
+   * `answer()` (retrieval + catalogue + admission checks), different framing:
+   * an email/message TO the student written BY the counsellor, not a direct
+   * chat answer. Never persisted here; the caller pastes it into a follow_up.
+   */
+  async draftReply(studentId: string, question: string): Promise<{ draft: string; cites: OrchestratorResult['cites'] }> {
+    const { student, profile, allChunks, contextBlock, matchContext } = await this.gatherContext(question, studentId);
+
+    const system = `You are drafting an email/message reply on behalf of a study/migration counsellor at an education consultancy (Australia-first), replying to their student's question. Write in the counsellor's voice, addressed to the student directly ("you"), warm but professional — this is a human-reviewed draft, NOT sent automatically. Ground every factual claim (a rule, requirement, fee, or right) in the numbered sources below using [n]; if a claim can't be supported by a source, say it needs confirming rather than stating it as fact. Keep it concise — a real counsellor email, not an essay. Sources tagged "OUR CATALOGUE" are our own live course database; "OUR CATALOGUE, UNVERIFIED" is a real course whose fee came from a third-party aggregator, not the institution directly — hedge any number from it explicitly rather than stating it as confirmed; "ADMISSION ELIGIBILITY CHECK" is an already-computed pass/fail result for this student, report it directly. End with a natural sign-off, no disclaimer boilerplate — the counsellor reviews and sends this themselves.`;
+
+    const userPrompt = [
+      student ? `Student profile summary:\n${this.piiMinimisedProfileSummary(profile, student)}` : 'No student context provided.',
+      matchContext,
+      `Grounded sources:\n${contextBlock}`,
+      `Student's question: ${question}`,
+    ].join('\n\n');
+
+    let draft: string;
+    try {
+      draft = await this.openrouter.chat([
+        { role: 'system', content: system },
+        { role: 'user', content: userPrompt },
+      ]);
+    } catch (e) {
+      this.logger.warn(`draft-reply generation failed: ${(e as Error).message}`);
+      throw e;
+    }
+
+    return { draft, cites: this.extractCites(draft, allChunks) };
   }
 }

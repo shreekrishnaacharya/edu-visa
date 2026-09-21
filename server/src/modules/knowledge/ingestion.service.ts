@@ -27,6 +27,7 @@ export interface IngestOutcome {
   ok: boolean;
   reason?: string;
   chunks?: number;
+  docId?: string;
 }
 
 @Injectable()
@@ -134,7 +135,15 @@ export class IngestionService {
 
       const embeddings = await this.openrouter.embed(pieces);
 
-      const existing = await this.docs.findOne({ where: { source_url: sourceUrl } });
+      // Documents with no public URL (internal PIs, agent-only briefings) all
+      // share an empty `source_url` — deduping on that literally would make
+      // every such ingest silently delete the PREVIOUS no-URL doc instead of
+      // just replacing its own earlier version (found for real: 9 institution
+      // briefings ingested in one run left only the last one standing).
+      // Dedupe by title instead whenever there's no URL to key on.
+      const existing = sourceUrl
+        ? await this.docs.findOne({ where: { source_url: sourceUrl } })
+        : await this.docs.findOne({ where: { source_url: '', title: meta.title } });
       if (existing) await this.docs.remove(existing);
 
       const doc = await this.docs.save(
@@ -166,10 +175,15 @@ export class IngestionService {
       await this.chunks.save(rows);
 
       this.logger.log(`Ingested ${sourceUrl} -> ${rows.length} chunks`);
-      return { url: sourceUrl, ok: true, chunks: rows.length };
+      return { url: sourceUrl, ok: true, chunks: rows.length, docId: doc.id };
     } catch (e) {
       return { url: sourceUrl, ok: false, reason: (e as Error).message };
     }
+  }
+
+  /** Removes a `doc` row; `doc_chunk` rows cascade at the DB FK. */
+  async deleteDoc(docId: string): Promise<void> {
+    await this.docs.delete(docId);
   }
 
   async ingestMany(items: { url: string; meta: IngestMeta }[]): Promise<IngestOutcome[]> {

@@ -47,4 +47,13 @@ export class AcademicRecord {
 
   @Column({ type: 'int', default: 0 })
   gap_months: number;
+
+  /**
+   * Failed/repeated subject count for THIS record — an explicit numeric gate
+   * in several real admission policies (e.g. "max 20 backlogs for a 4-year
+   * Bachelor's"), previously uncheckable since nothing in the domain model
+   * captured it.
+   */
+  @Column({ type: 'int', default: 0 })
+  backlogs: number;
 }

@@ -8,5 +8,6 @@ import { FollowUpController } from './follow-up.controller';
   imports: [TypeOrmModule.forFeature([FollowUp])],
   providers: [FollowUpService],
   controllers: [FollowUpController],
+  exports: [FollowUpService],
 })
 export class FollowUpModule {}

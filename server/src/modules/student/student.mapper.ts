@@ -22,6 +22,8 @@ export function toAggregate(s: Student): StudentAggregate {
       date_of_birth: d.date_of_birth,
       accompanying: d.accompanying,
       passport_status: d.passport_status,
+      marriage_date: d.marriage_date,
+      qualification_level: d.qualification_level,
     })),
     state: s.state,
     counsellor: s.counsellor,
@@ -38,6 +40,7 @@ export function toAggregate(s: Student): StudentAggregate {
       gpa_value: a.gpa_value,
       gpa_scale: a.gpa_scale,
       gap_months: a.gap_months,
+      backlogs: a.backlogs,
     })),
     language_tests: (s.language_tests ?? []).map((t) => ({
       id: t.id,
@@ -107,6 +110,7 @@ export function toAggregate(s: Student): StudentAggregate {
       annual_income: sp.annual_income,
       currency: sp.currency,
       evidence: sp.evidence,
+      bank_name: sp.bank_name,
     })),
     visa_history: (s.visa_history ?? []).map((v) => ({
       id: v.id,

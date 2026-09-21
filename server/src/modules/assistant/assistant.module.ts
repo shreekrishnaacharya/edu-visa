@@ -10,6 +10,8 @@ import { StudentModule } from '../student/student.module';
 import { ProfileModule } from '../profile/profile.module';
 import { MatchModule } from '../match/match.module';
 import { CourseModule } from '../course/course.module';
+import { AdmissionModule } from '../admission/admission.module';
+import { FollowUpModule } from '../follow-up/follow-up.module';
 
 @Module({
   imports: [
@@ -19,6 +21,8 @@ import { CourseModule } from '../course/course.module';
     ProfileModule,
     MatchModule,
     CourseModule,
+    AdmissionModule,
+    FollowUpModule,
   ],
   providers: [AssistantService, OrchestratorService],
   controllers: [AssistantController],

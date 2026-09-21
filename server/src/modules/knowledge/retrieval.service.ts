@@ -22,6 +22,13 @@ export interface RetrievedChunk {
   doc_type: DocType;
   institution: string | null;
   score: number;
+  /**
+   * Overrides the orchestrator's default "external source" label in the
+   * prompt context block for synthetic (non-RAG) chunks it assembles itself
+   * — e.g. a live catalogue row or a computed admission-eligibility check.
+   * Left unset for real retrieved chunks.
+   */
+  context_tag?: string;
 }
 
 const STALE_MS = 1000 * 60 * 60 * 24 * 30 * 18; // 18 months
@@ -76,7 +83,7 @@ export class RetrievalService {
       params,
     );
 
-    return rows
+    const blended: RetrievedChunk[] = rows
       .map((r) => ({
         id: r.id,
         text: r.text,
@@ -87,8 +94,49 @@ export class RetrievalService {
         institution: r.institution,
         score: Number(r.vscore) * 0.75 + Math.min(1, Number(r.kscore)) * 0.25,
       }))
-      .sort((a, b) => b.score - a.score)
-      .slice(0, k);
+      .sort((a, b) => b.score - a.score);
+
+    if (blended.length <= k) return blended;
+    return this.rerank(query, blended.slice(0, 12), k);
+  }
+
+  /**
+   * Reranks the top candidates with a cheap classification-style model call
+   * (same cost class as OrchestratorService.route()) instead of trusting the
+   * linear vector+keyword blend alone — the blend is a reasonable first cut
+   * but has no notion of which candidate actually answers THIS query best
+   * among several superficially-similar ones. Any failure (network,
+   * malformed JSON) falls back to the pre-existing blended order — reranking
+   * is an improvement, never a dependency retrieval can break on.
+   */
+  private async rerank(query: string, candidates: RetrievedChunk[], k: number): Promise<RetrievedChunk[]> {
+    try {
+      const listing = candidates
+        .map((c, i) => `[${i + 1}] ${c.text.slice(0, 300).replace(/\s+/g, ' ')}`)
+        .join('\n');
+      const system = `Rank these numbered passages by relevance to the query. Output ONLY a JSON array of the ${k} best passage numbers, most relevant first, e.g. [3,1,7]. No prose.`;
+      const text = await this.openrouter.chat(
+        [
+          { role: 'system', content: system },
+          { role: 'user', content: `Query: ${query}\n\nPassages:\n${listing}` },
+        ],
+        { model: OpenRouterService.ROUTER_MODEL, maxTokens: 100, temperature: 0 },
+      );
+      const match = text.match(/\[[\s\S]*\]/);
+      const order: unknown = match ? JSON.parse(match[0]) : [];
+      const indices = Array.isArray(order)
+        ? order.filter((n): n is number => Number.isInteger(n) && n >= 1 && n <= candidates.length)
+        : [];
+      if (!indices.length) throw new Error('rerank returned no valid indices');
+
+      const reranked = [...new Set(indices)].map((i) => candidates[i - 1]);
+      // Any candidate the model left out still exists — append the rest in
+      // their original blended order rather than dropping them, then slice.
+      const included = new Set(reranked);
+      return [...reranked, ...candidates.filter((c) => !included.has(c))].slice(0, k);
+    } catch {
+      return candidates.slice(0, k);
+    }
   }
 
   /** True if the best chunk found is older than the freshness threshold (or none exist). */

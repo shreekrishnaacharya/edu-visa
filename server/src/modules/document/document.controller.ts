@@ -42,6 +42,12 @@ export class DocumentController {
     return this.documents.withUrl(doc);
   }
 
+  /** Vision-extracts structured fields (passport/transcript/IELTS/.../bank statement) — see document-extraction-schemas.ts. Counsellor applies fields manually; nothing here auto-writes to student records. */
+  @Post(':id/extract')
+  extract(@Param('id') id: string, @Body('schema') schema: string) {
+    return this.documents.extract(id, schema);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.documents.removeAndPurge(id);

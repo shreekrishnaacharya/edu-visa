@@ -5,7 +5,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { PassportStatus } from '../../../common/enums';
+import { AcademicLevel, PassportStatus } from '../../../common/enums';
 import { Student } from './student.entity';
 
 @Entity('dependant')
@@ -35,4 +35,17 @@ export class Dependant {
 
   @Column({ type: 'varchar', default: 'none' })
   passport_status: PassportStatus;
+
+  /**
+   * Spouse-only in practice (relationship === 'spouse'), but not enforced at
+   * the column level. Several real admission policies gate on marriage
+   * duration ("minimum 12 months for postgraduate") — see
+   * `admission/admission-eligibility.service.ts` `maritalChecks`.
+   */
+  @Column({ type: 'date', nullable: true })
+  marriage_date: string | null;
+
+  /** Spouse's own academic level — several policies require it match/exceed the applicant's ("equal qualification"). */
+  @Column({ type: 'varchar', nullable: true })
+  qualification_level: AcademicLevel | null;
 }

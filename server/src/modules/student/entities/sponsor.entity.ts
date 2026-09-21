@@ -35,4 +35,13 @@ export class Sponsor {
 
   @Column({ default: false })
   evidence: boolean;
+
+  /**
+   * The bank/financial institution funds are held with or come through — not
+   * an account number, just the institution name (e.g. "Nabil Bank"). Several
+   * real admission policies exclude specific banks (`AdmissionPolicy.excluded_banks`);
+   * previously that could only be surfaced as an unverifiable note.
+   */
+  @Column({ default: '' })
+  bank_name: string;
 }

@@ -43,6 +43,9 @@ export const env = {
   // not the final answer, so a small model is the right tool, not the 26B one.
   openRouterRouterModel: process.env.OPENROUTER_ROUTER_MODEL ?? 'google/gemma-3-4b-it',
   openRouterEmbedModel: process.env.OPENROUTER_EMBED_MODEL ?? 'openai/text-embedding-3-small',
+  // Vision-capable model for the university-document upload pipeline (PDF page
+  // images -> extracted text). Must support image_url content parts on OpenRouter.
+  openRouterVisionModel: process.env.OPENROUTER_VISION_MODEL ?? 'google/gemini-2.5-flash',
   openRouterMinBalanceUsd: parseFloat(process.env.OPENROUTER_MIN_BALANCE_USD ?? '0.5'),
 
   redis: {

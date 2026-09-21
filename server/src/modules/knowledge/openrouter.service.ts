@@ -7,6 +7,11 @@ export interface ChatMessage {
   content: string;
 }
 
+export interface PageImage {
+  base64: string;
+  mime: string;
+}
+
 /**
  * Thin OpenRouter client (plan appendix B.1). Model choice and the budget
  * floor are env-driven (`OPENROUTER_CHAT_MODEL` / `_FALLBACK` / `_MIN_BALANCE_USD`)
@@ -28,6 +33,7 @@ export class OpenRouterService {
   static readonly CHAT_MODEL_FALLBACK = env.openRouterChatModelFallback;
   static readonly ROUTER_MODEL = env.openRouterRouterModel;
   static readonly EMBED_MODEL = env.openRouterEmbedModel;
+  static readonly VISION_MODEL = env.openRouterVisionModel;
   private static readonly BALANCE_CHECK_INTERVAL_MS = 60_000;
 
   constructor() {
@@ -71,6 +77,29 @@ export class OpenRouterService {
       input: texts,
     });
     return data.data.map((d: { embedding: number[] }) => d.embedding);
+  }
+
+  /**
+   * Sends page images + a text instruction to a vision-capable model and
+   * returns its raw text response. Used to OCR/read uploaded university
+   * document PDFs (rendered to page PNGs first — see pdf-to-images.util.ts)
+   * where a plain text layer is absent or unreliable.
+   */
+  async visionExtractText(images: PageImage[], prompt: string): Promise<string> {
+    await this.assertBudget();
+    const content: unknown[] = [{ type: 'text', text: prompt }];
+    for (const img of images) {
+      content.push({ type: 'image_url', image_url: { url: `data:${img.mime};base64,${img.base64}` } });
+    }
+    const { data } = await this.http.post('/chat/completions', {
+      model: OpenRouterService.VISION_MODEL,
+      messages: [{ role: 'user', content }],
+      max_tokens: 8000,
+      temperature: 0,
+    });
+    const text = data?.choices?.[0]?.message?.content;
+    if (!text) throw new Error('empty vision completion');
+    return text;
   }
 
   async chat(

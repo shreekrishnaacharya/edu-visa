@@ -1,12 +1,17 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AssistantService } from './assistant.service';
+import { OrchestratorService } from './orchestrator.service';
 import { PostMessageDto } from './dto/post-message.dto';
+import { DraftReplyDto } from './dto/draft-reply.dto';
 import { AuthUser } from '../auth/auth-user.decorator';
 import { AuthUserPayload } from '../auth/jwt.strategy';
 
 @Controller('assistant')
 export class AssistantController {
-  constructor(private readonly assistant: AssistantService) {}
+  constructor(
+    private readonly assistant: AssistantService,
+    private readonly orchestrator: OrchestratorService,
+  ) {}
 
   @Post('messages')
   post(@Body() dto: PostMessageDto, @AuthUser() user: AuthUserPayload) {
@@ -22,5 +27,11 @@ export class AssistantController {
   @Get('students/:studentId')
   getForStudent(@Param('studentId') studentId: string) {
     return this.assistant.getLatestForStudent(studentId);
+  }
+
+  /** Drafts a reply for a counsellor to review and send — never persisted here, see OrchestratorService.draftReply. */
+  @Post('draft-reply')
+  draftReply(@Body() dto: DraftReplyDto) {
+    return this.orchestrator.draftReply(dto.student_id, dto.question);
   }
 }

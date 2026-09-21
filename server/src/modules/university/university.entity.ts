@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Country } from '../../common/enums';
 import { Course } from '../course/course.entity';
+import { UniversityDocument } from './university-document.entity';
 
 @Entity('university')
 export class University {
@@ -36,6 +37,9 @@ export class University {
 
   @OneToMany(() => Course, (c) => c.university)
   courses: Course[];
+
+  @OneToMany(() => UniversityDocument, (d) => d.university)
+  documents: UniversityDocument[];
 
   @CreateDateColumn({ type: 'timestamptz' })
   created_at: Date;

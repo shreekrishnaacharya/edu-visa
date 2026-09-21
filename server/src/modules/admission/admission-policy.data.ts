@@ -1,0 +1,428 @@
+import { AdmissionPolicy } from './admission-policy.types';
+
+/**
+ * Real admission-eligibility data extracted from 9 documents supplied
+ * directly to this consultancy (`resource/university_requiremnt/*`, all
+ * dated Jan-Jul 2026): institution partner-portal update letters and GS/
+ * financial-capacity checklists, all Nepal-applicant-specific. These are
+ * NOT public web pages — provenance is "provided directly to the
+ * consultancy" (same honesty pattern as the Home Affairs Procedural
+ * Instruction ingested earlier), so `source` below names the file, not a URL.
+ *
+ * None of these institutions are in the CRICOS-sourced catalogue
+ * (server/data/cricos/) — that catalogue covers Melbourne/Sydney/Monash/
+ * UQ/UNSW/UWA/Deakin/RMIT only. This is a genuinely separate set of
+ * institutions this consultancy places students with.
+ *
+ * Read every document fully before writing this (no field below is
+ * invented/estimated) but some institution-specific rules genuinely don't
+ * reduce to a clean typed field (e.g. "spouse must have equal qualification
+ * unless...") — those stay as plain strings in `other_notes`/`gs_notes`
+ * rather than being forced into structure that would misrepresent them.
+ */
+export const ADMISSION_POLICIES: AdmissionPolicy[] = [
+  {
+    key: 'utas',
+    institution: 'University of Tasmania (UTAS)',
+    scope: 'Nepalese applicants',
+    source: 'UTAS_ Updated Nepal GS July 2026.pdf',
+    effective_date: '2026-07-01',
+    academics: [
+      {
+        level: 'PG',
+        label: 'All postgraduate programs',
+        min_canonical_score: null,
+        source_expression: 'No academic threshold given in this update (see other UTAS entry-requirement material for course-level figures)',
+        min_ielts_overall: null,
+        min_ielts_band: null,
+        min_pte_overall: null,
+        min_pte_band: null,
+        notes: ['No packaged English pathway offered — direct-entry English score only ("No English packages").'],
+      },
+    ],
+    marriage_rules: [
+      'Postgraduate: marriage duration minimum 12 months.',
+      'Spouse must be similarly educated.',
+      'Undergraduate: married applicants are rejected outright.',
+      'Any applicant bringing children (dependants) is rejected.',
+    ],
+    min_marriage_months: 12,
+    spouse_qualification_rule: { required_equal: true, note: 'Spouse must be similarly educated (postgraduate applicants only — UTAS rejects married undergraduate applicants outright).' },
+    sponsors: [
+      { relation: 'parents (male applicant)', max_percent: null, min_percent: 70, status: 'accepted', note: 'Male students: minimum 70% sponsorship from parents.' },
+      { relation: 'parents or in-laws (female applicant)', max_percent: null, min_percent: 70, status: 'accepted', note: 'Female students: minimum 70% from parents or in-laws.' },
+    ],
+    income_thresholds: [
+      { scenario: 'sponsorship annual income floor (excluding agricultural income)', min_annual_npr_lakh: null, min_annual_aud: 26000 },
+      { scenario: 'combined parents income (unless salary/income shown has since lapsed)', min_annual_npr_lakh: null, min_annual_aud: 15000 },
+    ],
+    fund_seasoning_months: 6,
+    excluded_banks: ['Kumari Bank', 'Prabhu Bank', 'Prime Bank'],
+    income_source_notes: [
+      'Salary sponsorship: 12 months of evidence required — work letter stating salary, pay slips, and the bank account salary is paid into.',
+      'Rental income: 12 months of evidence — rental contract, proof of asset ownership, evidence of rental payment.',
+      'No cash payments accepted as proof of income — payslips required.',
+      'Agricultural income may be counted as additional income only — the AUD 26,000 sponsorship floor must be met without it.',
+      'Business-income sponsors: a business audit report is requested.',
+      'Land/asset sale proceeds not accepted as funding unless the funds have then sat in the account 6+ months (or, if under 12 months, evidence of the sale is required to trace the funds).',
+      'Education loans allowed, but must be accompanied by savings of 12,000-15,000 AUD equivalent shown in-account for a minimum of 6 months.',
+      'Loans must be in the sponsor\'s name with collateral as security.',
+    ],
+    other_notes: [],
+  },
+  {
+    key: 'sydney-met',
+    institution: 'Sydney Met (formerly MIT Sydney)',
+    scope: 'Offshore applicants, Assessment Level 3 countries (Bangladesh, Bhutan, Nepal) — effective 16 Jan 2026',
+    source: 'Updated Entry Requirements for Offshore Students – Effective 16 January 2026_Sydney Met.pdf',
+    effective_date: '2026-01-16',
+    academics: [
+      { level: 'UG', label: 'Bachelor of Social Work', min_canonical_score: 65, source_expression: '65% (from Year 12)', min_ielts_overall: 7.0, min_ielts_band: 7.0, min_pte_overall: 65, min_pte_band: 65 },
+      { level: 'UG', label: 'Bachelor of Information Technology', min_canonical_score: 60, source_expression: '60% (from Year 12)', min_ielts_overall: 6.0, min_ielts_band: 5.5, min_pte_overall: 50, min_pte_band: 42 },
+      { level: 'UG', label: 'Bachelor of Business (Entrepreneurship)', min_canonical_score: 60, source_expression: '60% (from Year 12)', min_ielts_overall: 6.0, min_ielts_band: 5.5, min_pte_overall: 50, min_pte_band: 42 },
+      { level: 'PG', label: 'Master of Social Work (Qualifying)', min_canonical_score: 65, source_expression: "65% (from bachelor's degree, AQF level 7)", min_ielts_overall: 7.0, min_ielts_band: 7.0, min_pte_overall: 65, min_pte_band: 65 },
+      { level: 'PG', label: 'Graduate Diploma / Graduate Certificate in Human and Community Services', min_canonical_score: 65, source_expression: "65% (from bachelor's degree, AQF level 7)", min_ielts_overall: 6.5, min_ielts_band: 6.5, min_pte_overall: 58, min_pte_band: 58 },
+      { level: 'PG', label: 'Master of Information Technology', min_canonical_score: 60, source_expression: "60% (from bachelor's degree, AQF level 7)", min_ielts_overall: 6.5, min_ielts_band: 6.0, min_pte_overall: 58, min_pte_band: 50 },
+      { level: 'PG', label: 'Master of Business Administration', min_canonical_score: 60, source_expression: "60% (from bachelor's degree, AQF level 7)", min_ielts_overall: 6.5, min_ielts_band: 6.0, min_pte_overall: 58, min_pte_band: 50 },
+    ],
+    study_gap_rules: [
+      'High School 2025 pass-outs: eligible for May 2026, September 2026 and February 2027 intakes only.',
+      "Undergraduate program completion: eligibility for postgraduate entry is valid for up to 7 years from the year of completion.",
+    ],
+    marriage_rules: ['Undergraduate applicants: married status is NOT accepted.', 'Postgraduate applicants: married status is accepted.'],
+    sponsors: [],
+    income_thresholds: [],
+    other_notes: [
+      'Assessment Level 3 (Nepal, Bangladesh, Bhutan, effective 16 Jan 2026 following an 8 Jan 2026 Home-Affairs country-assessment-level change): direct Bachelor\'s/Master\'s degree entry only — packaged Diploma or English pathway programs are NOT accepted, with one exception below. India offshore entry requirements communicated separately (not covered by this document).',
+      'Exception: packaged English (up to 12 weeks EAP via an approved partner college) is available ONLY for Bachelor of Social Work and Master of Social Work (Qualifying), and only when the applicant is within 1-2 bands of the course\'s IELTS 7.0-per-band requirement (e.g. 6.5 in one or two components, remainder at 7.0+).',
+      'The minimum academic and English requirements themselves are stated to be unchanged across all assessment levels — what changed for Assessment Level 3 is pathway/package availability, not the score bars above.',
+      '(For reference/context only, not this consultancy\'s policy) Assessment Level 1: applicants to BIT or BBUS may be accepted via an English partner pathway without submitting an English test result. Assessment Level 1/2: a diploma-package pathway is available via partnered vocational colleges for undergraduate programs, and an English-package pathway is available for all UG/PG programs in Business (Entrepreneurship), IT and Social Work — neither pathway applies to AL3 (Nepal) applicants per the direct-entry-only rule above.',
+    ],
+  },
+  {
+    key: 'newcastle',
+    institution: 'University of Newcastle (UON)',
+    scope: 'General (source references India-state restrictions as well as Nepal-relevant sponsor rules)',
+    source: 'UNIVERSITY OF NEWCASTLE.docx',
+    academics: [
+      { level: 'UG', label: 'Undergraduate (general)', min_canonical_score: 70, source_expression: '2.80 CGPA (Nepal /4.0 convention)', min_ielts_overall: 6.0, min_ielts_band: 6.0, min_pte_overall: null, min_pte_band: null, notes: ['Age limit: below 21 years.'] },
+      { level: 'PG', label: 'Postgraduate (general)', min_canonical_score: 55, source_expression: '55%', min_ielts_overall: 6.5, min_ielts_band: 6.0, min_pte_overall: null, min_pte_band: null, notes: ['Age limit: below 32 years.'] },
+    ],
+    age_limit: { ug_max: 20, pg_max: 31, note: 'Stated as "below 21" (UG) and "below 32" (PG) — treat as an exclusive upper bound.' },
+    backlog_limit: ['4-year Bachelor: up to 20 backlogs acceptable.', '3-year Bachelor: up to 10 backlogs acceptable.'],
+    marriage_rules: ['Dependant (spouse) must hold an equal qualification to the applicant, even when the applicant is applying as a single (unaccompanied) student.'],
+    spouse_qualification_rule: { required_equal: true, note: 'Dependant (spouse) must hold an equal qualification to the applicant, even when applying single.' },
+    max_backlogs: [{ level: 'UG', count: 20, note: 'Applies to a 4-year Bachelor; a 3-year Bachelor is capped at 10 instead — verify course length before relying on the higher figure.' }],
+    double_masters_policy: 'A second (double) Master\'s is acceptable if career progression is evident and the new Master\'s is in a different field from the previous one.',
+    visa_refusal_policy: 'A recent visa refusal is not acceptable. An Australian student-visa refusal is acceptable if academic progression is evident since. Australian tourist-visa refusal, or a refusal from any other country, is considered case-by-case. No visa refusals accepted on the spouse\'s record.',
+    sponsors: [
+      { relation: 'parents / grandparents (primary)', max_percent: null, min_percent: 80, status: 'accepted', note: '80% of income must come from primary sponsors (parents/grandparents).' },
+      { relation: 'siblings (incl. those with Australian temporary residency)', max_percent: 20, min_percent: null, status: 'accepted', note: 'Capped at 20% of total; major income must still be from parents.' },
+      { relation: 'spouse, in-laws', max_percent: 50, min_percent: null, status: 'conditional', note: 'In-laws: maximum 50% even if applying as a single applicant.' },
+      { relation: 'paternal/maternal uncles & aunts', max_percent: 20, min_percent: null, status: 'conditional', note: 'Only if parents are not alive or are separated.' },
+      { relation: 'grandparents (full sponsorship)', max_percent: 100, min_percent: null, status: 'accepted' },
+      { relation: 'cousins', max_percent: null, min_percent: null, status: 'not_accepted', note: 'Not accepted unless strong ties can be demonstrated.' },
+    ],
+    income_thresholds: [],
+    fund_seasoning_months: 6,
+    income_source_notes: [
+      'Proof of relationship from a Central Authority (not local government) is required whenever the sponsor is not a parent.',
+      'Any income source type (vehicle, agriculture, etc.) is acceptable with supporting documents, but not as the majority source.',
+      'All banks classified "A class" by DHA (Nepal Rastra Bank) are accepted.',
+      'Up to 6-month-old funds are acceptable; additional savings are not mandatory.',
+    ],
+    excluded_regions: ['India: only Andhra Pradesh, Telangana, Tamil Nadu, Karnataka, Kerala, West Bengal, Maharashtra and Gujarat state boards are currently accepted.'],
+    other_notes: [
+      '1 year of tuition fee must be deposited before a CoE is issued.',
+      'No fixed minimum number of sponsors.',
+      'Reference: https://www.newcastle.edu.au/study/international/the-university-in-your-country/uon-agents/entry-requirements',
+    ],
+  },
+  {
+    key: 'torrens-blue-mountains',
+    institution: 'Torrens University',
+    also_covers: ['Blue Mountains International Hotel Management School'],
+    scope: 'General GTE update',
+    source: 'TORRENS.docx',
+    academics: [
+      { level: 'PG', label: 'Master of Philosophy', min_canonical_score: null, source_expression: 'not given', min_ielts_overall: null, min_ielts_band: null, min_pte_overall: null, min_pte_band: null, notes: ['Applicants with less than a 10-year post-bachelor gap can apply.'] },
+    ],
+    backlog_limit: ['No backlogs or Year 12 grade-improvement certificates accepted at all.'],
+    max_backlogs: [{ level: 'UG', count: 0, note: 'No backlogs or Year 12 grade-improvement certificates accepted at all.' }],
+    study_gap_rules: ['More than a 5-year gap after Bachelor\'s is not acceptable (general rule; Master of Philosophy allows up to 10 years — see academics).'],
+    max_study_gap_months: [
+      { level: 'PG', months: 60, note: "General postgraduate gap ceiling after Bachelor's." },
+    ],
+    marriage_rules: [
+      'If married but applying single, the spouse is not required to hold an equal qualification.',
+      'Spouse and in-laws may sponsor, but parents must still provide the majority of income.',
+    ],
+    spouse_qualification_rule: { required_equal: false, note: 'If married but applying single, the spouse is NOT required to hold an equal qualification.' },
+    double_masters_policy: 'Not acceptable.',
+    visa_refusal_policy: 'No visa refusals accepted from any country, except the United States.',
+    sponsors: [
+      { relation: 'parents', max_percent: null, min_percent: 70, status: 'accepted', note: 'Minimum 70% of income must come from parents. Overseas income only accepted from the applicant\'s own mother/father, not from other sponsors.' },
+      { relation: 'a 3rd nominated sponsor (uncle/maternal uncle/brother/sister)', max_percent: 30, min_percent: null, status: 'conditional', note: 'Only 2 parent sponsors + 1 additional nominated sponsor allowed (3 total).' },
+    ],
+    max_sponsors: 3,
+    income_thresholds: [
+      { scenario: 'single applicant, annual income', min_annual_npr_lakh: null, min_annual_aud: 21000 },
+      { scenario: 'GSR-process applicants, savings balance', min_annual_npr_lakh: 15, min_annual_aud: null },
+    ],
+    excluded_banks: ['Prime', 'Prabhu', 'Kumari', 'Laxmi Sunrise', 'All government banks'],
+    income_source_notes: [
+      'Pension income is not accepted.',
+      'Rental or vehicle income capped at 30% of total declared income.',
+      'Rent/lease: the tenant must show the rent amount deposited 6 times in the landlord\'s bank statement (monthly, or every 3 months).',
+      'Business income must be evidenced via a bank statement in the business\'s own name — a personal statement of the business owner is not accepted.',
+      '2 years\' tax clearance required (including for rental income).',
+      'One year of bank statements required.',
+    ],
+    other_notes: ['All GS documents must be notarized.', 'Dependant (accompanying family) cases are acceptable but assessed case-by-case — must be confirmed with the university first.'],
+  },
+  {
+    key: 'scu',
+    institution: 'Southern Cross University (SCU)',
+    scope: 'Nepalese applicants with a provisional offer (main campuses: Lismore, Coffs Harbour, Gold Coast)',
+    source: 'SCU Provisional Offer Checklist MC - Nepalese applicants__01-2026.pdf',
+    effective_date: '2026-01-07',
+    academics: [],
+    sponsors: [
+      { relation: 'any (parents count as a single combined sponsor)', max_percent: null, min_percent: null, status: 'accepted', note: 'A maximum of 2 sponsors are permitted per student; a father+mother pair together counts as 1 of those 2.' },
+    ],
+    max_sponsors: 2,
+    income_thresholds: [],
+    gs_notes: [
+      'The GS (Genuine Student) Statement must address, with documentary evidence, not just assertion: why the applicant wants to study in Australia specifically at SCU and at the chosen campus; why this course; evidence the applicant considered studying at home first and why Australia/SCU was still chosen.',
+      'Applicant must disclose ALL formal qualifications commenced, regardless of whether completed or submitted with the application — immigration expects to see every academic transcript in English.',
+      'Full Australian (and any country) immigration history must be disclosed with a dates/locations summary and copies of all visas/CoEs. Any visa cancellation or refusal (any country) in the last 5 years must be disclosed and explained — assessed case-by-case.',
+      'Any relatives in Australia must be disclosed: where they live, relationship, and whether they hold a visa or are an Australian citizen/PR.',
+      'Any spouse or dependent children must be disclosed on the visa application even if not accompanying the applicant. If married: spouse\'s job, education background and marriage date required, plus marriage certificate and spouse\'s academic transcript/CV. If dependent children: birth certificates required. SCU reviews family details even when it does not permit accompanying spouse/children for undergraduate Diploma and Bachelor studies.',
+      'Study gaps: gaps between courses within a year-long/multi-year program are not "study gaps." Any gap of 6 months or more (e.g. during an extended break) must be explained with evidence such as an employer letter.',
+    ],
+    document_checklist: [
+      'Visiting card for bank officials (mandatory, for funds verification).',
+      'Salaried sponsor: offer + experience letter (date of joining, position, last salary); 6 months\' salary slips + 6 months\' bank statements showing salary credits; 2 years\' Tax Clearance Certificates (Inland Revenue); TDS certificate if employment is under 6 months old.',
+      'Business income: business registration certificate; PAN registration; 2 years\' Tax Clearance Certificates; 6 months\' business bank statements or personal statements if no business account; partnership deed if applicable. (Agricultural/animal husbandry income accepted if verifiable via bank credits.)',
+      'Rental or vehicle income: property ownership document (Lalpurja, +English translation); rental agreement/lease deed (+translation); 6 months\' rental tax receipts; 6 months\' bank statements showing regular rental credits; land/property tax document (1-2 years, +translation); tenant identity document; for vehicle income also the Blue Book and Road Tax (+translation).',
+      'Foreign employment: copies of visas with immigration stamps (last 2 years); employment proof; 6 months\' salary slips + foreign bank statements (+translation); Nepal bank statements showing remittances; work permit/driving licence/ID of the foreign country.',
+      'Education loan: coloured copy of the loan sanction letter with collateral details; property ownership document (+translation); mortgage deeds (+translation); land/property tax document 1-2 years (+translation).',
+      'Fixed deposits: statement showing the FD and holder name; evidence of the source of funds for the FD (unless the FD is older than 6 months, in which case source evidence is not required); bank balance certificate.',
+      'Savings: 6 months\' bank statements showing how the savings were built up; evidence of the source of funds into savings; relationship of the account holder to the student if the account isn\'t in the student\'s name (immediate family only, except in special demonstrable circumstances).',
+      'A list of acceptable financial institutions is maintained via the NRB (Nepal Rastra Bank) online register.',
+    ],
+    other_notes: ["This is a post-offer / pre-visa-application checklist, not the academic entry-score requirement — SCU's course-level GPA/English score bars are set elsewhere and aren't in this document."],
+  },
+  {
+    key: 'acap-navitas',
+    institution: 'ACAP (Australian College of Applied Psychology) University College — Navitas',
+    scope: 'General',
+    source: 'NAVITAS-ACAP.docx',
+    academics: [
+      { level: 'UG', label: 'Bachelor of Social Work / Master of Social Work (Qualifying)', min_canonical_score: null, source_expression: 'see per-test table', min_ielts_overall: 7.0, min_ielts_band: 7.0, min_pte_overall: 66, min_pte_band: 66, notes: ['Also acceptable: TOEFL 94 (94), Cambridge CAE 185 (185).'] },
+      { level: 'PG', label: "Master's / Graduate Certificate / Graduate Diploma (general)", min_canonical_score: 60, source_expression: '60% (55% for Graduate Certificate of Human Services)', min_ielts_overall: 6.5, min_ielts_band: 6.0, min_pte_overall: 59, min_pte_band: 52, notes: ['Also acceptable: TOEFL 79 (60), Cambridge CAE 176 (169).'] },
+      { level: 'UG', label: "Bachelor's / Diploma (general)", min_canonical_score: 65, source_expression: '2.6 CGPA (/4.0) for Bachelor; PCL 70%', min_ielts_overall: 6.5, min_ielts_band: 6.0, min_pte_overall: 59, min_pte_band: 52, notes: ['Also acceptable: TOEFL 60 (46), Cambridge CAE 169 (162).'] },
+      { level: 'PG', label: 'MBA / MPA (Perth campus, from Feb 2026 intake)', min_canonical_score: null, source_expression: 'AQF level 7 bachelor completed', min_ielts_overall: 6.5, min_ielts_band: 6.0, min_pte_overall: 59, min_pte_band: 52, notes: ['MBA only: requires 3 years of work experience.'] },
+    ],
+    backlog_limit: ['Year 12: no backlogs accepted.', 'Bachelor degree: up to 8 backlogs considerable.'],
+    max_backlogs: [
+      { level: 'UG', count: 0, note: 'No backlogs accepted in Year 12.' },
+      { level: 'PG', count: 8, note: 'Up to 8 backlogs in the bachelor degree is considerable.' },
+    ],
+    study_gap_rules: ['Study gap of 3+ years accepted for postgraduate programs only.'],
+    min_marriage_months: 12,
+    sponsors: [
+      { relation: 'self / parents / siblings / grandparents', max_percent: null, min_percent: null, status: 'accepted', note: 'Single applications.' },
+      { relation: 'paternal uncle/aunt', max_percent: 20, min_percent: null, status: 'conditional', note: 'Single applications only, capped at 20%.' },
+      { relation: 'parents-in-law', max_percent: null, min_percent: null, status: 'accepted', note: 'Dependant (accompanying-family) applications only.' },
+      { relation: 'uncle/aunt or in-laws (general cap)', max_percent: 20, min_percent: null, status: 'conditional' },
+      { relation: 'in-laws (MBA/MPA cohort)', max_percent: 40, min_percent: null, status: 'conditional', note: 'Max 40% share; remaining 60%+ from parents/siblings/spouse.' },
+    ],
+    max_sponsors: 3,
+    income_thresholds: [
+      { scenario: 'single applicant', min_annual_npr_lakh: 22, min_annual_aud: null },
+      { scenario: 'with dependant', min_annual_npr_lakh: 28, min_annual_aud: null },
+    ],
+    excluded_banks: ['Prabhu Bank'],
+    income_source_notes: [
+      'Funding via education loan or savings; loan sanction must be in the name of the applicant\'s parents.',
+      'No bulk deposits accepted.',
+      'Agriculture income and vehicle income are NOT accepted.',
+      'Parents\' recently-started employment (under 1-2 years) will not be accepted.',
+      'A marriage of at least 1 year is required for dependant (accompanying-spouse) cases.',
+      'GS is conducted as question-and-answer rather than a written SOP.',
+    ],
+    scholarships: [
+      'AUD 3,000 for the first 15 students, and AUD 5,000 for the first 6 students from Asia (time/cohort-limited — confirm current availability before quoting).',
+    ],
+    other_notes: [
+      'MBA/MPA at the Perth campus opened for the Feb 2026 intake.',
+      'Suggested (not mandatory) education-loan sizing, given current exchange rates, for CSUSM/ACAP/SAE: UG ~NPR 6,500,000, PG ~NPR 7,000,000.',
+      'Full loan disbursement is NOT required to obtain a CoE.',
+      'UG course list: Bachelor of Counselling; Bachelor of Psychological Science; Bachelor of Psychological Science and Criminology; Bachelor of Psychological Science and Counselling; Bachelor of Social Work.',
+      'PG course list: Graduate Certificate of Human Services (GCHS); Master of Social Work (Qualifying); Graduate Certificate of Counselling (GCC); Master of Counselling and Psychotherapy.',
+    ],
+  },
+  {
+    key: 'excelsia',
+    institution: 'Excelsia College',
+    scope: 'General',
+    source: 'EXCELSIA.docx',
+    academics: [
+      {
+        level: 'UG',
+        label: 'General undergraduate (recent Year 12 pass-outs only)',
+        min_canonical_score: 70,
+        source_expression: '2.80 CGPA (/4.0)',
+        min_ielts_overall: 6.0,
+        min_ielts_band: 6.0,
+        min_pte_overall: null,
+        min_pte_band: null,
+        notes: ['Time-bound concession: accepted up to Feb 2026 intake, provided the visa is lodged by Dec 2025 — reconfirm currency before quoting.', 'No gap year permitted; course must be completed within the stipulated time.'],
+      },
+      {
+        level: 'PG',
+        label: 'General postgraduate',
+        min_canonical_score: 65,
+        source_expression: '1st Division (must be stated on the provisional/original certificate) — equivalent to 2.8 CGPA if no division is stated on any academic document',
+        min_ielts_overall: 6.5,
+        min_ielts_band: 6.0,
+        min_pte_overall: null,
+        min_pte_band: null,
+      },
+      {
+        level: 'PG',
+        label: 'Graduate Certificate leading to Master\'s (from a 3-year BSW)',
+        min_canonical_score: null,
+        source_expression: 'n/a',
+        min_ielts_overall: 6.5,
+        min_ielts_band: 6.0,
+        min_pte_overall: null,
+        min_pte_band: null,
+      },
+    ],
+    age_limit: { pg_max: 28, research_max_low: 33, research_max_high: 35, note: 'UG: recent pass-outs only (no stated numeric age cap). No U18 applicants under any program.' },
+    backlog_limit: ['UG (Feb 2026 cohort): none — course must be completed on time.'],
+    max_study_gap_months: [{ level: 'UG', months: 0, note: 'No gap year permitted; course must be completed within the stipulated time.' }],
+    marriage_rules: [
+      'No married applicants accepted for undergraduate programs.',
+      'Marriage must be at least 1 year old, and marriage photos are mandatory.',
+      'Spouse must hold an equal qualification to the applicant.',
+      'A husband may sponsor a female applicant applying single; in-laws may sponsor a female applicant if the husband holds an equal qualification.',
+      'If the applicant has a child, the dependant-qualification requirement does not apply.',
+    ],
+    double_masters_policy: 'Not accepted.',
+    visa_refusal_policy: 'No visa refusals accepted.',
+    min_marriage_months: 12,
+    spouse_qualification_rule: { required_equal: true, note: 'Spouse must hold an equal qualification to the applicant — EXCEPT if the applicant has a child, in which case this requirement does not apply.' },
+    sponsors: [
+      { relation: 'parents, siblings, grandparents (either side)', max_percent: null, min_percent: null, status: 'accepted', note: 'No other sponsor relationship is accepted. No limit on the number of sponsors.' },
+    ],
+    income_thresholds: [
+      { scenario: 'single applicant (incl. married-but-applying-single)', min_annual_npr_lakh: 22, min_annual_aud: null },
+      { scenario: 'married with a child, applying single', min_annual_npr_lakh: 25, min_annual_aud: null },
+      { scenario: 'with dependant', min_annual_npr_lakh: 30, min_annual_aud: null },
+    ],
+    excluded_banks: ['Prabhu', 'Prime', 'Kumari', 'Citizens', 'Government banks'],
+    income_source_notes: [
+      'Bank statement window: 10 months for a Research program, salary income, and rental income; 6 months for all other programs/sources.',
+      'Agriculture income is not accepted; agro-business income is.',
+      'Vehicle income accepted only with itemised bank statements and supporting documents; private-vehicle rent not accepted, but bus/truck/heavy-vehicle rent is.',
+      'Business income: approx. 70% of ITR-reported transactions must be reflected in bank statements; personal bank statements are acceptable. No audit/CA report required.',
+      'Foreign income from parents: remittance slips not required. Foreign income from siblings: remittance slips ARE required. Only the remitted amount counts toward annual income.',
+      'No cooperative-society statements or funds accepted.',
+      'Full loan disbursement required, plus 1 year\'s tuition fee payment.',
+    ],
+    scholarships: [
+      '20% for Bachelor of Information Technology if GPA above 3.2 (income floor reduces to NPR 20 lakh with this scholarship, vs the general 22 lakh).',
+      '25% for Bachelor of Information Technology and Music courses generally (audition compulsory for Music).',
+    ],
+    gs_notes: ['No mandatory GS interview.', 'A detailed SOP is required.', 'No agent changes permitted mid-process.'],
+    other_notes: [
+      'Early Childhood courses: female applicants only.',
+      'PCL pass-outs not accepted.',
+      'Research programs (Business Research, Education Research, Education Research STEM) require an EOI first.',
+    ],
+  },
+  {
+    key: 'cqu',
+    institution: 'Central Queensland University (CQU)',
+    scope: 'General',
+    source: 'CQU.docx',
+    academics: [
+      { level: 'UG', label: 'Undergraduate (general)', min_canonical_score: 75, source_expression: '3 CGPA (/4.0) or 75%', min_ielts_overall: 6.0, min_ielts_band: 5.5, min_pte_overall: 58, min_pte_band: 50 },
+      { level: 'UG', label: 'Bachelor of Nursing', min_canonical_score: null, source_expression: 'n/a (English only)', min_ielts_overall: 7.0, min_ielts_band: 6.5, min_pte_overall: 65, min_pte_band: 56, notes: ['IELTS by skill: Listening 7, Reading 7, Speaking 7, Writing 6.5. PTE equivalent by skill: L65 R65 S65 W56.'] },
+      { level: 'PG', label: 'Medical programs', min_canonical_score: 65, source_expression: '65%', min_ielts_overall: 6.0, min_ielts_band: 5.5, min_pte_overall: 58, min_pte_band: 50 },
+      { level: 'PG', label: 'Engineering programs (incl. Master of Project Management, Master of Construction Management)', min_canonical_score: 70, source_expression: '70%', min_ielts_overall: 6.0, min_ielts_band: 5.5, min_pte_overall: 58, min_pte_band: 50 },
+      { level: 'PG', label: 'Management programs', min_canonical_score: 60, source_expression: '60%', min_ielts_overall: 6.0, min_ielts_band: 5.5, min_pte_overall: 58, min_pte_band: 50 },
+      { level: 'UG', label: 'Diploma / PCL — Health Science stream', min_canonical_score: 65, source_expression: '65%', min_ielts_overall: null, min_ielts_band: null, min_pte_overall: null, min_pte_band: null },
+      { level: 'UG', label: 'Diploma / PCL — other streams', min_canonical_score: 75, source_expression: '75%', min_ielts_overall: null, min_ielts_band: null, min_pte_overall: null, min_pte_band: null },
+    ],
+    backlog_limit: ['UG: acceptable if resolved within a year.', 'PG: not more than 6-7 backlogs, with a justified reason.'],
+    max_backlogs: [{ level: 'PG', count: 7, note: 'Not more than 6-7, and only with a justified reason.' }],
+    marriage_rules: ['No fixed rule on marriage/registration date — only a marriage certificate is required.', 'A spouse holding a +2 (Year 12) qualification is acceptable for the Master\'s-level applicant.'],
+    spouse_qualification_rule: { required_equal: false, min_level: 'High School', note: 'A spouse holding a +2 (Year 12) qualification is acceptable for the Master\'s-level applicant — no requirement that it match the applicant\'s own level.' },
+    double_masters_policy: 'Not accepted; a double Master\'s applicant can instead apply for a research course.',
+    visa_refusal_policy: 'No refusals accepted from any country.',
+    sponsors: [
+      { relation: 'father, mother, siblings, grandparents (paternal & maternal), in-laws', max_percent: null, min_percent: null, status: 'accepted', note: 'Maximum income must come from parents for both single and married applicants. Collateral for a loan may come from grandparents or in-laws.' },
+    ],
+    max_sponsors: 3,
+    income_thresholds: [
+      { scenario: 'single applicant', min_annual_npr_lakh: 22, min_annual_aud: null },
+      { scenario: 'married applicant', min_annual_npr_lakh: 27, min_annual_aud: null },
+    ],
+    income_source_notes: [
+      'Australian temporary-residency (TR) income is not accepted.',
+      'Bank statements: 12 months preferred, 6-9 months may be accepted case-by-case.',
+      'If savings/FD is shown instead of a loan, 1 year of statement history is required.',
+      'Loan sanction letter must state the loan is disbursed only after the applicant completes the CQU course.',
+      'All "A class" commercial banks accepted for funds.',
+      'Any bulk deposit requires supporting documentation.',
+    ],
+    excluded_regions: ['India: degrees from Haryana, Punjab and Rajasthan are not accepted.'],
+    scholarships: [
+      'UG: GPA 2.8-3.19 -> 15%; 3.2-3.39 -> 20%; 3.4+ -> 25%.',
+      'PG (4-year bachelor entrants): 60-69.99% -> 15%; 70-74.99% -> 20%; 75%+ -> 25%.',
+      'A flat 25% is available to all applicants who meet entry requirements, for the whole program duration, once.',
+    ],
+    gs_notes: ['300-word SOP required at GTE stage.', 'An interview is conducted before the offer letter is issued (family income is discussed during GS).'],
+    other_notes: [
+      'HSEB/parixya-board verification and a stamped academic transcript from the issuing institution are required before any GS submission is accepted.',
+      'One year of tuition fee must be paid for a CoE, split: half from an education loan, half from an external (non-loan) fund — not all from a loan.',
+      'No U18 applicants. No age limit otherwise stated.',
+      'No ELICOS or pathway packages offered.',
+      'November intake: research/PhD only.',
+      'Course duration must not be extended on account of backlogs.',
+      'Turnaround (indicative): Offer 3-4 days, GS 1-2 days, CoE 2 days.',
+      'Fee billing note (not an eligibility criterion): annual tuition = (total fee after scholarship × 12) / 32 months for undergrad, / 20 months for postgrad.',
+      'Brisbane campus currently offers: Bachelor of Nursing, Master of Project Management, Master of Construction Management.',
+    ],
+  },
+  {
+    key: 'curtin-griffith-eynesbury',
+    institution: 'Curtin College',
+    also_covers: ['Griffith College', 'Eynesbury College'],
+    scope: 'Genuine Student (GS) requirements, 2026 update',
+    source: '2026 CC GC Eynesbury GS Requirements (3).pdf',
+    academics: [],
+    sponsors: [
+      { relation: 'parents, grandparents, siblings', max_percent: null, min_percent: 80, status: 'recommended', note: 'Primary sponsors, strongly recommended for 80% of the requirement.' },
+      { relation: 'uncle/aunt', max_percent: 20, min_percent: null, status: 'conditional', note: 'Secondary sponsor, limited use — NOT available at all for Curtin College.' },
+      { relation: 'spouse', max_percent: 20, min_percent: null, status: 'conditional', note: 'Married applicants only. Secondary sponsor — not available at all for Curtin College.' },
+      { relation: 'in-laws', max_percent: 20, min_percent: null, status: 'conditional', note: 'Case-by-case. Secondary sponsor — not available at all for Curtin College.' },
+      { relation: 'brother-in-law / sister-in-law', max_percent: null, min_percent: null, status: 'not_accepted' },
+    ],
+    income_thresholds: [{ scenario: 'general (all 3 colleges)', min_annual_npr_lakh: 22, min_annual_aud: null }],
+    income_source_notes: [
+      'Funding must be via an education loan (loan AND its collateral both from primary sponsors) OR savings (must be from primary sponsors, evidenced by 6 months\' bank statements with supporting documents).',
+      'Salary / business / pension / agriculture / vehicle income: minimum 1-year bank statement showing consistent income deposits.',
+      'Rental income: minimum 6 months\' bank statement based on the agreement start date; 1 year is highly recommended.',
+    ],
+    other_notes: ['This document covers GS/sponsor/funding criteria only — no academic or English-score thresholds were included in this update.'],
+  },
+];
+
+export function findAdmissionPolicy(key: string): AdmissionPolicy | undefined {
+  return ADMISSION_POLICIES.find((p) => p.key === key);
+}

@@ -55,6 +55,11 @@ const age = (dob: string) => {
   return Number.isNaN(d.getTime()) ? "—" : `${Math.floor((Date.now() - d.getTime()) / 3.15576e10)} yrs`;
 };
 
+const monthsSince = (date: string) => {
+  const d = new Date(date);
+  return Number.isNaN(d.getTime()) ? "—" : Math.floor((Date.now() - d.getTime()) / (30.44 * 24 * 3600 * 1000));
+};
+
 export function StudentShowPage() {
   const { id = "" } = useParams();
   const navigate = useNavigate();
@@ -391,6 +396,7 @@ function AcademicTab({ student }: { student: Student }) {
                 <Grid size={{ xs: 6, sm: 4 }}><LabelData direction="column" gap={0.25} label="Level" value={a.level} /></Grid>
                 <Grid size={{ xs: 6, sm: 4 }}><LabelData direction="column" gap={0.25} label="GPA" value={`${a.gpa_value} (${a.gpa_scale})`} /></Grid>
                 <Grid size={{ xs: 6, sm: 4 }}><LabelData direction="column" gap={0.25} label="Study gap" value={a.gap_months ? `${a.gap_months} months` : "none"} /></Grid>
+                <Grid size={{ xs: 6, sm: 4 }}><LabelData direction="column" gap={0.25} label="Backlogs" value={a.backlogs ? String(a.backlogs) : "none"} /></Grid>
               </Grid>
             </Box>
           </ProfileItemCard>
@@ -559,6 +565,7 @@ function SponsorTab({ student }: { student: Student }) {
               <Grid container columnSpacing={2} rowSpacing={0.5}>
                 <Grid size={{ xs: 6, sm: 4 }}><LabelData direction="column" gap={0.25} label="Occupation" value={sp.occupation} /></Grid>
                 <Grid size={{ xs: 6, sm: 4 }}><LabelData direction="column" gap={0.25} label="Annual income" value={money(toAud(sp.annual_income, sp.currency))} /></Grid>
+                <Grid size={{ xs: 6, sm: 4 }}><LabelData direction="column" gap={0.25} label="Bank" value={sp.bank_name || "not on file"} /></Grid>
                 <Grid size={{ xs: 6, sm: 4 }}><LabelData direction="column" gap={0.25} label="Evidence" value={sp.evidence ? "yes" : "no"} /></Grid>
               </Grid>
             </Box>
@@ -630,6 +637,21 @@ function DependantsTab({
                       value={d.accompanying ? "with the student" : "staying home"}
                     />
                   </Grid>
+                  {d.relationship === "spouse" && (
+                    <>
+                      <Grid size={{ xs: 6, sm: 4 }}>
+                        <LabelData
+                          direction="column"
+                          gap={0.25}
+                          label="Marriage date"
+                          value={d.marriage_date ? `${d.marriage_date} (${monthsSince(d.marriage_date)} months ago)` : "not on file"}
+                        />
+                      </Grid>
+                      <Grid size={{ xs: 6, sm: 4 }}>
+                        <LabelData direction="column" gap={0.25} label="Spouse's qualification" value={d.qualification_level ?? "not on file"} />
+                      </Grid>
+                    </>
+                  )}
                 </Grid>
               </Box>
             </ProfileItemCard>

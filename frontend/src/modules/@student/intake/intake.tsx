@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { useForm, useFieldArray, type Control } from "react-hook-form";
+import { useForm, useFieldArray, useWatch, type Control } from "react-hook-form";
 import { useCreate, useOne, useUpdate } from "@refinedev/core";
 import {
   Box,
@@ -245,6 +245,61 @@ function AddButton({ label, onClick }: { label: string; onClick: () => void }) {
   );
 }
 
+/**
+ * Its own component (not inlined in the field-array `.map`) so `useWatch`
+ * can be called unconditionally — the number of dependant rows changes as
+ * the user adds/removes them, which would break the rules of hooks if the
+ * watch call lived directly inside the map callback in the parent.
+ */
+function DependantRow({ control, index, onRemove }: SP & { index: number; onRemove: () => void }) {
+  const relationship = useWatch({ control, name: `dependants.${index}.relationship` });
+  const isSpouse = relationship === "spouse";
+  return (
+    <ArrayCard title={`Dependant ${index + 1}`} onRemove={onRemove}>
+      <Third>
+        <Select
+          control={control}
+          name={`dependants.${index}.relationship`}
+          label="Relationship"
+          options={["spouse", "child", "parent", "other"]}
+        />
+      </Third>
+      <Third><Text control={control} name={`dependants.${index}.full_name`} label="Full name" /></Third>
+      <Third><DateField control={control} name={`dependants.${index}.date_of_birth`} label="Date of birth" /></Third>
+      <Third>
+        <Select
+          control={control}
+          name={`dependants.${index}.passport_status`}
+          label="Passport"
+          options={["none", "applied", "held"]}
+        />
+      </Third>
+      <Half><Toggle control={control} name={`dependants.${index}.accompanying`} label="Travelling with the student" /></Half>
+      {isSpouse && (
+        <>
+          <Third>
+            <DateField
+              control={control}
+              name={`dependants.${index}.marriage_date`}
+              label="Marriage date"
+              helper="Some institutions require a minimum marriage duration"
+            />
+          </Third>
+          <Third>
+            <Select
+              control={control}
+              name={`dependants.${index}.qualification_level`}
+              label="Spouse's qualification"
+              options={["High School", "Bachelor", "PG Diploma", "Master", "PhD"]}
+              helper="Some institutions require this to match the applicant's own level"
+            />
+          </Third>
+        </>
+      )}
+    </ArrayCard>
+  );
+}
+
 // ---------------------------------------------------------------------------
 // steps
 // ---------------------------------------------------------------------------
@@ -279,27 +334,7 @@ function PersonalStep({ control }: SP) {
         </Paper>
       )}
       {deps.fields.map((f, i) => (
-        <ArrayCard key={f.id} title={`Dependant ${i + 1}`} onRemove={() => deps.remove(i)}>
-          <Third>
-            <Select
-              control={control}
-              name={`dependants.${i}.relationship`}
-              label="Relationship"
-              options={["spouse", "child", "parent", "other"]}
-            />
-          </Third>
-          <Third><Text control={control} name={`dependants.${i}.full_name`} label="Full name" /></Third>
-          <Third><DateField control={control} name={`dependants.${i}.date_of_birth`} label="Date of birth" /></Third>
-          <Third>
-            <Select
-              control={control}
-              name={`dependants.${i}.passport_status`}
-              label="Passport"
-              options={["none", "applied", "held"]}
-            />
-          </Third>
-          <Half><Toggle control={control} name={`dependants.${i}.accompanying`} label="Travelling with the student" /></Half>
-        </ArrayCard>
+        <DependantRow key={f.id} control={control} index={i} onRemove={() => deps.remove(i)} />
       ))}
       <AddButton
         label="Add dependant"
@@ -311,6 +346,8 @@ function PersonalStep({ control }: SP) {
             date_of_birth: "",
             accompanying: true,
             passport_status: "none",
+            marriage_date: null,
+            qualification_level: null,
           })
         }
       />
@@ -333,6 +370,7 @@ function AcademicStep({ control }: SP) {
           <Grid size={{ xs: 6, sm: 3 }}><Num control={control} name={`academic.${i}.gpa_value`} label="GPA / %" required /></Grid>
           <Grid size={{ xs: 6, sm: 3 }}><Select control={control} name={`academic.${i}.gpa_scale`} label="Scale" options={["4.0", "10.0", "percentage", "division"]} /></Grid>
           <Third><Num control={control} name={`academic.${i}.gap_months`} label="Study gap (months)" min={0} /></Third>
+          <Third><Num control={control} name={`academic.${i}.backlogs`} label="Backlogs (failed/repeated subjects)" min={0} /></Third>
         </ArrayCard>
       ))}
       <AddButton label="Add qualification" onClick={() => fa.append({ ...emptyIntake().academic[0], id: `ac-${Date.now()}` })} />
@@ -487,10 +525,11 @@ function SponsorStep({ control }: SP) {
           <Grid size={{ xs: 12, sm: 4 }}>
             <Text control={control} name={`sponsors.${i}.annual_income`} label="Annual income" />
           </Grid>
+          <Half><Text control={control} name={`sponsors.${i}.bank_name`} label="Bank / financial institution" helper="Some institutions exclude specific banks — name it exactly." /></Half>
           <Full><Toggle control={control} name={`sponsors.${i}.evidence`} label="Documentary evidence available" /></Full>
         </ArrayCard>
       ))}
-      <AddButton label="Add sponsor" onClick={() => fa.append({ id: `sp-${Date.now()}`, relationship: "", occupation: "", annual_income: 0, currency: "NPR", evidence: false })} />
+      <AddButton label="Add sponsor" onClick={() => fa.append({ id: `sp-${Date.now()}`, relationship: "", occupation: "", annual_income: 0, currency: "NPR", evidence: false, bank_name: "" })} />
     </>
   );
 }

@@ -50,11 +50,12 @@ export class AssistantService {
           confidence: result.confidence,
           degraded: result.degraded,
           passes_run: result.passes_run,
+          escalated: result.escalated,
         },
       }),
     );
 
-    return { conversation_id: conversation.id, reply };
+    return { conversation_id: conversation.id, reply, escalated: result.escalated };
   }
 
   /**

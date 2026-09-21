@@ -7,6 +7,8 @@ import {
 } from 'typeorm';
 import { AttachmentRef } from './attachment-ref';
 
+export type DocExtractionStatus = 'pending' | 'extracting' | 'extracted' | 'failed';
+
 @Entity('student_document')
 export class StudentDocument {
   @PrimaryGeneratedColumn('uuid')
@@ -28,6 +30,16 @@ export class StudentDocument {
 
   @Column({ default: '' })
   uploaded_by: string;
+
+  /** Vision-extracted structured fields — see document-extraction-schemas.ts. Never auto-applied to Side A records; a counsellor reviews and applies them manually. */
+  @Column({ type: 'jsonb', nullable: true })
+  extracted_data: Record<string, string> | null;
+
+  @Column({ type: 'varchar', default: 'pending' })
+  extraction_status: DocExtractionStatus;
+
+  @Column({ type: 'text', nullable: true })
+  extraction_error: string | null;
 
   @CreateDateColumn({ type: 'timestamptz' })
   created_at: Date;
