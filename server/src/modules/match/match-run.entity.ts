@@ -32,6 +32,14 @@ export class MatchRun {
   @Column({ type: 'jsonb' })
   weights: MatchWeights;
 
+  /** Whether a real institution's not_eligible verdict was allowed to knock a course out of this run's ranked results (PRODUCT_PLAN phase 4) — a live, per-run toggle, defaulting on. */
+  @Column({ type: 'boolean', default: true })
+  enforce_admission_eligibility: boolean;
+
+  /** "What-if" overrides applied on top of the real profile/preferences for this run (PRODUCT_PLAN phase 5) — null when none were used. `profile` below already reflects the EFFECTIVE (overridden) values; this is the record of what was deliberately changed. */
+  @Column({ type: 'jsonb', nullable: true })
+  profile_override: Record<string, unknown> | null;
+
   @Column({ type: 'jsonb', default: '[]' })
   results: MatchResult[];
 

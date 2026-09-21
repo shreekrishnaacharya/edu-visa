@@ -35,6 +35,10 @@ export class University {
   @Column({ type: 'timestamptz', nullable: true })
   verified_at: Date | null;
 
+  /** Links this row to its real admission-policy.data.ts key (e.g. 'cqu') when one exists — null for the CRICOS-sourced catalogue, which has no per-institution policy on file. Drives MatchService's real admission-eligibility check (PRODUCT_PLAN phase 4). */
+  @Column({ type: 'varchar', nullable: true })
+  policy_key: string | null;
+
   @OneToMany(() => Course, (c) => c.university)
   courses: Course[];
 

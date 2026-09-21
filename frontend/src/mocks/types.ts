@@ -275,6 +275,31 @@ export type MatchDimension =
 
 export type MatchWeights = Record<MatchDimension, number>;
 
+export type AdmissionCheckStatus = "pass" | "fail" | "unknown" | "info";
+
+export interface AdmissionCheck {
+  rule: string;
+  status: AdmissionCheckStatus;
+  detail: string;
+}
+
+/**
+ * The PRIMARY gate a course must clear before its dimension subscores (below)
+ * are worth reading — always present on a real backend MatchResult (optional
+ * here only because the MSW-mock dev path doesn't compute it).
+ * `source: "real_policy"` = a genuine institution admission-eligibility check;
+ * `"catalogue_entry_requirement"` = synthesized from the same generic budget/
+ * GPA/English/deadline/prerequisite checks the engine already used to decide
+ * knockout, just restructured into this per-rule shape.
+ */
+export interface AdmissionEligibility {
+  policy_key: string | null;
+  institution: string;
+  source: "real_policy" | "catalogue_entry_requirement";
+  overall: "eligible" | "not_eligible" | "conditionally_eligible" | "insufficient_data";
+  checks: AdmissionCheck[];
+}
+
 export interface MatchResult {
   course_id: string;
   university_id: string;
@@ -289,6 +314,7 @@ export interface MatchResult {
   alternatives: string[];
   knockout: boolean;
   knockout_reasons: string[];
+  admission_eligibility?: AdmissionEligibility;
 }
 
 export interface MatchRun {
@@ -297,6 +323,9 @@ export interface MatchRun {
   profile_version: number;
   engine_version: string;
   weights: MatchWeights;
+  enforce_admission_eligibility?: boolean;
+  /** "What-if" overrides applied on top of the real profile/preferences for this run — null/absent when none were used. */
+  profile_override?: Record<string, unknown> | null;
   created_at: string;
   created_by: string;
   results: MatchResult[];

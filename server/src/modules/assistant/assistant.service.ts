@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Conversation } from './conversation.entity';
 import { Message } from './message.entity';
 import { OrchestratorService } from './orchestrator.service';
+import { MatchResult } from '../match/match.types';
 
 /**
  * The AI consultant front door (PRODUCT_PLAN §J / plan appendix B), now wired
@@ -24,6 +25,7 @@ export class AssistantService {
     studentId: string | null,
     startedBy: string,
     body: string,
+    matchResult?: MatchResult,
   ) {
     let conversation = conversationId
       ? await this.conversations.findOne({ where: { id: conversationId } })
@@ -38,7 +40,7 @@ export class AssistantService {
       this.messages.create({ conversation_id: conversation.id, role: 'user', body }),
     );
 
-    const result = await this.orchestrator.answer(body, studentId);
+    const result = await this.orchestrator.answer(body, studentId, matchResult);
 
     const reply = await this.messages.save(
       this.messages.create({

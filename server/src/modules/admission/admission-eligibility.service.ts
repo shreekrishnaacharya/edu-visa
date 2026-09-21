@@ -107,6 +107,18 @@ export class AdmissionEligibilityService {
     return target ? LEVEL_TO_PROGRAM[target] ?? 'PG' : 'PG';
   }
 
+  /**
+   * Maps a specific COURSE's degree level to a ProgramLevel — distinct from
+   * `inferLevel()`, which falls back to the student's own PREFERRED level.
+   * MatchService needs this one: evaluating a student's fit for e.g. Curtin
+   * College's UG pathway diploma must check the UG band even if the student's
+   * stated preference is Master's, since it's that specific course's band
+   * that governs, not the student's overall goal.
+   */
+  programLevelFor(level: DegreeLevel): ProgramLevel {
+    return LEVEL_TO_PROGRAM[level] ?? 'PG';
+  }
+
   private pickBand(policy: AdmissionPolicy, level: ProgramLevel, courseLabel?: string): AcademicBand | null {
     const candidates = policy.academics.filter((b) => b.level === level);
     if (!candidates.length) return null;
@@ -116,7 +128,15 @@ export class AdmissionEligibilityService {
       if (named) return named;
     }
     // Prefer a "general" band over a named-course one when no course was specified.
-    return candidates.find((b) => /general/i.test(b.label)) ?? candidates[0];
+    const general = candidates.find((b) => /general/i.test(b.label));
+    if (general) return general;
+    // Multiple named, non-general bands (e.g. CQU's Medical/Engineering/
+    // Management split) with no courseLabel match — guessing `candidates[0]`
+    // produces a confidently-WRONG number instead of an honest "unknown"
+    // (found via a real test: an MBA silently matched CQU's "Medical
+    // programs" band, listed first, because nothing else matched). Only a
+    // single unambiguous candidate is safe to default to.
+    return candidates.length === 1 ? candidates[0] : null;
   }
 
   private academicChecks(policy: AdmissionPolicy, band: AcademicBand | null, profile: StudentProfile | null): EligibilityCheck[] {

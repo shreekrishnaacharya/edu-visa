@@ -5,7 +5,7 @@
 // ---------------------------------------------------------------------------
 
 import { Currency, MatchWeights } from '../../../common/enums';
-import { MatchResult } from '../match.types';
+import { AdmissionEligibility, MatchResult } from '../match.types';
 import { DerivedProfile, EngineCourse, EngineStudent, EngineUniversity } from './types';
 import { FX_TO_AUD } from './reference';
 import { score } from './score';
@@ -21,6 +21,15 @@ export interface RankInput {
   fxRates?: Record<Currency, number>;
   /** Default true — see the "closest miss" fallback below. */
   fallbackWhenEmpty?: boolean;
+  /**
+   * Real per-institution admission-eligibility verdicts, keyed by course_id —
+   * only populated by MatchService for courses whose university has a real
+   * admission-policy.data.ts entry (PRODUCT_PLAN phase 4). Absent entirely
+   * for the golden-test path, which never touches this.
+   */
+  admissionVerdicts?: Map<string, AdmissionEligibility>;
+  /** Whether a real not_eligible verdict is allowed to knock a course out of the ranked results — the report's live toggle. Default true. */
+  enforceAdmissionEligibility?: boolean;
 }
 
 const avgSubscore = (r: MatchResult) => {
@@ -38,10 +47,32 @@ export function rankCourses({
   now = new Date(),
   fxRates = FX_TO_AUD,
   fallbackWhenEmpty = true,
+  admissionVerdicts,
+  enforceAdmissionEligibility = true,
 }: RankInput): MatchResult[] {
   const scored = courses.map((course) => {
     const uni = universitiesById.get(course.university_id)!;
-    return score(profile, student, course, uni, weights, now, fxRates);
+    const result = score(profile, student, course, uni, weights, now, fxRates);
+
+    // Real institution verdict overrides the generic catalogue-entry one
+    // (PRODUCT_PLAN phase 4) — always attached (informational either way);
+    // only allowed to knock the course out of the ranked list when the
+    // report's toggle has eligibility gating turned on.
+    const verdict = admissionVerdicts?.get(course.id);
+    if (verdict) {
+      result.admission_eligibility = verdict;
+      if (enforceAdmissionEligibility && verdict.overall === 'not_eligible') {
+        result.knockout = true;
+        result.overall = 0;
+        result.knockout_reasons = [
+          ...result.knockout_reasons,
+          ...verdict.checks
+            .filter((c) => c.status === 'fail')
+            .map((c) => `${verdict.institution} admission requirement not met — ${c.rule}: ${c.detail}`),
+        ];
+      }
+    }
+    return result;
   });
 
   let top = scored.filter((r) => !r.knockout).sort((a, b) => b.overall - a.overall).slice(0, limit);

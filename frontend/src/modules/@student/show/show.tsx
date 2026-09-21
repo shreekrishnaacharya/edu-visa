@@ -139,15 +139,10 @@ export function StudentShowPage() {
                     icon={<SmartToyOutlinedIcon fontSize="small" />}
                     iconPosition="start"
                   />
-                  <Tab label="Academic" value="academic" />
-                  <Tab label="English" value="english" />
-                  <Tab label="Work" value="work" />
-                  <Tab label="Career" value="career" />
-                  <Tab label="Financial" value="financial" />
-                  <Tab label="Sponsors" value="sponsors" />
+                  <Tab label="Academic & Career" value="academic" />
                   <Tab
-                    label={`Dependants${s.dependants.length ? ` (${s.dependants.length})` : ""}`}
-                    value="dependants"
+                    label={`Financial & Sponsors${s.dependants.length ? ` (${s.dependants.length} dep.)` : ""}`}
+                    value="financial"
                   />
                   <Tab label="Visa history" value="visa" />
                   <Tab label="Documents" value="documents" />
@@ -157,13 +152,17 @@ export function StudentShowPage() {
               <TabPanel value="ai" sx={{ p: 0 }}>
                 <AiConsultantTab studentId={id} initialQuestion={prefillQuestion} />
               </TabPanel>
-              <TabPanel value="academic" sx={{ p: 0 }}><AcademicTab student={s} /></TabPanel>
-              <TabPanel value="english" sx={{ p: 0 }}><EnglishTab student={s} profile={p} /></TabPanel>
-              <TabPanel value="work" sx={{ p: 0 }}><WorkTab student={s} profile={p} /></TabPanel>
-              <TabPanel value="career" sx={{ p: 0 }}><CareerTab student={s} /></TabPanel>
-              <TabPanel value="financial" sx={{ p: 0 }}><FinancialTab student={s} profile={p} /></TabPanel>
-              <TabPanel value="sponsors" sx={{ p: 0 }}><SponsorTab student={s} /></TabPanel>
-              <TabPanel value="dependants" sx={{ p: 0 }}><DependantsTab student={s} profile={p} /></TabPanel>
+              <TabPanel value="academic" sx={{ p: 0 }}>
+                <AcademicTab student={s} />
+                <EnglishTab student={s} profile={p} />
+                <WorkTab student={s} profile={p} />
+                <CareerTab student={s} />
+              </TabPanel>
+              <TabPanel value="financial" sx={{ p: 0 }}>
+                <FinancialTab student={s} profile={p} />
+                <SponsorTab student={s} />
+                <DependantsTab student={s} profile={p} />
+              </TabPanel>
               <TabPanel value="visa" sx={{ p: 0 }}><VisaTab student={s} /></TabPanel>
               <TabPanel value="documents" sx={{ p: 0 }}><DocumentsTab studentId={id} /></TabPanel>
               <TabPanel value="followups" sx={{ p: 0 }}><FollowUpTab studentId={id} /></TabPanel>

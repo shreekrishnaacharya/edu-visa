@@ -5,6 +5,7 @@ import { PostMessageDto } from './dto/post-message.dto';
 import { DraftReplyDto } from './dto/draft-reply.dto';
 import { AuthUser } from '../auth/auth-user.decorator';
 import { AuthUserPayload } from '../auth/jwt.strategy';
+import { MatchResult } from '../match/match.types';
 
 @Controller('assistant')
 export class AssistantController {
@@ -20,6 +21,7 @@ export class AssistantController {
       dto.student_id ?? null,
       user.email,
       dto.body,
+      dto.match_result as MatchResult | undefined,
     );
   }
 

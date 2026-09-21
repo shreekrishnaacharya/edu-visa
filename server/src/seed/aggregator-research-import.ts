@@ -32,6 +32,8 @@ import { EntryRequirement } from '../modules/course/entry-requirement';
 
 interface Row {
   institution: string;
+  /** admission-policy.data.ts key — links this catalogue row to its real eligibility rules (PRODUCT_PLAN phase 4). */
+  policy_key: string;
   city: string;
   logo_hue: number;
   title: string;
@@ -54,6 +56,7 @@ const ENTRY: EntryRequirement = {
 const ROWS: Row[] = [
   {
     institution: 'University of Tasmania (UTAS)',
+    policy_key: 'utas',
     city: 'Hobart',
     logo_hue: 30,
     title: 'Master of Information Technology and Systems',
@@ -67,6 +70,7 @@ const ROWS: Row[] = [
   },
   {
     institution: 'Sydney Met (formerly MIT Sydney)',
+    policy_key: 'sydney-met',
     city: 'Sydney',
     logo_hue: 205,
     title: 'Master of Information Technology',
@@ -80,6 +84,7 @@ const ROWS: Row[] = [
   },
   {
     institution: 'University of Newcastle (UON)',
+    policy_key: 'newcastle',
     city: 'Newcastle',
     logo_hue: 260,
     title: 'Master of Information Technology',
@@ -93,6 +98,7 @@ const ROWS: Row[] = [
   },
   {
     institution: 'Torrens University',
+    policy_key: 'torrens-blue-mountains',
     city: 'Adelaide',
     logo_hue: 12,
     title: 'Master of Business Administration (Advanced)',
@@ -106,6 +112,7 @@ const ROWS: Row[] = [
   },
   {
     institution: 'Southern Cross University (SCU)',
+    policy_key: 'scu',
     city: 'Lismore',
     logo_hue: 145,
     title: 'Master of Business Administration',
@@ -119,6 +126,7 @@ const ROWS: Row[] = [
   },
   {
     institution: 'ACAP (Australian College of Applied Psychology) University College — Navitas',
+    policy_key: 'acap-navitas',
     city: 'Sydney',
     logo_hue: 290,
     title: 'Master of Counselling and Psychotherapy',
@@ -132,6 +140,7 @@ const ROWS: Row[] = [
   },
   {
     institution: 'Excelsia College',
+    policy_key: 'excelsia',
     city: 'Sydney',
     logo_hue: 330,
     title: 'Bachelor of Business (Accounting)',
@@ -145,6 +154,7 @@ const ROWS: Row[] = [
   },
   {
     institution: 'Central Queensland University (CQU)',
+    policy_key: 'cqu',
     city: 'Rockhampton',
     logo_hue: 55,
     title: 'Master of Business Administration',
@@ -158,6 +168,7 @@ const ROWS: Row[] = [
   },
   {
     institution: 'Curtin College',
+    policy_key: 'curtin-griffith-eynesbury',
     city: 'Perth',
     logo_hue: 165,
     title: 'Diploma of Commerce',
@@ -193,6 +204,7 @@ async function main() {
       uni = await uniRepo.save(
         uniRepo.create({
           name: row.institution,
+          policy_key: row.policy_key,
           country: 'AU',
           city: row.city,
           world_rank: 999,
@@ -201,6 +213,9 @@ async function main() {
         }),
       );
       uniCount++;
+    } else if (uni.policy_key !== row.policy_key) {
+      // Backfill for universities seeded before `policy_key` existed — idempotent, re-run-safe.
+      await uniRepo.update(uni.id, { policy_key: row.policy_key });
     }
 
     const existing = await courseRepo.findOne({ where: { university_id: uni.id, title: row.title } });

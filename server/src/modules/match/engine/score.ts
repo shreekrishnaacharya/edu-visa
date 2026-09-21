@@ -35,9 +35,24 @@ const clamp = (n: number, lo = 0, hi = 100) =>
 
 const PLANNING_WINDOW_MONTHS = 18;
 
+export interface KnockoutCheck {
+  rule: string;
+  status: 'pass' | 'fail' | 'unknown';
+  detail: string;
+}
+
 export interface KnockoutResult {
   passed: boolean;
   reasons: string[];
+  /**
+   * Every rule evaluated (pass included), not just failures — built
+   * alongside `reasons`/`passed` from the exact same conditions below, never
+   * changing which conditions fire or in what order. Lets the report show a
+   * generic catalogue course's entry check in the same {rule, status, detail}
+   * shape as a real per-institution admission-policy check (PRODUCT_PLAN
+   * phase 4 — see match.types.ts AdmissionEligibility / engine score()).
+   */
+  checks: KnockoutCheck[];
 }
 
 export function knockout(
@@ -49,36 +64,66 @@ export function knockout(
 ): KnockoutResult {
   const toAud = makeToAud(fxRates);
   const reasons: string[] = [];
+  const checks: KnockoutCheck[] = [];
   const budgetAud = toAud(
     student.preferences.max_tuition_per_year,
     student.preferences.tuition_currency,
   );
 
   if (course.tuition_fee > budgetAud * 1.05) {
-    reasons.push(
-      `Tuition AUD ${course.tuition_fee.toLocaleString()}/yr exceeds the stated budget of AUD ${budgetAud.toLocaleString()}/yr.`,
-    );
+    const detail = `Tuition AUD ${course.tuition_fee.toLocaleString()}/yr exceeds the stated budget of AUD ${budgetAud.toLocaleString()}/yr.`;
+    reasons.push(detail);
+    checks.push({ rule: 'tuition budget', status: 'fail', detail });
+  } else {
+    checks.push({
+      rule: 'tuition budget',
+      status: 'pass',
+      detail: `Tuition AUD ${course.tuition_fee.toLocaleString()}/yr is within the stated budget of AUD ${budgetAud.toLocaleString()}/yr.`,
+    });
   }
+
   if (profile.canonical_gpa + 3 < course.entry.min_gpa) {
-    reasons.push(
-      `Canonical GPA ${profile.canonical_gpa} is below the entry minimum of ${course.entry.min_gpa}.`,
-    );
+    const detail = `Canonical GPA ${profile.canonical_gpa} is below the entry minimum of ${course.entry.min_gpa}.`;
+    reasons.push(detail);
+    checks.push({ rule: 'academic score', status: 'fail', detail });
+  } else {
+    checks.push({
+      rule: 'academic score',
+      status: 'pass',
+      detail: `Canonical GPA ${profile.canonical_gpa} clears the entry minimum of ${course.entry.min_gpa}.`,
+    });
   }
-  if (
-    profile.english_band != null &&
-    profile.english_band + 0.5 < course.entry.min_english_band
-  ) {
-    reasons.push(
-      `English band ${profile.english_band} is below the required ${course.entry.min_english_band}.`,
-    );
+
+  if (profile.english_band == null) {
+    checks.push({
+      rule: 'English score',
+      status: 'unknown',
+      detail: `No English test on file — required IELTS-equivalent ${course.entry.min_english_band}.`,
+    });
+  } else if (profile.english_band + 0.5 < course.entry.min_english_band) {
+    const detail = `English band ${profile.english_band} is below the required ${course.entry.min_english_band}.`;
+    reasons.push(detail);
+    checks.push({ rule: 'English score', status: 'fail', detail });
+  } else {
+    checks.push({
+      rule: 'English score',
+      status: 'pass',
+      detail: `English band ${profile.english_band} clears the required ${course.entry.min_english_band}.`,
+    });
   }
 
   const deadlinePassed =
     new Date(course.application_deadline).getTime() < now.getTime();
   if (deadlinePassed) {
-    reasons.push(
-      `The application deadline (${course.application_deadline}) has passed.`,
-    );
+    const detail = `The application deadline (${course.application_deadline}) has passed.`;
+    reasons.push(detail);
+    checks.push({ rule: 'application deadline', status: 'fail', detail });
+  } else {
+    checks.push({
+      rule: 'application deadline',
+      status: 'pass',
+      detail: `The application deadline (${course.application_deadline}) has not passed.`,
+    });
   }
 
   // --- ADDED (PRODUCT_PLAN §4.1): no open intake in the planning window -----
@@ -87,10 +132,18 @@ export function knockout(
     const windowEnd =
       now.getTime() + PLANNING_WINDOW_MONTHS * 30.44 * 24 * 3600 * 1000;
     if (Number.isNaN(nextIntake) || nextIntake < now.getTime() || nextIntake > windowEnd) {
-      reasons.push(
-        `No open intake within the next ${PLANNING_WINDOW_MONTHS} months (next: ${course.next_intake_date || 'unknown'}).`,
-      );
+      const detail = `No open intake within the next ${PLANNING_WINDOW_MONTHS} months (next: ${course.next_intake_date || 'unknown'}).`;
+      reasons.push(detail);
+      checks.push({ rule: 'intake availability', status: 'fail', detail });
+    } else {
+      checks.push({
+        rule: 'intake availability',
+        status: 'pass',
+        detail: `Next intake (${course.next_intake_date}) is within the next ${PLANNING_WINDOW_MONTHS} months.`,
+      });
     }
+  } else {
+    checks.push({ rule: 'intake availability', status: 'unknown', detail: 'Not evaluated — the application deadline has already passed.' });
   }
 
   // --- ADDED (PRODUCT_PLAN §4.1): unmet prerequisite ----------------------
@@ -112,13 +165,40 @@ export function knockout(
         .some((w) => haystack.includes(w)),
     );
     if (!anyOverlap) {
-      reasons.push(
-        `Prerequisite not evidenced: ${course.entry.prerequisites.join(', ')}.`,
-      );
+      const detail = `Prerequisite not evidenced: ${course.entry.prerequisites.join(', ')}.`;
+      reasons.push(detail);
+      checks.push({ rule: 'prerequisites', status: 'fail', detail });
+    } else {
+      checks.push({
+        rule: 'prerequisites',
+        status: 'pass',
+        detail: `Prerequisites evidenced: ${course.entry.prerequisites.join(', ')}.`,
+      });
     }
+  } else {
+    checks.push({ rule: 'prerequisites', status: 'pass', detail: 'No prerequisites listed for this course.' });
   }
 
-  return { passed: reasons.length === 0, reasons };
+  return { passed: reasons.length === 0, reasons, checks };
+}
+
+/**
+ * Shared pass/fail-vocabulary rollup — mirrors
+ * AdmissionEligibilityService.overallVerdict()'s logic exactly (any fail ->
+ * not_eligible; a mandatory check unknown -> insufficient_data; any
+ * info/unknown -> conditionally_eligible; else eligible) so a generic
+ * catalogue course's synthesized checks and a real institution's admission-
+ * policy checks roll up the same way. Duplicated rather than imported across
+ * the module boundary — same precedent as the rest of this pure engine
+ * folder keeping its own copy of small logic instead of depending on a
+ * NestJS-DI service.
+ */
+function deriveOverallVerdict(checks: KnockoutCheck[]): MatchResult['admission_eligibility']['overall'] {
+  if (checks.some((c) => c.status === 'fail')) return 'not_eligible';
+  const mandatory = checks.filter((c) => c.rule === 'academic score' || c.rule === 'English score');
+  if (mandatory.some((c) => c.status === 'unknown')) return 'insufficient_data';
+  if (checks.some((c) => c.status === 'unknown')) return 'conditionally_eligible';
+  return 'eligible';
 }
 
 // --- individual dimension scorers (VERBATIM from the prototype) -------------
@@ -392,5 +472,15 @@ export function score(
     // deriveTier) — true even for run.ts's closest-miss fallback, which only
     // ever touches `overall` on rows that are still knockout:true.
     tier: deriveTier(overall, !ko.passed),
+    // Generic catalogue check by default — run.ts's rankCourses() overrides
+    // this with a real AdmissionEligibilityService verdict for the 9
+    // institutions that have one on file (PRODUCT_PLAN phase 4).
+    admission_eligibility: {
+      policy_key: null,
+      institution: uni.name,
+      source: 'catalogue_entry_requirement',
+      overall: deriveOverallVerdict(ko.checks),
+      checks: ko.checks,
+    },
   };
 }

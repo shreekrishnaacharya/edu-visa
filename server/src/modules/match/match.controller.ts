@@ -16,10 +16,12 @@ export class MatchController {
       limit: dto.limit,
       createdBy: user.email,
       persist: true,
+      enforceAdmissionEligibility: dto.enforce_admission_eligibility,
+      profileOverride: dto.profile_override,
     });
   }
 
-  /** Compute-only, no persist — powers the live weight-slider re-rank. */
+  /** Compute-only, no persist — powers the live weight-slider re-rank (and the admission-eligibility toggle / what-if profile overrides). */
   @Post('match/preview')
   preview(@Body() dto: RunMatchDto, @AuthUser() user: AuthUserPayload) {
     return this.match.run(dto.student_id, {
@@ -27,6 +29,8 @@ export class MatchController {
       limit: dto.limit,
       createdBy: user.email,
       persist: false,
+      enforceAdmissionEligibility: dto.enforce_admission_eligibility,
+      profileOverride: dto.profile_override,
     });
   }
 

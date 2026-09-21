@@ -1,5 +1,30 @@
 import { AcademicLevel, MatchDimension, PrIntent } from '../../common/enums';
 
+export type AdmissionCheckStatus = 'pass' | 'fail' | 'unknown' | 'info';
+
+export interface AdmissionCheck {
+  rule: string;
+  status: AdmissionCheckStatus;
+  detail: string;
+}
+
+/**
+ * Always present on every MatchResult (PRODUCT_PLAN phase 4) — the PRIMARY
+ * gate a course must clear before its dimension subscores are worth reading.
+ * `source: 'real_policy'` = a genuine institution admission-eligibility check
+ * (the 9 PDF-sourced institutions, admission-policy.data.ts); `'catalogue_entry_requirement'`
+ * = synthesized from the same generic budget/GPA/English/deadline/prerequisite
+ * checks `knockout()` already computes for every other catalogue course —
+ * nothing invented, just restructured into the same per-rule shape.
+ */
+export interface AdmissionEligibility {
+  policy_key: string | null;
+  institution: string;
+  source: 'real_policy' | 'catalogue_entry_requirement';
+  overall: 'eligible' | 'not_eligible' | 'conditionally_eligible' | 'insufficient_data';
+  checks: AdmissionCheck[];
+}
+
 /**
  * THE shared contract.  Byte-identical to `MatchResult` in the frontend's
  * src/mocks/types.ts — the boundary the API, the UI and (later) the AI layer
@@ -21,6 +46,7 @@ export interface MatchResult {
   knockout_reasons: string[];
   /** Presentation-only bucket derived from `overall` — see engine/run.ts. Null for closest-miss/knockout rows. */
   tier: 'reach' | 'target' | 'safety' | null;
+  admission_eligibility: AdmissionEligibility;
 }
 
 /** Derived profile as embedded in a MatchRun (mirrors StudentProfile entity). */

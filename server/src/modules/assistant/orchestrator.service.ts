@@ -11,6 +11,7 @@ import { AdmissionEligibilityService } from '../admission/admission-eligibility.
 import { ADMISSION_POLICIES } from '../admission/admission-policy.data';
 import { AdmissionPolicy } from '../admission/admission-policy.types';
 import { FollowUpService } from '../follow-up/follow-up.service';
+import { MatchResult } from '../match/match.types';
 
 export interface OrchestratorResult {
   answer: string;
@@ -409,13 +410,69 @@ export class OrchestratorService {
   }
 
   /**
+   * When the frontend's per-course "Ask AI" button is used, it already has
+   * the EXACT computed MatchResult for that card — including whether the
+   * eligibility gate is on, and (once Phase 5 overrides land) whether a
+   * what-if profile was in play. Grounding on that directly, instead of
+   * re-deriving eligibility from scratch by name-matching the institution in
+   * the free-text question (`admissionChunks()`), is what keeps the AI's
+   * narration consistent with the card the counsellor is actually looking
+   * at — same principle as the rest of this file: the engine computes,
+   * the AI only narrates. Reuses the exact same "ADMISSION ELIGIBILITY
+   * CHECK" tag `admissionChunksFor()` uses so the system prompt's existing
+   * instructions for that tag apply without any prompt change.
+   */
+  private matchResultChunks(matchResult: MatchResult): RetrievedChunk[] {
+    const chunks: RetrievedChunk[] = [];
+    const ae = matchResult.admission_eligibility;
+    if (ae) {
+      const text = [
+        `Admission-eligibility check for ${ae.institution} (${ae.source === 'real_policy' ? 'real institution policy' : 'generic catalogue entry requirement'}):`,
+        `Overall: ${ae.overall.replace(/_/g, ' ')}.`,
+        ...ae.checks.map((c) => `- ${c.rule} [${c.status}]: ${c.detail}`),
+      ].join('\n');
+      chunks.push({
+        id: `matchresult-admission:${matchResult.course_id}`,
+        text,
+        source_url: '',
+        title: `${ae.institution} — admission eligibility check for this exact course card`,
+        effective_date: null,
+        doc_type: 'entry_requirement',
+        institution: ae.institution,
+        score: 1,
+        context_tag: 'ADMISSION ELIGIBILITY CHECK — real, computed against this student\'s actual profile, not an estimate',
+      });
+    }
+    const scoreText = [
+      `Deterministic match score for this exact course (already final — never recompute or second-guess it):`,
+      `Overall: ${matchResult.overall}/100${matchResult.tier ? ` (tier: ${matchResult.tier})` : ''}.`,
+      `Subscores: ${Object.entries(matchResult.subscores).map(([k, v]) => `${k} ${v}`).join(', ')}.`,
+      matchResult.knockout
+        ? `This course currently fails a hard filter: ${matchResult.knockout_reasons.join(' ')}`
+        : 'This course clears all hard filters.',
+    ].join('\n');
+    chunks.push({
+      id: `matchresult-score:${matchResult.course_id}`,
+      text: scoreText,
+      source_url: '',
+      title: `Deterministic match result for this course`,
+      effective_date: null,
+      doc_type: 'entry_requirement',
+      institution: null,
+      score: 1,
+      context_tag: 'MATCH SCORE — the deterministic engine\'s already-computed result for this exact course card',
+    });
+    return chunks;
+  }
+
+  /**
    * Everything `answer()` and `draftReply()` share: routing, retrieval
    * (KB + catalogue + admission), and assembling the numbered context block.
    * Each caller composes its own system prompt and generation call on top —
    * a chat answer and a drafted reply need different tone/instructions, but
    * identical grounding.
    */
-  private async gatherContext(message: string, studentId: string | null) {
+  private async gatherContext(message: string, studentId: string | null, matchResult?: MatchResult) {
     const route = await this.route(message);
     const passes = route.passes;
     let student: any = null;
@@ -505,10 +562,15 @@ export class OrchestratorService {
     // not in the CRICOS catalogue — see admission-policy.data.ts). Fires when
     // the question names one of them; if a student is loaded, this is a real
     // computed pass/fail check against their derived profile, not just a
-    // criteria dump.
-    const admissionChunks = this.admissionChunks(message, student, profile);
+    // criteria dump. Skipped when a specific matchResult was passed in (the
+    // per-course "Ask AI" flow) — that already carries the exact computed
+    // eligibility for this exact course, re-deriving it by name-match here
+    // could disagree with it (e.g. a what-if override the name-match path
+    // knows nothing about).
+    const admissionChunks = matchResult ? [] : this.admissionChunks(message, student, profile);
+    const matchResultChunks = matchResult ? this.matchResultChunks(matchResult) : [];
 
-    const allChunks = [...catalogueChunks, ...admissionChunks, ...[...retrievedByPass.values()].flat()];
+    const allChunks = [...matchResultChunks, ...catalogueChunks, ...admissionChunks, ...[...retrievedByPass.values()].flat()];
     const contextBlock = allChunks.length
       ? allChunks
           .map((c, i) => {
@@ -566,9 +628,9 @@ export class OrchestratorService {
       .map((c) => ({ chunk_id: c.id, source_url: c.source_url, title: c.title }));
   }
 
-  async answer(message: string, studentId: string | null): Promise<OrchestratorResult> {
+  async answer(message: string, studentId: string | null, matchResult?: MatchResult): Promise<OrchestratorResult> {
     const { route, passes, student, profile, allChunks, contextBlock, matchContext, degraded: retrievalDegraded } =
-      await this.gatherContext(message, studentId);
+      await this.gatherContext(message, studentId, matchResult);
     let degraded = retrievalDegraded;
 
     // Escalation is logged BEFORE generation so the composed answer can

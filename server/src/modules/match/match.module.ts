@@ -8,6 +8,7 @@ import { MatchController } from './match.controller';
 import { StudentModule } from '../student/student.module';
 import { ProfileModule } from '../profile/profile.module';
 import { ReferenceModule } from '../reference/reference.module';
+import { AdmissionModule } from '../admission/admission.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ReferenceModule } from '../reference/reference.module';
     StudentModule,
     ProfileModule,
     ReferenceModule,
+    AdmissionModule,
   ],
   providers: [MatchService],
   controllers: [MatchController],
