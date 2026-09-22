@@ -138,7 +138,7 @@ export class MatchService {
       // one course's band onto another's.
       const cacheKey = `${policyKey}:${level}:${course.title}`;
       if (!verdictCache.has(cacheKey)) {
-        const verdict = this.admission.evaluate(policyKey, student, effectiveProfile, { level, courseLabel: course.title });
+        const verdict = await this.admission.evaluate(policyKey, student, effectiveProfile, { level, courseLabel: course.title });
         verdictCache.set(cacheKey, {
           policy_key: verdict.policy_key,
           institution: verdict.institution,

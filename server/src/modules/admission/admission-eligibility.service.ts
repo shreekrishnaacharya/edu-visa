@@ -1,8 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { Student } from '../student/entities/student.entity';
 import { StudentProfile } from '../profile/student-profile.entity';
 import { ReferenceService } from '../reference/reference.service';
-import { ADMISSION_POLICIES, findAdmissionPolicy } from './admission-policy.data';
+import { AdmissionPolicyEntity, PolicyReviewStatus } from './admission-policy.entity';
 import { AcademicBand, AdmissionPolicy, ProgramLevel } from './admission-policy.types';
 import { DegreeLevel } from '../../common/enums';
 
@@ -49,31 +51,61 @@ const LEVEL_TO_PROGRAM: Record<DegreeLevel, ProgramLevel> = {
  */
 @Injectable()
 export class AdmissionEligibilityService {
-  constructor(private readonly reference: ReferenceService) {}
+  constructor(
+    private readonly reference: ReferenceService,
+    @InjectRepository(AdmissionPolicyEntity) private readonly policies: Repository<AdmissionPolicyEntity>,
+  ) {}
 
-  listPolicies() {
-    return ADMISSION_POLICIES.map((p) => ({
-      key: p.key,
-      institution: p.institution,
-      also_covers: p.also_covers ?? [],
-      scope: p.scope,
-      source: p.source,
+  async listPolicies() {
+    const rows = await this.policies.find({ order: { institution: 'ASC' } });
+    return rows.map((row) => ({
+      key: row.key,
+      institution: row.institution,
+      also_covers: row.data.also_covers ?? [],
+      scope: row.data.scope,
+      source: row.data.source,
+      review_status: row.review_status,
     }));
   }
 
-  getPolicy(key: string): AdmissionPolicy {
-    const policy = findAdmissionPolicy(key);
-    if (!policy) throw new NotFoundException(`No admission policy on file for "${key}"`);
-    return policy;
+  async getPolicy(key: string): Promise<AdmissionPolicy> {
+    const row = await this.policies.findOne({ where: { key } });
+    if (!row) throw new NotFoundException(`No admission policy on file for "${key}"`);
+    return row.data;
   }
 
-  evaluate(
+  /**
+   * Create-or-update by key — used by the university-document upload
+   * pipeline's drafting pass (PRODUCT_PLAN phase 7) and by the admin-edit
+   * endpoint. Saving via `PATCH /admission/institutions/:key` always passes
+   * `reviewStatus: 'reviewed'` — that endpoint is the only way a policy
+   * leaves `'ai_drafted'`.
+   */
+  async upsertPolicy(
+    key: string,
+    institution: string,
+    data: AdmissionPolicy,
+    opts: { sourceDocumentId?: string | null; reviewStatus: PolicyReviewStatus },
+  ): Promise<AdmissionPolicyEntity> {
+    const existing = await this.policies.findOne({ where: { key } });
+    const row = this.policies.create({
+      ...existing,
+      key,
+      institution,
+      data,
+      source_document_id: opts.sourceDocumentId ?? existing?.source_document_id ?? null,
+      review_status: opts.reviewStatus,
+    });
+    return this.policies.save(row);
+  }
+
+  async evaluate(
     policyKey: string,
     student: Student,
     profile: StudentProfile | null,
     opts: { level?: ProgramLevel; courseLabel?: string } = {},
-  ): EligibilityVerdict {
-    const policy = this.getPolicy(policyKey);
+  ): Promise<EligibilityVerdict> {
+    const policy = await this.getPolicy(policyKey);
     const checks: EligibilityCheck[] = [];
 
     const level = opts.level ?? this.inferLevel(student, profile);

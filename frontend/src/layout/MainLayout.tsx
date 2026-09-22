@@ -1,5 +1,6 @@
 import { ReactNode, useState } from "react";
 import { NavLink, useLocation } from "react-router";
+import { useLogout } from "@refinedev/core";
 import {
   AppBar,
   Avatar,
@@ -16,6 +17,7 @@ import {
   Select,
   Stack,
   Toolbar,
+  Tooltip,
   Typography,
   useMediaQuery,
   useTheme,
@@ -23,7 +25,9 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
+import AccountBalanceOutlinedIcon from "@mui/icons-material/AccountBalanceOutlined";
 import InsightsOutlinedIcon from "@mui/icons-material/InsightsOutlined";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { getDemoUser, setDemoRole, type Role } from "../authProvider";
 
 const NAV_WIDTH = 248;
@@ -31,6 +35,7 @@ const NAV_WIDTH = 248;
 const NAV = [
   { to: "/students", label: "Students", icon: <GroupsOutlinedIcon /> },
   { to: "/catalogue", label: "Course catalogue", icon: <SchoolOutlinedIcon /> },
+  { to: "/universities", label: "Universities", icon: <AccountBalanceOutlinedIcon /> },
 ];
 
 export function MainLayout({ children }: { children: ReactNode }) {
@@ -39,6 +44,7 @@ export function MainLayout({ children }: { children: ReactNode }) {
   const theme = useTheme();
   const permanent = useMediaQuery(theme.breakpoints.up("lg"));
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { mutate: logout, isLoading: loggingOut } = useLogout();
 
   const navContent = (
     <>
@@ -118,6 +124,13 @@ export function MainLayout({ children }: { children: ReactNode }) {
                 {user.branch}
               </Typography>
             </Box>
+            <Tooltip title="Log out">
+              <span>
+                <IconButton size="small" disabled={loggingOut} onClick={() => logout()} aria-label="Log out">
+                  <LogoutOutlinedIcon fontSize="small" />
+                </IconButton>
+              </span>
+            </Tooltip>
           </Stack>
         </Toolbar>
       </AppBar>

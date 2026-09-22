@@ -23,7 +23,7 @@ import { RefineCreateView } from "@components/view/create";
 import { AppBreadcrumbs } from "@components/breadcrumb/app.breadcrumb";
 import type { Student } from "@mocks/types";
 import { emptyIntake, STEP_LABELS, type IntakeForm } from "./defaults";
-import { Text, Num, Select, MultiSelect, Toggle, DateField, StepIntro } from "./fields";
+import { Text, Num, Select, MultiSelect, Toggle, DateField, StepIntro } from "@components/form/fields";
 
 type Props = { mode: "create" | "edit" };
 

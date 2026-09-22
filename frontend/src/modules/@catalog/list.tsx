@@ -1,7 +1,9 @@
 import { useMemo, useState } from "react";
-import { type HttpError } from "@refinedev/core";
+import { useNavigate } from "react-router";
+import { type HttpError, useCan, useDelete } from "@refinedev/core";
 import {
   Box,
+  Button,
   Chip,
   Dialog,
   DialogContent,
@@ -14,9 +16,15 @@ import {
   Slider,
   Stack,
   TextField,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import AddIcon from "@mui/icons-material/Add";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
 
 import { RefineListView } from "@components/view/list";
 import { TableGrid } from "@components/table/table.body";
@@ -24,12 +32,14 @@ import { AppBreadcrumbs } from "@components/breadcrumb/app.breadcrumb";
 import { Monogram } from "@components/other/monogram";
 import { LabelData } from "@components/other/label.data";
 import { useRefineDataGrid } from "@hooks/useDataGrid";
+import { computeCourseGaps } from "@utils/university-data-gaps";
 import type { Course } from "@mocks/types";
 
 const LEVELS = ["Bachelor", "PG Diploma", "Master", "PhD"];
 const COUNTRIES = ["AU", "NZ", "UK", "CA", "US"];
 
 export function CatalogueListPage() {
+  const navigate = useNavigate();
   const [country, setCountry] = useState("");
   const [level, setLevel] = useState("");
   const [field, setField] = useState("");
@@ -38,6 +48,9 @@ export function CatalogueListPage() {
   // silently pre-filtered before the user touches the slider.
   const [maxFee, setMaxFee] = useState(170000);
   const [selected, setSelected] = useState<Course | null>(null);
+
+  const { data: canWrite } = useCan({ resource: "courses", action: "create" });
+  const { mutate: remove } = useDelete();
 
   const { dataGridProps, setFilters } = useRefineDataGrid<Course, HttpError>({
     resource: "courses",
@@ -89,8 +102,23 @@ export function CatalogueListPage() {
       {
         field: "tuition_fee",
         headerName: "Tuition/yr",
-        width: 120,
-        renderCell: ({ row }: any) => `A$ ${row.tuition_fee.toLocaleString()}`,
+        width: 140,
+        renderCell: ({ row }: any) => {
+          const gaps = computeCourseGaps(row);
+          return (
+            <Stack direction="row" spacing={0.5} alignItems="center">
+              <span>{`A$ ${row.tuition_fee.toLocaleString()}`}</span>
+              {gaps.length > 0 && (
+                <Tooltip title={gaps.map((g) => g.label).join(" · ")}>
+                  <WarningAmberOutlinedIcon
+                    fontSize="small"
+                    color={gaps.some((g) => g.severity === "warning") ? "warning" : "disabled"}
+                  />
+                </Tooltip>
+              )}
+            </Stack>
+          );
+        },
       },
       {
         field: "entry",
@@ -101,8 +129,34 @@ export function CatalogueListPage() {
       },
       { field: "world_rank", headerName: "Rank", width: 75 },
       { field: "next_intake_date", headerName: "Next intake", width: 120 },
+      ...(canWrite?.can
+        ? [
+            {
+              field: "actions",
+              headerName: "",
+              width: 90,
+              sortable: false,
+              filterable: false,
+              renderCell: ({ row }: any) => (
+                <Stack direction="row" spacing={0.5} onClick={(e: React.MouseEvent) => e.stopPropagation()}>
+                  <IconButton size="small" onClick={() => navigate(`/catalogue/${row.id}/edit`)}>
+                    <EditOutlinedIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton
+                    size="small"
+                    onClick={() => {
+                      if (confirm(`Delete "${row.title}"?`)) remove({ resource: "courses", id: row.id, successNotification: false });
+                    }}
+                  >
+                    <DeleteOutlineIcon fontSize="small" />
+                  </IconButton>
+                </Stack>
+              ),
+            },
+          ]
+        : []),
     ],
-    [],
+    [canWrite, navigate, remove],
   );
 
   return (
@@ -110,6 +164,18 @@ export function CatalogueListPage() {
       resource="courses"
       title="Course catalogue"
       breadcrumb={<AppBreadcrumbs items={[{ label: "Course catalogue" }]} />}
+      headerButtons={
+        canWrite?.can ? (
+          <Stack direction="row" spacing={1}>
+            <Button startIcon={<UploadFileIcon />} onClick={() => navigate("/catalogue/import")}>
+              Import CSV
+            </Button>
+            <Button variant="contained" startIcon={<AddIcon />} onClick={() => navigate("/catalogue/new")}>
+              New course
+            </Button>
+          </Stack>
+        ) : undefined
+      }
     >
       <Box sx={{ px: 2, pt: 2, pb: 1 }}>
         <Paper variant="outlined" sx={{ p: 1.5, borderRadius: 2 }}>

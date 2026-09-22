@@ -39,6 +39,29 @@ export class University {
   @Column({ type: 'varchar', nullable: true })
   policy_key: string | null;
 
+  /**
+   * Real official CRICOS registry fields (PRODUCT_PLAN phase 9) — from
+   * data.gov.au's CRICOS institutions dataset, the same authoritative
+   * source `src/seed/cricos-import.ts` already uses for course data. Null
+   * for an institution not (yet) matched against that registry; the
+   * completeness indicator flags that gap rather than guessing a value.
+   */
+  @Column({ type: 'varchar', nullable: true })
+  cricos_provider_code: string | null;
+
+  @Column({ type: 'varchar', nullable: true })
+  institution_type: string | null;
+
+  @Column({ type: 'int', nullable: true })
+  student_capacity: number | null;
+
+  @Column({ type: 'varchar', nullable: true })
+  website: string | null;
+
+  /** One formatted line — loose on purpose, matching CourseWriteDto's own convention, not a normalised address. */
+  @Column({ type: 'varchar', nullable: true })
+  address: string | null;
+
   @OneToMany(() => Course, (c) => c.university)
   courses: Course[];
 

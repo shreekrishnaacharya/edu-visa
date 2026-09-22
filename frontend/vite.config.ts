@@ -28,6 +28,7 @@ export default defineConfig({
       { find: /^@utils(.+)/, replacement: r("src/@utils/$1") },
       { find: /^@student(.+)/, replacement: r("src/modules/@student/$1") },
       { find: /^@catalog(.+)/, replacement: r("src/modules/@catalog/$1") },
+      { find: /^@university(.+)/, replacement: r("src/modules/@university/$1") },
       { find: /^@match(.+)/, replacement: r("src/modules/@match/$1") },
       { find: /^@mocks(.+)/, replacement: r("src/mocks/$1") },
     ],

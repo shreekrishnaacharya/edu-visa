@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
-import { Controller, type Control } from "react-hook-form";
-import type { IntakeForm } from "./defaults";
+import { Controller, type Control, type FieldValues } from "react-hook-form";
 import {
   Box,
   Checkbox,
@@ -15,13 +14,20 @@ import {
 } from "@mui/material";
 
 // ---------------------------------------------------------------------------
-// Clean form primitives for the intake wizard. Plain MUI + react-hook-form —
-// no clear-button adornment, consistent small size, labels that use the
+// Clean form primitives shared across every react-hook-form-driven form in
+// the app (originally the student intake wizard's own field.tsx — moved here
+// and genericized over the form's own value type so the catalogue/university
+// forms can reuse the same styling/error-handling instead of duplicating it).
+// Generic (not `Control<any>`) because react-hook-form's `Control<T>` is
+// contravariant in its `validate` function — `Control<any>` isn't actually
+// assignable from a caller's `Control<SpecificForm>`, so each component
+// infers its own `T` per call site instead. Plain MUI + react-hook-form — no
+// clear-button adornment, consistent small size, labels that use the
 // outlined notch (no truncation), tidy error text.
 // ---------------------------------------------------------------------------
 
-type Base = {
-  control: Control<IntakeForm>;
+type Base<T extends FieldValues = FieldValues> = {
+  control: Control<T>;
   name: string;
   label: string;
   required?: boolean;
@@ -32,7 +38,7 @@ type Base = {
 const errAt = (errors: any, name: string) =>
   name.split(/[.[\]]+/).filter(Boolean).reduce((o, k) => (o == null ? o : o[k]), errors);
 
-export function Text({
+export function Text<T extends FieldValues = FieldValues>({
   control,
   name,
   label,
@@ -41,7 +47,7 @@ export function Text({
   disabled,
   multiline,
   type = "text",
-}: Base & { multiline?: number; type?: string }) {
+}: Base<T> & { multiline?: number; type?: string }) {
   return (
     <Controller
       control={control}
@@ -71,7 +77,7 @@ export function Text({
   );
 }
 
-export function Num({
+export function Num<T extends FieldValues = FieldValues>({
   control,
   name,
   label,
@@ -82,7 +88,7 @@ export function Num({
   max,
   step,
   adornment,
-}: Base & { min?: number; max?: number; step?: number; adornment?: string }) {
+}: Base<T> & { min?: number; max?: number; step?: number; adornment?: string }) {
   return (
     <Controller
       control={control}
@@ -118,7 +124,7 @@ export function Num({
   );
 }
 
-export function Select({
+export function Select<T extends FieldValues = FieldValues>({
   control,
   name,
   label,
@@ -126,7 +132,7 @@ export function Select({
   helper,
   disabled,
   options,
-}: Base & { options: (string | { value: string; label: string })[] }) {
+}: Base<T> & { options: (string | { value: string; label: string })[] }) {
   const opts = options.map((o) => (typeof o === "string" ? { value: o, label: o } : o));
   return (
     <Controller
@@ -160,7 +166,7 @@ export function Select({
   );
 }
 
-export function MultiSelect({
+export function MultiSelect<T extends FieldValues = FieldValues>({
   control,
   name,
   label,
@@ -168,7 +174,7 @@ export function MultiSelect({
   helper,
   disabled,
   options,
-}: Base & { options: string[] }) {
+}: Base<T> & { options: string[] }) {
   return (
     <Controller
       control={control}
@@ -213,7 +219,7 @@ export function MultiSelect({
   );
 }
 
-export function Toggle({ control, name, label, disabled }: Base) {
+export function Toggle<T extends FieldValues = FieldValues>({ control, name, label, disabled }: Base<T>) {
   return (
     <Controller
       control={control}
@@ -236,7 +242,9 @@ export function Toggle({ control, name, label, disabled }: Base) {
   );
 }
 
-export const DateField = (p: Base) => <Text {...p} type="date" />;
+export function DateField<T extends FieldValues = FieldValues>(p: Base<T>) {
+  return <Text {...p} type="date" />;
+}
 
 export function StepIntro({ children }: { children: ReactNode }) {
   return (

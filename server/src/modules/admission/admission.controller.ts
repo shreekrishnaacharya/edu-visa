@@ -1,8 +1,11 @@
-import { Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Param, Patch, Post } from '@nestjs/common';
 import { AdmissionEligibilityService } from './admission-eligibility.service';
 import { CheckEligibilityDto } from './dto/check-eligibility.dto';
 import { StudentService } from '../student/student.service';
 import { ProfileService } from '../profile/profile.service';
+import { Roles } from '../auth/roles.decorator';
+import { Role } from '../../common/enums';
+import { AdmissionPolicy } from './admission-policy.types';
 
 @Controller('admission')
 export class AdmissionController {
@@ -12,7 +15,7 @@ export class AdmissionController {
     private readonly profiles: ProfileService,
   ) {}
 
-  /** The 9 real institution admission-policy briefings this was built from — see admission-policy.data.ts header. */
+  /** DB-backed real institution admission-policy briefings — the 9 originally hand-typed ones, plus any drafted since via university-document upload (PRODUCT_PLAN phase 7). */
   @Get('institutions')
   list() {
     return this.eligibility.listPolicies();
@@ -21,6 +24,20 @@ export class AdmissionController {
   @Get('institutions/:key')
   getPolicy(@Param('key') key: string) {
     return this.eligibility.getPolicy(key);
+  }
+
+  /**
+   * Admin correction of a policy — the ONLY way a policy's `review_status`
+   * moves from `ai_drafted` (populated automatically by the upload
+   * pipeline's structuring pass, live immediately, never gated) to
+   * `reviewed`. Saving here always marks it reviewed, even if nothing
+   * actually changed — the point is a human looked at it.
+   */
+  @Roles(Role.SuperAdmin)
+  @Patch('institutions/:key')
+  async updatePolicy(@Param('key') key: string, @Body() data: AdmissionPolicy) {
+    const existing = await this.eligibility.getPolicy(key);
+    return this.eligibility.upsertPolicy(key, data.institution || existing.institution, { ...existing, ...data }, { reviewStatus: 'reviewed' });
   }
 
   /**

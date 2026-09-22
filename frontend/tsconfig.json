@@ -10,6 +10,7 @@
       "@mocks/*": ["src/mocks/*"],
       "@student/*": ["src/modules/@student/*"],
       "@catalog/*": ["src/modules/@catalog/*"],
+      "@university/*": ["src/modules/@university/*"],
       "@match/*": ["src/modules/@match/*"]
     },
     "target": "ESNext",

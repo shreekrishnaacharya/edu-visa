@@ -12,10 +12,16 @@ export const resources: ResourceProps[] = [
   {
     name: "courses",
     list: "/catalogue",
+    create: "/catalogue/new",
+    edit: "/catalogue/:id/edit",
     meta: { label: "Course catalogue" },
   },
   {
     name: "universities",
+    list: "/universities",
+    create: "/universities/new",
+    edit: "/universities/:id/edit",
+    show: "/universities/:id",
     meta: { label: "Universities" },
   },
   {

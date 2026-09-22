@@ -237,6 +237,17 @@ export interface Course {
   scholarships: Scholarship[];
   career_outcomes: string[];
   cricos: string;
+  verified_at?: string | null;
+  /** 'verified' = human/CRICOS-verified; 'unverified_aggregator' = sourced from a third-party aggregator, not the institution directly. */
+  data_confidence?: "verified" | "unverified_aggregator";
+  source_note?: string;
+}
+
+export interface UniversityCourseStats {
+  total: number;
+  with_scholarships: number;
+  with_cricos: number;
+  unverified_fee: number;
 }
 
 export interface University {
@@ -246,6 +257,17 @@ export interface University {
   city: string;
   world_rank: number;
   logo_hue: number; // 0-360, for a generated monogram
+  verified_at?: string | null;
+  /** Links this university to its real admission-policy.data.ts key (e.g. "cqu") when one exists. */
+  policy_key?: string | null;
+  /** Real official CRICOS registry fields — null when not (yet) matched against the registry. */
+  cricos_provider_code?: string | null;
+  institution_type?: string | null;
+  student_capacity?: number | null;
+  website?: string | null;
+  address?: string | null;
+  /** Server-computed, not persisted — see UniversityService.courseStatsFor(). */
+  course_stats?: UniversityCourseStats;
 }
 
 // ---- Derived + match --------------------------------------------------------

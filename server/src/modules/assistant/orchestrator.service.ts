@@ -8,7 +8,6 @@ import { MatchService } from '../match/match.service';
 import { CourseService } from '../course/course.service';
 import { DocType } from '../knowledge/doc.entity';
 import { AdmissionEligibilityService } from '../admission/admission-eligibility.service';
-import { ADMISSION_POLICIES } from '../admission/admission-policy.data';
 import { AdmissionPolicy } from '../admission/admission-policy.types';
 import { FollowUpService } from '../follow-up/follow-up.service';
 import { MatchResult } from '../match/match.types';
@@ -335,7 +334,7 @@ export class OrchestratorService {
    * `AdmissionEligibilityService`); without one it's still the institution's
    * real criteria, just not evaluated against anyone.
    */
-  private admissionChunks(message: string, student: any, profile: any): RetrievedChunk[] {
+  private async admissionChunks(message: string, student: any, profile: any): Promise<RetrievedChunk[]> {
     const lower = message.toLowerCase();
     // ALL matching institutions, not just the first alias-table entry —
     // a real test asking about two institutions in one question ("CQU" AND
@@ -344,19 +343,26 @@ export class OrchestratorService {
     // other one instead of just not mentioning it. Dedup by policy key since
     // several aliases (e.g. "acap"/"navitas") point at the same institution.
     const policyKeys = [...new Set(Object.entries(OrchestratorService.ADMISSION_ALIASES).filter(([needle]) => lower.includes(needle)).map(([, key]) => key))];
-    return policyKeys.flatMap((policyKey) => this.admissionChunksFor(policyKey, student, profile));
+    const chunks = await Promise.all(policyKeys.map((policyKey) => this.admissionChunksFor(policyKey, student, profile)));
+    return chunks.flat();
   }
 
-  private admissionChunksFor(policyKey: string, student: any, profile: any): RetrievedChunk[] {
-    const policy = this.admission.getPolicy(policyKey);
+  private async admissionChunksFor(policyKey: string, student: any, profile: any): Promise<RetrievedChunk[]> {
+    const policy = await this.admission.getPolicy(policyKey);
 
     if (student) {
       try {
-        const verdict = this.admission.evaluate(policyKey, student, profile ?? null);
+        const verdict = await this.admission.evaluate(policyKey, student, profile ?? null);
         const text = [
           `Admission-eligibility check for ${verdict.institution} (source: ${verdict.source}):`,
           `Overall: ${verdict.overall.replace(/_/g, ' ')}.`,
           ...verdict.checks.map((c) => `- ${c.rule} [${c.status}]: ${c.detail}`),
+          // The pass/fail checks above never cover scholarships, fees,
+          // campus/program availability, or any of the other real profile
+          // detail a source document states — surfaced here too so asking
+          // about a specific student's chances doesn't silently drop
+          // information the no-student branch below already includes.
+          ...this.policyProfileLines(policy),
         ].join('\n');
         return [
           {
@@ -393,7 +399,7 @@ export class OrchestratorService {
     if (policy.marriage_rules?.length) parts.push(`- Marriage/dependant rules: ${policy.marriage_rules.join(' ')}`);
     if (policy.visa_refusal_policy) parts.push(`- Visa refusal policy: ${policy.visa_refusal_policy}`);
     if (policy.excluded_banks?.length) parts.push(`- Banks not accepted: ${policy.excluded_banks.join(', ')}`);
-    if (policy.other_notes.length) parts.push(...policy.other_notes.map((n) => `- ${n}`));
+    parts.push(...this.policyProfileLines(policy));
     return [
       {
         id: `admission:${policyKey}`,
@@ -407,6 +413,37 @@ export class OrchestratorService {
         context_tag: 'INSTITUTION ADMISSION CRITERIA — real, not yet checked against a specific student',
       },
     ];
+  }
+
+  /**
+   * Every field of a real policy that isn't an eligibility check (PRODUCT_PLAN
+   * phase 8/9) — scholarships, the fee-calculation note, GS document
+   * checklist, campus/program availability, processing turnaround, contact
+   * points, country-tier pathway notes. Shared between both branches of
+   * `admissionChunksFor()` so a real, extracted field never silently reaches
+   * only one of them (the exact bug Phase 8 found and fixed for
+   * `scholarships` specifically — this generalises the fix).
+   */
+  private policyProfileLines(policy: AdmissionPolicy): string[] {
+    const lines: string[] = [];
+    if (policy.scholarships?.length) lines.push(...policy.scholarships.map((n) => `- Scholarship: ${n}`));
+    if (policy.gs_notes?.length) lines.push(...policy.gs_notes.map((n) => `- GS note: ${n}`));
+    if (policy.document_checklist?.length) lines.push(`- Document checklist: ${policy.document_checklist.join('; ')}`);
+    if (policy.income_source_notes?.length) lines.push(...policy.income_source_notes.map((n) => `- Income source note: ${n}`));
+    if (policy.campus_programs?.length) {
+      lines.push(...policy.campus_programs.map((c) => `- Campus "${c.campus}" offers: ${c.programs.join(', ')}`));
+    }
+    if (policy.processing_turnaround) {
+      const t = policy.processing_turnaround;
+      const parts = [t.offer && `offer ${t.offer}`, t.gs && `GS ${t.gs}`, t.coe && `CoE ${t.coe}`].filter(Boolean);
+      if (parts.length) lines.push(`- Processing turnaround: ${parts.join(', ')}${t.note ? ` (${t.note})` : ''}`);
+    }
+    if (policy.contact_emails?.length) {
+      lines.push(`- Contacts: ${policy.contact_emails.map((c) => `${c.label} <${c.email}>`).join(', ')}`);
+    }
+    if (policy.country_tier_notes?.length) lines.push(...policy.country_tier_notes.map((n) => `- Country-tier pathway note: ${n}`));
+    if (policy.other_notes.length) lines.push(...policy.other_notes.map((n) => `- ${n}`));
+    return lines;
   }
 
   /**
@@ -450,6 +487,7 @@ export class OrchestratorService {
       matchResult.knockout
         ? `This course currently fails a hard filter: ${matchResult.knockout_reasons.join(' ')}`
         : 'This course clears all hard filters.',
+      `Scholarship potential: ${matchResult.scholarship_potential}.${matchResult.scholarship_opportunities.length ? ` ${matchResult.scholarship_opportunities.join(' ')}` : ' No scholarship on file for this specific course.'}`,
     ].join('\n');
     chunks.push({
       id: `matchresult-score:${matchResult.course_id}`,
@@ -567,7 +605,7 @@ export class OrchestratorService {
     // eligibility for this exact course, re-deriving it by name-match here
     // could disagree with it (e.g. a what-if override the name-match path
     // knows nothing about).
-    const admissionChunks = matchResult ? [] : this.admissionChunks(message, student, profile);
+    const admissionChunks = matchResult ? [] : await this.admissionChunks(message, student, profile);
     const matchResultChunks = matchResult ? this.matchResultChunks(matchResult) : [];
 
     const allChunks = [...matchResultChunks, ...catalogueChunks, ...admissionChunks, ...[...retrievedByPass.values()].flat()];

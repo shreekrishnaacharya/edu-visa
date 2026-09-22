@@ -59,6 +59,25 @@ export interface IncomeThreshold {
   min_annual_aud: number | null;
 }
 
+/**
+ * A GPA/percentage-gated scholarship band — distinct from `AdmissionPolicy.scholarships`
+ * (free narrative: deadlines, separate-application flags, flat "25% to all
+ * qualifying applicants" clauses that aren't tied to a specific threshold).
+ * This is only for tiers the source expresses as an actual numeric cutoff,
+ * so it can drive `Course.scholarships`/the match engine's existing
+ * `scholarshipScore()` the same way a manually-entered scholarship does.
+ */
+export interface ScholarshipTier {
+  level: ProgramLevel;
+  /** How the source expressed the band, e.g. "GPA 2.8-3.19" or "70-74.99%" — kept for display since real bands are ranges, not just a single cutoff. */
+  label: string;
+  /** Canonical 0-100 (see file header) — the LOWER bound of this tier's range. */
+  min_canonical_score: number;
+  /** % of tuition. */
+  pct: number;
+  note?: string;
+}
+
 export interface AdmissionPolicy {
   key: string;
   institution: string;
@@ -104,8 +123,28 @@ export interface AdmissionPolicy {
   excluded_banks?: string[];
   income_source_notes?: string[];
   scholarships?: string[];
+  scholarship_tiers?: ScholarshipTier[];
   excluded_regions?: string[];
   gs_notes?: string[];
   document_checklist?: string[];
+  /**
+   * Which specific programs are offered at which physical campus — only
+   * captured where the source states this explicitly (e.g. CQU's "Brisbane:
+   * Bachelor of Nursing, Master of Project Management & Master of
+   * Construction Management"), never inferred from the catalogue.
+   */
+  campus_programs?: { campus: string; programs: string[] }[];
+  /** Indicative processing times the source states (offer/GS/CoE turnaround) — informational, not an eligibility rule. */
+  processing_turnaround?: { offer?: string; gs?: string; coe?: string; note?: string };
+  /** Real named contact points the source gives (e.g. separate Admissions/GS/Recruitment addresses). */
+  contact_emails?: { label: string; email: string }[];
+  /**
+   * Narrative only — a source can state different entry pathways/rules by
+   * the applicant's home-country risk classification (e.g. Sydney Met's
+   * Assessment Level 1/2/3 system). Kept as free text rather than a new
+   * structural rule dimension: only surfaced so an AI answer can quote it,
+   * never evaluated as a pass/fail check.
+   */
+  country_tier_notes?: string[];
   other_notes: string[];
 }

@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AdmissionEligibilityService } from './admission-eligibility.service';
 import { AdmissionController } from './admission.controller';
+import { AdmissionPolicyEntity } from './admission-policy.entity';
 import { StudentModule } from '../student/student.module';
 import { ProfileModule } from '../profile/profile.module';
 import { ReferenceModule } from '../reference/reference.module';
 
 @Module({
-  imports: [StudentModule, ProfileModule, ReferenceModule],
+  imports: [TypeOrmModule.forFeature([AdmissionPolicyEntity]), StudentModule, ProfileModule, ReferenceModule],
   providers: [AdmissionEligibilityService],
   controllers: [AdmissionController],
   exports: [AdmissionEligibilityService],

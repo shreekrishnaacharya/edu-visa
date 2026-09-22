@@ -43,10 +43,9 @@ export class UniversityDocumentController {
     @Param('universityId') universityId: string,
     @UploadedFile() file: Express.Multer.File,
     @Body('title') title: string,
-    @Body('doc_type') docType: string,
     @AuthUser() user: AuthUserPayload,
   ) {
-    const doc = await this.documents.upload(universityId, file, title ?? '', docType ?? '', user.email);
+    const doc = await this.documents.upload(universityId, file, title ?? '', user.email);
     return this.documents.withUrl(doc);
   }
 
@@ -61,13 +60,7 @@ export class UniversityDocumentController {
   ) {
     const previous = await this.documents.getOne(id);
     await this.documents.removeAndPurge(id);
-    const doc = await this.documents.upload(
-      universityId,
-      file,
-      previous.title,
-      previous.doc_type,
-      user.email,
-    );
+    const doc = await this.documents.upload(universityId, file, previous.title, user.email);
     return this.documents.withUrl(doc);
   }
 

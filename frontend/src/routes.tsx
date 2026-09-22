@@ -7,6 +7,11 @@ import { StudentIntakePage } from "@student/intake/intake";
 import { StudentShowPage } from "@student/show/show";
 import { MatchResultPage } from "@match/result";
 import { CatalogueListPage } from "@catalog/list";
+import { CourseFormPage } from "@catalog/course-form";
+import { CourseImportPage } from "@catalog/import";
+import { UniversityListPage } from "@university/list";
+import { UniversityFormPage } from "@university/university-form";
+import { UniversityShowPage } from "@university/show";
 import { LoginPage } from "./modules/@auth/login";
 
 const shell = (node: React.ReactNode) => (
@@ -26,6 +31,14 @@ export const routes: RouteObject[] = [
   { path: "/students/:id/matches", element: shell(<MatchResultPage />) },
 
   { path: "/catalogue", element: shell(<CatalogueListPage />) },
+  { path: "/catalogue/new", element: shell(<CourseFormPage mode="create" />) },
+  { path: "/catalogue/import", element: shell(<CourseImportPage />) },
+  { path: "/catalogue/:id/edit", element: shell(<CourseFormPage mode="edit" />) },
+
+  { path: "/universities", element: shell(<UniversityListPage />) },
+  { path: "/universities/new", element: shell(<UniversityFormPage mode="create" />) },
+  { path: "/universities/:id", element: shell(<UniversityShowPage />) },
+  { path: "/universities/:id/edit", element: shell(<UniversityFormPage mode="edit" />) },
 
   { path: "*", element: shell(<Navigate to="/students" replace />) },
 ];

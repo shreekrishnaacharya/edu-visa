@@ -1,6 +1,14 @@
 import { AdmissionPolicy } from './admission-policy.types';
 
 /**
+ * SEED SOURCE ONLY — not read at runtime (PRODUCT_PLAN phase 7 moved
+ * `AdmissionPolicy` storage to the DB-backed `admission_policy` table so the
+ * university-document upload pipeline can draft/update policies for
+ * institutions beyond these original 9; see
+ * `AdmissionEligibilityService.getPolicy()`/`listPolicies()`, which now
+ * query that table). This file's only remaining job is being the one-time
+ * input to `src/seed/seed-admission-policies.ts`.
+ *
  * Real admission-eligibility data extracted from 9 documents supplied
  * directly to this consultancy (`resource/university_requiremnt/*`, all
  * dated Jan-Jul 2026): institution partner-portal update letters and GS/
