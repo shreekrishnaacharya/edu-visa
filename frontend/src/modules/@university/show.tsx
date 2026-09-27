@@ -6,6 +6,15 @@ import {
   Box,
   Button,
   Chip,
+  Divider,
+  Grid2 as Grid,
+  Link as MuiLink,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Tooltip,
   Dialog,
   DialogActions,
   DialogContent,
@@ -25,6 +34,8 @@ import RefreshOutlinedIcon from "@mui/icons-material/RefreshOutlined";
 import CloudSyncOutlinedIcon from "@mui/icons-material/CloudSyncOutlined";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import BlockIcon from "@mui/icons-material/Block";
+import SchoolIcon from "@mui/icons-material/School";
 
 import { RefineShowView } from "@components/view/show";
 import { AppBreadcrumbs } from "@components/breadcrumb/app.breadcrumb";
@@ -52,6 +63,48 @@ interface UniversityDocument {
   drafted_policy_key: string | null;
 }
 
+/**
+ * Fields the API returns that the prototype `University` type predates:
+ * the scraper's readability verdict and the server-computed course rollup.
+ */
+interface CampusRow {
+  id: string;
+  location_name: string;
+  city: string;
+  locality: string | null;
+  state: string | null;
+  postcode: string | null;
+  is_primary: boolean;
+}
+
+interface UniversityExtras {
+  campuses?: CampusRow[];
+  auto_source_status?: "unknown" | "ok" | "blocked";
+  auto_source_reason?: string | null;
+  auto_source_note?: string;
+  course_stats?: { total: number; with_scholarships: number; with_cricos: number; unverified_fee: number };
+}
+
+interface CourseRow {
+  id: string;
+  title: string;
+  degree_level: string;
+  field: string;
+  duration_months: number;
+  tuition_fee: number;
+  currency: string;
+  cricos: string | null;
+  entry?: { min_english_band: number | null; min_gpa: number | null };
+}
+
+const BLOCKED_REASON_TEXT: Record<string, string> = {
+  anti_bot: "blocks automated requests (HTTP 403)",
+  robots_disallow: "robots.txt disallows the pages we need",
+  client_rendered: "content only exists after JavaScript runs",
+  unreachable: "site could not be reached",
+  no_website: "no usable website in the register",
+};
+
 interface PolicySummary {
   key: string;
   institution: string;
@@ -76,7 +129,7 @@ const POLICY_DRAFT_COLOR: Record<UniversityDocument["policy_draft_status"], "def
 export function UniversityShowPage() {
   const { id = "" } = useParams();
   const navigate = useNavigate();
-  const { data, isLoading } = useOne<University>({ resource: "universities", id });
+  const { data, isLoading } = useOne<University & UniversityExtras>({ resource: "universities", id });
   const u = data?.data;
   const { data: canWrite } = useCan({ resource: "universities", action: "edit" });
 
@@ -87,6 +140,43 @@ export function UniversityShowPage() {
   const [busyId, setBusyId] = useState<string | null>(null);
   const [policy, setPolicy] = useState<PolicySummary | null>(null);
   const [reviewing, setReviewing] = useState(false);
+  const [courses, setCourses] = useState<CourseRow[]>([]);
+  const [courseTotal, setCourseTotal] = useState(0);
+  const [coursesLoading, setCoursesLoading] = useState(false);
+  const [registryTwin, setRegistryTwin] = useState<{ id: string; name: string } | null>(null);
+
+  /**
+   * A record with no CRICOS provider code was created by the aggregator import,
+   * not from the government register, so all its registry fields are empty. Find
+   * the registered provider that shares its admission policy so the page can
+   * point at the real row instead of showing a column of dashes.
+   */
+  const loadRegistryTwin = async (policyKey: string) => {
+    try {
+      const { data } = await axiosInstance.get(`${BASE_URL}/universities`, {
+        params: { _start: 0, _end: 5, policy_key: policyKey },
+      });
+      const twin = (data?.elements ?? []).find(
+        (x: any) => x.id !== id && x.cricos_provider_code,
+      );
+      setRegistryTwin(twin ? { id: twin.id, name: twin.name } : null);
+    } catch {
+      setRegistryTwin(null);
+    }
+  };
+
+  const loadCourses = async () => {
+    setCoursesLoading(true);
+    try {
+      const { data: page } = await axiosInstance.get(`${BASE_URL}/courses`, {
+        params: { _start: 0, _end: 50, university_id: id, _sort: "title", _order: "asc" },
+      });
+      setCourses(page?.elements ?? []);
+      setCourseTotal(page?.totalElements ?? 0);
+    } finally {
+      setCoursesLoading(false);
+    }
+  };
 
   const loadDocs = async () => {
     setDocsLoading(true);
@@ -102,10 +192,15 @@ export function UniversityShowPage() {
     setPolicy(data.find((p) => p.key === policyKey) ?? null);
   };
   useEffect(() => {
-    if (id) loadDocs();
+    if (id) {
+      loadDocs();
+      loadCourses();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
   useEffect(() => {
+    if (u?.policy_key && !u?.cricos_provider_code) loadRegistryTwin(u.policy_key);
+    else setRegistryTwin(null);
     if (u?.policy_key) loadPolicy(u.policy_key);
     else setPolicy(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -147,7 +242,14 @@ export function UniversityShowPage() {
             <Box sx={{ flex: 1 }}>
               <Typography variant="h6">{u.name}</Typography>
               <Typography variant="body2" color="text.secondary">
-                {u.city}, {u.country} · world rank {u.world_rank}
+                {u.city}, {u.country}
+                {(u.campuses?.length ?? 0) > 1 &&
+                  ` · +${new Set(u.campuses!.map((c) => c.city)).size - 1} more ${
+                    new Set(u.campuses!.map((c) => c.city)).size - 1 === 1 ? "city" : "cities"
+                  }`}
+                {u.world_rank && u.world_rank < 999
+                  ? ` · world rank ${u.world_rank}`
+                  : " · not world-ranked"}
               </Typography>
             </Box>
             {u.policy_key ? (
@@ -161,9 +263,16 @@ export function UniversityShowPage() {
                       : `Admission policy: ${u.policy_key} · AI-drafted, unreviewed`
                   }
                 />
+                <Button
+                  size="small"
+                  startIcon={<SchoolIcon />}
+                  onClick={() => navigate(`/admission/${u.policy_key}`)}
+                >
+                  View policy
+                </Button>
                 {canWrite?.can && (
                   <Button size="small" onClick={() => setReviewing(true)}>
-                    Review policy
+                    Edit raw
                   </Button>
                 )}
               </Stack>
@@ -171,6 +280,93 @@ export function UniversityShowPage() {
               <Chip variant="outlined" label="No admission policy on file yet — upload an entry-requirements document" />
             )}
           </Stack>
+
+          <Divider sx={{ my: 2 }} />
+
+          {/* Official CRICOS registry fields, straight from the government
+              register. A record created by the aggregator import has none of
+              them, so rather than rendering a column of dashes the page says why
+              and links to the registered provider. */}
+          {u.cricos_provider_code ? (
+            <Grid container spacing={2}>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <Typography variant="caption" color="text.secondary">
+                  CRICOS provider code
+                </Typography>
+                <Typography variant="body2">{u.cricos_provider_code}</Typography>
+              </Grid>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <Typography variant="caption" color="text.secondary">
+                  Provider type
+                </Typography>
+                <Typography variant="body2">{u.institution_type || "not stated in the register"}</Typography>
+              </Grid>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <Typography variant="caption" color="text.secondary">
+                  Student capacity
+                </Typography>
+                <Typography variant="body2">
+                  {u.student_capacity ? u.student_capacity.toLocaleString() : "not stated in the register"}
+                </Typography>
+              </Grid>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <Typography variant="caption" color="text.secondary">
+                  Website
+                </Typography>
+                <Typography variant="body2">
+                  {u.website ? (
+                    <MuiLink
+                      href={u.website.startsWith("http") ? u.website : `https://${u.website}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {u.website.replace(/^https?:\/\//, "")}
+                      <OpenInNewIcon sx={{ fontSize: 12, ml: 0.5 }} />
+                    </MuiLink>
+                  ) : (
+                    "not stated in the register"
+                  )}
+                </Typography>
+              </Grid>
+              <Grid size={{ xs: 12, sm: 6, md: 8 }}>
+                <Typography variant="caption" color="text.secondary">
+                  Registered address
+                </Typography>
+                <Typography variant="body2">{u.address || "not stated in the register"}</Typography>
+              </Grid>
+            </Grid>
+          ) : (
+            <Alert severity="info">
+              <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                Not a CRICOS register record
+              </Typography>
+              This entry was created from third-party research, not from the government CRICOS
+              register, so it has no provider code, provider type, capacity, website or registered
+              address. Its course data is marked unverified for the same reason.
+              {registryTwin && (
+                <>
+                  {" "}The registered provider is{" "}
+                  <MuiLink
+                    component="button"
+                    type="button"
+                    onClick={() => navigate(`/universities/${registryTwin.id}`)}
+                  >
+                    {registryTwin.name}
+                  </MuiLink>
+                  {" "}— use that record for official details.
+                </>
+              )}
+            </Alert>
+          )}
+
+          {u.auto_source_status === "blocked" && (
+            <Alert severity="warning" icon={<BlockIcon fontSize="small" />} sx={{ mt: 2 }}>
+              This institution's site cannot be read automatically —{" "}
+              {BLOCKED_REASON_TEXT[u.auto_source_reason ?? ""] ?? u.auto_source_reason ?? "unknown reason"}.
+              Requirements for it have to be entered by hand, or sourced from an uploaded document or
+              AI curation.
+            </Alert>
+          )}
         </Paper>
 
         {(() => {
@@ -317,6 +513,162 @@ export function UniversityShowPage() {
           }}
         />
       )}
+      {/* Registered teaching locations. A provider is routinely one institution
+          across many cities (CQU teaches in 11), and matching now scores a
+          student's preferred city against any of them, so all are shown. */}
+      {!!u.campuses?.length && (
+        <Paper variant="outlined" sx={{ p: { xs: 2, sm: 2.5 }, borderRadius: 2, mb: 2 }}>
+          <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
+            <Typography variant="subtitle2">Campuses</Typography>
+            <Chip size="small" label={`${u.campuses.length} registered location${u.campuses.length === 1 ? "" : "s"}`} />
+            {u.campuses.length > 1 && (
+              <Tooltip title="A student who prefers any of these cities is scored as a location match, not a mismatch.">
+                <Chip
+                  size="small"
+                  variant="outlined"
+                  label={`${new Set(u.campuses.map((c) => c.city)).size} cities`}
+                />
+              </Tooltip>
+            )}
+          </Stack>
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell>Campus</TableCell>
+                <TableCell>City</TableCell>
+                <TableCell>Locality</TableCell>
+                <TableCell>State</TableCell>
+                <TableCell align="right">Postcode</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {[...u.campuses]
+                .sort((a, b) => Number(b.is_primary) - Number(a.is_primary) || a.city.localeCompare(b.city))
+                .map((c) => (
+                  <TableRow key={c.id} hover>
+                    <TableCell>
+                      <Typography variant="body2">{c.location_name}</Typography>
+                      {c.is_primary && (
+                        <Tooltip title="The campus whose postcode matches the institution's registered postal address — this is where the record's city comes from.">
+                          <Chip size="small" color="primary" variant="outlined" label="primary" sx={{ mt: 0.5 }} />
+                        </Tooltip>
+                      )}
+                    </TableCell>
+                    <TableCell>{c.city}</TableCell>
+                    <TableCell>
+                      <Typography variant="caption">{c.locality ?? "—"}</Typography>
+                    </TableCell>
+                    <TableCell>{c.state ?? "—"}</TableCell>
+                    <TableCell align="right">{c.postcode ?? "—"}</TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </Paper>
+      )}
+
+      {/* Courses offered here. The register is the source for these, so a
+          provider's real catalogue is visible without leaving the page. */}
+      <Paper variant="outlined" sx={{ p: { xs: 2, sm: 2.5 }, borderRadius: 2, mb: 2 }}>
+        <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
+          <Typography variant="subtitle2">Courses</Typography>
+          <Chip size="small" label={`${courseTotal} total`} />
+          {u.course_stats && (
+            <>
+              <Tooltip title="Courses carrying a real CRICOS course code from the government register.">
+                <Chip
+                  size="small"
+                  variant="outlined"
+                  label={`${u.course_stats.with_cricos} with CRICOS code`}
+                />
+              </Tooltip>
+              <Tooltip title="CRICOS publishes no scholarship data, so this is usually zero until scholarships are entered or sourced.">
+                <Chip
+                  size="small"
+                  variant="outlined"
+                  color={u.course_stats.with_scholarships ? "default" : "warning"}
+                  label={`${u.course_stats.with_scholarships} with scholarships`}
+                />
+              </Tooltip>
+            </>
+          )}
+          <Box flex={1} />
+          <Button
+            size="small"
+            onClick={() => navigate(`/catalogue?university_id=${u.id}`)}
+          >
+            Open in catalogue
+          </Button>
+        </Stack>
+        {coursesLoading && <LinearProgress sx={{ mb: 1 }} />}
+        {!coursesLoading && courses.length === 0 && (
+          <Typography variant="body2" color="text.secondary">
+            No courses on file for this institution.
+          </Typography>
+        )}
+        {courses.length > 0 && (
+          <>
+            <Table size="small">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Course</TableCell>
+                  <TableCell>Level</TableCell>
+                  <TableCell>Field</TableCell>
+                  <TableCell align="right">Fee / yr</TableCell>
+                  <TableCell align="right">Duration</TableCell>
+                  <TableCell align="right">English</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {courses.map((c) => (
+                  <TableRow
+                    key={c.id}
+                    hover
+                    sx={{ cursor: "pointer" }}
+                    onClick={() => navigate(`/catalogue/${c.id}/edit`)}
+                  >
+                    <TableCell>
+                      <Typography variant="body2">{c.title}</Typography>
+                      {c.cricos && (
+                        <Typography variant="caption" color="text.secondary">
+                          CRICOS {c.cricos}
+                        </Typography>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      <Chip size="small" variant="outlined" label={c.degree_level} />
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="caption">{c.field}</Typography>
+                    </TableCell>
+                    <TableCell align="right">
+                      {c.currency} {Number(c.tuition_fee).toLocaleString()}
+                    </TableCell>
+                    <TableCell align="right">{c.duration_months} mo</TableCell>
+                    <TableCell align="right">
+                      {c.entry?.min_english_band != null ? (
+                        `IELTS ${c.entry.min_english_band}`
+                      ) : (
+                        <Tooltip title="Not sourced from the provider. The matcher reports this gate as unknown rather than assuming a bar.">
+                          <Typography variant="caption" color="warning.main">
+                            not sourced
+                          </Typography>
+                        </Tooltip>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+            {courseTotal > courses.length && (
+              <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: "block" }}>
+                Showing the first {courses.length} of {courseTotal} — open in the catalogue to see them all.
+              </Typography>
+            )}
+          </>
+        )}
+      </Paper>
+
       {reviewing && u.policy_key && (
         <ReviewPolicyDialog
           policyKey={u.policy_key}

@@ -51,6 +51,9 @@ const ENTRY: EntryRequirement = {
   accepted_tests: ['IELTS', 'PTE', 'TOEFL'],
   prerequisites: [],
   work_experience_months: 0,
+  // Aggregator figures, not read off the institution's own admissions page —
+  // every course from this import is already flagged `unverified_aggregator`.
+  requirement_source: 'unverified_aggregator',
 };
 
 const ROWS: Row[] = [

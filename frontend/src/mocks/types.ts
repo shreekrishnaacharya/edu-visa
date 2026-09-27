@@ -320,6 +320,17 @@ export interface AdmissionEligibility {
   source: "real_policy" | "catalogue_entry_requirement";
   overall: "eligible" | "not_eligible" | "conditionally_eligible" | "insufficient_data";
   checks: AdmissionCheck[];
+  /** Which academic band of the policy governed this course. */
+  matched_band?: {
+    level: string;
+    label: string;
+    min_canonical_score: number | null;
+    source_expression?: string;
+    min_ielts_overall: number | null;
+    min_ielts_band: number | null;
+  } | null;
+  /** Scholarship terms from the institution's briefing (not the scored dimension). */
+  scholarship_notes?: string[];
 }
 
 export interface MatchResult {

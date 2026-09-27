@@ -112,11 +112,18 @@ export class MatchService {
       entry: c.entry,
       scholarships: c.scholarships?.map((s) => ({ name: s.name, pct: s.pct, min_gpa: s.min_gpa })) ?? [],
       career_outcomes: c.career_outcomes,
+      campus_cities: c.campus_cities ?? [],
     }));
     const universitiesById = new Map<string, EngineUniversity>(
       uniRows.map((u) => [
         u.id,
-        { id: u.id, name: u.name, country: u.country, city: u.city, world_rank: u.world_rank },
+        {
+          id: u.id,
+          name: u.name,
+          country: u.country,
+          city: u.city,
+          world_rank: u.world_rank,
+        },
       ]),
     );
 
@@ -136,15 +143,33 @@ export class MatchService {
       // level of the same institution (e.g. CQU's Medical vs Engineering vs
       // Management PG bands), so caching on (policy, level) alone would leak
       // one course's band onto another's.
-      const cacheKey = `${policyKey}:${level}:${course.title}`;
+      // Field is part of the key because it now participates in band selection
+      // (a band's topic is matched against title AND field of education).
+      const cacheKey = `${policyKey}:${level}:${course.title}:${course.field}`;
       if (!verdictCache.has(cacheKey)) {
-        const verdict = await this.admission.evaluate(policyKey, student, effectiveProfile, { level, courseLabel: course.title });
+        const verdict = await this.admission.evaluate(policyKey, student, effectiveProfile, {
+          level,
+          courseLabel: course.title,
+          courseField: course.field,
+        });
+        const policy = await this.admission.getPolicy(policyKey);
         verdictCache.set(cacheKey, {
           policy_key: verdict.policy_key,
           institution: verdict.institution,
           source: 'real_policy',
           overall: verdict.overall,
           checks: verdict.checks,
+          matched_band: verdict.matched_band
+            ? {
+                level: verdict.matched_band.level,
+                label: verdict.matched_band.label,
+                min_canonical_score: verdict.matched_band.min_canonical_score,
+                source_expression: verdict.matched_band.source_expression,
+                min_ielts_overall: verdict.matched_band.min_ielts_overall,
+                min_ielts_band: verdict.matched_band.min_ielts_band,
+              }
+            : null,
+          scholarship_notes: policy.scholarships ?? [],
         });
       }
       admissionVerdicts.set(course.id, verdictCache.get(cacheKey)!);

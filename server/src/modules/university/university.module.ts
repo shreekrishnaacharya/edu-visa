@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { University } from './university.entity';
 import { UniversityDocument } from './university-document.entity';
+import { UniversityCampus } from './university-campus.entity';
 import { UniversityService } from './university.service';
 import { UniversityDocumentService } from './university-document.service';
 import { UniversityController } from './university.controller';
@@ -12,7 +13,7 @@ import { Course } from '../course/course.entity';
 import { Scholarship } from '../course/scholarship.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([University, UniversityDocument, Course, Scholarship]), KnowledgeModule, AdmissionModule],
+  imports: [TypeOrmModule.forFeature([University, UniversityDocument, UniversityCampus, Course, Scholarship]), KnowledgeModule, AdmissionModule],
   providers: [UniversityService, UniversityDocumentService],
   controllers: [UniversityController, UniversityDocumentController],
   exports: [UniversityService, UniversityDocumentService],

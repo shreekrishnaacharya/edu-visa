@@ -1,9 +1,20 @@
 // ---------------------------------------------------------------------------
-// Replaces the synthetic AU course catalogue with REAL data from the
-// Australian Government's CRICOS register (data.gov.au) — see
-// server/data/cricos/README.md for provenance. Real institutions, real
-// course titles, real fees. Entry requirements/scholarships are NOT in
-// CRICOS data — filled with documented estimated defaults by course level.
+// Seeds the AU catalogue from the committed CRICOS register fixture in
+// server/data/cricos/ — see that directory's README.md for provenance. Real
+// institutions, real campus cities, real course titles, real fees.
+//
+// This is the OFFLINE path, for a fresh dev database and for tests. The live
+// path is the data-sync module (`POST /data-sync/runs/cricos`), which pulls the
+// current register from data.gov.au, diffs it, and applies what a human accepts.
+// Both share `modules/data-sync/cricos-mapper.ts`, so seeding and syncing can
+// never produce different rows from the same source file.
+//
+// Entry requirements are NOT in CRICOS data and are NOT guessed here: every
+// course seeds with `min_gpa`/`min_english_band` null, and the matching engine
+// reports those gates as "unknown" rather than inventing a bar. Real bands are
+// layered on per institution from each provider's own admissions page.
+//
+// Run with: npx ts-node -r tsconfig-paths/register src/seed/cricos-import.ts
 // ---------------------------------------------------------------------------
 
 import 'reflect-metadata';
@@ -15,79 +26,28 @@ import { DataSource, In, Not } from 'typeorm';
 import { dataSourceOptions } from '../config/data-source';
 import { University } from '../modules/university/university.entity';
 import { Course } from '../modules/course/course.entity';
-import { DegreeLevel } from '../common/enums';
+import { EMPTY_ENTRY_REQUIREMENT } from '../modules/course/entry-requirement';
+import {
+  locationsByCode,
+  mapCampuses,
+  mapCourse,
+  mapUniversity,
+  QS_RANK,
+} from '../modules/data-sync/cricos-mapper';
+import { UniversityCampus } from '../modules/university/university-campus.entity';
+import { CourseCampus } from '../modules/course/course-campus.entity';
 
 const DATA_DIR = join(__dirname, '..', '..', 'data', 'cricos');
 
-// city / world_rank aren't in CRICOS data — reused from the original curated
-// seed (public QS-rank-derived values), keyed by the real CRICOS provider code.
-const UNI_META: Record<string, { city: string; world_rank: number; logo_hue: number }> = {
-  '00116K': { city: 'Melbourne', world_rank: 13, logo_hue: 220 }, // University of Melbourne
-  '00026A': { city: 'Sydney', world_rank: 19, logo_hue: 8 }, // University of Sydney
-  '00008C': { city: 'Melbourne', world_rank: 37, logo_hue: 268 }, // Monash
-  '00025B': { city: 'Brisbane', world_rank: 40, logo_hue: 200 }, // UQ
-  '00098G': { city: 'Sydney', world_rank: 19, logo_hue: 340 }, // UNSW
-  '00126G': { city: 'Perth', world_rank: 77, logo_hue: 150 }, // UWA
-  '00113B': { city: 'Geelong', world_rank: 233, logo_hue: 24 }, // Deakin
-  '00122A': { city: 'Melbourne', world_rank: 140, logo_hue: 0 }, // RMIT
-};
-
-const LEVEL_MAP: Record<string, DegreeLevel> = {
-  'Bachelor Degree': 'Bachelor',
-  'Bachelor Honours Degree': 'Bachelor',
-  'Graduate Certificate': 'PG Diploma',
-  'Graduate Diploma': 'PG Diploma',
-  'Masters Degree (Coursework)': 'Master',
-  'Masters Degree (Research)': 'Master',
-  'Masters Degree (Extended)': 'Master',
-  'Doctoral Degree': 'PhD',
-};
-
-// Documented estimates — NOT sourced from CRICOS (see data/cricos/README.md).
-// A single flat GPA bar per degree level, applied uniformly across all 8
-// universities, was the first cut and was unrealistic: real entry
-// selectivity varies a lot by institution, not just by level (a Go8
-// research-intensive university's Master's bar is genuinely higher than a
-// large, broad-access university's). Tiered by world_rank, which we already
-// hold per institution, so a weaker-but-real transcript can still clear the
-// bar somewhere in the catalogue instead of being locked out of all 8
-// universities by one flat number.
-type Tier = 'selective' | 'moderate' | 'accessible';
-
-function entryDefaults(level: DegreeLevel, worldRank: number) {
-  const tier: Tier = worldRank <= 40 ? 'selective' : worldRank <= 150 ? 'moderate' : 'accessible';
-  const table: Record<Tier, Record<DegreeLevel, { min_gpa: number; min_english_band: number }>> = {
-    selective: {
-      Bachelor: { min_gpa: 58, min_english_band: 6.5 },
-      'PG Diploma': { min_gpa: 58, min_english_band: 6.5 },
-      Master: { min_gpa: 65, min_english_band: 6.5 },
-      PhD: { min_gpa: 75, min_english_band: 6.5 },
-    },
-    moderate: {
-      Bachelor: { min_gpa: 50, min_english_band: 6.0 },
-      'PG Diploma': { min_gpa: 50, min_english_band: 6.0 },
-      Master: { min_gpa: 58, min_english_band: 6.5 },
-      PhD: { min_gpa: 70, min_english_band: 6.5 },
-    },
-    accessible: {
-      Bachelor: { min_gpa: 42, min_english_band: 6.0 },
-      'PG Diploma': { min_gpa: 42, min_english_band: 6.0 },
-      Master: { min_gpa: 52, min_english_band: 6.5 },
-      PhD: { min_gpa: 65, min_english_band: 6.5 },
-    },
-  };
-  return { ...table[tier][level], work_experience_months: 0 };
+function readCsv(file: string): Record<string, string>[] {
+  return parse(readFileSync(join(DATA_DIR, file)), {
+    columns: true,
+    skip_empty_lines: true,
+    bom: true,
+  });
 }
 
-function parseMoney(s: string): number {
-  return Math.round(parseFloat(String(s).replace(/[^0-9.]/g, '')) || 0);
-}
-
-function cleanField(s: string): string {
-  // "0905 - Human Welfare Studies and Services" -> "Human Welfare Studies and Services"
-  return (s || '').replace(/^\d+\s*-\s*/, '').trim();
-}
-
+/** CRICOS carries no live intake dates — forward-looking placeholders, flagged as such. */
 function isoInMonths(months: number): string {
   const d = new Date();
   d.setMonth(d.getMonth() + months);
@@ -97,31 +57,31 @@ function isoInMonths(months: number): string {
 async function main() {
   const ds = new DataSource(dataSourceOptions);
   await ds.initialize();
-  console.log('Connected. Replacing synthetic AU catalogue with real CRICOS data...');
+  console.log('Connected. Seeding the AU catalogue from the CRICOS register fixture...');
 
   const uniRepo = ds.getRepository(University);
   const courseRepo = ds.getRepository(Course);
+  const campusRepo = ds.getRepository(UniversityCampus);
+  const courseCampusRepo = ds.getRepository(CourseCampus);
 
-  const institutions: any[] = parse(readFileSync(join(DATA_DIR, 'institutions.csv')), {
-    columns: true,
-    skip_empty_lines: true,
-    bom: true,
-  });
-  const courses: any[] = parse(readFileSync(join(DATA_DIR, 'courses.csv')), {
-    columns: true,
-    skip_empty_lines: true,
-    bom: true,
-  });
+  const institutions = readCsv('institutions.csv');
+  const courses = readCsv('courses.csv');
+  const locationsFor = locationsByCode(readCsv('locations.csv'));
+  const courseLocations = readCsv('course-locations.csv');
 
-  // Wipe the old synthetic AU catalogue (cascades to scholarship/course_intake)
-  // — but never a university/course seeded by a DIFFERENT import that this
-  // one doesn't own (e.g. src/seed/aggregator-research-import.ts's real
-  // courses for institutions outside the CRICOS CSV). A plain `country: 'AU'`
-  // wipe would silently delete those every time this import re-runs (the
-  // PRODUCT_PLAN's own "quarterly re-verify" cadence), since they share the
-  // same country code. Preserve any university that has at least one
-  // `data_confidence: 'unverified_aggregator'` course.
-  const protectedUniIds = (
+  // Universities are UPSERTED by CRICOS provider code, not wiped and recreated.
+  //
+  // The previous delete-all-then-insert had a rule to preserve any university
+  // holding an `unverified_aggregator` course, so the aggregator import's rows
+  // survived. Once those aggregator courses were merged onto the real register
+  // rows, that rule started protecting *register* rows — which were then
+  // re-inserted, producing two rows per provider for all 8 merged institutions.
+  // Upserting on the provider code removes that whole class of bug and makes
+  // re-running this seed idempotent.
+  //
+  // Courses are still replaced wholesale, except aggregator-sourced ones, which
+  // this import does not own.
+  const aggregatorUniIds = (
     await courseRepo
       .createQueryBuilder('c')
       .select('DISTINCT c.university_id', 'university_id')
@@ -130,110 +90,216 @@ async function main() {
       .getRawMany()
   ).map((r: { university_id: string }) => r.university_id);
 
-  const courseWhere = protectedUniIds.length
-    ? { country: 'AU' as const, university_id: Not(In(protectedUniIds)) }
-    : { country: 'AU' as const };
-  const uniWhere = protectedUniIds.length
-    ? { country: 'AU' as const, id: Not(In(protectedUniIds)) }
-    : { country: 'AU' as const };
-
-  const oldCourses = await courseRepo.count({ where: courseWhere });
-  await courseRepo.delete(courseWhere);
-  const oldUnis = await uniRepo.count({ where: uniWhere });
-  await uniRepo.delete(uniWhere);
+  const oldCourses = await courseRepo.count({
+    where: { country: 'AU', data_confidence: 'verified' },
+  });
+  await courseRepo.delete({ country: 'AU', data_confidence: 'verified' });
   console.log(
-    `  removed ${oldUnis} synthetic universities, ${oldCourses} synthetic courses` +
-      (protectedUniIds.length ? ` (preserved ${protectedUniIds.length} universities with unverified-aggregator research data)` : ''),
+    `  removed ${oldCourses} register-sourced courses` +
+      (aggregatorUniIds.length
+        ? `; kept aggregator-sourced courses at ${aggregatorUniIds.length} institution(s)`
+        : ''),
   );
 
+  const now = new Date();
   const uniIdByCode = new Map<string, string>();
-  for (const inst of institutions) {
-    const code = inst['CRICOS Provider Code'];
-    const meta = UNI_META[code];
-    if (!meta) continue;
-    const saved = await uniRepo.save(
-      uniRepo.create({
-        name: inst['Institution Name'],
-        country: 'AU',
-        city: meta.city,
-        world_rank: meta.world_rank,
-        logo_hue: meta.logo_hue,
-        verified_at: new Date(),
-      }),
-    );
-    uniIdByCode.set(code, saved.id);
-  }
-  console.log(`  university: ${uniIdByCode.size} rows (real CRICOS institutions)`);
+  const uniByCode = new Map<string, ReturnType<typeof mapUniversity>>();
+  const uniBatch: Partial<University>[] = [];
+  const codes: string[] = [];
 
-  let imported = 0,
-    skipped = 0;
+  const campusesByCode = new Map<string, ReturnType<typeof mapCampuses>>();
+  for (const inst of institutions) {
+    const code0 = inst['CRICOS Provider Code'];
+    const campusRows = mapCampuses(inst, locationsFor.get(code0) ?? []);
+    campusesByCode.set(code0, campusRows);
+    const mapped = mapUniversity(inst, campusRows);
+    uniByCode.set(mapped.cricos_provider_code, mapped);
+    codes.push(mapped.cricos_provider_code);
+    uniBatch.push({
+      name: mapped.name,
+      country: 'AU',
+      city: mapped.city,
+      world_rank: mapped.world_rank,
+      logo_hue: mapped.logo_hue,
+      // Links this real CRICOS row to its already-reviewed admission_policy
+      // briefing where one exists, so the real courses and the real policy for
+      // an institution can find each other.
+      policy_key: mapped.policy_key,
+      cricos_provider_code: mapped.cricos_provider_code,
+      institution_type: mapped.institution_type,
+      student_capacity: mapped.student_capacity,
+      website: mapped.website,
+      address: mapped.address,
+      content_hash: mapped.content_hash,
+      last_fetched_at: now,
+      verified_at: now,
+    });
+  }
+
+  const existingByCode = new Map(
+    (await uniRepo.find({ where: { country: 'AU' } }))
+      .filter((u) => u.cricos_provider_code)
+      .map((u) => [u.cricos_provider_code!, u]),
+  );
+  for (let i = 0; i < uniBatch.length; i++) {
+    const row = uniBatch[i];
+    const existing = existingByCode.get(codes[i]);
+    if (existing) {
+      await uniRepo.update(existing.id, row);
+      uniIdByCode.set(codes[i], existing.id);
+    } else {
+      const saved = await uniRepo.save(uniRepo.create(row));
+      uniIdByCode.set(codes[i], saved.id);
+    }
+  }
+
+  // Register rows for providers no longer in the file. Never touched if they
+  // hold aggregator courses this import doesn't own.
+  const goneFromRegister = [...existingByCode.entries()]
+    .filter(([code, u]) => !uniIdByCode.has(code) && !aggregatorUniIds.includes(u.id))
+    .map(([, u]) => u.id);
+  if (goneFromRegister.length) {
+    await uniRepo.delete({ id: In(goneFromRegister) });
+    console.log(`  removed ${goneFromRegister.length} provider(s) no longer in the register`);
+  }
+  // Campuses. Every registered location is kept, not just the primary one, so a
+  // student who wants Melbourne can match CQU's Melbourne campus.
+  const campusBatch: Partial<UniversityCampus>[] = [];
+  const refreshedUniIds: string[] = [];
+  for (const [code, rows] of campusesByCode) {
+    const universityId = uniIdByCode.get(code);
+    if (!universityId) continue;
+    refreshedUniIds.push(universityId);
+    for (const c of rows) campusBatch.push({ ...c, university_id: universityId });
+  }
+  // Replaced rather than appended: the table is unique on
+  // (university_id, location_name, postcode), so a re-run would otherwise fail.
+  for (let i = 0; i < refreshedUniIds.length; i += 500) {
+    await campusRepo.delete({ university_id: In(refreshedUniIds.slice(i, i + 500)) });
+  }
+  for (let i = 0; i < campusBatch.length; i += 500) {
+    await campusRepo.save(campusBatch.slice(i, i + 500));
+  }
+  const multi = [...campusesByCode.values()].filter((r) => r.length > 1).length;
+  console.log(
+    `  university_campus: ${campusBatch.length} rows (${multi} institutions teach at more than one location)`,
+  );
+
+  const ranked = Object.keys(QS_RANK).filter((c) => uniIdByCode.has(c)).length;
+  const linked = uniBatch.filter((u) => u.policy_key).length;
+  console.log(
+    `  university: ${uniIdByCode.size} rows (${ranked} world-ranked, ${linked} linked to an admission policy)`,
+  );
+
+  let imported = 0;
+  let skipped = 0;
   const batch: Partial<Course>[] = [];
   for (const row of courses) {
-    const code = row['CRICOS Provider Code'];
-    const universityId = uniIdByCode.get(code);
-    const level = LEVEL_MAP[row['Course Level']];
-    const weeks = parseFloat(row['Duration (Weeks)']);
-    const totalFee = parseMoney(row['Tuition Fee']);
-    // Some joint/partner-institution research degrees (e.g. "Doctor of
-    // Philosophy (Beihang - Monash)") show a $0-$1 fee in this field because
-    // tuition is billed by the partner institution, not disclosed here —
-    // real CRICOS-registered AU courses, but not a real domestic price.
-    // `Dual Qualification` doesn't reliably flag these, so a realistic floor
-    // catches the artifact instead.
-    const MIN_REALISTIC_FEE = 3000;
-    if (!universityId || !level || !weeks || totalFee < MIN_REALISTIC_FEE) {
+    const mapped = mapCourse(row);
+    const universityId = mapped ? uniIdByCode.get(mapped.provider_code) : undefined;
+    const uni = mapped ? uniByCode.get(mapped.provider_code) : undefined;
+    if (!mapped || !universityId || !uni) {
       skipped++;
       continue;
     }
-    const years = weeks / 52;
-    const tuitionPerYear = Math.round(totalFee / Math.max(years, 0.25));
-    const field =
-      cleanField(row['Field of Education 1 Detailed Field']) ||
-      cleanField(row['Field of Education 1 Narrow Field']) ||
-      cleanField(row['Field of Education 1 Broad Field']) ||
-      'General';
-    const meta = UNI_META[code];
-    const defaults = entryDefaults(level, meta.world_rank);
-
     batch.push({
       university_id: universityId,
-      university_name: row['Institution Name'],
+      university_name: mapped.university_name,
       country: 'AU',
-      city: meta.city,
-      world_rank: meta.world_rank,
-      title: row['Course Name'],
-      degree_level: level,
-      field,
-      duration_months: Math.max(1, Math.round(weeks / 4.345)),
-      tuition_fee: tuitionPerYear,
+      city: uni.city,
+      world_rank: uni.world_rank,
+      title: mapped.title,
+      degree_level: mapped.degree_level,
+      field: mapped.field,
+      duration_months: mapped.duration_months,
+      tuition_fee: mapped.tuition_fee,
       currency: 'AUD',
       intakes: ['Feb', 'Jul'],
-      // CRICOS doesn't carry live intake dates — reasonable forward-looking
-      // estimates (flagged as such in the report, not presented as sourced).
-      next_intake_date: isoInMonths(row['Course Level'].includes('Doctoral') ? 6 : 3),
-      application_deadline: isoInMonths(row['Course Level'].includes('Doctoral') ? 4 : 1),
-      entry: {
-        min_gpa: defaults.min_gpa,
-        min_english_band: defaults.min_english_band,
-        accepted_tests: ['IELTS', 'PTE', 'TOEFL'],
-        prerequisites: [],
-        work_experience_months: defaults.work_experience_months,
-      },
+      next_intake_date: isoInMonths(mapped.degree_level === 'PhD' ? 6 : 3),
+      application_deadline: isoInMonths(mapped.degree_level === 'PhD' ? 4 : 1),
+      entry: { ...EMPTY_ENTRY_REQUIREMENT },
       career_outcomes: [],
-      cricos: row['CRICOS Course Code'],
-      verified_at: new Date(),
+      cricos: mapped.cricos,
+      content_hash: mapped.content_hash,
+      last_fetched_at: now,
+      verified_at: now,
     });
     imported++;
   }
 
-  // batch insert (save() in chunks — thousands of rows)
   for (let i = 0; i < batch.length; i += 200) {
     await courseRepo.save(batch.slice(i, i + 200));
   }
 
-  console.log(`  course: ${imported} rows imported (real CRICOS), ${skipped} skipped (no fee/duration/unmapped level)`);
+  // Link each course to the campuses that actually teach it. The provider-level
+  // campus list says CQU operates in Melbourne; this says which of its courses
+  // you can actually study there (47 of 79, not all of them).
+  const campusIdByKey = new Map<string, string>();
+  for (const c of await campusRepo.find()) {
+    campusIdByKey.set(`${c.university_id}|${c.location_name}`, c.id);
+  }
+  const courseIdByCricos = new Map<string, string>();
+  for (const c of await courseRepo.find({
+    where: { country: 'AU', data_confidence: 'verified' },
+    select: ['id', 'cricos'],
+  })) {
+    if (c.cricos) courseIdByCricos.set(c.cricos, c.id);
+  }
+
+  await courseCampusRepo.clear();
+  const linkRows: Partial<CourseCampus>[] = [];
+  const seenLink = new Set<string>();
+  let unlinked = 0;
+  for (const row of courseLocations) {
+    const courseId = courseIdByCricos.get(row['CRICOS Course Code']);
+    const universityId = uniIdByCode.get(row['CRICOS Provider Code']);
+    if (!courseId || !universityId) {
+      unlinked++;
+      continue;
+    }
+    const campusId = campusIdByKey.get(`${universityId}|${row['Location Name']}`);
+    if (!campusId) {
+      unlinked++;
+      continue;
+    }
+    const key = `${courseId}|${campusId}`;
+    if (seenLink.has(key)) continue;
+    seenLink.add(key);
+    linkRows.push({ course_id: courseId, campus_id: campusId });
+  }
+  for (let i = 0; i < linkRows.length; i += 1000) {
+    await courseCampusRepo.save(linkRows.slice(i, i + 1000));
+  }
+  // Keep the denormalised column in step with the links it is derived from.
+  await courseRepo.query(`
+    UPDATE "course" c SET "campus_cities" = coalesce(sub.cities, '{}')
+    FROM (
+      SELECT cc.course_id, array_agg(DISTINCT uc.city ORDER BY uc.city) AS cities
+      FROM "course_campus" cc JOIN "university_campus" uc ON uc.id = cc.campus_id
+      GROUP BY cc.course_id
+    ) sub
+    WHERE sub.course_id = c.id
+  `);
+  await courseRepo.query(`
+    UPDATE "course" c SET "campus_cities" = '{}'
+    WHERE array_length(c."campus_cities", 1) IS NOT NULL
+      AND NOT EXISTS (SELECT 1 FROM "course_campus" cc WHERE cc.course_id = c.id)
+  `);
+
+  const multiCampusCourses = new Set(
+    linkRows.map((r) => r.course_id!),
+  ).size;
+  console.log(
+    `  course_campus: ${linkRows.length} links across ${multiCampusCourses} course(s)` +
+      (unlinked ? `; ${unlinked} register row(s) could not be linked` : ''),
+  );
+
+  console.log(
+    `  course: ${imported} rows seeded, ${skipped} skipped (unmapped level, no fee/duration, or unknown provider)`,
+  );
+  console.log('  entry requirements left null — sourced per institution, never inferred here.');
   await ds.destroy();
-  console.log('CRICOS import complete.');
+  console.log('CRICOS seed complete.');
 }
 
 main().catch((err) => {

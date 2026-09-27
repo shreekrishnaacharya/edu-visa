@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { CommonService } from '../../common/services/common.service';
 import { Course } from './course.entity';
 import { PageDto } from '../../common/dto/page.dto';
+import { IPageSearch, Page } from '@sksharma72000/nestjs-search-page';
 import { CourseSearchDto } from './dto/course-search.dto';
 import { CourseWriteDto } from './dto/course-write.dto';
 
@@ -13,16 +14,62 @@ export class CourseService extends CommonService<Course> {
     super(repo);
   }
 
-  list(page: PageDto, search: CourseSearchDto) {
-    // The catalogue grid reads only denormalised columns on `course`
-    // (university_name / city / world_rank / country), so no relation join is
-    // needed here.  (`is_relational` in a customQuery is not honoured by the
-    // search library anyway — it falls through to a LIKE on the FK.)
-    return super.list(page, search, []);
+  /**
+   * The catalogue grid reads only denormalised columns on `course`
+   * (university_name / city / world_rank / country), so no relation join is
+   * needed here.  (`is_relational` in a customQuery is not honoured by the
+   * search library anyway — it falls through to a LIKE on the FK.)
+   */
+  async list(page: PageDto, search: CourseSearchDto): Promise<Page<Course>> {
+    const cq: IPageSearch[] = [];
+    const requested = search.campus_city?.trim();
+
+    if (requested) {
+      // `campus_cities` is a text[] and the search library has no containment
+      // operator. Its `raw` operation is not usable here either: it inlines the
+      // value as SQL verbatim *and* never exposes the table alias, so a predicate
+      // naming the column fails with "invalid reference to FROM-clause entry".
+      //
+      // Resolved to an id pre-filter instead — the same approach
+      // StudentService.list already uses for its array filter. Parameterised, so
+      // the city never reaches SQL as a literal.
+      const rows = await this.repo
+        .createQueryBuilder('c')
+        .select('c.id', 'id')
+        .where('c.campus_cities @> ARRAY[:city]::text[]', { city: requested })
+        .getRawMany<{ id: string }>();
+      const ids = rows.map((r) => r.id);
+      cq.push({
+        column: 'id',
+        operation: 'in',
+        operator: 'and',
+        // No match -> force an empty result set rather than ignoring the filter.
+        value: ids.length ? ids : ['00000000-0000-0000-0000-000000000000'],
+      });
+    }
+
+    return super.list(page, search, cq);
+  }
+
+  /**
+   * Titles/fees for a set of ids, for building AI context. The assistant was
+   * previously handed only a truncated course_id, so it could not say what a
+   * recommended course actually was.
+   */
+  async byIds(ids: string[]): Promise<Course[]> {
+    if (!ids.length) return [];
+    return this.repo.find({ where: { id: In(ids) } });
   }
 
   getOneWithRelations(id: string) {
-    return this.getOne(id, { university: true, scholarships: true, course_intakes: true });
+    return this.getOne(id, {
+      university: true,
+      scholarships: true,
+      course_intakes: true,
+      // Which campuses teach it — the register lists this per course, and it is
+      // not the same as everywhere the provider operates.
+      campuses: { campus: true },
+    });
   }
 
   createFromDto(dto: CourseWriteDto) {

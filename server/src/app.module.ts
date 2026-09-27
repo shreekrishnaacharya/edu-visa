@@ -4,6 +4,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { ThrottlerStorageRedisService } from "@nest-lab/throttler-storage-redis";
 import Redis from "ioredis";
+import { BullModule } from "@nestjs/bullmq";
 import { dataSourceOptions } from "./config/data-source";
 import { env } from "./config/env";
 import { HealthController } from "./modules/health/health.controller";
@@ -23,6 +24,7 @@ import { FollowUpModule } from "./modules/follow-up/follow-up.module";
 import { AssistantModule } from "./modules/assistant/assistant.module";
 import { KnowledgeModule } from "./modules/knowledge/knowledge.module";
 import { AdmissionModule } from "./modules/admission/admission.module";
+import { DataSyncModule } from "./modules/data-sync/data-sync.module";
 import { AppController } from "./app.controller";
 
 @Module({
@@ -38,6 +40,16 @@ import { AppController } from "./app.controller";
         new Redis({ host: env.redis.host, port: env.redis.port }),
       ),
     }),
+    // Background jobs for catalogue sourcing (PRODUCT_PLAN §Appendix-A's
+    // ingestion pipeline). Shares the Redis instance the throttler already
+    // uses; BullMQ needs maxRetriesPerRequest disabled on its connection.
+    BullModule.forRoot({
+      connection: {
+        host: env.redis.host,
+        port: env.redis.port,
+        maxRetriesPerRequest: null,
+      },
+    }),
     StorageModule,
     AuthModule,
     AuditModule,
@@ -52,6 +64,7 @@ import { AppController } from "./app.controller";
     AssistantModule,
     KnowledgeModule,
     AdmissionModule,
+    DataSyncModule,
   ],
   controllers: [HealthController, AppController],
   providers: [

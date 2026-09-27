@@ -82,7 +82,13 @@ export function knockout(
     });
   }
 
-  if (profile.canonical_gpa + 3 < course.entry.min_gpa) {
+  if (course.entry.min_gpa == null) {
+    checks.push({
+      rule: 'academic score',
+      status: 'unknown',
+      detail: `This institution's academic entry minimum has not been sourced from its own admissions page — verify before advising.`,
+    });
+  } else if (profile.canonical_gpa + 3 < course.entry.min_gpa) {
     const detail = `Canonical GPA ${profile.canonical_gpa} is below the entry minimum of ${course.entry.min_gpa}.`;
     reasons.push(detail);
     checks.push({ rule: 'academic score', status: 'fail', detail });
@@ -94,7 +100,13 @@ export function knockout(
     });
   }
 
-  if (profile.english_band == null) {
+  if (course.entry.min_english_band == null) {
+    checks.push({
+      rule: 'English score',
+      status: 'unknown',
+      detail: `This institution's English requirement has not been sourced from its own admissions page — verify before advising.`,
+    });
+  } else if (profile.english_band == null) {
     checks.push({
       rule: 'English score',
       status: 'unknown',
@@ -208,8 +220,12 @@ function academicScore(
   c: EngineCourse,
   student: EngineStudent,
 ) {
-  const margin = p.canonical_gpa - c.entry.min_gpa;
-  let s = 62 + Math.max(-30, Math.min(margin, 22)) * 1.7;
+  // Unsourced bar: score the neutral base only. Treating null as 0 would read
+  // as a huge positive margin and rank the course as a perfect academic fit.
+  let s =
+    c.entry.min_gpa == null
+      ? 62
+      : 62 + Math.max(-30, Math.min(p.canonical_gpa - c.entry.min_gpa, 22)) * 1.7;
   const order = ['Bachelor', 'PG Diploma', 'Master', 'PhD'];
   const want = order.indexOf(student.preferences.degree_level);
   const got = order.indexOf(c.degree_level);
@@ -218,6 +234,12 @@ function academicScore(
 }
 
 function englishScore(p: DerivedProfile, c: EngineCourse, missing: string[]) {
+  if (c.entry.min_english_band == null) {
+    missing.push(
+      "This institution's English requirement has not been sourced from its own admissions page — confirm it before advising.",
+    );
+    return 62;
+  }
   if (p.english_band == null) {
     missing.push(
       'No English test on file — score assumes a test at the entry minimum.',
@@ -284,16 +306,25 @@ function careerScore(
   return clamp(s);
 }
 
-function locationScore(student: EngineStudent, uni: EngineUniversity) {
+function locationScore(
+  student: EngineStudent,
+  uni: EngineUniversity,
+  course?: EngineCourse,
+) {
   let s = 50;
+  // The cities this COURSE is taught in. When the register lists none (31 of
+  // 12,758 rows: 22 register courses it does not cover, plus 9 aggregator-sourced
+  // ones), fall back to the provider's PRIMARY city only — not its whole
+  // footprint. Inheriting every city the provider operates in would assert that
+  // an unknown-location course is available in Melbourne on no evidence, which is
+  // the same optimistic guessing the entry-requirement work removed.
+  const cities = course?.campus_cities?.length ? course.campus_cities : [uni.city];
   if (student.preferences.preferred_countries.includes(uni.country)) s += 30;
-  if (student.preferences.preferred_cities.includes(uni.city)) s += 15;
+  if (student.preferences.preferred_cities.some((c) => cities.includes(c))) s += 15;
   if (student.preferences.ranking_matters && uni.world_rank <= 60) s += 10;
   if (
     student.preferences.city_size === 'big' &&
-    ['Sydney', 'Melbourne', 'Toronto', 'Manchester', 'Auckland'].includes(
-      uni.city,
-    )
+    cities.some((c) => ['Sydney', 'Melbourne', 'Toronto', 'Manchester', 'Auckland'].includes(c))
   )
     s += 5;
   return clamp(s);
@@ -346,7 +377,7 @@ export function score(
     english: englishScore(profile, course, missing_info),
     financial: financialScore(profile, student, course),
     career: careerScore(profile, student, course),
-    location: locationScore(student, uni),
+    location: locationScore(student, uni, course),
     scholarship: scholarshipScore(
       profile,
       student,
@@ -391,7 +422,11 @@ export function score(
     'Statement of Purpose',
   ];
 
-  if (subscores.academic >= 80)
+  if (course.entry.min_gpa == null)
+    concerns.push(
+      `This institution's academic entry bar has not been sourced from its own admissions page — confirm it before advising.`,
+    );
+  else if (subscores.academic >= 80)
     why.push(
       `Strong academic fit — GPA ${profile.canonical_gpa} is comfortably above the ${course.entry.min_gpa} entry bar.`,
     );
@@ -402,7 +437,11 @@ export function score(
       `Academic margin is thin against the ${course.entry.min_gpa} entry minimum — a strong SOP will matter.`,
     );
 
-  if (subscores.english >= 85)
+  if (course.entry.min_english_band == null)
+    concerns.push(
+      `This institution's English requirement has not been sourced from its own admissions page — confirm it before advising.`,
+    );
+  else if (subscores.english >= 85)
     why.push(`English is a clear strength (${profile.english_source}).`);
   else if (profile.english_band == null)
     concerns.push(`No English test on record — book IELTS/PTE before applying.`);

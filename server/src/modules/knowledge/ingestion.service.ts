@@ -11,6 +11,13 @@ import { OpenRouterService } from './openrouter.service';
 const USER_AGENT = 'EduVisaKnowledgeBot/1.0 (+internal research tool; respects robots.txt)';
 const CHUNK_CHARS = 3000; // ~700-800 tokens
 const CHUNK_OVERLAP = 450; // ~15%
+/**
+ * Sentinel written by whichever cleaner produced the text, so `chunkText` can
+ * find DOM-real headings. Exported because `data-sync/site-fetch.service.ts`
+ * cleans scraped pages itself and feeds them to `ingestText`, bypassing
+ * `clean()` here — both must mark headings the same way or the chunker sees none.
+ */
+export const HEADING_MARK = '§ ';
 
 export interface IngestMeta {
   title: string;
@@ -73,27 +80,117 @@ export class IngestionService {
     return !disallowed.some((p) => u.pathname.startsWith(p));
   }
 
+  /**
+   * Keeps block structure instead of flattening the page to one line.
+   *
+   * Collapsing all whitespace destroyed two things that matter downstream:
+   * headings (so `chunkText` can say which section a chunk came from) and table
+   * cell boundaries (so "IELTS 6.5" doesn't become "IELTS6.5" or run into the
+   * next cell). Requirements pages are almost entirely tables, so this is the
+   * difference between a retrievable figure and an unreadable one.
+   */
   private clean(html: string): { title: string; text: string } {
     const $ = cheerio.load(html);
-    $('script, style, nav, header, footer, noscript, svg, form, iframe').remove();
+    $('script, style, noscript, svg, form, iframe').remove();
     const title = $('title').first().text().trim() || $('h1').first().text().trim();
+    $('td, th').each((_, el) => {
+      $(el).append(' | ');
+    });
+    // Mark real headings from the DOM with a sentinel. Guessing from the text
+    // alone cannot work: a table row label ("Bachelor of Social Work") looks
+    // exactly like a heading once the tags are gone, so the chunker would carry
+    // a row label instead of the section it needs ("Cambridge English").
+    $('h1, h2, h3, h4, h5, caption, legend, th[scope="col"]').each((_, el) => {
+      const t = $(el).text().replace(/\s+/g, ' ').trim();
+      if (t) $(el).replaceWith(`\n${HEADING_MARK}${t}\n`);
+    });
+    $('tr, p, li, br, div').each((_, el) => {
+      $(el).append('\n');
+    });
+    $('nav, header, footer').remove();
     const text = $('body')
       .text()
-      .replace(/\s+/g, ' ')
+      .replace(/[ \t\u00a0]+/g, ' ')
+      .replace(/ *\n+ */g, '\n')
+      .replace(/\n{3,}/g, '\n\n')
       .replace(/(\s\.){2,}/g, '')
       .trim();
     return { title, text };
   }
 
+  /**
+   * Whether this line is a heading the DOM actually marked as one.
+   */
+  private isHeading(line: string): boolean {
+    return line.trimStart().startsWith(HEADING_MARK);
+  }
+
+  private headingText(line: string): string {
+    return line.trim().slice(HEADING_MARK.length).trim();
+  }
+
+  /**
+   * Splits on line boundaries and prefixes every chunk after the first with the
+   * heading it falls under.
+   *
+   * A blind character split loses which section a chunk came from, and that is
+   * not cosmetic. UNSW's English-requirements page publishes ONE TABLE PER TEST
+   * — IELTS, TOEFL, PTE, Cambridge — each with the same faculty rows. Split
+   * blindly, the Cambridge table's chunk reads "Law & Justice | 180 overall"
+   * with nothing saying it is Cambridge, and the assistant answered an IELTS
+   * question with "185 overall" (a Cambridge score; IELTS only goes to 9).
+   * Carrying the heading is what makes the retrieved text self-describing.
+   */
   private chunkText(text: string): string[] {
-    if (text.length <= CHUNK_CHARS) return text ? [text] : [];
+    if (!text) return [];
+    if (text.length <= CHUNK_CHARS) return [text];
+
+    const lines = text.split('\n');
     const out: string[] = [];
-    let i = 0;
-    while (i < text.length) {
-      out.push(text.slice(i, i + CHUNK_CHARS));
-      i += CHUNK_CHARS - CHUNK_OVERLAP;
+    let buf: string[] = [];
+    let bufLen = 0;
+    let heading = '';
+    let headingForBuf = '';
+
+    const flush = () => {
+      if (!buf.length) return;
+      const body = buf.join('\n');
+      // Don't repeat the heading if the chunk already opens with it.
+      const prefix =
+        headingForBuf && !body.trimStart().startsWith(headingForBuf) ? `[${headingForBuf}]\n` : '';
+      out.push(prefix + body);
+      // Overlap: carry the tail of this chunk into the next so a row split
+      // across the boundary is still retrievable from one of them.
+      const tail = body.slice(-CHUNK_OVERLAP);
+      buf = tail ? [tail] : [];
+      bufLen = tail.length;
+      headingForBuf = heading;
+    };
+
+    for (const line of lines) {
+      if (this.isHeading(line)) {
+        heading = this.headingText(line);
+        if (!buf.length) headingForBuf = heading;
+      }
+      if (!headingForBuf) headingForBuf = heading;
+
+      // A single line longer than a chunk (a whole flattened table) still has to
+      // be broken up, but at least it keeps its heading prefix.
+      if (line.length > CHUNK_CHARS) {
+        flush();
+        for (let i = 0; i < line.length; i += CHUNK_CHARS - CHUNK_OVERLAP) {
+          const piece = line.slice(i, i + CHUNK_CHARS);
+          out.push(headingForBuf ? `[${headingForBuf}]\n${piece}` : piece);
+        }
+        continue;
+      }
+
+      if (bufLen + line.length + 1 > CHUNK_CHARS) flush();
+      buf.push(line);
+      bufLen += line.length + 1;
     }
-    return out;
+    flush();
+    return out.filter((c) => c.trim().length > 0);
   }
 
   /** Fetch, clean, chunk, embed, and upsert one URL. Idempotent (re-ingest replaces). */

@@ -1,4 +1,4 @@
-import { IsOptional, IsNumber } from 'class-validator';
+import { IsOptional, IsNumber, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
 import { PageSearch } from '@sksharma72000/nestjs-search-page';
 
@@ -35,4 +35,14 @@ export class CourseSearchDto {
   @IsOptional()
   @PageSearch({ operation: 'eq', operator: 'and' })
   university_id?: string;
+
+  /**
+   * "Where can I actually study this?" — matches the cities a course is really
+   * taught in, which is not the same as everywhere its provider operates. Array
+   * containment doesn't fit the search library's operators, so CourseService
+   * resolves it (see `list`); declared here so `whitelist: true` keeps it.
+   */
+  @IsOptional()
+  @IsString()
+  campus_city?: string;
 }

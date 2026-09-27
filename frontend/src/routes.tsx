@@ -12,6 +12,14 @@ import { CourseImportPage } from "@catalog/import";
 import { UniversityListPage } from "@university/list";
 import { UniversityFormPage } from "@university/university-form";
 import { UniversityShowPage } from "@university/show";
+import { DataSyncDashboard } from "@data-sync/index";
+import { CricosSyncWizard } from "@data-sync/cricos-wizard";
+import { SyncRunDetailPage } from "@data-sync/run-detail";
+import { SourceRegistryPage } from "@data-sync/sources";
+import { CurationStartPage } from "@data-sync/curation-start";
+import { CurationChatPage } from "@data-sync/curation-chat";
+import { AdmissionPolicyListPage } from "@admission/list";
+import { AdmissionPolicyShowPage } from "@admission/show";
 import { LoginPage } from "./modules/@auth/login";
 
 const shell = (node: React.ReactNode) => (
@@ -39,6 +47,16 @@ export const routes: RouteObject[] = [
   { path: "/universities/new", element: shell(<UniversityFormPage mode="create" />) },
   { path: "/universities/:id", element: shell(<UniversityShowPage />) },
   { path: "/universities/:id/edit", element: shell(<UniversityFormPage mode="edit" />) },
+
+  { path: "/admission", element: shell(<AdmissionPolicyListPage />) },
+  { path: "/admission/:key", element: shell(<AdmissionPolicyShowPage />) },
+
+  { path: "/data-sync", element: shell(<DataSyncDashboard />) },
+  { path: "/data-sync/cricos", element: shell(<CricosSyncWizard />) },
+  { path: "/data-sync/sources", element: shell(<SourceRegistryPage />) },
+  { path: "/data-sync/curation", element: shell(<CurationStartPage />) },
+  { path: "/data-sync/curation/:id", element: shell(<CurationChatPage />) },
+  { path: "/data-sync/runs/:id", element: shell(<SyncRunDetailPage />) },
 
   { path: "*", element: shell(<Navigate to="/students" replace />) },
 ];

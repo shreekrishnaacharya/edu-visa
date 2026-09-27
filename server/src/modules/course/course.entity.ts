@@ -14,6 +14,7 @@ import { numericTransformer } from '../../common/database/numeric.transformer';
 import { University } from '../university/university.entity';
 import { Scholarship } from './scholarship.entity';
 import { CourseIntake } from './course-intake.entity';
+import { CourseCampus } from './course-campus.entity';
 import { EntryRequirement, EMPTY_ENTRY_REQUIREMENT } from './entry-requirement';
 
 @Entity('course')
@@ -79,6 +80,21 @@ export class Course {
   @OneToMany(() => CourseIntake, (i) => i.course, { cascade: true, eager: true })
   course_intakes: CourseIntake[];
 
+  /** The campuses that actually teach this course (register-sourced). */
+  @OneToMany(() => CourseCampus, (cc) => cc.course)
+  campuses: CourseCampus[];
+
+  /**
+   * The cities from `campuses`, denormalised for matching and filtering — the
+   * same trade already made for `university_name`/`city`/`world_rank`. Reading
+   * the join on every match run cost ~55% more latency, and filtering through it
+   * needed a 3,393-element id list for Melbourne alone. Empty means the register
+   * lists no teaching location for this course, which matching treats as "the
+   * provider's primary city only", never "everywhere it operates".
+   */
+  @Column({ type: 'text', array: true, default: '{}' })
+  campus_cities: string[];
+
   @Column({ type: 'text', array: true, default: '{}' })
   career_outcomes: string[];
 
@@ -88,6 +104,14 @@ export class Course {
 
   @Column({ type: 'timestamptz', nullable: true })
   verified_at: Date | null;
+
+  /** Last automated read from upstream — see University.last_fetched_at. */
+  @Column({ type: 'timestamptz', nullable: true })
+  last_fetched_at: Date | null;
+
+  /** sha256 of the upstream register fields, so an unchanged row is cheap to skip. */
+  @Column({ type: 'varchar', nullable: true })
+  content_hash: string | null;
 
   /**
    * 'verified' = the CRICOS-import / human-verified Tier-1 catalogue this

@@ -103,13 +103,13 @@ export class AdmissionEligibilityService {
     policyKey: string,
     student: Student,
     profile: StudentProfile | null,
-    opts: { level?: ProgramLevel; courseLabel?: string } = {},
+    opts: { level?: ProgramLevel; courseLabel?: string; courseField?: string } = {},
   ): Promise<EligibilityVerdict> {
     const policy = await this.getPolicy(policyKey);
     const checks: EligibilityCheck[] = [];
 
     const level = opts.level ?? this.inferLevel(student, profile);
-    const band = this.pickBand(policy, level, opts.courseLabel);
+    const band = this.pickBand(policy, level, opts.courseLabel, opts.courseField);
     checks.push(...this.academicChecks(policy, band, profile));
     checks.push(...this.englishChecks(band, student, profile));
     checks.push(...this.ageChecks(policy, student, level));
@@ -151,23 +151,95 @@ export class AdmissionEligibilityService {
     return LEVEL_TO_PROGRAM[level] ?? 'PG';
   }
 
-  private pickBand(policy: AdmissionPolicy, level: ProgramLevel, courseLabel?: string): AcademicBand | null {
+  /**
+   * Reduces a band label to the topic it is really about, so it can be compared
+   * against a course title. "Engineering programs (incl. Master of Project
+   * Management, ...)" -> "engineering"; "Diploma / PCL — Health Science stream"
+   * -> "health science".
+   */
+  private bandTopic(label: string): string | null {
+    const head = label
+      .toLowerCase()
+      .split(/[(—\u2014]|\bincl\.?\b/)[0]
+      .replace(/\b(programs?|courses?|stream|streams|entry|applicants?)\b/g, ' ')
+      .replace(/\bdiploma\s*\/\s*pcl\b/g, ' ')
+      .replace(/[^a-z ]+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    if (!head) return null;
+    // Generic labels describe the level, not a subject, and are handled by the
+    // `general` fallback below.
+    if (/^(general|undergraduate|postgraduate|other|all)$/.test(head)) return null;
+    return head;
+  }
+
+  /**
+   * Chooses which academic band of a policy governs a specific course.
+   *
+   * Two passes, most specific first:
+   *
+   * 1. The band label explicitly names the course ("Engineering programs (incl.
+   *    Master of Project Management)" for a Master of Project Management). This
+   *    must run first — that course also contains the word "management", so topic
+   *    matching alone would hand it CQU's *Management* band at 70 -> 60 and turn a
+   *    fail into a pass.
+   * 2. The band's topic appears in the course's title or field of education. Added
+   *    because pass 1 alone matched only 4 of CQU's 80 courses: its real
+   *    "Management programs: 60" band was never applied to its MBAs, and the
+   *    report claimed "no academic-threshold data on file" for a policy that
+   *    plainly had one.
+   *
+   * A topic match is used only when exactly one band matches. Two matches are
+   * genuinely ambiguous, and guessing produced a confidently wrong number before
+   * (an MBA silently took CQU's "Medical programs" band because it was listed
+   * first), so ambiguity stays `unknown`.
+   */
+  /**
+   * The band that governs a specific course, exposed so consistency checks and
+   * reconciliation resolve it through exactly the same rules the matcher uses —
+   * a second implementation would drift and defeat the point.
+   */
+  async bandForCourse(
+    policyKey: string,
+    degreeLevel: DegreeLevel,
+    title: string,
+    field?: string,
+  ): Promise<{ band: AcademicBand | null; level: ProgramLevel }> {
+    const policy = await this.getPolicy(policyKey);
+    const level = this.programLevelFor(degreeLevel);
+    return { band: this.pickBand(policy, level, title, field), level };
+  }
+
+  private pickBand(
+    policy: AdmissionPolicy,
+    level: ProgramLevel,
+    courseLabel?: string,
+    courseField?: string,
+  ): AcademicBand | null {
     const candidates = policy.academics.filter((b) => b.level === level);
     if (!candidates.length) return null;
+
     if (courseLabel) {
       const needle = courseLabel.toLowerCase();
       const named = candidates.find((b) => b.label.toLowerCase().includes(needle));
       if (named) return named;
     }
-    // Prefer a "general" band over a named-course one when no course was specified.
+
+    const haystack = `${courseLabel ?? ''} ${courseField ?? ''}`.toLowerCase();
+    if (haystack.trim()) {
+      const byTopic = candidates.filter((b) => {
+        const topic = this.bandTopic(b.label);
+        if (!topic) return false;
+        return new RegExp(`\\b${topic.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`).test(haystack);
+      });
+      if (byTopic.length === 1) return byTopic[0];
+    }
+
+    // Prefer a "general" band over a named-course one when nothing more specific matched.
     const general = candidates.find((b) => /general/i.test(b.label));
     if (general) return general;
-    // Multiple named, non-general bands (e.g. CQU's Medical/Engineering/
-    // Management split) with no courseLabel match — guessing `candidates[0]`
-    // produces a confidently-WRONG number instead of an honest "unknown"
-    // (found via a real test: an MBA silently matched CQU's "Medical
-    // programs" band, listed first, because nothing else matched). Only a
-    // single unambiguous candidate is safe to default to.
+    // Multiple named, non-general bands with no match — only a single
+    // unambiguous candidate is safe to default to.
     return candidates.length === 1 ? candidates[0] : null;
   }
 

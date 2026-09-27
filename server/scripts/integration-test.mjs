@@ -131,7 +131,13 @@ async function main() {
 
   await check("catalogue: universities list", async () => {
     const { data } = await A.get("/universities?_end=50");
-    if (data.totalElements !== 8) throw new Error(`expected 8, got ${data.totalElements}`);
+    // Was pinned at 8 when the catalogue was a hand-filtered snapshot. The
+    // register now imports every provider with a higher-ed course (~663), and
+    // that number moves as providers register and deregister, so assert the
+    // floor rather than an exact count that would go stale every month.
+    if (!(data.totalElements >= 500)) {
+      throw new Error(`expected the full CRICOS register (>=500 institutions), got ${data.totalElements}`);
+    }
     return { total: data.totalElements };
   });
 

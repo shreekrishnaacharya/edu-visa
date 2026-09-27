@@ -92,8 +92,9 @@ export interface EScholarship {
 }
 
 export interface EEntryRequirement {
-  min_gpa: number;
-  min_english_band: number;
+  /** null = not sourced from the institution; the matching gate is skipped. */
+  min_gpa: number | null;
+  min_english_band: number | null;
   prerequisites: string[];
   work_experience_months: number;
 }
@@ -112,12 +113,25 @@ export interface EngineCourse {
   entry: EEntryRequirement;
   scholarships: EScholarship[];
   career_outcomes: string[];
+  /**
+   * Cities where THIS course is actually taught. A provider operating in a city
+   * does not mean every one of its courses runs there — CQU teaches in 11 cities
+   * but only 47 of its 79 courses in Melbourne — so this is what location
+   * matching should use, falling back to the provider's campuses when the
+   * register lists none for the course.
+   */
+  campus_cities?: string[];
 }
 
 export interface EngineUniversity {
   id: string;
   name: string;
   country: Country;
+  /**
+   * The primary campus's city — the fallback for a course whose teaching
+   * locations the register does not list. Per-course availability lives on
+   * `EngineCourse.campus_cities`, which is what location matching actually uses.
+   */
   city: string;
   world_rank: number;
 }

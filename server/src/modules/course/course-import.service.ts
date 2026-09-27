@@ -23,7 +23,19 @@ export interface ImportResult {
  * columns: university_name,country,city,title,degree_level,field,
  * duration_months,tuition_fee,currency,next_intake_date,application_deadline,
  * min_gpa,min_english_band,cricos
+ *
+ * min_gpa / min_english_band are optional: leave them blank when the
+ * institution's real bar isn't known, and the matching engine will report
+ * those gates as unknown instead of treating the course as having no bar.
  */
+/** Blank/non-numeric -> null ("not sourced"), never 0. */
+function band(raw: string | undefined): number | null {
+  const s = (raw ?? '').trim();
+  if (!s) return null;
+  const n = Number(s);
+  return Number.isFinite(n) && n > 0 ? n : null;
+}
+
 @Injectable()
 export class CourseImportService {
   constructor(
@@ -77,11 +89,17 @@ export class CourseImportService {
         next_intake_date: r.next_intake_date,
         application_deadline: r.application_deadline,
         entry: {
-          min_gpa: Number(r.min_gpa) || 0,
-          min_english_band: Number(r.min_english_band) || 0,
+          // Blank stays null ("not sourced") rather than collapsing to a 0 the
+          // engine would read as "no entry bar at all".
+          min_gpa: band(r.min_gpa),
+          min_english_band: band(r.min_english_band),
           accepted_tests: ['IELTS', 'PTE', 'TOEFL'],
           prerequisites: (r.prerequisites ?? '').split('|').filter(Boolean),
           work_experience_months: Number(r.work_experience_months) || 0,
+          requirement_source:
+            band(r.min_gpa) == null && band(r.min_english_band) == null
+              ? null
+              : (r.requirement_source ?? 'counsellor CSV upload'),
         },
         career_outcomes: (r.career_outcomes ?? '').split('|').filter(Boolean),
         cricos: r.cricos || null,

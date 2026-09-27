@@ -23,6 +23,27 @@ export interface AdmissionEligibility {
   source: 'real_policy' | 'catalogue_entry_requirement';
   overall: 'eligible' | 'not_eligible' | 'conditionally_eligible' | 'insufficient_data';
   checks: AdmissionCheck[];
+  /**
+   * Which academic band of the policy governed this course, and how the source
+   * worded it. `evaluate()` always works this out; it used to be discarded when
+   * the verdict was cached, so the report could only hint at the band inside a
+   * detail string and never name it as data.
+   */
+  matched_band?: {
+    level: string;
+    label: string;
+    min_canonical_score: number | null;
+    source_expression?: string;
+    min_ielts_overall: number | null;
+    min_ielts_band: number | null;
+  } | null;
+  /**
+   * Scholarship terms the institution's briefing states. Carried because the
+   * scored `scholarship_potential` can only read `course.scholarships`, of which
+   * the register supplies none — so a provider with real published scholarships
+   * was reported as having none at all.
+   */
+  scholarship_notes?: string[];
 }
 
 /**

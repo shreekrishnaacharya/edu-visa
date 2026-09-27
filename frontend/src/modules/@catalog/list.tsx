@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 import { type HttpError, useCan, useDelete } from "@refinedev/core";
 import {
@@ -16,6 +16,7 @@ import {
   Slider,
   Stack,
   TextField,
+  Autocomplete,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -32,6 +33,8 @@ import { AppBreadcrumbs } from "@components/breadcrumb/app.breadcrumb";
 import { Monogram } from "@components/other/monogram";
 import { LabelData } from "@components/other/label.data";
 import { useRefineDataGrid } from "@hooks/useDataGrid";
+import { axiosInstance } from "../../_service/axious";
+import { BASE_URL } from "@common/options";
 import { computeCourseGaps } from "@utils/university-data-gaps";
 import type { Course } from "@mocks/types";
 
@@ -48,6 +51,16 @@ export function CatalogueListPage() {
   // silently pre-filtered before the user touches the slider.
   const [maxFee, setMaxFee] = useState(170000);
   const [selected, setSelected] = useState<Course | null>(null);
+  // 672 institutions is far too many for a dropdown, so this is a
+  // search-as-you-type lookup against the same list endpoint.
+  const [uniQuery, setUniQuery] = useState("");
+  const [uniOptions, setUniOptions] = useState<{ id: string; label: string; sub?: string }[]>([]);
+  const [uniPick, setUniPick] = useState<{ id: string; label: string } | null>(null);
+  const [uniLoading, setUniLoading] = useState(false);
+  // Campus city is a different question from the provider's home city: it asks
+  // where a course is actually taught.
+  const [campusCity, setCampusCity] = useState("");
+  const [campusCities, setCampusCities] = useState<string[]>([]);
 
   const { data: canWrite } = useCan({ resource: "courses", action: "create" });
   const { mutate: remove } = useDelete();
@@ -58,16 +71,69 @@ export function CatalogueListPage() {
     pagination: { pageSize: 25 },
   });
 
-  const apply = (patch?: Partial<{ country: string; level: string; field: string; maxFee: number }>) => {
+  useEffect(() => {
+    let live = true;
+    setUniLoading(true);
+    axiosInstance
+      .get(`${BASE_URL}/universities`, {
+        params: { _start: 0, _end: 30, name_like: uniQuery || undefined, _sort: "name", _order: "asc" },
+      })
+      .then(({ data }) => {
+        if (!live) return;
+        const rows = data?.elements ?? [];
+        setUniOptions(
+          rows.map((u: any) => ({ id: u.id, label: u.name, sub: `${u.city ?? ""} · ${u.institution_type ?? ""}` })),
+        );
+      })
+      .finally(() => live && setUniLoading(false));
+    return () => {
+      live = false;
+    };
+  }, [uniQuery]);
+
+  useEffect(() => {
+    axiosInstance
+      .get(`${BASE_URL}/reference/campus-cities`)
+      .then(({ data }) => setCampusCities(Array.isArray(data) ? data : []))
+      .catch(() => setCampusCities([]));
+  }, []);
+
+  // Deep link from a university page: /catalogue?university_id=<id>
+  useEffect(() => {
+    const fromUrl = new URLSearchParams(window.location.search).get("university_id");
+    if (!fromUrl) return;
+    apply({ universityId: fromUrl });
+    // Resolve the real name so the filter doesn't read "Selected institution".
+    axiosInstance
+      .get(`${BASE_URL}/universities/${fromUrl}`)
+      .then(({ data }) => setUniPick({ id: fromUrl, label: data?.name ?? "Selected institution" }))
+      .catch(() => setUniPick({ id: fromUrl, label: "Selected institution" }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const apply = (
+    patch?: Partial<{
+      country: string;
+      level: string;
+      field: string;
+      maxFee: number;
+      universityId: string;
+      campusCity: string;
+    }>,
+  ) => {
     const c = patch?.country ?? country;
     const l = patch?.level ?? level;
     const f = patch?.field ?? field;
     const m = patch?.maxFee ?? maxFee;
+    const uni = patch?.universityId !== undefined ? patch.universityId : uniPick?.id;
+    const cc = patch?.campusCity !== undefined ? patch.campusCity : campusCity;
     setFilters([
       { field: "country", operator: "eq", value: c || undefined },
       { field: "degree_level", operator: "eq", value: l || undefined },
       { field: "field", operator: "contains", value: f || undefined },
       { field: "tuition_fee", operator: "lte", value: m },
+      { field: "university_id", operator: "eq", value: uni || undefined },
+      { field: "campus_city", operator: "eq", value: cc || undefined },
     ]);
   };
 
@@ -193,6 +259,50 @@ export function CatalogueListPage() {
             <TextField size="small" label="Field contains" value={field}
               onChange={(e) => setField(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && apply()} />
+            <TextField
+              size="small"
+              select
+              label="Taught in"
+              value={campusCity}
+              sx={{ minWidth: 170 }}
+              onChange={(e) => {
+                setCampusCity(e.target.value);
+                apply({ campusCity: e.target.value });
+              }}
+              helperText={campusCity ? "courses actually taught there" : undefined}
+            >
+              <MenuItem value="">Anywhere</MenuItem>
+              {campusCities.map((c) => (
+                <MenuItem key={c} value={c}>
+                  {c}
+                </MenuItem>
+              ))}
+            </TextField>
+            <Autocomplete
+              size="small"
+              sx={{ minWidth: 260 }}
+              options={uniOptions}
+              loading={uniLoading}
+              value={uniPick as any}
+              onChange={(_, v: any) => {
+                setUniPick(v);
+                apply({ universityId: v?.id ?? "" });
+              }}
+              onInputChange={(_, v) => setUniQuery(v)}
+              getOptionLabel={(o: any) => o?.label ?? ""}
+              isOptionEqualToValue={(a: any, b: any) => a?.id === b?.id}
+              renderOption={(props, o: any) => (
+                <li {...props} key={o.id}>
+                  <Box>
+                    <Typography variant="body2">{o.label}</Typography>
+                    {o.sub?.trim() !== "·" && (
+                      <Typography variant="caption" color="text.secondary">{o.sub}</Typography>
+                    )}
+                  </Box>
+                </li>
+              )}
+              renderInput={(params) => <TextField {...params} label="University / college" />}
+            />
             <Box sx={{ minWidth: 230, px: 1 }}>
               <Typography variant="caption" color="text.secondary">
                 Max tuition/yr · A$ {maxFee.toLocaleString()}
@@ -229,7 +339,34 @@ export function CatalogueListPage() {
   );
 }
 
+interface CampusRow {
+  campus?: { id: string; city: string; location_name: string; state: string | null };
+}
+
 function CourseDialog({ course, onClose }: { course: Course | null; onClose: () => void }) {
+  // Teaching locations are per course and are not in the list payload, so the
+  // dialog fetches them. "Where can I actually study this?" is a different
+  // question from "where does this provider operate?".
+  const [campuses, setCampuses] = useState<CampusRow[]>([]);
+  const [campusesLoading, setCampusesLoading] = useState(false);
+
+  useEffect(() => {
+    if (!course) {
+      setCampuses([]);
+      return;
+    }
+    let live = true;
+    setCampusesLoading(true);
+    axiosInstance
+      .get(`${BASE_URL}/courses/${course.id}`)
+      .then(({ data }) => live && setCampuses(data?.campuses ?? []))
+      .catch(() => live && setCampuses([]))
+      .finally(() => live && setCampusesLoading(false));
+    return () => {
+      live = false;
+    };
+  }, [course?.id]);
+
   return (
     <Dialog open={Boolean(course)} onClose={onClose} maxWidth="sm" fullWidth>
       {course && (
@@ -252,6 +389,35 @@ function CourseDialog({ course, onClose }: { course: Course | null; onClose: () 
               <Grid size={6}><LabelData label="Intakes" value={course.intakes.join(", ")} /></Grid>
               <Grid size={6}><LabelData label="Next intake" value={course.next_intake_date} /></Grid>
               <Grid size={6}><LabelData label="Deadline" value={course.application_deadline} /></Grid>
+              <Grid size={12}>
+                <Typography variant="caption" color="text.secondary">
+                  Taught at
+                </Typography>
+                {campusesLoading ? (
+                  <Typography variant="body2">…</Typography>
+                ) : campuses.length ? (
+                  <Stack direction="row" spacing={0.5} flexWrap="wrap" useFlexGap sx={{ mt: 0.5 }}>
+                    {[...new Map(
+                      campuses
+                        .filter((c) => c.campus)
+                        .map((c) => [c.campus!.city, c.campus!]),
+                    ).values()].map((cp) => (
+                      <Chip
+                        key={cp.id}
+                        size="small"
+                        variant="outlined"
+                        label={`${cp.city}${cp.state ? ` (${cp.state})` : ""}`}
+                      />
+                    ))}
+                  </Stack>
+                ) : (
+                  <Tooltip title="The register lists no teaching locations for this course, so matching falls back to the provider's primary campus rather than assuming it runs everywhere.">
+                    <Typography variant="body2" color="warning.main">
+                      not listed in the register
+                    </Typography>
+                  </Tooltip>
+                )}
+              </Grid>
             </Grid>
 
             <Divider sx={{ my: 2 }} />

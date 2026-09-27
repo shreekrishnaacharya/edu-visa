@@ -30,6 +30,8 @@ export default defineConfig({
       { find: /^@catalog(.+)/, replacement: r("src/modules/@catalog/$1") },
       { find: /^@university(.+)/, replacement: r("src/modules/@university/$1") },
       { find: /^@match(.+)/, replacement: r("src/modules/@match/$1") },
+      { find: /^@data-sync(.+)/, replacement: r("src/modules/@data-sync/$1") },
+      { find: /^@admission(.+)/, replacement: r("src/modules/@admission/$1") },
       { find: /^@mocks(.+)/, replacement: r("src/mocks/$1") },
     ],
   },

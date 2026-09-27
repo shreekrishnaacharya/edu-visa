@@ -17,7 +17,9 @@ export class UniversityController {
 
   @Get(':id')
   getOne(@Param('id') id: string) {
-    return this.universities.getOne(id);
+    // Campuses come with the record: a provider is routinely one institution in
+    // several cities, and the detail page has to show all of them.
+    return this.universities.getOne(id, { campuses: true });
   }
 
   @Roles(Role.SuperAdmin)

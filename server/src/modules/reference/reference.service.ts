@@ -41,4 +41,15 @@ export class ReferenceService implements OnModuleInit {
   toIeltsEquivalent(test: EnglishTest, overall: number): number {
     return toIeltsEquivalent(test, overall);
   }
+
+  /** Distinct campus cities that at least one course is taught in. */
+  async campusCities(): Promise<string[]> {
+    const rows: { city: string }[] = await this.fxRepo.manager.query(
+      `SELECT DISTINCT uc.city
+         FROM university_campus uc
+         JOIN course_campus cc ON cc.campus_id = uc.id
+        ORDER BY uc.city`,
+    );
+    return rows.map((r) => r.city);
+  }
 }

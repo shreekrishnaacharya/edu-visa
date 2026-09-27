@@ -61,6 +61,20 @@ export function rankCourses({
     const verdict = admissionVerdicts?.get(course.id);
     if (verdict) {
       result.admission_eligibility = verdict;
+      // The scored scholarship dimension can only see `course.scholarships`, and
+      // the register supplies none — so an institution with real published
+      // scholarship terms showed as having nothing. Surface the policy's own
+      // wording alongside, clearly attributed. The numeric score is left alone:
+      // turning prose like "25% if GPA above 3.2" into a subscore would be
+      // guessing, and only structured `scholarship_tiers` can drive it.
+      if (verdict.scholarship_notes?.length) {
+        result.scholarship_opportunities = [
+          ...result.scholarship_opportunities,
+          ...verdict.scholarship_notes.map(
+            (n) => `${verdict.institution} (from its admission policy): ${n}`,
+          ),
+        ];
+      }
       if (enforceAdmissionEligibility && verdict.overall === 'not_eligible') {
         result.knockout = true;
         result.overall = 0;

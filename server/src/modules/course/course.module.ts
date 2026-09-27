@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Course } from './course.entity';
 import { Scholarship } from './scholarship.entity';
 import { CourseIntake } from './course-intake.entity';
+import { CourseCampus } from './course-campus.entity';
 import { University } from '../university/university.entity';
 import { CourseService } from './course.service';
 import { CourseController } from './course.controller';
@@ -10,7 +11,7 @@ import { CourseImportService } from './course-import.service';
 import { CourseImportController } from './course-import.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Course, Scholarship, CourseIntake, University])],
+  imports: [TypeOrmModule.forFeature([Course, Scholarship, CourseIntake, University, CourseCampus])],
   providers: [CourseService, CourseImportService],
   controllers: [CourseController, CourseImportController],
   exports: [CourseService],

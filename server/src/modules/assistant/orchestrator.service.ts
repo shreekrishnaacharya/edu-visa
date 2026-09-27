@@ -625,12 +625,45 @@ export class OrchestratorService {
           .join('\n\n')
       : 'No matching grounded sources were retrieved for this question.';
 
-    const matchContext = latestRun
-      ? `Latest MatchRun (${latestRun.created_at}): ${latestRun.results
-          .slice(0, 3)
-          .map((r: any) => `overall ${r.overall} for course ${r.course_id.slice(0, 8)}`)
-          .join('; ')}`
-      : 'No match run yet for this student.';
+    // The engine already computes why/concerns/subscores per course, and the
+    // catalogue holds the title, provider and fee. Passing only a truncated
+    // course_id meant the assistant literally could not answer the commonest
+    // question — "why was this recommended?" — and said so ("the specific course
+    // title for code c3b18ff2 is not explicitly named"). Hand it the real row
+    // and the engine's own reasoning instead of making it guess.
+    let matchContext = 'No match run yet for this student.';
+    if (latestRun) {
+      const top = (latestRun.results ?? []).slice(0, 3);
+      const byId = new Map(
+        (await this.courses.byIds(top.map((r: any) => r.course_id))).map((c) => [c.id, c]),
+      );
+      const lines = top.map((r: any, i: number) => {
+        const c = byId.get(r.course_id);
+        const name = c ? `${c.title} at ${c.university_name} (${c.city})` : r.course_id;
+        const fee = c ? `AUD ${Number(c.tuition_fee).toLocaleString()}/yr, ${c.duration_months} months` : '';
+        const band =
+          c && c.entry?.min_english_band != null
+            ? `requires IELTS ${c.entry.min_english_band}`
+            : 'English requirement not sourced from the provider';
+        const subs = r.subscores
+          ? Object.entries(r.subscores)
+              .map(([k, v]) => `${k} ${v}`)
+              .join(', ')
+          : '';
+        return [
+          `${i + 1}. ${name} — overall ${r.overall}${r.tier ? `, tier ${r.tier}` : ''}`,
+          fee && `   ${fee}; ${band}`,
+          subs && `   subscores: ${subs}`,
+          r.admission_eligibility?.overall &&
+            `   admission verdict: ${r.admission_eligibility.overall}`,
+          r.why?.length && `   strengths: ${r.why.join(' ')}`,
+          r.concerns?.length && `   concerns: ${r.concerns.join(' ')}`,
+        ]
+          .filter(Boolean)
+          .join('\n');
+      });
+      matchContext = `Latest MatchRun (${latestRun.created_at}), top ${top.length} of ${(latestRun.results ?? []).length}:\n${lines.join('\n')}`;
+    }
 
     return { route, passes, student, profile, allChunks, contextBlock, matchContext, degraded };
   }

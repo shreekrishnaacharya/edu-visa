@@ -1,9 +1,664 @@
 CRICOS Provider Code,Trading Name,Institution Name,Institution Type,Institution Capacity,Website,Postal Address Line 1,Postal Address Line 2,Postal Address Line 3,Postal Address Line 4,Postal Address City,Postal Address State,Postal Address Postcode
+00002J,Macquarie University,Macquarie University (Macquarie),Government,"15,000",www.mq.edu.au,MACQUARIE UNIVERSITY,,,,Wallumattagal Campus,NSW,2109
+00003G,University of New England,University of New England,Government,"1,774",www.une.edu.au,University of New England,,,,ARMIDALE,NSW,2351
+00004G,Australian Catholic University,Australian Catholic University Limited,Government,"10,000",www.acu.edu.au,International Education Office,PO Box 968,,,NORTH SYDNEY,NSW,2059
+00005F,Charles Sturt University,Charles Sturt University (CSU),Government,"6,890",www.csu.edu.au,Student Administration,Locked Bag 588,,,WAGGA WAGGA,NSW,2678
 00008C,Monash University,Monash University (Monash),Government,"40,350",www.monash.edu.au,Monash University,Wellington Road,,,Clayton,VIC,3800
+00012G,"Holmesglen, Holmesglen Institute",Holmesglen Institute,Government,"4,575",www.holmesglen.edu.au,PO Box 42,,,,HOLMESGLEN,VIC,3148
+00017B,Bond University Limited,Bond University,Private,"2,980",http://www.bond.edu.au/,The Registrar,Junction of Cottesloe and University Drive,The Arch Building,University Drive,ROBINA,QLD,4226
 00025B,The University of Queensland,The University of Queensland,Government,"25,000",www.uq.edu.au,The University of Queensland,,,,ST LUCIA,QLD,4072
 00026A,The University of Sydney,The University of Sydney,Government,"44,600",http://sydney.edu.au,Michael Spence Building (F23),,,,The University of Sydney,NSW,2006
+00051M,ELC Career College,ELC Career College Pty Ltd,Private,"1,230",www.elc.edu.au,"Level 5, 10 Quay Street",,,,Haymarket,NSW,2000
+00092B,TAFE South Australia,TAFE SA,Government,"2,012",http://www.tafesa.edu.au/international,Level 1,120 Currie Street,,,ADELAIDE,SA,5000
 00098G,UNSW Sydney,The University of New South Wales (UNSW),Government,"39,770",www.unsw.edu.au,The University of New South Wales,,,,Kensington,NSW,2052
+00099F,University of Technology Sydney (UTS),University of Technology Sydney (UTS),Government,"16,300",www.uts.edu.au,PO Box 123,,,,BROADWAY,NSW,2007
+00102E,University of Wollongong,University of Wollongong (UoW),Government,"10,001",www.uow.edu.au,"Building 39A, Northfields Avenue",,,,WOLLONGONG,NSW,2522
+00103D,Federation University Australia,Federation University Australia,Government,"7,090",www.federation.edu.au,PO Box 663,,,,BALLARAT,VIC,3353
+00109J,"The University of Newcastle (UoN), The University of Newcastle Language Centre, Sydney",The University of Newcastle (UoN),Government,"7,800",www.newcastle.edu.au,University Drive,,,,CALLAGHAN,NSW,2308
+00111D,,Swinburne University of Technology,Government,"12,000",https://www.swinburne.edu.au/international,Swinburne International (H5),Swinburne University of Technology,PO Box 218,,HAWTHORN,VIC,3122
 00113B,,Deakin University (Deakin),Government,"20,440",http://www.deakin.edu.au/,221 Burwood Highway,,,,BURWOOD,VIC,3125
+00114A,,Flinders University,Government,"8,070",http://www.flinders.edu.au/,GPO Box 2100,,,,ADELAIDE,SA,5001
+00115M,La Trobe University,La Trobe University (La Trobe),Government,"8,905",http://www.latrobe.edu.au/international,La Trobe University,,,,BUNDOORA,VIC,3083
 00116K,,The University of Melbourne (UniMelb),Government,"40,500",http://www.unimelb.edu.au/,The University of Melbourne,,,,PARKVILLE,VIC,3010
+00117J,James Cook University,James Cook University,Government,"4,100",www.jcu.edu.au,International Student Centre,,,,TOWNSVILLE,QLD,4811
+00120C,,Australian National University,Government,"10,000",http://www.anu.edu.au/,ANU Division of Student Administration,"Di Riddell Student Centre, Building 154",University Avenue,,CANBERRA,ACT,2601
 00122A,RMIT University (RMIT),Royal Melbourne Institute of Technology,Government,"23,020",www.rmit.edu.au,GPO Box 2476,,,,MELBOURNE,VIC,3001
+00124K,Victoria University,Victoria University,Government,"5,001",http://www.vu.edu.au/,PO Box 14428,,,,MELBOURNE,VIC,8001
+00125J,Murdoch University,Murdoch University (Murdoch),Government,"10,000",www.murdoch.edu.au,South Street,,,,MURDOCH,WA,6150
 00126G,The University of Western Australia,The University of Western Australia (UWA),Government,"14,000",http://www.uwa.edu.au/,International Centre,The University of Western Australia,35 Stirling Highway,,CRAWLEY,WA,6009
+00161E,Kent Institute Australia,Kent Institute Australia Pty Ltd,Private,"2,140",www.kent.edu.au,"Mezzanine, and Levels, 1, 5  and",10 Barrack Street,,,SYDNEY,NSW,2000
+00172B,Mercury Colleges Pty Ltd,Mercury Colleges Pty. Limited,Private,"2,511",www.mercurycolleges.nsw.edu.au,PO Box 20241,World Square,,,SYDNEY,NSW,2002
+00197D,"Stott's Colleges, Australian Surf Industry Training School, Front Cooking School, Melbourne Language Centre, Affectors Academy",Acknowledge Education Pty Ltd,Private,"11,954",,168 Exhibition Street,,,,Melbourne,VIC,3000
+00202A,"Cairns Business College Limited, Cairns College of Education",Cairns Business College Limited,Private,120,www.cbcaustralia.com,PO Box 12283,,,,CAIRNS DELIVERY CENTRE,QLD,4870
+00212K,,University of Canberra,Government,"5,412",https://www.canberra.edu.au,11 Kirinari Street,,,,BRUCE,ACT,2617
+00213J,Queensland University of Technology,Queensland University of Technology (QUT),Government,"14,500",www.qut.edu.au,GPO Box 2434,,,,BRISBANE,QLD,4001
+00219C,Central Queensland University,Central Queensland University,Government,"10,165",www.cqu.edu.au,Bruce Highway,,,,NORTH ROCKHAMPTON,QLD,4701
+00231G,"Endeavour College of Natural Health, College of Natural Beauty, FIAFitnation",Australian College of Natural Medicine Pty Ltd,Private,100,www.endeavour.edu.au,Level G  2,230 Brunswick St,,,Fortitude Valley,QLD,4006
+00233E,Griffith University,Griffith University,Government,"11,592",www.griffith.edu.au,International Office,Griffith University,170 Kessels Road,,Nathan,QLD,4111
+00244B,University of Southern Queensland,University of Southern Queensland,Government,"3,800",http://www.usq.edu.au/study/international,West Street Post Office,Darling Heights,,,TOOWOOMBA,QLD,4350
+00246M,"Think Education, APM College of Business and Communication, Australasian College of Natural Therapies, Billy Blue College of Design, Jansen Newman Institute, Southern School of Natural Therapies, William Blue College of Hospitality Management, Australian",Think: Colleges Pty Ltd,Private,"2,300",www.think.edu.au,1-37 Foveaux Street,,,,Surry Hill,NSW,2010
+00253A,,The Australian Ballet School,Private,110,http://www.australianballetschool.com.au/,2 Kavanagh Street,,,,SOUTHBANK,VIC,3006
+00257G,PSC Creative College,Photography Holdings Pty Ltd,Private,100,http://www.psc.edu.au,37  47 Thistlewaite Street,,,,South Melbourne,VIC,3205
+00279B,Edith Cowan University,Edith Cowan University,Government,"8,880",www.ecu.edu.au,270 Joondalup Drive,,,,JOONDALUP,WA,6027
+00300K,Charles Darwin University,Charles Darwin University (CDU),Government,"7,931",www.cdu.edu.au,PO Box,,,,DARWIN,NT,0909
+00301J,Curtin University,Curtin University,Government,"15,650",www.curtin.edu.au,GPO Box U1987,,,,PERTH,WA,6845
+00306D,,Marcus Oldham College,Private,30,http://www.marcusoldham.vic.edu.au/,Private Bag 116,Mail Centre,,,GEELONG,VIC,3221
+00312F,SAE University College,SAE Institute Pty Ltd,Private,676,www.sae.edu.au,373-391 Ewingsdale Road,,,,BYRON BAY,NSW,2481
+00561M,Eynesbury College/Eynesbury Institute of Business and Technology/Eynesbury College Academy of English/Eynesbury/Eynesbury International,Educational Enterprises Australia Pty Ltd,Private,"1,400",www.eynesbury.navitas.com,15-19 Franklin Street,,,,ADELAIDE,SA,5000
+00586B,,University of Tasmania (UTas),Government,"9,861",www.utas.edu.au/international,Private Bag 45,,,,HOBART,TAS,7001
+00591E,TAFE NSW Technical and Further Education Commission; TAFE NSW Higher Education,Technical and Further Education Commission,Government,"6,391",https://www.tafensw.edu.au/international,PO Box 707,,,,Broadway,NSW,2700
+00663E,Queensland School of Beauty Therapy,Queensland School of Beauty Therapy Pty Ltd,Private,800,www.qsb.com.au,28-38 Old Cleveland Road,,,,Stones Corner,QLD,4120
+00665C,The Australian Institute of Music,The Australian Institute of Music Limited,Private,497,www.aim.edu.au,66 Harrington Street,,,,The Rocks,NSW,2000
+00682B,Moore College,Moore Theological College Council,Private,50,www.moore.edu.au,1 King Street,,,,NEWTOWN,NSW,2042
+00724G,Melbourne Polytechnic,Melbourne Polytechnic,Government,"2,185",http://www.melbournepolytechnic.edu.au/,77 - 91 St Georges Rd,,,,PRESTON,VIC,3072
+00756M,National Institute of Dramatic Art,The National Institute of Dramatic Art (NIDA),Government,20,www.nida.edu.au,NIDA UNSW,,,,Sydney,NSW,2052
+00859D,UTS College,UTS College Limited,Private,"4,800",www.utscollege.edu.au,University of Technology Sydney,UTS College CB10.13,PO Box 123,,Broadway,NSW,2007
+00881F,Chisholm Institute,Chisholm Institute,Government,"1,872",http://chisholm.edu.au,PO Box 684,,,,DANDENONG,VIC,3175
+00899G,"Whitecliffe, The Fashion Institute",Whitecliffe Institute of Creative Arts and Technology Pty,Private,550,www.icat.edu.au,55 Regent Street,,,,Chippendale,NSW,2008
+00917K,Western Sydney University,Western Sydney University,Government,"10,500",www.westernsydney.edu.au,"Locked Bag 1797, Penrith NSW 2751",,,,Penrith,NSW,2751
+00956C,Cass Training International College,Cass Training Pty Ltd,Private,"1,152",www.ctic.com.au,48 Lime St,Ground Floor,,,SYDNEY,NSW,2000
+00958A,Alphacrucis College,Alphacrucis University College Limited,Private,"1,163",http://ac.edu.au,PO Box 337,,,,PARRAMATTA,NSW,2124
+00986G,"Perth Bible College, Asia-Pacific School of Pastoral Care and Counselling",Perth Bible College (Inc),Private,25,www.pbc.wa.edu.au,Private Bag 3,,,,KARRINYUP,WA,6921
+01016F,Christian Heritage College,Christian Heritage College,Private,300,www.chc.edu.au,PO Box 2246,,,,MANSFIELD BC,QLD,4152
+01020K,UNSW College,UNSW Global Pty Limited,Private,"6,064",www.unswcollege.edu.au,PO Box 853,,,,KENSINGTON,NSW,1465
+01032F,The University of Notre Dame Australia,The University of Notre Dame Australia,Private,"3,950",www.nd.edu.au,PO Box 1225,,,,FREMANTLE,WA,6959
+01037A,University of Divinity,University of Divinity,Private,201,http://www.divinity.edu.au,90 Albion Road,,,,Box Hill,VIC,3128
+01108B,Academy of Music and Performing Arts,Australian Academy of Music and Performing Arts,Private,120,http://ampa.edu.au/,136 Chalmers Street,,,,Surry Hills,NSW,2010
+01241G,Southern Cross University,Southern Cross University (SCU),Government,"12,024",www.scu.edu.au,PO Box 157,,,,LISMORE,NSW,2480
+01259J,JMC Academy,JMC Pty Limited,Private,370,www.jmcacademy.edu.au,561 Harris Street,,,,Ultimo,NSW,2007
+01328A,"Australian College of Applied Professions, ACAP University College",ACAP University College,Private,"4,600",www.acap.edu.au,Locked Bag 11,,,,STRAWBERRY HILLS,NSW,2012
+01331F,"Australian Pacific College, Southern Cross High School, English Unlimited Sydney, English Unlimited Melbourne",Young Rabbit Pty Ltd,Private,"13,667",www.apc.edu.au,"Lower Ground, 189 Kent Street",,,,SYDNEY,NSW,2000
+01484M,"International College of Management, Sydney; Aspire English; Aspire Institute; International Sport College of Australia","International College of Management, Sydney Pty Limited",Private,"1,520",www.icms.edu.au,151 Darley Road,,,,MANLY,NSW,2095
+01505M,William Angliss Institute,William Angliss Institute of TAFE,Government,"1,705",www.angliss.edu.au,555 La Trobe Street,,,,MELBOURNE,VIC,3000
+01515J,Queensland International Business Academy,QIBA Pty Ltd,Private,"1,200",www.qiba.edu.au,Level 5,532-540 George St,,,SYDNEY,NSW,2000
+01544D,"Actors College of Theatre and Television Pty Ltd, Academy of Film Theatre and Television",Actors College of Theatre and Television Pty Ltd,Private,540,www.actt.edu.au,"Suite 1, 61 Robinson Street",,,,DANDENONG,VIC,3175
+01545C,MIT - Melbourne Institute of Technology,Melbourne Institute of Technology Pty Ltd,Private,"3,494",http://www.mit.edu.au,288 La Trobe St,,,,MELBOURNE,VIC,3000
+01595D,University of the Sunshine Coast,University of the Sunshine Coast,Government,"6,334",www.usc.edu.au,USC Sunshine Coast,90 Sippy Downs Dr.,,,Sippy Downs,QLD,4556
+01718J,BPP Institute Pty Ltd,BPP Institute Pty Ltd,Private,"1,309",www.cic.vic.edu.au,Level 4/108 Lonsdale St,,,,MELBOURNE,VIC,3000
+01768K,Sydney Institute of Traditional Chinese Medicine,Sydney Institute of Health Sciences Pty Ltd,Private,40,www.sitcm.edu.au,PO Box K623,,,,HAYMARKET,NSW,2000
+01774A,Alliance College,ASHT Pty Ltd,Private,"2,144",https://alliancecollege.edu.au/,Level 2,97 Pirie Street,,,ADELAIDE,SA,5000
+01796F,Cambridge College Australia; TradeTech Australia,Cambridge Academy of English Pty Ltd,Private,320,www.cambridgeqld.com,3431 Pacific Hwy,,,,SLACKS CREEK,QLD,4127
+01822J,The Australian College of Physical Education,ACPE Limited,Private,200,www.acpe.edu.au,Locked Bag 2000,,,,CONCORD WEST,NSW,2138
+01856K,WIC SYDNEY,Wells International College Pty Ltd,Private,"1,664",www.wic.edu.au,"LG, 101 Sussex Street",,,,SYDNEY,NSW,2000
+01994M,Magill College Sydney,Magill College Pty Ltd,Private,"1,960",www.magill.edu.au,Level 4,695-699 George Street,,,HAYMARKET,NSW,2000
+02015K,Bureau of Meteorology,Bureau of Meteorology,Government,15,,GPO Box 1289,,,,MELBOURNE,VIC,3001
+02044E,VIT (Victorian Institute of Technology),Victorian Institute of Technology Pty Ltd,Private,"5,661",www.vit.edu.au,Level 14,123 Queen Street,,,Melbourne,VIC,3000
+02123F,YWAM Training Perth,Youth with a Mission (Perth) Inc,Private,420,www.ywamperth.org.au,PO Box 8501,,,,PERTH BUSINESS CENTRE,WA,6849
+02140E,Sydney School of Business and Technology,Sydney School of Business and Technology Pty Ltd,Private,"1,333",www.ssbt.edu.au,"Ground Floor, 4 Railway Pde",,,,Burwood,NSW,2134
+02155J,Academy of Interactive Technology,Academy of Interactive Technology,Private,"1,392",www.ait.nsw.edu.au,Level 2,7 Kelly St,,,ULTIMO,NSW,2007
+02193C,South Australian Institute of Business and Technology (SAIBT)/CELUSA,South Australian Institute of Business and Technology Pty Ltd,Private,"1,200",http://www.saibt.sa.edu.au,GPO Box 2471,,,,ADELAIDE,SA,5001
+02201G,LCI Melbourne,LCI Melbourne Pty Ltd,Private,100,www.lcimelbourne.edu.au,PO Box 1219,,,,Collingwood,VIC,3066
+02224A,Leo Cussen Centre for Law,Leo Cussen Institute,Private,50,www.leocussen.vic.edu.au,Level 15,15 William Street,,,MELBOURNE,VIC,3000
+02225M,USQ - Sydney Education Centre,University of Southern Queensland,Government,"1,320",www.usq.edu.au,University of Southern Queensland,West Street,,,TOOWOOMBA,QLD,4350
+02370B,Royal Brisbane International College; Royal Brisbane Institute of Technology,Dynamic Management Group Pty Ltd,Private,300,www.rbit.qld.edu.au,PO Box 2752,,,Toowoomba,Toowoomba,QLD,4350
+02380M,Le Cordon Bleu Australia Pty Limited,Le Cordon Bleu Australia Pty Limited,Private,"3,680",www.cordonbleu.edu/australia,Days Rd,,,,REGENCY PARK,SA,5010
+02403J,The Queensland Institute of Commerce and Technology Pty Ltd,The Queensland Institute of Commerce and Technology Pty Ltd,Private,376,www.qcve.edu.au,"Level 9, 601 Bourke Street",,,,Melbourne,VIC,3000
+02406F,,The Academy of Interactive Entertainment Ltd,Private,248,www.aie.edu.au,PO Box 519,,,,Dickson,ACT,2602
+02411J,Box Hill Institute,Box Hill Institute,Government,"2,574",www.boxhill.edu.au,Private Bag 2014,,,,BOX HILL,VIC,3128
+02426B,Kaplan Business School Pty Ltd,Kaplan Business School Pty Ltd,Private,"11,395",www.kbs.edu.au,Level 12,45 Clarence Street,,,Sydney,NSW,2000
+02439G,"AAPoly, AMI Education",Academies Australasia Polytechnic Pty Limited,Private,"4,033",http://www.aapoly.edu.au/,Level 7,628 Bourke St,,,MELBOURNE,VIC,3000
+02475D,Victoria University,Victoria University,Government,"4,400",www.vu.edu.au/international,PO Box 14428,,,,MELBOURNE,VIC,8001
+02491D,"Top Education Institute, Australian National Institute of Management and Commerce",Top Education Group Ltd,Private,"3,000",www.imc.edu.au,"Suite 1, Level 1","Bay 3, 2 Locomotive Street",,,EVELEIGH,NSW,2015
+02494A,Australian College of Agriculture & Horticulture (ACAH); Australian College of Agriculture & Horticulture,Rabarl Pty Ltd,Private,390,http://www.acah.edu.au,PO Box 1105,Werribee Plaza,Werribee,,MELBOURNE,VIC,3030
+02506B,Australian National Institute of Business & Technology,Australian National Institute of Business & Technology Pty Ltd,Private,"1,054",http://www.anibt.vic.edu.au,Level 13,474 Flinders St,,,MELBOURNE,VIC,3000
+02543G,Kingston International College,Kingston International College Pty Ltd,Private,870,www.kingstoncollege.wa.edu.au,"Lot 131, 131 Harold st",,,,HIGHGATE,WA,6003
+02571D,"Universal Business School Sydney (UBSS), Group Colleges Australia",Group Colleges Australia Pty Ltd,Private,"9,267","www.ubss.edu.au, www.gca.edu.au",Locked Bag A3100,,,,SYDNEY South,NSW,1235
+02599C,King's Own International College,Australian Academy of Commerce Pty Ltd,Private,300,www.koic.nsw.edu.au,Level 7,11-17 York Street,,,Sydney,NSW,2000
+02615G,Brisbane College of Australia ; Brisbane College of English,Brisbane College of Australia Pty Ltd,Private,154,,PO Box 10704,,,,ADELAIDE STREET BRISBANE,QLD,4000
+02639M,Holmes Institute,Holmes Institute Pty Ltd,Private,"3,200",www.holmesinstitute.edu.au,185 Spring St,,,,MELBOURNE,VIC,3000
+02644C,ECA College,Education Centre of Australia Pty Ltd,Private,"2,146",www.ecacollege.edu.au,Levels 1 & 2,160-166 Sussex Street,,,SYDNEY,NSW,2000
+02650E,Australian University of Theology Limited,Australian University of Theology Limited,Private,286,www.actheology.edu.au,Level 5,33 York Street,,,SYDNEY,NSW,2000
+02657J,"Macquarie English, Macquarie Institute",Macquarie Education Group Australia Pty Ltd,Private,"1,028",www.mega.edu.au,PO Box Q1689,,,,QUEEN VICTORIA BUILDING,NSW,1230
+02658G,"Abbey College Australia, Abbey Training",Logic Entity Australia Pty Ltd,Private,"1,500",www.abbeycollege.edu.au,GF & L3,187 Thomas Street,,,Haymarket,NSW,2000
+02664K,Excelsia University College,Excelsia University College,Private,"6,000",http://excelsia.edu.au/,1 City View Road,,,,Pennant Hills,NSW,2120
+02668F,Pacific College of Technology,Pacific College Pty Ltd,Private,"1,180",www.pct.edu.au,Levels 1 and 2,91 - 95 Rawson Street,,,AUBURN,NSW,2144
+02672K,"Greenwich English College, Greenwich Management College",Greenwich College Pty Ltd,Private,"22,146",www.greenwichcollege.com.au,Level 2,396 Pitt Street,,,SYDNEY,NSW,2000
+02684F,WIN English Centre /  WIN College,George Education Group Pty Ltd,Private,"1,880",www.wincollege.edu.au,Level 1,302-306 Elizabeth St,,,Surry Hills,NSW,2010
+02695C,Imagine Education Australia,Imagine Education Australia Pty Ltd as trustee for The Imagine Education Australia Unit Trust,Private,"3,534",www.imagineeducation.com.au,PO Box 4931,,,,BUNDALL BC,QLD,4215
+02727M,Holmes Institute,Holmes Institute Pty Ltd,Private,"4,657",www.holmesinstitute.edu.au,185 Spring Street,,,,MELBOURNE,VIC,3000
+02731D,Avondale University,Avondale University,Private,605,www.avondale.edu.au,PO Box 19,,,,COORANBONG,NSW,2265
+02736K,"Strathfield College, Sydney Jacaranda College",Strathfield College Pty Ltd,Private,"1,860",www.strathfieldcollege.edu.au,Level 2,84 - 86 Mary Street,,,Surry HIlls,NSW,2010
+02738G,"Campion College, Australia",Campion Institute Limited,Private,60,www.campion.edu.au,PO Box 952,,,,TOONGABBIE EAST,NSW,2146
+02746G,Queensland Academy of Technology,Australia Moreton Education Group Pty Ltd,Private,"1,715",,PO Box 10862,Adelaide Street,,,BRISBANE,QLD,4001
+02767C,Holmes Institute,Holmes Institute Pty Ltd,Private,"4,177",www.holmesinstitute.edu.au,185 Spring Street,,,,MELBOURNE,VIC,3000
+02800G,Warwick Institute of Australia Pty Ltd,Warwick Institute of Australia Pty Ltd,Private,"2,880",www.warwick.edu.au,PO Box K25,,,,HAYMARKET,NSW,1240
+02804C,EQUALS International,EQUALS International (Aust) Pty Ltd,Private,872,www.equals.edu.au,GPO Box 2443,,,,ADELAIDE,SA,5001
+02826G,AVETA - Australian Vocational Education & Training Academy,Sragill Pty Ltd,Private,"1,500",www.aveta.edu.au,Level M,51 Queen Street,,,MELBOURNE,VIC,3000
+02856B,Nova Institute of Technology,Nova International Education Pty Ltd,Private,"3,104",www.novainstitute.net.au,Level 4,220 Albert Road,,,South Melbourne,VIC,3205
+02858M,The Imperial College of Australia,BJSB Pty Ltd,Private,680,www.imperial.edu.au,PO Box 375,,,,Abbotsford,VIC,3067
+02863C,"Whitehouse Institute of Design, Australia",WHITEHOUSE INSTITUTE PTY LTD,Private,180,www.whitehouse-design.edu.au,2 Short Street,,,,SURRY HILLS,NSW,2010
+02870D,CIBT AUSTRALIA,Crown Institute of Business and Technology Pty Ltd,Private,"1,636",https://www.cibt.edu.au,116 Pacific Highway,,,,NORTH SYDNEY,NSW,2060
+02886G,Melbourne College of Hair and Beauty; Melbourne College of Training & Assessment,Melbourne College of Hairdressing Beauty Therapy & Natural Medicine Pty Ltd,Private,300,http://www.mcohb.com.au,"Level 1, 1 Star Crescent",Docklands,,,Melbourne,VIC,3008
+02908F,Barton College,Zarah Institute of Education Pty Ltd,Private,695,www.barton.edu.au,"Level 1, 355 Spencer Street",,,,West Melbourne,VIC,3003
+02914G,ICHM,ICHM Pty Ltd,Private,650,http://www.ichm.edu.au,131-139 Currie St,,,,Adelaide,SA,5000
+02915G,Durban International College,Durban International College Pty Ltd,Private,"2,298",https://dic.edu.au/,"Level 18, 45 Grenfell Street",,,,Adelaide,SA,5000
+02925E,Education Training & Employment Australia,Education Training & Employment Australia Pty. Ltd.,Private,"1,630",http://www.etea.edu.au,PO Box 699,,,,Heidelberg,VIC,3084
+02926D,ALTEC College,Pass Global Pty Ltd,Private,"2,626",www.altec.edu.au,Ground Floor,574 St Kilda Road,,,Melbourne,VIC,3004
+02948J,Australian University College of Divinity,Australian University College of Divinity Ltd,Private,350,www.aucd.edu.au,PO Box 6110,,,,Norwest,NSW,2153
+02970M,,Angad Australian Institute of Technology Pty Ltd,Private,680,,Level 6 501 Latrobe St,,,,Melbourne,VIC,3000
+02992E,RC (Rhodes College),Queens Group Pty Ltd,Private,"1,514",http://www.rhodescollege.vic.edu.au/,"level 3, 118 Queen street",,,,Melbourne,VIC,3000
+02996A,Danford College,Star Gazers Education Pty Ltd,Private,"1,040",www.danford.edu.au,"Level 7, 525 Flinders Street",,,,Melbourne,VIC,3000
+03000J,LONDON COLLEGE,Colleges Australia International Pty Ltd,Private,"1,984",http://www.queens.qld.edu.au,Level 1,108 Margaret Street,,,BRISBANE,QLD,4000
+03009M,Australian National College Pty Ltd,Australian National College Pty Ltd,Private,"1,177",www.anc.vic.edu.au,Ground Floor 182 Capel Street,,,,North Melbourne,VIC,3051
+03010G,"Queensford College, Q Learning",Malekhu Investments Pty Ltd,Private,"4,044",www.queensford.edu.au,"Level 2, 359 Queen Street",,,,Brisbane,QLD,4000
+03015B,,New Cambridge College Sydney Inc,Private,875,www.nccs.nsw.edu.au,"Level 3, 770-772 George Street",,,,Sydney,NSW,2000
+03020E,TAFE Queensland,TAFE Queensland,Government,"9,982",www.tafeqld.edu.au,LMB 14,,,,South Brisbane,QLD,4101
+03039E,Ironwood Career & Training; Ironwood Institute; Imperial College of Trades,Imperial Education Group Pty Ltd,Private,876,www.ironwood.edu.au,PO Box 3440,,,,Rundle Mall,SA,5000
+03042K,"Universal Network of Infotech Pty Ltd, Institute of Technology Australia",Universal Network of Infotech Pty Ltd,Private,200,https://www.iota.edu.au/,PO Box 3610,Rundle Mall,,,Adelaide,SA,5000
+03047E,Stanley College,Stanley International College Pty Ltd,Private,"5,900",www.stanleycollege.edu.au,69 Outram Street,,,,West Perth,WA,6005
+03048D,Asia Pacific International College,Asia Pacific International College Pty Ltd,Private,"3,645",www.apicollege.edu.au,Level 6,1-3 Fitzwilliam Street,,,Parramatta,NSW,2150
+03051J,,Perth College Of Business and Technology Pty Ltd,Private,988,www.pcbt.wa.edu.au,110 Brown Street,,,,East Perth,WA,6004
+03053G,Australian Ideal College,Australian Ideal College Pty Ltd,Private,"1,806",www.aic.edu.au,Level 8,75 King Street,,,SYDNEY,NSW,2000
+03076M,Salford College,SALFORD COLLEGE PTY LTD,Private,"1,035",,Level 11,68 Grenfell Street,,,ADELAIDE,SA,5000
+03090B,Acumen Institute of Further Education,Acumen Education Pty Ltd,Private,"2,055",www.acumen.edu.au,5-9 Elizabeth Street,,,,Richmond,VIC,3121
+03093K,Spencer College; Spencer College Pty Ltd,Spencer College Pty Ltd,Private,"1,100",www.spencercollege.edu.au,Level 1 344 Queen St,,,,BRISBANE CITY,QLD,4000
+03113M,,New England Institute of Technology Pty Ltd,Private,350,http://www.nec.edu.au/,PO Box 4169,,,,East Brisbane,QLD,4169
+03122K,SGSCC International,St George & Sutherland Community College Incorporated,Private,"1,200",http://www.sgscc.edu.au/international,P.O Box 404,,,,Jannali,NSW,2226
+03133G,Adelaide Institute of Health,Adelaide Institute of Business and Technology Pty Ltd,Private,"1,160",,Level 5 127 Rundle Mall,,,,ADELAIDE,SA,5000
+03147A,AIH Higher Education,Australian Institute of Higher Education Pty Ltd,Private,"4,500",www.aih.edu.au,"Level 3 & 4, 545 Kent St",,,,Sydney,NSW,2000
+03155A,The College of Law,The College of Law Limited,Private,200,www.collaw.edu.au,"Level 4, 570 George Street",,,,Sydney,NSW,2000
+03156M,Apex Australia Vocational Education,Apex Institute of Education Pty Ltd,Private,"1,682",www.apexaustralia.edu.au,PO Box 144A,,,,SOUTH STRATHFIELD,NSW,2136
+03164M,Australian College of Technology and Business Pty Ltd,Australian College of Technology and Business Pty Ltd,Private,915,www.actb.com.au,100 Brunswick Street,,,,FORTITUDE VALLEY,QLD,4006
+03167G,St. Peter Institute,St. Peter Institute,Private,315,http://www.spi.vic.edu.au,771 Sayers Rd,,,,Hoppers Crossing,VIC,3029
+03171A,King's Own Institute,Australian Institute of Business and Management Pty Ltd,Private,"6,600",www.koi.edu.au,"Level 11, Transport House, 11 York Street",,,,Sydney,NSW,2000
+03173K,Australis Institute of Technology and Education (AITE),ALIF Australia Pty Ltd,Private,"2,404",www.australisinstitute.nsw.edu.au,25 George St,Level 2,,,PARRAMATTA,NSW,2150
+03187D,AUSTRA COLLEGE,Adelaide College of Technical Education,Private,"1,924",,PO Box 3456,Rundle Street Mall,,,Adelaide,SA,5000
+03188C,West Australian Institute of Further Studies,West Australian Institute of Further Studies Pty Ltd,Private,"1,950",http://www.waifs.wa.edu.au,"Level 1, 160 Central Arcade, 811 Hay Street",,,,Perth,WA,6000
+03197B,National Art School,National Art School,Private,25,www.nas.edu.au,Forbes Street,,,,Darlinghurst,NSW,2010
+03208D,George Brown College,Captain Cook Institute Pty Ltd,Private,"1,235",www.georgebrown.nsw.edu.au,Level 5 191-199 Thomas St,,,,Haymarket,NSW,2000
+03217C,Central Australian College,Central Australian Institute of Technology Pty Ltd,Private,"1,777",,PO Box 6430,,,,West Footscray,VIC,3012
+03221G,"Technical Education Development Institute, Technical Electronics Centre",True Education Pty Ltd,Private,"1,275",http://www.tedi.vic.edu.au,"Level 5, 123 Lonsdale Street",,,,Melbourne,VIC,3000
+03222F,,Australian Health and Science Institute Pty Ltd,Private,610,http://www.ahsi.edu.au,"Suites 101A & 101E, Lvl 1, 130 Main St",,,,Blacktown,NSW,2148
+03226B,Brisbane College of Horticulture,BNB International Colleges Pty Ltd,Private,680,www.bch.edu.au,97 Creek St,Level 3,,,BRISBANE,QLD,4000
+03233C,"Nan Tien Institute, NTI English Language Centre, NTI Business",Nan Tien Institute Limited,Private,285,http://www.nantien.edu.au,PO Box 660,,,,UNANDERRA,NSW,2526
+03234B,Harward International College,Pramukh Group of Companies Pty Ltd,Private,391,http://www.harward.vic.edu.au,8/313 Latrobe Street,,,,MELBOURNE,VIC,3000
+03240D,"Queen Anne English College, Jasmine Education Group Pty Ltd t/a Queen Anne Business College",Jasmine Education Group Pty Ltd,Private,541,http://www.jeg.nsw.edu.au,1/49 Raymond Street,,,,Bankstown,NSW,2200
+03245K,Melbourne Institute of Technology,Melbourne Institute of Technology Pty Ltd,Private,"3,106",www.mit.edu.au,"Level 6, 288 La Trobe Street",,,,Melbourne,VIC,3000
+03248G,"IBN College Pty Ltd, SIBN",IBN College Pty Ltd,Private,753,,140 Elizabeth St,Level 5,,,SYDNEY,NSW,2000
+03249F,Austech Business Institute,Australian Skills Centre Pty Ltd,Private,183,www.ausbizi.nsw.edu.au,PO Box 1060,,,,ROCKDALE,NSW,2216
+03256G,,Nortwest Pty Ltd,Private,"2,695",www.nortwest.edu.au,Level 9 108 Lonsdale St,,,,MELBOURNE,VIC,3000
+03266E,North Melbourne College,Australian Institute of Management and Technology Pty Ltd,Private,240,www.nmc.vic.edu.au,Level 1,13 Elizabeth Street,,,Richmond,VIC,3121
+03279M,Wentworth Institute,Wentworth Institute of Higher Education Pty Ltd,Private,"1,700",www.win.edu.au,"level 1, 302 Elizabeth St",,,,Surry Hills,NSW,2010
+03282E,Perth College of Beauty Therapy; YES College,MVJ Enterprises Pty Ltd,Private,640,www.yescollege.com.au,Level 3,106 Church Street,,,Parramatta,NSW,2150
+03328G,Skills Institute Australia,Skilled Services Australia Pty Ltd,Private,"2,360",,1/10 Judds Court,,,,Slacks Creek,QLD,4127
+03335G,SP Jain School of Global Management Pty Ltd,SP Jain School of Global Management Pty Ltd,Private,750,www.spjain.org,15 Carter Street,,,,Homebush,NSW,2140
+03351G,"Malvern International College, Central Melbourne Institute",Malvern Institute Pty Ltd,Private,920,www.cmi.vic.edu.au,PO BOX 2524,,,,MELBOURNE,VIC,3001
+03374A,,Everest Institute of Education Pty Ltd,Private,772,http://www.everest.edu.au,PO Box 310,,,,FAIRFIELD,VIC,3078
+03375M,Emmaus Bible College,AUSTRALIAN COLLEGE OF CHRISTIAN STUDIES LTD,Private,115,www.ccs.edu.au,PO Box 1101,,,,Burwood,NSW,2134
+03376K,Swan Institute Australia,Australian NIT College Pty Ltd,Private,330,www.sia.wa.edu.au,"Level 3, 335 Flinders Lane",,,,MELBOURNE,VIC,3000
+03377J,Signet Institute of Australia,Signet Institute of Australia,Private,"1,710",www.acfe.edu.au,"Level 3, 45 Grenfell Street",,,,ADELAIDE,SA,5000
+03383M,Gateway Business College,Sicop Education & Technology Pty Ltd,Private,"1,985",www.gatewaycollege.edu.au,PO Box 2389,,,,Burwood,NSW,2134
+03389E,Torrens University Australia; Torrens University Language Centre; Chifley Business School at Torrens University Australia CBS at Torrens University Australia Blue Mountains International Hotel Management School at Torrens University Australia BMIHMS at To,Torrens University Australia Limited,Private,"15,988",www.torrens.edu.au,1-37 Foveaux Street,,,,Surry Hills,NSW,2010
+03390A,Elite Education Institute,Elite Education Institute Pty Ltd,Private,400,www.ee.edu.au,Level 6,8 Quay Street,,,Haymarket,NSW,2000
+03391M,Sheridan Institute of Higher Education,Sheridan College Inc,Private,240,www.sheridan.edu.au,PO Box D178,,,,PERTH,WA,6849
+03392K,Collarts,Australian College of the Arts Pty Ltd,Private,215,www.collarts.edu.au,208 Wellington Street,,,,Collingwood,VIC,3066
+03395G,Berkeley Business Institute Pty Ltd,Berkeley Business Institute Pty Ltd,Private,"2,204",www.berkeley.edu.au,"Suite 1, Lvl 1, 338-340 Pitt St",,,,Sydney,NSW,2000
+03399C,"National Training Centre of Australia, NATIONAL TRAINING COLLEGE OF AUSTRALIA",National Training Centre of Australia Pty Ltd,Private,545,http://www.ntca.edu.au,Level 11 190 Queen Street,,,,Melbourne,VIC,3000
+03400D,Australian College of Studies Co.,Australian Academy of Nursing Pty Ltd,Private,500,www.acos.edu.au,"Suite 415, 100 Victoria Parade",,,,EAST MELBOURNE,VIC,3002
+03402B,Australian Institute of Language and Further Education,Australian Association of Education and Research Pty Ltd,Private,"1,760",http://www.ailfe.wa.edu.au,P. O. Box Z5227,St Georges Tce,,,Perth,WA,6831
+03406J,Lawson College Australia,Lawson College Australia Pty Ltd,Private,"1,050",www.lawsoncollege.edu.au,PO Box 7155,,,,Dandenong,VIC,3175
+03407G,,Institute of Health & Management Pty Ltd,Private,"1,813",www.ihm.edu.au,2/187 Boundary Road,,,,North Melbourne,VIC,3051
+03409F,NSW Business College  Sydney College,NSW Business College Pty Ltd,Private,708,www.sydneycollege.nsw.edu.au,Level 3,84-86 Mary Street,,,Surry Hills,NSW,2010
+03411A,Iona Columba College,Iona Columba College Pty Ltd,Private,160,www.iona.edu.au,5 Wunda Road,,,,Concord West,NSW,2138
+03415G,Protea College,TTY Collective Pty Ltd,Private,"1,135",,"Suite 1, Level 3, 398 Lonsdale Street",,,,MELBOURNE,VIC,3000
+03420M,NIT Australia,NATIONAL INSTITUTE OF TECHNOLOGY PTY. LTD.,Private,"1,280",http://www.nitaustralia.edu.au/,"Unit 1, 251-255 Stirling Street",,,,Perth,WA,6000
+03425F,Keystone College of Business and Technology,Dynamic Education Group Pty Ltd,Private,"1,085",www.kcbt.edu.au,"Level 7, 251 Adelaide Terrace",,,,PERTH,WA,6000
+03426E,Australian College of Business Intelligence,Australian College of Business Intelligence Pty Ltd,Private,"1,775",http://www.acbi.edu.au,"Lvl 2, Suite 207, 451 Pitt St",,,,Sydney,NSW,2000
+03427D,Sydney Metro College,Sydney Metro College Pty Ltd,Private,"1,302",www.sydneymetrocollege.edu.au,Level 2,16-22 Wentworth Avenue,,,Surry Hills,NSW,2010
+03429B,Ozford Institute of Higher Education,Ozford Institute of Higher Education Pty Ltd,Private,860,,Level 5 and 6,333 Queen Street,,,Melbourne,VIC,3000
+03430J,Australia Institute of Business and Technology,Brighton Pacific Pty Ltd,Private,"3,784",http://aibt.qld.edu.au/,"Level 3, 18 Mount Gravatt-Capalaba Road",,,,Uppper Mount Gravatt,QLD,4122
+03431G,"New England School of English, New England College Perth",New England School of English Pty. Ltd.,Private,850,http://www.nec.edu.au,PO BOX 7185,,,,East Brisbane,QLD,4169
+03432G,Entrepreneur Education,Entrepreneur Education Pty Ltd,Private,"1,986",www.entrepreneur.edu.au,PO Box 6122,,,,Gold Coast Mail Centre,QLD,9726
+03437B,Australian Technical College Western Australia,Perth Technical College Pty Ltd,Private,915,,2-8 Francis Street,,,,Perth,WA,6000
+03438A,The Wales Institute,The Wales Institute Pty Ltd,Private,851,,"Level 4, 72 - 82 Mary Street",,,,Surry Hills,NSW,2010
+03439M,Mercury Institute of Victoria,Mercury Institute of Victoria Pty Ltd,Private,525,www.mercury.edu.au,"Level 1, 117 Lonsdale Street",,,,Melbourne,VIC,3000
+03441F,"Russo Institute of Higher Education, RIHE, Russo Business School",Russo Business School Pty Ltd,Private,250,www.russo.qld.edu.au,GPO Box 2304,,,,Brisbane,QLD,4000
+03442E,"Australian Skills Management Institute, Australian Skills Management Institute NSW",Australian Hospitality Skills Recognition Pty Ltd,Private,"1,804",www.asmitraining.edu.au,Office 1 Level 8 269 Wickham St,,,,FORTITUDE VALLEY,QLD,4006
+03444C,CHOICE BUSINESS COLLEGE,Choice Business College Pty Ltd,Private,"1,135",www.cbc.edu.au,"Level 7, 541 Kent St,",,,,SYDNEY,NSW,2000
+03446A,Orange College,ORANGE INTERNATIONAL COLLEGE PTY LTD,Private,"1,851",http://orange.edu.au/,PO Box 619,,,,Collins Street West,VIC,8007
+03449J,Australian Harbour International College,Australian Harvard International College Pty Ltd,Private,"2,070",http://www.ahic.edu.au,"Level 1, 84-86 Mary Street",,,,SURRY HILLS,NSW,2010
+03450E,Dalton College,Global Education Consultant Pty Ltd,Private,596,www.daltoncollege.com.au,"Suite 1 Level 14, 190 Queen St",,,,Melbourne,VIC,3000
+03453B,Flinders International College,Masters In Training Pty Ltd,Private,723,www.flinderscollege.edu.au,"Level 3, 608 St Kilda Road",,,,Melbourne,VIC,3004
+03457J,Times Academy Pty Ltd,Times Academy Pty Ltd,Private,"1,938",,Level 4/338 Pitt Street,,,,Sydney,NSW,2000
+03461B,Australian College of Christianity,Australia Christian College Pty Ltd,Private,259,accu.edu.au,Po. Box 8429,,,,Blacktown,NSW,2148
+03465J,"The Canberra Training School Pty Ltd, Canberra Business and Technology College",The Canberra Training School Pty. Ltd.,Private,"2,300",http://cbtc.edu.au/,"Unit 1 & 2, 75 Gozzard St",,,,Gungahlin,ACT,2912
+03468F,,Macallan College Pty Ltd,Private,"3,360",,Unit 6A 44 Station Rd,,,,YEERONGPILLY,QLD,4105
+03473J,Aventia Institute Pty Ltd,Aventia Institute Pty Ltd,Private,310,www.aventia.edu.au,100 Rochedale Road,,,,Rochedale,QLD,4123
+03474G,Step Into Training Services (SITS),HCR Constructions Pty Ltd,Private,500,,Unit 9,91 Wembley Rd,,,LOGAN,QLD,4114
+03477E,Victorian Academy Of Commerce and Technology Startups,Vanshraj Enterprises Pty Ltd,Private,400,,171 Sydney Road,,,,Coburg,VIC,3058
+03478D,Be Qualified,Astar Training Institute Pty Ltd,Private,900,https://bequalified.edu.au/,Suite 1901 Level 19 233 Castlereagh St,,,,Sydney,NSW,2000
+03480K,Australasian International Academy Pty Ltd,Australasian International Academy Pty Ltd,Private,480,,"Suite 1, Level 5, 545 Kent St",,,,Sydney,NSW,2000
+03482G,Atlantis College of Management,Thinkgate Learning Pty Ltd,Private,348,https://www.atlantis.edu.au,"Level 14, 474 Flinder Street",,,,Melbourne,VIC,3030
+03483G,Australian Study Link Institute,RTO Connect Pty Ltd,Private,"1,090",www.asli.vic.edu.au,"Level 2, 123 Lonsdale St",,,,Melbourne,VIC,3000
+03487C,Kulin Institute,Vocational Training Institute Pty Ltd,Private,"1,005",http://www.vocationalinstitute.com.au,"Level 3 ,190 Queen Street",,,,Melbourne,VIC,3000
+03489A,Australian School Of Commerce,M.S Aviation Pty Ltd,Private,"1,210",https://www.asoc.edu.au/,Level 4,123-129 Lonsdale Street,,,Melbourne,VIC,3000
+03490G,Melbourne Advanced Commerce Institute (MACI),Llewellyn Projects Pty Ltd,Private,320,,PO Box 106,,,,Glen Waverley,VIC,3150
+03500M,Vibe College,Adore Education Pty Ltd,Private,"1,050",http://www.vibecollege.edu.au,Level 1/490 Upper Edward Street,,,,Spring Hill,QLD,4000
+03503G,,Leaders Institute of Training and Education Pty Ltd,Private,825,www.leaderstraining.com.au,11 Crothers St,,,,BRAYBROOK,VIC,3019
+03504G,Sydney International Business College,Sydney International Institute Pty Ltd,Private,955,http://sibc.nsw.edu.au,"Level 5, 307 Pitt Street",,,,SYDNEY,NSW,2000
+03505F,Griffin College,GRIFFIN COLLEGE OF MANAGEMENT & TECHNOLOGY PTY. LTD.,Private,560,www.griffin.edu.au,PO Box 4444,,,,EIGHT MILE PLAINS,QLD,4113
+03509B,NEW ERA INSTITUTE PTY LTD,NEW ERA INSTITUTE PTY LTD,Private,600,www.newerainstitute.edu.au,Suite 13 & 14,100 George St,,,WINDSOR,NSW,2756
+03510J,,Training Masters Pty Ltd,Private,600,http://www.tm.nsw.edu.au/,Level 5 338 Pitt Street,,,,SYDNEY,NSW,2000
+03512G,The Centre of Excellence,The Centre of Excellence Pty Ltd,Private,"1,450",www.coe.vic.edu.au,126 Yarra St,,,,Geelong,VIC,3220
+03513F,College Australia,Real Group Pty Ltd,Private,100,www.collegeaustralia.edu.au,PO Box 1451,,,,Stafford,QLD,4053
+03523D,Southern Cross School of Business,Student Development and Learning (SDL) Academy Pty Ltd,Private,840,http://www.scsb.nsw.edu.au,"Suite 603, Level 6",2 Meredith Street,,,Bankstown,NSW,2200
+03529J,Mechanical Institute of Training and Technology Pty Ltd,Mechanical Institute of Training and Technology Pty Ltd,Private,"1,370",www.mitt.vic.edu.au,PO Box 699,,,,Heidelberg,VIC,3084
+03530E,,The Cairnmillar Institute,Private,50,http://www.cairnmillar.edu.au/,391-393 Tooronga Road,,,,Hawthorn East,VIC,3123
+03535M,Polytechnic Institute Australia; Australian Polytechnic Institute,Polytechnic Institute Australia Pty Ltd,Private,"4,201",http://www.pia.edu.au/,"Level 16, 233 Castlereagh Street",,,,Sydney,NSW,2000
+03537J,"Australian Capital College, Capital College",Australian Capital Group Pty Ltd,Private,"2,053",www.capital.edu.au,GPO Box 1600,,,,Canberra,ACT,2601
+03540C,Clinton Institute,Clinton Education Pty Ltd,Private,"1,975",,Level 9,313 La Trobe Street,,,Melbourne,VIC,3000
+03542A,Mastery Institute Australia,QIHE PTY LTD,Private,"1,124",http://www.mastery.edu.au,PO Box 15104,,,,City East,QLD,4002
+03546G,Elite Education Vocational Institute,Elite Education Group PTY. LTD.,Private,"1,042",https://vocational.ee.edu.au/,Level 6,8 Quay Street,,,HAYMARKET,NSW,2000
+03548F,"Skills Australia Institute, Western Australia College lnternational",Excellent Accounts Pty Ltd,Private,"2,240",http://www.skillsaustralia.edu.au/,230 Railway Parade,,,,EastCannington,WA,6107
+03549E,,York Business Institute Pty. Ltd.,Private,"2,204",www.york.edu.au,"Suite 2, Lvl 1, 338-348 Pitt Street",,,,Sydney,NSW,2000
+03551M,Meridian Vocational College,Golden Wattle Group Pty Ltd,Private,315,,Level 2 West,50 Grenfell Street,,,Adelaide,SA,5000
+03552K,Barrington College Australia,BARRINGTON TRAINING SERVICES QUEENSLAND PTY LTD,Private,600,www.barringtoncollege.edu.au,9 Seabank Lane,,,,SOUTHPORT,QLD,4215
+03553J,Albright Institute of Business and Language; Albright Institute of English,ANIT Australia Pty Ltd,Private,"6,665",http://www.albrightinstitute.edu.au/,Level 8,341-345 Queen St,,,Melbourne,VIC,3000
+03556F,Trinity Institute (Australia),Crown Education Pty Ltd,Private,"3,520",www.trinityinstitute.edu.au,"Level 1, 43 Hunter Street",,,,PARRAMATTA,NSW,2150
+03562G,VIA Education,CACHET TRAINING PTY LIMITED,Private,"1,920",www.via.edu.au,"Level 5, 565 George Street",,,,SYDNEY,NSW,2000
+03564F,Global College Australasia,GLOBAL COLLEGE AUSTRALASIA PTY. LTD.,Private,"2,346",https://www.globalcollege.edu.au,21 Moore Street,,,,East Perth,WA,6004
+03565E,Salisbury College Australia,INSTITUTE OF GLOBAL EDUCATION AND TRAINING PTY. LTD.,Private,"1,074",,"Lvls 4 & 5, 14 Railway Parade",,,,Burwood,NSW,2134
+03566D,,Lennox Institute Pty Ltd,Private,980,www.lennoxcollege.edu.au,487-489 King Street,,,,WEST MELBOURNE,VIC,3003
+03567C,Engineering Institute of Technology Pty Ltd,Engineering Institute of Technology Pty Ltd,Private,950,www.eit.edu.au,Po Box 1093,,,,West Perth,WA,6872
+03569A,Australis College,Australis College Pty Ltd,Private,"1,070",,Unit 505 410 Elizabeth St,,,,SURRY HILLS,NSW,2010
+03571G,Institute of Business and Management Australia (IBMA),IBMA Education Pty Ltd,Private,614,www.ibma.edu.au,Suite 106,420 Pitt Street,,,Haymarket,NSW,2000
+03574D,,Beauty Therapy Training Australia Pty Ltd,Private,120,www.techedgecollege.com.au,7/269 Wickham Street,,,,FORTITUDE VALLEY,QLD,4006
+03575C,Nurse Training Australia,Care Plus Training Pty Ltd,Private,400,www.nursetrainingaustralia.com.au,"Suite 106-108,",3 Railway Parade,,,BURWOOD,NSW,2134
+03578M,Lyons College,Lyons Education Group Pty Ltd,Private,"1,090",www.lyons.edu.au,"Level 4, 303 Collins Street",,,,Melbourne,VIC,3000
+03580F,Gamma Education & Training Pty Ltd,Gamma Education & Training Pty Ltd,Private,"4,000",https://gamma.edu.au/,"Ground Floor, 252 St Pauls Terrace",,,,Fortitude Valley,QLD,4006
+03581E,Ikon Institute of Australia,Proteus Technologies Pty Ltd,Private,"9,080",www.ikon.edu.au,Level 3 1-59 Quay St,,,,Haymarket,NSW,2000
+03586M,Mindroom Innovation PTY LTD,Mindroom Innovation PTY LTD,Private,994,www.mindroom.edu.au,1/37 Connor Street,,,,Burleigh Heads,QLD,4220
+03587K,Enhance College of Technology,ALBURY COLLEGE PTY LTD,Private,821,http://enhance.edu.au,"Level 2, 12-14 Wentworth Street",,,,Parramatta,NSW,2150
+03588J,,SKILLSET TRAINING PTY. LTD.,Private,140,,Unit 14,44-56 Hampsted Rd,,,MAIDSTONE,VIC,3012
+03590D,National Institute of Education and Technology,AUSTRALIA ACADEMY INTERNATIONAL PTY LTD,Private,300,www.niet.edu.au,"Brisbane Technology Park, 7 Clunies Ross Court",,,,Eight Mile Plains,QLD,4113
+03594M,International Institute of Planning and Management,IIPM Pty Ltd,Private,745,www.iipm.edu.au,"Level 5, 440 Elizabeth Street",,,,Melbourne,VIC,3000
+03595K,AUSTRALIAN HEALTH AND MANAGEMENT INSTITUTE PTY LTD,AUSTRALIAN HEALTH AND MANAGEMENT INSTITUTE PTY LTD,Private,"1,500",www.ahmi.edu.au,87 Fennell Street,,,,NORTH PARRAMATTA,NSW,2151
+03596J,Hawk Institute,ST ALBANS INSTITUTE PTY LTD,Private,702,www.hawkinstitute.edu.au,"Level 4, 171 La Trobe St, Melbourne",,,,Melbourne,VIC,3000
+03597G,"Acquire Training Solutions Pty Ltd, Laneway International College",LANEWAY EDUCATION PTY LTD,Private,"2,366",www.laneway.edu.au,Level 7,11-31 York Street,,,SYDNEY,NSW,2000
+03601F,Wall Street College,Wall Street College Pty Ltd,Private,200,,"Level 4, 20 Queen St",,,,Melbourne,VIC,3000
+03602E,Southern Academy of Business and Technology,Australian Training School Pty Ltd,Private,"1,489",www.sabt.edu.au,PO Box A819,,,,Sydney South,NSW,1235
+03604C,The Peach Institute; Peach Institute,Bryan Peach Institute Pty Ltd,Private,"1,690",http://www.peachinstitute.com,"Level 4, 33 Scarborough St",,,,SOUTHPORT,QLD,4215
+03605B,College of English Education and Training Australia,Australian Frontline Training College Pty Ltd,Private,120,www.ceetacollege.qld.edu.au,"Level 1, 360 St Pauls Terrace",,,,Fortitude Valley,QLD,4006
+03606A,Sacred Heart International College,Angel Investments Group Pty Ltd,Private,"1,360",,"Level 3, 271-281 Bourke St",,,,Melbourne,VIC,3000
+03609J,DARWIN INSTITUTE OF TRADE,TRAINING ORGANISATION NSW PTY LTD,Private,"1,460",,"Level 6, 460 Church St",,,,Parramatta,NSW,2150
+03610E,,Australia Institute of Business & Technology - International Pty Ltd,Private,"1,750",,18 Mt Gravatt-Capalaba Rd,,,,UPPER MOUNT GRAVATT,QLD,4122
+03614A,AAAR INSTITUTE OF BUSINESS AND TECHNOLOGY,RANSFORD COLLEGE PTY LTD,Private,"1,600",,"Level 1, 16-22 Wentworth Ave",,,,Surry Hills,NSW,2010
+03618G,Tr4in Right,Pan Bird Pty Ltd,Private,965,,22 Home Rd,,,,POINT COOK,VIC,3030
+03620C,,Sydney City College of Management Pty Ltd,Private,"2,330",www.sccm.edu.au,"Level 2, 17-21 Macquarie St",,,,Parramatta,NSW,2150
+03622A,Rosehill College,AISL PTY LTD,Private,775,http://www.rosehillcollege.edu.au,Levels 2 & 4,616-620 Harris St,,,Ultimo,NSW,2007
+03627G,Mid City College,MID CITY EDUCATION PTY LTD,Private,827,,"Tenancy 4 Level 3,",15 Moore St,,,CANBERRA,ACT,2601
+03630A,Bayside International College,Australian English Colleges Pty. Ltd.,Private,486,,PO Box 7340,,,,Alexandria,NSW,2015
+03631M,Melbourne College of Business and Technology,APLUS EDUCATION GROUP Pty. Ltd.,Private,665,,Unit 101,991 Whitehorse Road,,,Box Hill,VIC,3128
+03632K,Glen Institute,Five Diamonds Group Pty Ltd,Private,"1,635",,"Suite 3, Level 12, 190 Queen St",,,,MELBOURNE,VIC,3000
+03635G,,Brighton College Pty Ltd,Private,"1,870",www.brighton.edu.au,"Level 23, 343 Albert St",,,,Brisbane City,QLD,4000
+03636F,,Lead College Pty Ltd,Private,"3,835",http://www.leadcollege.edu.au,"Level 1, 841 George Street",,,,Haymarket,NSW,2000
+03639C,Skyline International College,MG Australia Group Pty Ltd,Private,660,,11-15 Deane St,,,,BURWOOD,NSW,2134
+03640K,Axis Institute,Manigram Pty Ltd,Private,"1,770",,18 Finchley Street,,,,Milton,QLD,4064
+03642G,UNITY SKILLS COLLEGE OF HOSPITALITY,DOLPH LEARNING PTY LTD,Private,312,https://uscohospitality.edu.au/,946 High St,,,,Reservoir,VIC,3073
+03644F,Key 2 Learning Pty Ltd,Key 2 Learning Pty Ltd,Private,500,,49 Phillip Ave,,,,Watson,ACT,2602
+03645E,,Collins Academy Pty Ltd,Private,"1,140",www.collinsacademy.edu.au,"Level 5, 259 Collins Street",,,,MELBOURNE,VIC,3000
+03646D,Australian Design College Pty Ltd,Australian Design College Pty Ltd,Private,760,,"Shop 2, 746 Swanston Street",,,,CARLTON,VIC,3053
+03648B,SOUTH SYDNEY COLLEGE (SSC),KNIT GROUP AUSTRALIA PTY LTD,Private,850,,"Suite 208, 11-15 Deane Street",,,,Burwood,NSW,2134
+03649A,International College of Victoria,Victorian Education and Training Group Pty Ltd,Private,200,www.icv.edu.au,"Level 1, 541 King Street",,,,West Melbourne,VIC,3003
+03651G,Australian Training & Qualification College,Akram Kahla Pty Ltd,Private,140,,"Level 5, 16-18 Wentworth St",,,,PARRAMATTA,NSW,2150
+03652F,Choice Academic College,Choice Academic College Pty Ltd,Private,"1,600",cacademic.edu.au,Suite 3 633 Princes Hwy,,,,Rockdale,NSW,2216
+03655C,,Advocate Training Pty Ltd,Private,90,,PO Box 3220,,,,WAREEMBA,NSW,2046
+03657A,Kingston Academy of Australia,F & Z EDUCATION PTY LTD,Private,600,www.kingstonacademy.edu.au,"Level 9, 474 Flinders St",,,,Melbourne,VIC,3000
+03662D,Australian Film Television and Radio School,"Australian Film, Television and Radio School",Private,60,,PO Box 2286,,,,Strawberry Hills,NSW,2012
+03664B,"Victorian College of Education, Victorian College of Education Australia",Tham Training Pty Ltd,Private,405,,Suite 2 & 3,"Level 3, 190 Queen St",,,Melbourne,VIC,3000
+03669G,Educare College,Educare Training Institute of Australasia Pty Ltd,Private,"1,800",http://www.educare.edu.au,Suite 3 Level 8,288 Edward St,,,BRISBANE,QLD,4000
+03670D,,Harbourside Institute of Australia Pty Ltd,Private,"2,130",www.harbourside.nsw.edu.au,Level 3,616-620 Harris St,,,Ultimo,NSW,2007
+03671C,Medicus College,Medical Training and Development Pty Ltd,Private,504,https://medicus.edu.au/,"Suite 1 Level 2, 224-238 George Street",,,,Liverpool,NSW,2170
+03673A,,MELBOURNE EDUCATION INSTITUTE PTY. LTD.,Private,875,,Level 1,310 King Street,,,MELBOURNE,VIC,3000
+03674M,Centennial College,Centennial College Pty Ltd,Private,200,,"Level 26, 44 Market Street",,,,SYDNEY,NSW,2000
+03675K,Alana Kaye College,Alana Kaye Group Pty Ltd,Private,780,,PO Box 36019,,,,WINNELLIE,NT,0821
+03676J,Vardhan Institute of Management and Technology,Australian College of Technical Training Pty Ltd,Private,340,,"Level 2, 376 Victoria St",,,,NORTH MELBOURNE,VIC,3051
+03677G,"Sea English Academy International Pty Ltd, Australian Institute of Science and Technology",Sea English Academy International Pty Ltd,Private,"1,388",,Suite 1,Level 6,341 Queen Street,,Melbourne,VIC,3000
+03678G,McGill Institute Australia,Higher Learning Australia Pty Ltd A/T for The Trustee for Higher Learning Unit Trust,Private,344,https://mcgill.edu.au/,"Shop 8, 21-69 Regent Street",,,,REDFERN,NSW,2016
+03682M,"AUSTRALIAN NATIONAL INSTITUTE OF EDUCATION, AUSTRALIAN ACADEMY OF ENGLISH",Skills International Pty Ltd,Private,450,,"Unit 2, 197 Prospect Highway",,,,Seven Hills,NSW,2147
+03685G,Australian Institue of Engineering,Australian Institute of Engineering Pty Ltd,Private,392,,PO Box 1051,,,,CRAIGIEBURN,VIC,3064
+03689D,Kingsford International Institute,Downtown Australia Pty Ltd,Private,990,,Level 2 545-553 Kent St,,,,SYDNEY,NSW,2000
+03690M,Western Sydney College,International College of Australia Pty Ltd,Private,450,,55 High Street,,,,PARRAMATTA,NSW,2150
+03691K,Australian Tertiary Institute,Australian Tertiary Institute Pty Ltd,Private,390,,41-45 Commerce Ave,,,,Armadale,WA,6112
+03695F,Elizabeth Institute,Sanbourne Academy Pty Ltd,Private,660,,"Level 3, 56-58 York Street",,,,SYDNEY,NSW,2000
+03697D,Sydney Global College,Austec Institute Pty Ltd,Private,980,,1A Range Street,,,,CHATSWOOD,NSW,2067
+03700C,,Mint Training Pty Ltd,Private,496,www.minttraining.edu.au,Level 1 540 Elizabeth Street,,,,Melbourne,VIC,3000
+03703M,Apeiro Institute,Apeiro Institute Pty Ltd,Private,"2,222",,"Level 1, 10 Victoria Ave",,,,Perth,WA,6000
+03705J,The Institute of International Studies (TIIS),The Institute of International Studies (TIIS) Pty Ltd,Private,850,www.tiis.edu.au,"Level 4, 22 Market Street",,,,Sydney,NSW,2000
+03708F,Alpha Institute,Wakefield International Business School Pty Ltd,Private,720,www.alphainstitute.edu.au,17 Oatley Ct,,,,BELCONNEN,ACT,2617
+03709E,Wiseman & Co. Advanced Learning Institute Pty Ltd,Wiseman & Co. Advanced Learning Institute Pty Ltd,Private,168,,Shop 3,157-171,Haldon Street,,LAKEMBA,NSW,2195
+03717E,Richmond School of Business,Richmond School of Business Pty Ltd,Private,"1,360",www.rsb.edu.au,"Lvl 2, 197-207 Church Street",,,,Parramatta,NSW,2150
+03720K,Jazz Music Institute,Jazz Music Institute Pty Ltd,Private,15,www.jazz.qld.edu.au,PO Box 2215,,,,Fortitude Valley,QLD,4006
+03722G,,Smart Connection Company Pty Ltd,Private,532,,Level 1 239 Church St,,,,Parramatta,NSW,2150
+03723G,Ruby Institute,Ruby Institute Pty LTD,Private,610,www.ruby.vic.edu.au,"Suite 1, Level 7",234-250 Collins St,,,MELBOURNE,VIC,3000
+03724F,Australian Polytechnic College,Mondairs PTY LTD,Private,"2,280",,46 Edward Street,,,,Summer Hill,NSW,2130
+03725E,Arthur Phillip College of Business and Leadership,AOI GROUP PTY LTD,Private,90,,Unit 9 43 O'Brien Street,,,,BONDI BEACH,NSW,2026
+03727C,,The Lions Institute Pty Ltd,Private,172,,"Ground Floor, 4 Railway Pde",,,,BURWOOD,NSW,2134
+03732F,"Leaders Institute Pty Ltd, Australian Agribusiness Institute, Australian Business Institute",Leaders Institute Pty Ltd,Private,"2,370",http://www.leaders.edu.au,76 Park Road,,,,Woolloongabba,QLD,4102
+03734D,Australian Academy of Business and Technology Pty Ltd,Australian Academy of Business and Technology Pty Ltd,Private,180,,"Level 3, 382 Lonsdale Street",,,,MELBOURNE,VIC,3000
+03736B,SP INTERNATIONAL COLLEGE,Sydney Centre for Finance Studies Pty Ltd,Private,90,,11A Fletcher St,,,,CAMPSIE,NSW,2194
+03739K,Southern Cross Education Institute (Higher Education) Pty Ltd,Southern Cross Education Institute (Higher Education) Pty Ltd,Private,"1,425",http://www.scei-he.edu.au,155-161 Boundary Road,,,,North Melbourne,VIC,3051
+03741E,TrEd College,Tred Consultants Pty Ltd,Private,"1,660",www.tredcollege.edu.au,17 Khartoum Road,,,,MACQUARIE PARK,NSW,2113
+03742D,,AUSTRALIAN INSTITUTE OF BUSINESS AND TRADE PTY. LTD.,Private,975,,14 Maiden Ct,,,,Epping,VIC,3076
+03744B,CIHE Australia,Crown Institute of Higher Education Pty Ltd,Private,"4,123",,116 Pacific Highway,,,,North Sydney,NSW,2060
+03747K,"Australian National Academy of Education, Ridge International College",Australian National Academy of Education Pty Ltd,Private,717,,"Level 5, 85 Queen Street",,,,MELBOURNE,VIC,3000
+03754M,Australian International Institute of Technology,Australian International Institute of Technology Pty Ltd ATF AIIT Unit Trust,Private,450,www.aiit.vic.edu.au,"Ground Floor, 313-315 Flinders Lane",,,,Melbourne,VIC,3000
+03762M,Veritas Institute Australia,Veritas Education Pty Ltd,Private,551,,6-24 Mootabool Street,,,,GEELONG,VIC,3220
+03763K,Adelaide Institute of Higher Education Pty Ltd (AIHE),Adelaide Institute of Higher Education Pty Ltd,Private,900,www.aihe.sa.edu.au,Level 4,127 Rundle Mall Street,,,Adelaide,SA,5000
+03764J,Institute Of Science Management And Technology,Lambda Education Pty Ltd,Private,"1,300",,Level 1 575-597 Pacific Hwy ST,,,,LEONARDS,NSW,2065
+03767F,Eve College,Orange Education Group Pty Ltd,Private,575,www.evecollege.nsw.edu.au,"Level 3, 72 Mary Street",,,,Surry Hills,NSW,2010
+03769D,AIM Business School,Australian Institute of Management Education and Training Pty Limited,Private,270,www.aim.com.au,"Ground Floor, 7 Macquarie Place",,,,Sydney,NSW,2000
+03770M,Training for Knowledge and Livelihood,TKL College Pty Ltd,Private,780,www.tkl.edu.au,"Suite 707, Level 7 Westfield Shopping Centre",,,,PARRAMATTA,NSW,2150
+03774G,Bella College Australia,Davies Institute Pty Ltd,Private,370,www.bellacollege.edu.au,19 Hawthorne Street,,,,Forest Lake,QLD,4078
+03777D,"Howard College Australia, ASMI College",CAN UNITED Pty Ltd,Private,232,www.asmicollege.com.au,"Suite 1, Level 1, 224-238",,,,George Street Liverpool,NSW,2170
+03778C,Southern Academy of Health Sciences,Victorian Institute of Education Pty ltd,Private,"1,560",www.vie.edu.au,48 Monitor Road,,,,Merrylands,NSW,2160
+03779B,United Colleges of Australia,United Colleges of Australia Pty Ltd as the trustee for UCA Unit Trust,Private,774,,"Suite 2.2.18, Level 2, 303",,,,Pitt Street,NSW,2000
+03783F,Active Transition Training and Melbourne Metropolitan College,Active Transition Training Pty Ltd,Private,775,,Level 14,190 Queen St,,,MELBOURNE,VIC,3000
+03785D,INSTITUTE OF BUSINESS AND MANAGEMENT (VICTORIA),Learning Victoria Pty Ltd,Private,710,www.ibm.vic.edu.au,5 Plush circuit,,,,Epping,VIC,3076
+03790G,Blue Lotus College,Blue Lotus Academy Pty Ltd,Private,"1,488",http://www.bluelotus.edu.au,Level 2 540 Elizabeth Street,,,,Melbourne,VIC,3000
+03792E,Sydney Metropolitan International College,Sydney Metropolitan International College Pty Ltd,Private,360,,432 Kent St,,,,SYDNEY,NSW,2000
+03794C,NVR EDUCATION AUSTRALIA,NVR Education Pty Ltd,Private,"2,227",,34 Arras Pl,,,,PRESTONS,NSW,2170
+03796A,HILTON ACADEMY,LE SUISSE ACADEMY PTY LTD,Private,"1,268",http://www.hilton.edu.au,Level 6 234-250 Collins Street,,,,Melbourne,VIC,3000
+03798K,Australia Unity Institute of Technology,AUIT Group Pty Ltd,Private,540,,PO Box 15663,,,,CITY EAST,QLD,4022
+03800K,N/A,Australian College of Management and Innovation Pty Ltd,Private,"1,125",,45 Manich Drive,,,,Martin,WA,6110
+03806D,AIM Institute of Health & Sciences,IQRA Vocational Education and Training Pty Ltd,Private,680,https://aiminstitute.edu.au/,"2/61 Jerrabomberra Avenue,",,,,Narrabundah,ACT,2604
+03807C,,Innovative Institute of Australia Pty Ltd,Private,331,www.innovative.edu.au,56 Robinson Street,,,,Dandenong,VIC,3175
+03809A,Canterbury Institute of management (CIM),Australian Campus Management Pty Ltd,Private,"3,402",www.ciom.edu.au,21 Regent Street,,,,Redfern,NSW,2016
+03810G,Rhodes International College,CAREER READY PTY LTD,Private,270,www.ric.edu.au,140 Elizabeth St,Level 8,,,SYDNEY,NSW,2000
+03815C,N/A,Techie International College Pty Ltd,Private,794,,"Building C, 60 Belfast street",,,,Broadmeadows,VIC,3047
+03816B,Spring Hill College,Rahban Services Pty Ltd,Private,545,,62 Astor Tce,,,,SPRING HILL,QLD,4000
+03817A,N/A,Edinburgh International College Pty Ltd,Private,540,www.eic.edu.au,61 Riggall St,,,,BROADMEADOWS,VIC,3047
+03822D,Charlton Brown,Charlton Brown Pty Ltd,Private,"1,850",http://charltonbrown.com.au,Level 4 102 Adelaide St,,,,BRISBANE CITY,QLD,4000
+03823C,"Rama Raghav College of Australia, Australian College for Excellence (ACE)",Australian College for Excellence Pty Ltd,Private,536,,Mezzanine 406 Collins St,,,,MELBOURNE,VIC,3000
+03824B,Infinite Learning Institute Pty Ltd,Infinite Learning Institute Pty Ltd,Private,880,,"Office 1, 2 Humphreys Lane",,,,HURTSVILLE,NSW,2220
+03826M,ABM Further Education,Australian Business Management Pty Ltd,Private,934,,Ground Floor 242 Castlereagh St,,,,SYDNEY,NSW,2000
+03827K,Kensington International College,Career Development and Training Pty Ltd,Private,480,https://www.kic.edu.au,Level 4 84-86 Mary Street,,,,SURRY HILLS,NSW,2010
+03831C,"iLearn OZ, MELBOURNE METRO COLLEGE",ILEARN OZ PTY LTD,Private,540,,"Level 5/440 Elizabeth St,",,,,Melbourne,VIC,3000
+03832B,,Aus Crest Pty Ltd,Private,265,,93 Liverpool Street,,,,HOBART,TAS,7000
+03833A,Franklin International College,FRANKLIN INTERNATIONAL COLLEGE PTY LTD,Private,200,,Level 1 341 Queen St,,,,Melbourne,VIC,3000
+03834M,,Australian College of Professional Careers Pty Ltd,Private,440,,Shop 1,15-17 Blaxland Road,,,Rhodes,NSW,2138
+03835K,Canberra Institute of Education and Technology,Radix Education Pty Ltd,Private,700,,66 Townshend Street,,,,Phillip,ACT,2606
+03836J,Sydney International School of Technology and Commerce,Australia Advance Education Group Pty Ltd,Private,"2,061",https://sistc.edu.au/,Level 14/233 Castlereagh St,,,,Sydney,NSW,2000
+03838G,INTERNATIONAL INSTITUTE OF EDUCATION,FIRST CHOICE EDUCATION PTY. LTD.,Private,910,,Suite 1 Level 2 16-18 Wentworth Street,,,,PARRAMATTA,NSW,2150
+03840B,Campbell Institute,Trump College Pty Ltd as Trustee for Trump College Unit Trust,Private,"2,000",www.campbellinstitute.edu.au,Level 1,16-20 Good Street,,,GRANVILLE,NSW,2142
+03841A,Page Institute,INTERNATIONAL FITNESS INSTITUTE PTY LTD,Private,300,,PO Box 1107,,,,CARINDALE,QLD,4152
+03844J,AIBI Higher Education Pty Ltd,Australian Institute of Business Intelligence Pty Ltd,Private,"2,255",www.aibi.edu.au,451 Pitt Street,Suite 509-512,,,Sydney,NSW,2000
+03845H,Higher Education Leadership Institute,Higher Education Leadership Institute,Private,680,,Level 10,160 Sussex Street,,,Sydney,NSW,2000
+03847F,ASA Institute of Higher Education,Australian School of Accounting Pty Ltd,Private,700,www.asahe.edu.au,"Level 9, 140 Elizabeth Street",,,,Sydney,NSW,2000
+03848E,UHE Australia,Universal Higher Education Pty Ltd,Private,426,www.uhe.edu.au,Level 1/131 Queen Street,,,,Melbourne,VIC,3000
+03852J,Alpha College of Australia,Morrison College Pty Ltd,Private,245,www.alpha.edu.au,"Level 5, 127 Liverpool Street",,,,Liverpool,NSW,2000
+03853H,Eastern College Australia Limited,Eastern College Australia Limited,Private,210,www.eastern.edu.au,5 Burwood Highway,,,,Wantirna,VIC,3152
+03854G,Australian Federation College,LEARNVAULT PTY LTD,Private,"1,200",www.afcollege.edu.au,"Level 1, 126 Charles Street",,,,LAUNCESTON,TAS,7250
+03856E,Glenhill College,Lamart Education Pty Ltd,Private,156,https://www.glenhillcollege.edu.au/,"Unit 1 A Level 1, 40 Raymond Street",,,,Bankstown,NSW,2200
+03858C,Astral Skills Institute of Australia and Create Learn & Educate,THE EARLY CHILDHOOD LEARNING COMPANY PTY. LTD.,Private,"2,807",,Level 6 138 Queen Street CAMPBELLTOWN,,,,CAMPBELLTOWN,NSW,2560
+03859B,ANE College,Australian National Education Pty Ltd,Private,"3,317",,8-24 Kippax Street,"Suite 67 & 68, Level 6",,,SURRY HILLS,NSW,2010
+03862G,Excel College Australia,AFG SECURITY AND PROTECTIVE SERVICES PTY LTD,Private,"1,025",,PO BOX CP300,,,,CONDELL PARK,NSW,2200
+03863F,,Reeves College Pty Ltd,Private,417,,PO Box 1513,,,,STRATHFIELD,NSW,2135
+03866C,Sydney Institute of Higher Education,Sydney Institute of Higher Education Pty Ltd,Private,745,sydneyinstitute.edu.au,"Level 3, 695-699 George Street",,,,Sydney,NSW,2000
+03870G,Australian Scholar's College,Australian Scholar's College Pty Ltd,Private,120,,Level 10 474 Flinders St,,,,MELBOURNE,VIC,3000
+03874C,West Melbourne Institute of Technology,West Melbourne Institute of Technology Pty Ltd,Private,516,www.wmit.edu.au,Level 3 220 Albert Rd,,,,SOUTH MELBOURNE,VIC,3205
+03877M,"MILESTONES EDUCATION ACADEMY, MILESTONES EDUCATION GROUP, Trident International College, Milestones International College",TRIDENT EDUCATION AUSTRALIA PTY LTD,Private,480,,"Level 3, 252 Lygon St",,,,CARLTON,VIC,3053
+03878K,,Opulence College Pty Ltd,Private,938,,15 Moore St,,,,CANBERRA,ACT,2601
+03879J,,Edvantage Institute Australia Pty Ltd,Private,549,,338 Queen Street Ground Floor and Levels 1 & 2,,,,Melbourne,VIC,3000
+03880E,Canberra College of Management and Technology,Bhairav Baba Pty Ltd,Private,600,www.ccmtcollege.edu.au,Unit 1 Level 2 15 Barry Dr,,,,TURNER,ACT,2612
+03881D,Aboard Training Australia,ABOARD TRAINING AUSTRALIA PTY LTD,Private,665,,3 Illoura Cl,,,,NOBLE PARK NORTH,VIC,3174
+03882C,Rockford College,ROCKFORD INTERNATIONAL COLLEGE PTY LTD,Private,"1,510",www.rockford.edu.au,Suite 3 633 Princes Hwy,,,,ROCKDALE,NSW,2216
+03888H,"Business College Online, Dragon College of Business, Australian City International College,Australian Vocational Institute, Sydney City English College",Australian City International College Pty Ltd,Private,"1,245",,Suite 1 Level 2 17-21 Macquarie St,,,,PARRAMATTA,NSW,2150
+03892A,Cornell Institute of Training,McEvoy & Doust Pty Ltd,Private,960,,69 Osborne Ave,,,,SPRINGVALE,VIC,3171
+03894K,Texila College Australia,Texila College Australia Pty Ltd,Private,550,www.texila.edu.au,"Level 3, 440 Elizabeth Street",,,,Melbourne,VIC,3000
+03897G,Australian Performing Arts Conservatory,Performing Arts Education Pty Ltd,Private,120,www.apac.edu.au,PO Box 12239,George Street,,,Brisbane,QLD,4003
+03899E,,St. Marys Institute Pty Ltd,Private,700,,Level 13 190 Queen Street,,,,Melbourne,VIC,3000
+03904B,,Reach Community College Pty Ltd,Private,"1,805",,132-146 Elizabeth Street,,,,HOBART,TAS,7000
+03905A,,Prime Education Group Pty Ltd,Private,775,,Suite 2 Level 6 190 Queen Street,,,,MELBOURNE,VIC,3000
+03906M,Sydney Met,Sydney Metropolitan Institute of Technology Pty Ltd,Private,"1,780",www.sydneymet.edu.au,432 - 434 Kent Street,,,,Sydney,NSW,2000
+03907K,Australian Sovereign College,AUSTRALIAN SOVEREIGN COLLEGE PTY LTD,Private,"1,146",ausc.edu.au,212A Liverpool Street,,,,HOBART,TAS,7000
+03908J,,Eton College Pty Ltd,Private,630,,Level 6 191-199 Thomas St,,,,HAYMARKET,NSW,2000
+03910D,McIver College,Corporate Business Academy Pty Ltd,Private,300,,234 Pier Street,,,,PERTH,WA,6000
+03914M,Bentley College,Bentley College Pty Ltd,Private,"1,440",,Suite 2 Level 7 190 Queen Street,,,,Melbourne,VIC,3000
+03916J,,Kingsway College Pty Ltd,Private,300,www.kingswaycollege.vic.edu.au,"G08 & G09, 22 St Kilda Road",,,,ST KILDA,VIC,3182
+03921A,Gippsland Institute of Technology,BFJ International Studies Pty Ltd,Private,"1,140",,"Unit 4, 70 Main Street",,,,PAKENHAM,VIC,3810
+03922M,Humber College; Humber Trading Institute,Victorian Institute of Applied Learning Pty Ltd,Private,470,http://humbercollege.edu.au,PO BOX 4843,,,,Eight Mile Plains,QLD,4113
+03924J,Australian Workplace Skills Institute,AWS Institute Pty Ltd,Private,480,,66 Townshend Street,,,,PHILLIP,ACT,2606
+03927F,,Highgate International College Pty Ltd,Private,656,,Level 4 251 Adelaide Tce,,,,PERTH,WA,6000
+03932J,ECA College of Health Sciences,ECA Higher Education Institute Pty Ltd,Private,700,,"Level 10, 160 Sussex Street",,,,Sydney,NSW,2000
+03933H,Contempo College,Contempo Education Pty Ltd,Private,701,,Level 2 379 Hay Street,,,,PERTH,WA,6000
+03934G,Tradies and Subbies Safety Services,Australian Institute of Professionals (AIP) Pty Ltd,Private,"1,675",,Level 1 333 Queen St,,,,MELBOURNE,VIC,3000
+03935F,,Helix College Pty Ltd,Private,"1,400",,"Level 1 and 2, 505 Little Collins St",,,,Melbourne,VIC,3000
+03936E,Global Institute of Education,J Chazzer & B Singh & H Singh,Private,230,,3 Springwater Place,,,,ALGESTER,QLD,4107
+03939B,Massey College,Massey College Pty Ltd,Private,580,,Level 4 406 Collins St,,,,Melbourne,VIC,3000
+03940J,Academia of Trade Pty Ltd,Academia of Trade Pty Ltd,Private,"1,214",,"Ground Floor, 12-14 Wentworth Street",,,,PARRAMATTA,NSW,2150
+03941H,,PAKENHAM INSTITUTE PTY LTD,Private,960,http://www.wri.edu.au,Unit 2 66-68 Main Street,,,,PAKENHAM,VIC,3810
+03942G,Pinnacle Institute,Triple Five Group Pty. Ltd.,Private,200,,PO Box 3365,,,,SUNNYBANK SOUTH,QLD,4109
+03943F,The Australian Chiropractic College,Australian Chiropractic College Limited,Private,100,www.acc.sa.edu.au,GPO Box 1602,Franklin Street,,,Adelaide,SA,5000
+03944E,Imperial Institute of Sydney,INTERNATIONAL INSTITUTE OF SYDNEY PTY LTD,Private,"1,590",,"Level 3, 20-22 Macquarie Street",,,,PARRAMATTA,NSW,2150
+03945D,,The Bright College Pty Ltd,Private,480,,Level 2,440 William Street,,,Perth,WA,6000
+03946C,UNITY SKILLS COLLEGE OF HEALTH,Penfold College Pty Ltd,Private,720,https://uscohealth.edu.au,Level 3 123 Lonsdale Street,,,,MELBOURNE,VIC,3000
+03948A,State Institute of Training,JMD Business Institute Pty Ltd,Private,"1,820",http://www.sit.vic.edu.au,29 James Street,,,,PAKENHAM,VIC,3810
+03949M,,Riverdale Institute Pty Ltd,Private,800,,Unit 19 2-14 Station Pl,,,,Werribee,VIC,3030
+03951F,Sunbeam International College,Sunbeam International College Pty Ltd,Private,760,sunbeam.edu.au,62 Gawler Place,,,,ADELAIDE,SA,5000
+03953D,ILLOURA COLLEGE,Nithi College Pty Ltd,Private,392,www.illoura.edu.au,113 Wharf St,,,,Cannington,WA,6107
+03954C,,Australian Health and Horticulture Institute Pty Ltd,Private,240,,3 Kerrie Road,,,,OATLANDS,NSW,2117
+03956A,,PIONEER EDUCATION INSTITUTE PTY LTD,Private,"1,017",,Level 1 150-152 Adelaide Tce,,,,EAST PERTH,WA,6004
+03957M,,Starford College Pty Ltd,Private,470,,Level 6 245 Castlereagh Street,,,,SYDNEY,NSW,2000
+03958K,,Aim Institute Pty Ltd,Private,240,,Shop 9 283-285 Windsor St,,,,Richmond,NSW,2753
+03960E,Hospitality Training Academy,AA Training Pty Ltd,Private,"1,197",https://hta.edu.au/,39-43 Woodend Ct,,,,PARK RIDGE,QLD,4125
+03961D,Brilliant Institute of Business and Education,J&L Consultancy Pty Ltd,Private,390,bibe.tas.edu.au,TNHS 3 10-16 Cecil Ave,,,,Castle Hill,NSW,2154
+03962C,Swanston Institute,Prospect Education Group Pty Ltd,Private,700,,Level 8 118 Queens St,,,,MELBOURNE,VIC,3000
+03963B,WORKFORCE EDUCATION INSTITUTE,Workforce Education Institute Pty. Ltd.,Private,870,,Level 1 382 Lonsdale Street,,,,MELBOURNE,VIC,3000
+03964A,,ADVANCE INSTITUTE AUSTRALIA PTY LTD,Private,"1,030",,10 Blissington St,,,,SPRINGVALE,VIC,3171
+03966K,Novus Education,NOVUS EDUCATION PTY LTD,Private,"1,950",,Unit 310 22-36 Mountain Street,,,,ULTIMO,NSW,2007
+03967J,APEX Australia Higher Education,Apex Institute of Higher Education Pty Ltd,Private,"1,262",,Apex Higher Education,PO Box 4144,,,Strathfield South,NSW,2136
+03969G,,Polytechnic Victoria Pty Ltd,Private,875,,147 Islington Street,,,,Collingwood,VIC,3066
+03970C,Concord Institute,ADELAIDE EDUCATION AND TRAINING PTY LTD,Private,630,,"Suite 2, Level 5, 97 Pirie St",,,,ADELAIDE,SA,5000
+03971B,Australian Pacific International College,Australian Guess International College Pty Ltd,Private,400,,Level 5 262 Pitt St,,,,SYDNEY,NSW,2000
+03974K,Epoch International College,Epoch International Group Pty Ltd,Private,230,,Suite 4 Level 7 131 Queen St,,,,Melbourne,VIC,3000
+03977G,,Chase Aus Pty Ltd,Private,264,,54-58 Brookes St,,,,BOWEN HILLS,QLD,4006
+03979E,Datum College; Fluent Education,Datum College Pty Ltd,Private,"3,000",,11-17 Jeffcott Street,,,,WEST MELBOURNE,VIC,3003
+03982K,,WINSLOW PROFESSIONAL EDUCATION PTY LTD,Private,"1,032",,"Level 7, 440 Elizabeth Street",,,,MELBOURNE,VIC,3000
+03983J,,AUSTRALIAN INSTITUTE OF DIGITAL TECHNOLOGY PTY LTD,Private,600,https://aidt.edu.au/,Shop 4 & 5,Upper Bourke Street Level,108 Bourke Street,,MELBOURNE,VIC,3000
+03984H,,Palmir Educreation Pty Ltd,Private,580,,13/19 Radnor Drive,,,,Deer Park,VIC,3023
+03985G,,Australian International College of Skills & Education Pty Ltd,Private,398,,Room 2 269 Bigge Street,,,,LIVERPOOL,NSW,2170
+03986F,AIE Institute,AIE Institute Limited,Private,43,,PO Box 519,,,,Dickson,ACT,2602
+03990K,GET Education Australia,Workplace Health & Safety Services Pty Ltd,Private,135,,"Level 4, 180 Bourke St",,,,Melbourne,VIC,3000
+03991J,,Atlantic College Pty Ltd,Private,482,,12 Kippen Cl,,,,SPRING MOUNTAIN,QLD,4300
+03992H,South Brisbane Institute; Le Pont International College Pty Ltd,Le Pont International College Pty Ltd,Private,450,,L2 - 12-14 Wentworth St,,,,PARRAMATTA,NSW,2150
+03994F,KING'S SCHOOL OF CULINARY ARTS,Sydney Institute of Top Education Pty Ltd,Private,571,,Shop 1 15-17 Blaxland Rd,,,,Rhodes,NSW,2138
+03995E,,Raymond International College Pty Ltd,Private,80,,Ground Floor 341 Queen St,,,,Melbourne,VIC,3000
+03996D,,Australian Institute of Technology and Commerce Pty Ltd,Private,168,,"Level 6, 8 Quay Street",,,,Haymarket,NSW,2000
+03997C,,ANZ College Pty Ltd,Private,324,,16-18 Aberdeen St,,,,Perth,WA,6000
+04000A,Pentagon College Australia,Pentagon College Pty Ltd,Private,250,,Level 6 11-17 York St,,,,SYDNEY,NSW,2000
+04002K,LEGEND INSTITUTE,LEGEND INSTITUTE PTY LTD,Private,"1,120",,"Level 3, 20-22 Macquarie Street",,,,Parramatta,NSW,2150
+04006F,,Award Academy Australia Pty Ltd,Private,75,,"Unit 22 Level 7, 99 York Street",,,,Sydney,NSW,2000
+04007E,Australian College of Tourism and Information Technology,Australian Institute of Education and Technology Pty Ltd,Private,"1,200",actit.edu.au,"Level 6, 231 George Street",,,,BRISBANE,QLD,4000
+04008D,,Australian College of Vocational Education and Training Pty Ltd,Private,760,https://www.acvet.edu.au/,Level 5 18-38D Siddeley Street,,,,Docklands,VIC,3008
+04009C,National Academy of Professional Studies,National Academy of Professional Studies Pty Ltd,Private,"2,500",www.naps.edu.au,"Level 4, 136 Chalmers Street",,,,Surry Hills,NSW,2010
+04010K,IVY LINK COLLEGE,ELS FUTURES PTY LTD,Private,"1,750",,PO Box 2096,,,,RUNCORN,QLD,4113
+04011J,,United Institute Pty Ltd,Private,536,,PO Box 1059,,,,ROBINSON,VIC,3019
+04012H,Edunex Training,Edunex Pty Ltd,Private,420,,47 Translink Dr,,,,KEILOR PARK,VIC,3042
+04013G,Australian International Institute of Higher Education,Queensland Institute of Higher Education Pty Ltd,Private,"1,016",www.aiihe.edu.au,"Level 23 & 24, 343 Albert St",,,,Brisbane,QLD,4000
+04015E,,Ivory Education Group Pty Ltd,Private,237,https://ivoryinstitute.edu.au/,Level 8 90 King William St,,,,Adelaide,SA,5000
+04016D,Sapience College,SAPIENCE COLLEGE PTY LTD,Private,172,www.sapiencecollege.edu.au,Suite 109 Level 1 425 Docklands Dr,,,,DOCKLANDS,VIC,3008
+04017C,Australian Academy of Hospitality and Management,Future College Pty Ltd,Private,250,,Level 1 - 586-590 Parramatta Road,,,,PETERSHAM,NSW,2049
+04018B,Melbourne Institute of Higher Education Pty Ltd,Melbourne Institute of Higher Education Pty Ltd,Private,523,www.mihe.vic.edu.au,150 High Street,,,,Preston,VIC,3072
+04019A,,ACCORD COLLEGE PTY LTD,Private,175,,65 Warrigal Dr,,,,AINTREE,VIC,3336
+04021G,,Alice Springs College of Australia Pty Ltd,Private,940,http://www.asca.edu.au/,12 Glass Ct,,,,Sadadeen,NT,0870
+04023E,Australian Virtus Institute,Australian Virtus Institute Pty Ltd,Private,605,www.avi.edu.au,"Level 6 West, 50 Grenfell St",,,,Adelaide,SA,5000
+04024D,,Harvard International College Pty Ltd,Private,150,,244 Bungarribee Rd,,,,Blacktown,NSW,2148
+04025C,Evantaa Institute,Brightpart Learning Centre Pty Ltd,Private,460,www.nvc.edu.au,83 Boundary Rd,,,,North Melbourne,VIC,3051
+04026B,,BDMS Education Pty Ltd,Private,510,,Level 5 56-58 York Street,,,,Sydney,NSW,2000
+04029K,,Greenhill Institute Pty Ltd,Private,320,www.greenhillinstitute.vic.edu.au,Suite 2 - 17 David St,,,,BRUNSWICK,VIC,3056
+04030F,,AUIPT GROUP PTY LTD,Private,300,,Ground Floor 301-311 Flinders Lane,,,,Melbourne,VIC,3000
+04033C,LATITUDE COLLEGE,Educate Australia Pty Ltd,Private,288,www.latitude.edu.au,PO Box 330,,,,Parap,NT,0804
+04034B,,Australian Vocational Training Academy Pty Ltd,Private,"2,950",,132-146 Elizabeth St,,,,Hobart,TAS,7000
+04035A,,Waratah Polytechnic Pty Ltd,Private,768,https://www.waratah.edu.au/,Suite 19 650 George St,,,,Sydney,NSW,2000
+04036M,,Kingsford Education Group Pty Ltd,Private,600,,Level 2 545 Kent St,,,,Sydney,NSW,2000
+04043A,,Avir Institute of Skills Pty Ltd,Private,512,,17 David St,,,,Brunswick,VIC,3056
+04044M,,Vigil International College Pty Ltd,Private,480,,Level 2 12-14 Wentworth St,,,,PARRAMATTA,NSW,2150
+04045K,Auswide College,Vocational Trainers Pty Ltd,Private,318,https://auswidecollege.edu.au,Level 3 1-3 Fitzwilliam Street,,,,PARRAMATTA,NSW,2150
+04047H,GENESIS INTERNATIONAL COLLEGE,Genesis Education Group Pty Ltd,Private,400,,Unit 2 5 Danaher Drive,,,,South Morang,VIC,3752
+04048G,Victor College,Australian Institute of Business and Technical Education Pty Ltd,Private,484,,Level 3 47 Waymouth St,,,,Adelaide,SA,5000
+04049F,,Perth Institute of Australia Pty Ltd,Private,645,,Level 2 10 Victoria Avenue,,,,PERTH,WA,6000
+04050B,"Solis College, Athena College Australia",ABBI Educational Services Pty Ltd,Private,350,,Unit 5 Level 1 117 King William St,,,,ADELAIDE,SA,5000
+04052M,,Institute of Management and Trade,Private,683,,"Suite 29, 4 Cardinia Rd",,,,OFFICER,VIC,3809
+04055H,,Auscare Staffing Agency Pty Ltd,Private,"1,120",,PO Box 123,,,,Burswood,WA,6100
+04056G,,MARS INSTITUTE PTY LTD,Private,300,,"Unit 5, 200 Turner Street",,,,PORT MELBOURNE,VIC,3207
+04057F,Anderson College,SECURITY COLLEGE OF AUSTRALIA Pty Ltd,Private,720,,Level 6,190 Queens Street,,,Melbourne,VIC,3000
+04059D,Analytics Institute of Australia Pty Ltd,Analytics Institute of Australia Pty Ltd,Private,340,www.analyticsinstitute.edu.au,"Level 10, 601 Bourke Street",,,,Melbourne,VIC,3000
+04061K,,Britts College Pty Ltd,Private,"1,735",,"Level 7, 108 Lonsdale Street",,,,Melbourne,VIC,3000
+04062J,Auscanus Institute of Australia,Auscanus Institute of Australia Pty Ltd,Private,810,www.auscanus.edu.au,Level 6 55 Swanston St,,,,Melbourne,VIC,3000
+04066E,Victorian School of Commerce,Marasi Education Pty Ltd (VSC),Private,320,www.thevsc.com.au,219-221 Sydney Rd,,,,Coburg,VIC,3058
+04067D,,WHITEHOUSE INTERNATIONAL COLLEGE PTY LTD,Private,578,,150 King St,,,,Newcastle,NSW,2300
+04070J,,Southern Institute of Early Learning and Leadership Pty Ltd,Private,280,,Level 5 307 Pitt St,,,,Sydney,NSW,2000
+04073F,,Daffodil International College Pty Ltd,Private,465,,5 Herborn Pl,,,,Minto,NSW,2566
+04074E,Invicta Technical College,Australian Professional Training Academy Pty Ltd,Private,975,,35 Daisy St,,,,Revesby,NSW,2212
+04078A,Southern Cross Institute (SCI) Pty Ltd,Southern Cross Institute (SCI),Private,"1,500",https://sci.edu.au/,"Level 2, 1 - 3 Fitzwilliam Street",,,,Parramatta,NSW,2150
+04079M,,Thames International College Pty Ltd,Private,500,,118 Walker St,,,,North Sydney,NSW,2060
+04080G,DS COLLEGE,DS College Pty Ltd,Private,456,,3 Clunies Ross Court,,,,EIGHT MILE PLAINS,QLD,4113
+04082E,Churchill Institute of Higher Education (CIHE),Mpika Holdings Pty Ltd,Private,720,www.churchill.edu.au,Level 1/16-18 Wentworth Street,,,,Parramatta,NSW,2150
+04085B,KINGS INSTITUTE OF VOCATIONAL STUDIES,Kings Institute of Vocational Studies Pty Ltd,Private,770,,Unit 5 153 Mann St,,,,GOSFORD,NSW,2250
+04089J,,Global Healthcare Management College Pty Ltd,Private,828,,4 Tribute Ct,,,,HOPPERS CROSSING,VIC,3029
+04090E,Sydney Polytechnic Institute Pty Ltd,Sydney Polytechnic Institute,Private,800,https://spi.nsw.edu.au/,"Level 4, 191 Thomas St",,,,Haymarket,NSW,2000
+04091D,AUSTRALIAN SCHOOL OF BUSINESS & TRADE,AUSTRALIAN SCHOOL OF BUSINESS & TRADE PTY LTD,Private,640,http://www.asbt.com.au,Level 12 190 Queen St,,,,Melbourne,VIC,3000
+04093B,,College of Skills & Knowledge Pty Ltd,Private,318,,581-583 Plenty Rd,,,,PRESTON,VIC,3072
+04094A,,NSW Higher Education Pty Ltd,Private,240,,Ground Floor 51-53 Murray St,,,,Pyrmont,NSW,2009
+04095M,"The Australian Institute of Professional Counsellors Pty Ltd, AIPC Professional",Australian Institute of Professional Counsellors,Private,600,www.aipc.net.au,Locked Bag 15,,,,Fortitude Valley,QLD,4006
+04096K,,NATIONAL POLYTECHNIC OF AUSTRALIA PTY LTD,Private,"2,000",,"Level 2, 8 Quay Street",,,,Haymarket,NSW,2000
+04097J,Lincoln Education Australia,Lincoln Institute of Higher Education Ltd,Private,650,lincolnau.nsw.edu.au,"Level 8, 175 Liverpool Street",,,,Sydney,NSW,2000
+04099G,Norton Institute,Norton Institute Pty Ltd,Private,360,,Unit 29 23 Norton St,,,,LEICHHARDT,NSW,2040
+04102F,Australian Data and Cyber Institute,Australian Data and Cyber Institute,Private,220,https://adci.edu.au/,"Level 3, 251 Adelaide Terrace",,,,Perth,WA,6000
+04103E,Grenfell Institute of Technology Australia,Grenfell Education Enterprises Pty Ltd,Private,812,,Suite 1 Level 17 45 Grenfell St,,,,ADELAIDE,SA,5000
+04106B,States College Australia,States College Australia Pty Ltd,Private,96,,"Suite 301, Level 3, 620 Bourke St",,,,Melbourne,VIC,3000
+04107A,Atlas Education,Atlas Education Pty Ltd,Private,420,,Level 2 366 King William St,,,,Adelaide,SA,5000
+04108M,PARAMOUNT COLLEGE,IIVS Pty Ltd,Private,"1,290",,Suite 501A 175 Church St,,,,PARRAMATTA,NSW,2150
+04109K,EUREKA INSTITUTE OF MANAGEMENT,Sharma Education Pty Ltd,Private,237,,Level 6 440 Elizabeth St,,,,MELBOURNE,VIC,3000
+04114B,Skyline Institute of Technology,Indopacific Global Pty Ltd,Private,360,,Level 8 310 King St,,,,MELBOURNE,VIC,3000
+04115A,Yarra College Australia,Yarra Education Australia,Private,"1,036",,Level 6 190 Queen St,,,,Melbourne,VIC,3000
+04116M,International Graduate Institute (IGI),PBL Education Pty Ltd,Private,340,www.igi.edu.au,"Level 4, 540 George Street",,,,Sydney,NSW,2000
+04117K,Ardor College Pty Ltd,Ardor College Pty Ltd,Private,300,http://www.ardor.edu.au,Unit 1 24 Madden St,,,,Aitkenvale,QLD,4814
+04119H,Australian Management College Pty Ltd,Australian Management College Pty Ltd,Private,174,http://www.amc.qld.edu.au,"Level 1, 126 Margaret St.",,,,Brisbane,QLD,4000
+04120D,Kangaroo International College Pty Ltd,Kangaroo International College Pty Ltd,Private,680,,Level 6 440 Elizabeth Street,,,,Melbourne,VIC,3000
+04122B,Danford Higher Education,Danford Higher Education Pty Ltd,Private,288,www.danfordhe.vic.edu.au,"Level 8, 277 William Street",,,,Melbourne,VIC,3000
+04123A,Austin Institute of Trades,Austin Institute of Trades Pty Ltd,Private,100,https://austin.edu.au/,Level 11 474 Flinders St,,,,Melbourne,VIC,3000
+04133K,Hillshire International College,Hillshire Investment Pty Ltd,Private,368,,Level 3,7282 Mary Street,,,Surry Hills,NSW,2150
+04134J,Marriott Academy,Marriott Education Group Pty Ltd,Private,760,,"168 Exhibition Street Level 8, Tenancy 1",,,,Melbourne,VIC,3000
+04135H,Sydney College of Professional Education,Sydney College of Professional Education,Private,330,,Unit 1 133 Parramatta Rd,,,,GRANVILLE,NSW,2142
+04136G,VIITE,VIITE Pty Ltd,Private,"1,140",,Level 5 271 William St,,,,MELBOURNE,VIC,3000
+04142J,Epicure Skills Training Pty Ltd,Epicure Skills Training,Private,370,,20 Belgrave Street,,,,Kogarah,NSW,2217
+04143H,PLATINUM COLLEGE OF TECHNOLOGY AND BUSINESS,Platinum Education Pty Ltd,Private,54,http://www.platinumeducation.qld.edu.au/,Suite 1 3350 Pacific Hwy,,,,Springwood,QLD,4217
+04144G,Global College of Management,Management Institute of Australia Pty Ltd,Private,340,,38 Ricketty Street,,,,Mascot,NSW,2020
+04146E,Pacific College Sydney,PACIFIC COLLEGE SYDNEY PTY LTD,Private,"1,255",,"Level 2,47 Rickard Road",,,,Bankstown,NSW,2200
+04147D,Allman College,Allman College Pty. Ltd.,Private,120,,PO Box 3220,,,,WAREEMBA,NSW,2046
+04149B,,Infinity Business College Pty Ltd,Private,150,,101 Power St,,,,DOONSIDE,NSW,2767
+04151H,Nexgen Institute of Australia,QTN Pty Ltd,Private,490,https://nexgen.edu.au,Level 5,271 William Street,,,Melbourne,VIC,3000
+04152G,N/A,Insight Institute of Further Studies Pty Ltd,Private,360,,Unit 25 792 Plenty Road,,,,South Morang,VIC,3752
+04155D,Hopkins International College,Phia Education Pty Ltd,Private,561,www.hopkins.edu.au,Suite 2 170 Wellington St,,,,East perth,WA,6004
+04156C,Australis Vocational College Pty Ltd,Australis Vocational College Pty Ltd,Private,150,,3A Pisces Place,,,,ERSKINE PARK,NSW,2759
+04159M,United International College,United International College Pty Ltd,Private,210,,33 Barina Downs Rd,,,,NORWEST,NSW,2153
+04161F,,Management Institute Australia Pty Ltd,Private,150,www.miaustralia.edu.au,Level 2A,133 Parramatta Road,,,Granville,NSW,2141
+04168K,Australian Guild of Education Pty Ltd,Australian Guild of Education Pty Ltd,Private,170,www.age.edu.au,376 Victoria St,,,,North Melbourne,VIC,3051
+04173B,,Omni Futures Pty Ltd,Private,336,,"Level 7, 440 Elizabeth Street",,,,MELBOURNE,VIC,3000
+04176K,Empower International College,Train2succeed Pty Ltd,Private,400,,PO Box 616,,,,Spring Hill,QLD,4000
+04178H,Ausford College,B&P Education Pty Ltd,Private,660,www.ausfordcollege.edu.au,"Level 3, 14 Railway Parade",,,,Burwood,NSW,2134
+04180C,The Performance College,The Performance College Pty Ltd,Private,120,,Level 6 440 Elizabeth Street,,,,MELBOURNE,VIC,3000
+04181B,Australasian Academy of Higher Education,Australasian Academy of Higher Education,Private,"1,300",https://www.aahe.edu.au/,363 King Street,,,,West Melbourne,VIC,3003
+04182A,,XAVIER INTERNATIONAL COLLEGE PTY LTD,Private,580,,28 Memorial Ave,,,,Liverpool,NSW,2170
+04184K,Unified WA,Unified WA Pty Ltd,Private,240,,"Level 4, 440 Elizabeth Street",,,,MELBOURNE,VIC,3000
+04189E,Fusion College of Technology Pty Ltd,Fusion College of Technology Pty Ltd,Private,"1,034",,Suite 2 Level 5 16-18 Wentworth St,,,,PARRAMATTA,NSW,2150
+04190A,Aimers College of Education,Genesis Education and Training Pty Ltd,Private,180,www.aimerscollege.edu.au,1/11 Cordeila Street,,,,SOUTH BRISBANE,QLD,4101
+04191M,SSR Higher Education Pty Ltd,Australian Institute of Advanced Technologies,Private,658,,"Level 9, 50 Grenfell Street",,,,Adelaide,SA,5000
+04194H,,Edinburgh Institute Pty Ltd,Private,"1,020",,Level 2 608E St Kilda Rd,,,,MELBOURNE,VIC,3004
+04197E,,Viva Institute Pty Ltd,Private,200,,91 Prospect Rd,,,,PROSPECT,SA,5082
+04198D,Novel Institute of Hospitality and Management,Esteem Educators Pty Ltd,Private,155,,8 Newquay Prom,,,,DOCKLANDS,VIC,3008
+04199C,,Times College Pty Ltd,Private,280,,16 Kirrama St,,,,TARNEIT,VIC,3029
+04200D,,Built Training & Education Pty Ltd,Private,300,,Factory 2 35 Lock Ave,,,,WERRIBEE,VIC,3030
+04201C,,Tradie Skills College,Private,668,,14 Railway Pde,,,,BURWOOD,NSW,2134
+04202B,Southern Academy of Higher Education,Southern Academy of Higher Education Pty Ltd,Private,"1,180",,"Level 1, 191 Thomas Street",,,,Haymarket,NSW,2000
+04206J,,IBM NSW Pty Ltd,Private,274,,Unit 106 420 Pitt St,,,,HAYMARKET,NSW,2000
+04207H,,Australian Institute of Hospitality and Management Pty Ltd,Private,50,aihm.edu.au,"Level 3, 150-152 Adelaide Terrace",,,,East Perth,WA,6004
+04210B,The College of Business Management Pty Ltd,The College of Business Management Pty Ltd,Private,200,,Unit 14 65 Mark St,,,,NORTH MELBOURNE,VIC,3051
+04212M,Elpis College,ELPIS Education Pty Ltd,Private,100,,Unit 21 334-354 Albany Hwy,,,,VICTORIA PARK,WA,6100
+04214J,Skyline Higher Education Australia (SHEA),Skyline Higher Education Australia,Private,700,www.shea.edu.au,"Level 3, 136 Chalmers Street",,,,Surry Hills,NSW,2010
+04216G,,Royal Building Academy Pty Ltd,Private,394,,218 Station St,,,,NORLANE,VIC,3214
+04217F,Melbourne Institute of Australia,Melbourne Institute of Australia Pty Ltd,Private,320,,Unit 3 1 Watton St,,,,WERRIBEE,VIC,3030
+04218E,"Global Leadership Institute Pty Ltd, Australian Cybersecurity Institute",Global Leadership Institute,Private,300,www.gli.edu.au,1009 Ipswich Road,,,,Moorooka,QLD,4105
+04219D,Global Higher Education,IIBIT AHE Pty Ltd,Private,330,,"Level 2, 127 Rundle Mall",,,,Adelaide,SA,5000
+04220M,INSTITUTE OF MANAGEMENT AND COMPUTING,Institute of Management and Computing Pty Ltd,Private,950,,673-683 Spencer St,,,,Melbourne,VIC,3000
+04221K,Russell College,Realm Vista Pty Ltd,Private,185,,Level 1 190 Queen St,,,,MELBOURNE,VIC,3000
+04227D,,Xcelit Institute Pty Ltd,Private,100,,Level 6 1 Queens Rd,,,,MELBOURNE,VIC,3004
+04228C,,St Thomas College Pty Ltd,Private,80,,Level 4 579 Harris St,,,,ULTIMO,NSW,2007
+04229B,IMPERIAL ENGR PTY LTD,Imperial Engineering Education,Private,275,www.imperialee.edu.au,137 Days Rd,,,,Regency Park,SA,5010
+04231H,ASTRA GROUP AUSTRALIA PTY LTD,Astra Institute of Higher Education,Private,524,,"Level 3, 16-18 Wentworth St",,,,Parramatta,NSW,2150
+04234E,City College Pty Ltd,City College Pty Ltd,Private,625,,9-13 Argyle Street,,,,Parramatta,NSW,2150
+04240G,LA MAISON SCHOLAR COLLEGE,IMPEL Education Pty Ltd,Private,335,,"Suite 203, Level 2",118 Church St,,,PARRAMATTA,NSW,2150
+04244C,,Oxford College Australia Pty Ltd,Private,152,,"Warehouse 5, 2 Scholar Dr",,,,BUNDOORA,VIC,3083
+04246A,Pioneer International College,Academics Australia Pty Ltd,Private,400,,Unit 1 60 South St,,,,GRANVILLE,NSW,2142
+04249J,,Adelaide University,Government,"23,125",,Adelaide University,,,,Adelaide,SA,5005
+04250E,,Princeton Education Group Pty Ltd,Private,320,,Suite 1 Level 12 190 Queen St,,,,MELBOURNE,VIC,3000
+04251D,STAMFORD COLLEGE,MARUTI GLOBAL PTY LTD,Private,620,,427 Docklands Dr,,,,DOCKLANDS,VIC,3008
+04253B,,Monday College Pty Ltd,Private,594,,12 Pritchard Street E,,,,Wentworthville,NSW,2145
+04255M,Opal College,Opal Education Group Pty Ltd,Private,605,,"L 2, 86 Collins St",,,,HOBART,TAS,7000
+04260C,Western Star Academy Pty Ltd,Western Star Academy Pty Ltd,Private,650,www.westernstaracademy.edu.au,"Suite 201, 80 Mount St",,,,North Sydney,NSW,2060
+04261B,KENTFORD COLLEGE,Kentford International College Pty Ltd,Private,310,,Level 3 76 Waymouth St,,,,ADELAIDE,SA,5000
+04264K,Sydney State College,Diverse Solutions Pty Ltd,Private,180,,33 Barina Downs Rd,,,,NORWEST,NSW,2153
+04265J,Nova Anglia College Pty Ltd,Nova Anglia College Pty Ltd,Private,300,https://www.nac.edu.au/,29 Amelia Street,,,,Fortitude Valley,QLD,4006
+04269E,Matic International College,A2 Education Pty Ltd,Private,125,,Level 1 620 Bourke St,,,,MELBOURNE,VIC,3000
+04273J,,Australian College of Technical Studies Pty. Ltd.,Private,860,https://actstudies.edu.au/,"Level 3, 41-45 Rickard Road",,,,BANKSTOWN,NSW,2200
+04288B,,Business College of Sydney Pty Ltd,Private,825,,"Level 2, 56-58 York Street",,,,SYDNEY,NSW,2000
+04289A,"Australis Business School, Australis Research School, Australis Education School, Australis Health School",Australian School of Business Pty Ltd,Private,400,www.australis.vic.edu.au,"Unit 6, 435-437 Sydney Road",,,,Coburg,VIC,3058
+04294D,Iona Trinity College of Higher Education Pty Ltd,Iona Trinity College,Private,100,itc.edu.au,5 Wunda Road,,,,Concord West,NSW,2138
+04300M,Oscar Institute,Heyden Lakes Pty Ltd,Private,"1,651",https://oscarinstitute.edu.au/,138 Nicholson Street,,,,Footscray,VIC,3011
+04301K,,XPERT SOLUTIONS PTY LTD,Private,416,,Unit 4 169 Liverpool St,,,,HOBART,TAS,7000
+04304G,,Ashford College Pty Ltd,Private,620,,"Shop 3, 65 Brougham Street",,,,GEELONG,VIC,3220
+04305F,Vocational Augment Training,Vocational Augment Pty Ltd,Private,200,http://www.vat.vic.edu.au/,330 Boardwalk Bvd,,,,POINT COOK,VIC,3030
+04307D,Heritage International College,Heritage International College Pty Ltd,Private,240,,"Level 1, 341 Queen Street",,,,MELBOURNE,VIC,3000
+04308C,Sage College of Australlia,Sage College of Australia Pty Ltd,Private,160,,Unit 7 69073 McLennan Street,,,,MOOROOPNA,VIC,3629
+04320G,Monaro Higher Education,Monaro Education Pty Limited,Private,480,Monaro.edu.au,"Suite 405, 4 Railway Parade",,,,Burwood,NSW,2134
+04328K,,National Institute of Science Pty Ltd,Private,210,,322 Liverpool St,,,,WEST HOBART,TAS,7000
+04329J,,Institute of Culinary Education,Private,200,,"Suite 1 Level 5 398 Lonsdale St, MELBOURNE, VIC,",,,,Melbourne,VIC,3000
+04332C,,MANCHESTER COLLEGE PTY LTD,Private,58,,"Level 3, 1 Fitzwilliam Street",,,,PARRAMATTA,NSW,2150
+04334A,Montford International College,Montford Group Pty Ltd,Private,255,,61 Riggall Street,,,,BROADMEADOWS,VIC,3047
+04336K,Higher Education Institute,MEGA Higher Education Pty Ltd,Private,190,,Levels 2 & 3,225 Clarence Steet,,,Sydney,NSW,2000
+04337J,AICHM,Australian Institute of Community and Health Management Pty Ltd,Private,295,,"Level 8, 310 King St",,,,MELBOURNE,VIC,3000
+04339G,Sydney Institute of Technology and Engineering,Sydney Institute of Technology Innovation Pty Ltd,Private,120,www.siti.nsw.edu.au,"Level 3, 191 Thomas Street",,,,Haymarket,NSW,2000
+04341B,ARK PARTNERS,Ant College Pty Ltd,Private,224,,"2B, 1-13 The Gateway",,,,Broadmeadows,VIC,3047
+04342A,Lead Institute of Higher Education,Education and Career Hub Pty Ltd,Private,300,www.lihe.edu.au,"Level 1, 37-39 George Street",,,,Parramatta,NSW,2150
+04343M,Grandford College Australia,AUSTRALIAN VOCATIONAL EDUCATION PTY LTD,Private,160,,29 Apex Drive,,,,Truganina,VIC,3029
+04345J,Barton Business School; Barton Health School; Barton Nursing School; Barton School of Education,BBS Higher Education Pty Ltd,Private,225,www.bbs.vic.edu.au,"Level 1, 108-112 Johnston Street",,,,Collingwood,VIC,3066
+04352K,Kingsford Institute of Higher Education,Kingsford Institute of Higher Education Pty Ltd,Private,200,https://www.kihe.nsw.edu.au/,"Level 2, 545 Kent Street",,,,Sydney,NSW,2000
+04353J,"Caped Institute, Capital Education Institute",Capital Education Institute Pty Ltd,Private,325,www.caped.au,"Suite 1B, Level 1, 10-24 Moorabool Street",,,,GEELONG,VIC,3220
+04354H,Victorian Skillls College,Victorian Skills College Pty Ltd,Private,320,,"Level 4, 398 Lonsdale Street",,,,MELBOURNE,VIC,3000
+04373E,Oxford International College,Oxford International College Pty Ltd,Private,111,,"Level 3, 72 Mary Street",,,,SURRY HILLS,NSW,2010
+04374D,,Indigo Polytechnic Pty Ltd,Private,110,,212 Liverpool St,,,,HOBART,TAS,7000
+04375C,Laurus Higher Education,Laurus Higher Education Pty Ltd,Private,391,,"Level 3, 356 Collins Street",,,,Melbourne,VIC,3000
+04376B,,INSTITUTE OF MANAGEMENT LEARNING PTY LTD,Private,100,,61 Riggall St,,,,BROADMEADOWS,VIC,3047
+04379K,Hallmark Institute,Hallmark Institute Pty Ltd,Private,240,,uite 603 Level 6 2 Meredith St,,,,BANKSTOWN,NSW,2200
+04384B,Avalon College Australia,Apex Aim Pty Ltd,Private,80,,"Level 2, 14 Railway Parade",,,,Burwood,NSW,2134
+04385A,,Vision College of Australia Pty Ltd,Private,100,,153 Mann Street,,,,Gosford,NSW,2250
+04388J,Hawkesbury Business School,ANA Institute of Education Pty Ltd,Private,150,,"Level 6, 38 Currie Street",,,,ADELAIDE,SA,5000
+04391C,International Health & Science Institute,International Health & Science Institute Pty Ltd,Private,180,www.ihsi.edu.au,PO Box 200,,,,Pyrmont,NSW,2009
+04394M,N/A,Australian Global Institute of Technology Pty Ltd,Private,80,,Unit 3/4 Monash Gate,,,,JANDAKOT,WA,6164
+04398G,Advith Education,Advith Education Pty Ltd,Private,240,,425 Kiewa St,,,,ALBURY,NSW,2640
+04399F,,Bloomfield College Pty Ltd,Private,102,,62 Robinson Street,,,,DANDENONG,VIC,3175
+04401F,Nova Higher Education,Nova Higher Education Pty Ltd,Private,350,nhe.edu.au,"Level 5, 601 Bourke Street",,,,Melbourne,VIC,3000
+04403D,IBC Higher Education,International Business College Pty Ltd,Private,312,ibc.edu.au,"Level 18, 45 Grenfell Street",,,,Adelaide,SA,5000
+04405B,Greystone Institute,Greystone Institute Pty Ltd,Private,400,,"Level 1, 232 Adelaide Street",,,,Brisbane,QLD,4000
+04409J,,Platinum Institute Pty Ltd,Private,275,www.platinuminstitute.com.au,4 Lahinch Drive,,,,FINGAL,VIC,3939
+04416K,,GREENFIELD COLLEGE PTY LTD,Private,216,,359 Wyndham Street,,,,SHEPPARTON,VIC,3630
+04418H,Harmony International College,Harmony International College Pty Ltd,Private,144,www.harmonyinternationalcollege.com.au,57 Sanders St,,,,UPPER MOUNT GRAVATT,QLD,4122
+04423M,College 21,Saveedu Pty Ltd,Private,"1,000",,921 Punchbowl Road,,,,Punchbowl,NSW,2196
+04424K,"Gradskill College Australia, Gradskill International College",Gradskill International Pty Ltd,Private,520,,"Unit 1, 3A Belair Ave",,,,GLENROY,VIC,3046
+04425J,Central Institute of Technology and Innovation,EV Higher Education,Private,250,,"Level 5, 136 Chalmers Street",,,,Surry Hills,NSW,2010
+04426H,AUSTRALIAN COLLEGE OF PROFESSIONAL SKILLS,AUSTRALIAN COLLEGE OF PROFESSIONAL SKILLS PTY LTD,Private,160,,Level 1 318 King St,,,,MELBOURNE,VIC,3000
+04427G,,Noble College of Education Pty Ltd,Private,140,,"Level 6, 440 Elizabeth St",,,,MELBOURNE,VIC,3000
+04428F,International School of Global Leaders,International School of Global Leaders Pty Ltd,Private,205,,16-20 Good St,,,,Granville,NSW,2142
+04436F,Nexus Institute,Nexus Institute of Higher Education Pty Ltd,Private,300,,"Level 5, 1-5 Railway Street",,,,Chatswood,NSW,2075
+04437E,Australian Leap College,Tigerleap Education Pty Ltd,Private,165,,"Level 1, 128 Chalmers Street",,,,SURRY HILLS,NSW,2010
+04440K,Amtech Institute,Amtech Institute Pty Ltd,Private,200,www.amtech.edu.au,433 Boundary Street,,,,Spring Hill,QLD,4000
+04441J,,Omeo College Pty Ltd,Private,500,,"Level 2, 12-14 Wentworth Street",,,,PARRAMATTA,NSW,2150
+04445E,Green Valley College,Green Valley Education Group Pty Ltd,Private,430,,403-405 Victoria St,,,,ABBOTSFORD,VIC,3067
+04449A,,Vivid College Pty Ltd,Private,300,,"Suite14/Level 2, 10-24 Moorabool Street,",,,,Geelong,VIC,3220
+04454D,Metavision Institute Pty Ltd,Metavision Institute Pty Ltd,Private,120,,Level 3/97 Creek Street,,,,Brisbane City,QLD,4000
+04461E,,Benison College Pty Ltd,Private,110,,22-36 Mountain St,,,,ULTIMO,NSW,2007
+04464B,,Austrasia International College of Management Pty Ltd,Private,66,,"Level 1, 586 Parramatta Road",,,,Petersham,NSW,2049
+04465A,Higher Education Australia Pty Ltd,Higher Education Australia Pty Ltd,Private,121,,Level 14,1 Queens Road,,,Melbourne,VIC,3004
+04467K,Trident Institute Australia Pty Ltd,Trident Institute Australia Pty Ltd,Private,265,,Level 2,120 Miller Street,,,West Melbourne,VIC,3003

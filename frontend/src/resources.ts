@@ -25,6 +25,17 @@ export const resources: ResourceProps[] = [
     meta: { label: "Universities" },
   },
   {
+    name: "admission",
+    list: "/admission",
+    show: "/admission/:key",
+    meta: { label: "Admission policies" },
+  },
+  {
+    name: "data-sync",
+    list: "/data-sync",
+    meta: { label: "Data sync" },
+  },
+  {
     name: "match-runs",
     meta: { label: "Match history", hide: true },
   },

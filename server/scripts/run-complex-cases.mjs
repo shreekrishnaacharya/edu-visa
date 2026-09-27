@@ -55,16 +55,36 @@ function checkExpect(expect, ctx) {
     notes.push(`completed without throwing; results=${results.length}`);
   }
   if (expect.budget_stress) {
-    // Either nothing survives the budget, or whatever survives is a
-    // genuinely weak fit (reflecting the real financial/level mismatch) —
-    // not a strong, well-aligned recommendation despite the stated budget.
+    // Rewritten after the catalogue grew from 8 research universities to the
+    // whole CRICOS register (~663 providers). "Nothing is affordable" was true
+    // of the old catalogue; it is now false — there are 48 real Master's courses
+    // at or under AUD 20k/yr across 29 providers, which is exactly the
+    // private-college segment budget-constrained students actually enrol in. So
+    // a low top `overall` is no longer the right signal.
+    //
+    // What this case was really guarding is unchanged: the student must not be
+    // handed something they cannot afford, and must be TOLD when a cheap option
+    // is a poor fit. Assert those two things directly.
     if (results.length === 0) {
-      notes.push("all courses correctly knocked out on budget");
-    } else if (results[0].overall < 55) {
-      notes.push(`${results.length} survived but top overall=${results[0].overall} (weak fit, as expected under budget stress)`);
+      notes.push("all courses knocked out on budget");
     } else {
-      ok = false;
-      notes.push(`budget stress not reflected: ${results.length} results, top overall=${results[0].overall}`);
+      const overBudget = results.filter((r) => r.subscores.financial < 40);
+      if (overBudget.length) {
+        ok = false;
+        notes.push(`${overBudget.length} result(s) scored below 40 on financial — unaffordable options surfaced`);
+      }
+      // Every surviving recommendation should either genuinely fit the stated
+      // field/level, or carry an explicit concern saying it doesn't.
+      const unflagged = results.filter(
+        (r) => r.subscores.career < 60 && !r.concerns.some((c) => /weak link|justify the switch|entry bar|English requirement/i.test(c)),
+      );
+      if (unflagged.length) {
+        ok = false;
+        notes.push(`${unflagged.length} weak-fit result(s) carried no concern explaining the mismatch`);
+      }
+      notes.push(
+        `${results.length} affordable option(s); top overall=${results[0].overall}, career=${results[0].subscores.career} (cheap providers now genuinely exist)`,
+      );
     }
   }
   return { ok, notes };
@@ -82,7 +102,10 @@ async function main() {
   let lastLogin = Date.now();
   const RELOGIN_EVERY_MS = 8 * 60 * 1000;
 
-  const cases = allCases();
+  // ARCHETYPE=<name> runs just one archetype — re-verifying a single assertion
+  // shouldn't require another 100 real AI calls.
+  const only = process.env.ARCHETYPE;
+  const cases = allCases().filter((c) => !only || c.archetype === only);
   const report = { started_at: new Date().toISOString(), branch: BRANCH, n: cases.length, records: [] };
   let passed = 0, failed = 0, errored = 0;
   const byArchetype = {};
