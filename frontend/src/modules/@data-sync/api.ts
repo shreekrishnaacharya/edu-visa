@@ -471,32 +471,12 @@ export async function getConsistency(): Promise<ConsistencyReport> {
   return data;
 }
 
-/**
- * 1. keep_both        — report only, change nothing.
- * 2. course_to_policy — the course figure replaces the policy band's.
- * 3. policy_to_course — the policy band's figure replaces the course's.
- */
-export type ReconcileDirection = "keep_both" | "course_to_policy" | "policy_to_course";
-
-export interface ReconcileResult {
-  direction: ReconcileDirection;
-  dry_run: boolean;
-  updated: number;
-  skipped: { course_id: string; reason: string }[];
-}
-
-export async function reconcileConsistency(body: {
-  direction: ReconcileDirection;
-  course_ids?: string[];
-  apply?: boolean;
-  force?: boolean;
-}): Promise<ReconcileResult> {
-  const { data } = await axiosInstance.post<ReconcileResult>(url("/consistency/reconcile"), body);
+export async function reconcileConsistency(
+  apply: boolean,
+): Promise<{ dry_run: boolean; updated: number; skipped_stronger_source: number }> {
+  const { data } = await axiosInstance.post(
+    url(`/consistency/reconcile${apply ? "?apply=true" : ""}`),
+    {},
+  );
   return data;
 }
-
-export const RECONCILE_LABELS: Record<ReconcileDirection, string> = {
-  keep_both: "Leave both as they are",
-  course_to_policy: "Use the course figure (updates the policy band)",
-  policy_to_course: "Use the policy figure (updates the course)",
-};

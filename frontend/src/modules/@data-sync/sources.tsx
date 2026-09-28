@@ -39,8 +39,6 @@ import {
   ConsistencyReport,
   getConsistency,
   reconcileConsistency,
-  ReconcileDirection,
-  RECONCILE_LABELS,
   BLOCKED_REASON_LABELS,
   BlockedInstitution,
   listBlockedInstitutions,
@@ -95,7 +93,6 @@ export function SourceRegistryPage() {
   const [showBlocked, setShowBlocked] = useState(false);
   const [consistency, setConsistency] = useState<ConsistencyReport | null>(null);
   const [reconciling, setReconciling] = useState(false);
-  const [direction, setDirection] = useState<ReconcileDirection>("policy_to_course");
 
   const load = useCallback(async () => {
     try {
@@ -141,19 +138,17 @@ export function SourceRegistryPage() {
     }
   };
 
-  const runReconcile = async (force = false) => {
+  const runReconcile = async () => {
     setReconciling(true);
     setError(null);
     try {
-      const res = await reconcileConsistency({ direction, apply: true, force });
-      const refused = res.skipped.filter((s) => /governs/.test(s.reason));
+      const res = await reconcileConsistency(true);
       setNotice(
-        direction === "keep_both"
-          ? `Left ${res.skipped.length} disagreement(s) as they are — nothing was written.`
-          : `${RECONCILE_LABELS[direction]} — updated ${res.updated}.` +
-              (res.skipped.length ? ` ${res.skipped.length} skipped.` : ""),
+        `Filled in ${res.updated} course band(s) from institution policies` +
+          (res.skipped_stronger_source
+            ? `; left ${res.skipped_stronger_source} alone because the course had a more specific source.`
+            : "."),
       );
-      if (refused.length) setError(refused[0].reason);
       await load();
     } catch (e: any) {
       setError(e?.response?.data?.message ?? e?.message ?? "Reconcile failed");
@@ -286,37 +281,20 @@ export function SourceRegistryPage() {
                 <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
                   <Typography variant="subtitle2">Policy ↔ course consistency</Typography>
                   <Box flex={1} />
-                  <TextField
-                    size="small"
-                    select
-                    label="When they disagree"
-                    value={direction}
-                    sx={{ minWidth: 300 }}
-                    onChange={(e) => setDirection(e.target.value as ReconcileDirection)}
-                  >
-                    {(Object.keys(RECONCILE_LABELS) as ReconcileDirection[]).map((k) => (
-                      <MenuItem key={k} value={k}>
-                        {RECONCILE_LABELS[k]}
-                      </MenuItem>
-                    ))}
-                  </TextField>
                   <Button
                     size="small"
                     variant="outlined"
                     disabled={reconciling || !consistency.disagreements.length}
-                    onClick={() => runReconcile(false)}
+                    onClick={runReconcile}
                   >
-                    {reconciling ? "Applying…" : "Apply"}
+                    {reconciling ? "Reconciling…" : "Fill from policies"}
                   </Button>
                 </Stack>
                 <Typography variant="caption" color="text.secondary">
                   The English requirement is held in two places: on the course (what the matcher
                   scores) and in the institution's admission policy (what the eligibility verdict
-                  checks). When they disagree there is no automatic winner — a figure scraped from the
-                  provider's own course page may belong in the policy, or the briefing may be right
-                  and the course row stale. Choose the direction. Promoting a course figure into a
-                  band that governs other courses is refused unless you confirm it, since it changes
-                  the requirement for all of them.
+                  checks). A course-specific provider page always wins; an institution-wide policy
+                  band fills a course that has nothing better.
                 </Typography>
                 <Stack direction="row" spacing={1} sx={{ mt: 1 }} flexWrap="wrap" useFlexGap>
                   <Chip size="small" label={`${consistency.checked} courses checked`} />

@@ -25,21 +25,6 @@ const SOURCE_RANK = {
 
 export type EntrySourceKind = keyof typeof SOURCE_RANK;
 
-/**
- * 1. `keep_both`         — report only, change nothing.
- * 2. `course_to_policy`  — the course figure replaces the policy band's.
- * 3. `policy_to_course`  — the policy band's figure replaces the course's.
- */
-export type ReconcileDirection = 'keep_both' | 'course_to_policy' | 'policy_to_course';
-
-export interface ReconcileResult {
-  direction: ReconcileDirection;
-  dry_run: boolean;
-  updated: number;
-  skipped: { course_id: string; reason: string }[];
-  changes: EntryDisagreement[];
-}
-
 export interface EntryDisagreement {
   course_id: string;
   course: string;
@@ -63,25 +48,6 @@ export class ConsistencyService {
     @InjectRepository(University) private readonly universities: Repository<University>,
     private readonly admission: AdmissionEligibilityService,
   ) {}
-
-  /**
-   * How many courses that band actually governs, resolved through the matcher's
-   * own band selection so the count reflects reality rather than a guess.
-   */
-  private async coursesGovernedByBand(policyKey: string, bandLabel: string): Promise<number> {
-    const unis = await this.universities.find({ where: { policy_key: policyKey }, select: ['id'] });
-    if (!unis.length) return 0;
-    const courses = await this.courses
-      .createQueryBuilder('c')
-      .where('c.university_id IN (:...ids)', { ids: unis.map((u) => u.id) })
-      .getMany();
-    let n = 0;
-    for (const c of courses) {
-      const { band } = await this.admission.bandForCourse(policyKey, c.degree_level, c.title, c.field);
-      if (band?.label === bandLabel) n++;
-    }
-    return n;
-  }
 
   /** Classifies where a course's stored band came from. */
   classifySource(requirementSource: string | null | undefined): EntrySourceKind {
@@ -177,138 +143,45 @@ export class ConsistencyService {
   }
 
   /**
-   * What to do about a disagreement. There is no single correct direction: a
-   * course-specific figure scraped from the provider may be the accurate one and
-   * belong in the policy, or the institution briefing may be right and the course
-   * row stale. The caller chooses; `keep_both` only reports.
+   * Writes the policy band onto the courses it governs, but only where the
+   * course's own value is weaker evidence (unset, or a blanket aggregator
+   * figure). A course-specific provider page or a human-entered value is left
+   * alone — an institution-wide band should not overwrite something more
+   * specific.
+   *
+   * Records `admission_policy:<key>` as the provenance so the next run can tell
+   * where the number came from and re-derive it.
    */
-  async reconcile(opts: {
-    direction: ReconcileDirection;
-    /** Limit to these courses; omitted means every disagreement. */
-    course_ids?: string[];
-    apply?: boolean;
-    /**
-     * Allow `course_to_policy` even when the band governs courses beyond the ones
-     * being promoted. Off by default: an institution-wide band is shared, so one
-     * course's figure would silently become the requirement for all of them.
-     */
-    force?: boolean;
-  }): Promise<ReconcileResult> {
-    const apply = opts.apply === true;
+  async reconcileEntryFromPolicies(dryRun = true): Promise<{
+    dry_run: boolean;
+    updated: number;
+    skipped_stronger_source: number;
+    changes: EntryDisagreement[];
+  }> {
     const { disagreements } = await this.checkEntryConsistency();
-    const scoped = opts.course_ids?.length
-      ? disagreements.filter((d) => opts.course_ids!.includes(d.course_id))
-      : disagreements;
+    const toApply = disagreements.filter((d) => d.resolution === 'policy wins');
+    const skipped = disagreements.filter((d) => d.resolution === 'course wins').length;
 
-    if (opts.direction === 'keep_both') {
-      return {
-        direction: 'keep_both',
-        dry_run: true,
-        updated: 0,
-        skipped: scoped.map((d) => ({ course_id: d.course_id, reason: 'left as-is by choice' })),
-        changes: [],
-      };
-    }
-
-    if (opts.direction === 'policy_to_course') {
-      const usable = scoped.filter((d) => d.policy_band != null);
-      const skipped = scoped
-        .filter((d) => d.policy_band == null)
-        .map((d) => ({ course_id: d.course_id, reason: 'the policy has no figure for this band' }));
-      if (apply) {
-        for (const d of usable) {
-          await this.courses.query(
-            `UPDATE "course"
-                SET "entry" = "entry" || jsonb_build_object(
-                      'min_english_band', $1::numeric,
-                      'requirement_source', $2::text
-                    )
-              WHERE "id" = $3`,
-            [d.policy_band, `admission_policy:${d.policy_key}`, d.course_id],
-          );
-        }
-        this.log.log(`Wrote ${usable.length} policy band(s) onto courses`);
-      }
-      return {
-        direction: 'policy_to_course',
-        dry_run: !apply,
-        updated: usable.length,
-        skipped,
-        changes: usable.slice(0, 200),
-      };
-    }
-
-    // course_to_policy: push the course figure up into the institution band.
-    const usable = scoped.filter((d) => d.course_band != null);
-    const skipped = scoped
-      .filter((d) => d.course_band == null)
-      .map((d) => ({ course_id: d.course_id, reason: 'the course has no figure to promote' }));
-
-    // Several courses share one band, so they must agree before it can be set —
-    // otherwise whichever was written last would silently win.
-    const byBand = new Map<string, EntryDisagreement[]>();
-    for (const d of usable) {
-      const k = `${d.policy_key}|${d.band_label}`;
-      byBand.set(k, [...(byBand.get(k) ?? []), d]);
-    }
-
-    const applied: EntryDisagreement[] = [];
-    for (const [k, group] of byBand) {
-      const values = [...new Set(group.map((g) => Number(g.course_band)))];
-      if (values.length > 1) {
-        for (const g of group) {
-          skipped.push({
-            course_id: g.course_id,
-            reason:
-              `courses sharing the band "${g.band_label}" disagree with each other ` +
-              `(${values.join(', ')}) — resolve them individually first`,
-          });
-        }
-        continue;
-      }
-      const [policyKey, bandLabel] = k.split('|');
-
-      // A band is institution-wide. Promoting one course's figure into
-      // "Undergraduate (general)" rewrites the requirement for every UG course at
-      // that provider — 33 of them at CQU. Refuse unless the caller has said it
-      // means to change the band for all of them.
-      const governed = await this.coursesGovernedByBand(policyKey, bandLabel);
-      if (!opts.force && governed > group.length) {
-        for (const g of group) {
-          skipped.push({
-            course_id: g.course_id,
-            reason:
-              `"${bandLabel}" governs ${governed} course(s) at this institution, not just the ` +
-              `${group.length} being promoted — changing the band would change all of them. ` +
-              `Re-send with force to do that deliberately, or fix the course row instead.`,
-          });
-        }
-        continue;
-      }
-
-      if (apply) {
-        const policy = await this.admission.getPolicy(policyKey);
-        const academics = (policy.academics ?? []).map((b) =>
-          b.label === bandLabel ? { ...b, min_ielts_overall: values[0] } : b,
-        );
-        await this.admission.upsertPolicy(
-          policyKey,
-          policy.institution,
-          { ...policy, academics },
-          // A person chose this direction, so the policy is human-decided now.
-          { reviewStatus: 'reviewed' },
+    if (!dryRun) {
+      for (const d of toApply) {
+        await this.courses.query(
+          `UPDATE "course"
+              SET "entry" = "entry" || jsonb_build_object(
+                    'min_english_band', $1::numeric,
+                    'requirement_source', $2::text
+                  )
+            WHERE "id" = $3`,
+          [d.policy_band, `admission_policy:${d.policy_key}`, d.course_id],
         );
       }
-      applied.push(...group);
+      this.log.log(`Reconciled ${toApply.length} course band(s) from admission policies`);
     }
-    if (apply) this.log.log(`Promoted ${byBand.size} course figure(s) into policy bands`);
 
     return {
-      direction: 'course_to_policy',
-      dry_run: !apply,
-      updated: applied.length,
-      skipped,
-      changes: applied.slice(0, 200),
+      dry_run: dryRun,
+      updated: toApply.length,
+      skipped_stronger_source: skipped,
+      changes: toApply.slice(0, 200),
     };
   }
 }

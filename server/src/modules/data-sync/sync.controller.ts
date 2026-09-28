@@ -20,7 +20,6 @@ import {
   ListChangesDto,
   ListSourcePagesDto,
   StartCricosRunDto,
-  ReconcileConsistencyDto,
   StartSiteScrapeDto,
   UpdateSourcePageDto,
 } from './dto/sync.dto';
@@ -50,15 +49,11 @@ export class SyncController {
     return this.consistency.checkEntryConsistency();
   }
 
-  /**
-   * Resolve disagreements in one of three directions — leave both as they are,
-   * let the course figure replace the policy band's, or let the policy band's
-   * replace the course's. Dry run unless `apply` is true.
-   */
+  /** Dry run by default; pass `?apply=true` to write. */
   @Roles(Role.SuperAdmin)
   @Post('consistency/reconcile')
-  reconcile(@Body() dto: ReconcileConsistencyDto) {
-    return this.consistency.reconcile(dto);
+  reconcile(@Query('apply') apply?: string) {
+    return this.consistency.reconcileEntryFromPolicies(apply !== 'true');
   }
 
   @Roles(Role.SuperAdmin, Role.BranchAdmin, Role.Counsellor)

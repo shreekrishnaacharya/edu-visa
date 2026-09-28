@@ -331,6 +331,8 @@ export interface AdmissionEligibility {
   } | null;
   /** Scholarship terms from the institution's briefing (not the scored dimension). */
   scholarship_notes?: string[];
+  /** Policy guidance that is not checkable (GS, region/board, country tier). Never affects `overall`. */
+  advisory_notes?: { label: string; text: string }[];
 }
 
 export interface MatchResult {

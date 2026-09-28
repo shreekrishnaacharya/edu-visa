@@ -169,6 +169,7 @@ export class MatchService {
                 min_ielts_band: verdict.matched_band.min_ielts_band,
               }
             : null,
+          advisory_notes: verdict.advisory_notes ?? [],
           scholarship_notes: policy.scholarships ?? [],
         });
       }

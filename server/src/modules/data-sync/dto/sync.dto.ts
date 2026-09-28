@@ -90,25 +90,3 @@ export class UpdateSourcePageDto {
   /** Marks that a human confirmed this really is the right source page. */
   @IsOptional() @IsBoolean() verified?: boolean;
 }
-
-export class ReconcileConsistencyDto {
-  /**
-   * 1. keep_both        — report only, change nothing (the default).
-   * 2. course_to_policy — the course figure replaces the policy band's.
-   * 3. policy_to_course — the policy band's figure replaces the course's.
-   */
-  @IsIn(['keep_both', 'course_to_policy', 'policy_to_course'])
-  direction: 'keep_both' | 'course_to_policy' | 'policy_to_course';
-
-  /** Resolve only these courses; omitted means every disagreement. */
-  @IsOptional() @IsArray() @IsUUID('4', { each: true }) course_ids?: string[];
-
-  /** Dry run unless explicitly true. */
-  @IsOptional() @IsBoolean() apply?: boolean;
-
-  /**
-   * Required to push a course figure into a band that governs other courses too,
-   * since that changes the requirement for all of them.
-   */
-  @IsOptional() @IsBoolean() force?: boolean;
-}

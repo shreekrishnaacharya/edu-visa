@@ -16,6 +16,23 @@ export interface EligibilityCheck {
   detail: string;
 }
 
+/**
+ * Narrative from the policy that a counsellor needs but that must NOT move the
+ * verdict.
+ *
+ * Deliberately not modelled as an `info` check: `overallVerdict()` maps any
+ * `info` to `conditionally_eligible`, so attaching GS guidance as a check would
+ * have downgraded every course at SCU, Excelsia and CQU purely because advisory
+ * text exists. And `excluded_regions` genuinely cannot be evaluated here — it
+ * names Indian state boards, while the student record has no home-region field
+ * (`student.state` is a pipeline stage, defaulting to "Enquiry"). Surfacing it as
+ * something to read is honest; scoring it would be invention.
+ */
+export interface AdvisoryNote {
+  label: string;
+  text: string;
+}
+
 export interface EligibilityVerdict {
   policy_key: string;
   institution: string;
@@ -23,6 +40,7 @@ export interface EligibilityVerdict {
   matched_band: AcademicBand | null;
   overall: 'eligible' | 'not_eligible' | 'conditionally_eligible' | 'insufficient_data';
   checks: EligibilityCheck[];
+  advisory_notes: AdvisoryNote[];
 }
 
 const LEVEL_TO_PROGRAM: Record<DegreeLevel, ProgramLevel> = {
@@ -131,6 +149,7 @@ export class AdmissionEligibilityService {
       matched_band: band,
       overall: this.overallVerdict(checks),
       checks,
+      advisory_notes: this.advisoryNotes(policy),
     };
   }
 
@@ -639,6 +658,26 @@ export class AdmissionEligibilityService {
         ? { rule: 'sponsor bank eligibility', status: 'fail' as const, detail: `${policy.institution} does not accept funds from ${hit} — sponsor "${s.relationship}"'s funds are held at "${s.bank_name}".` }
         : { rule: 'sponsor bank eligibility', status: 'pass' as const, detail: `Sponsor "${s.relationship}"'s bank ("${s.bank_name}") is not on ${policy.institution}'s excluded list (${policy.excluded_banks!.join(', ')}).` };
     });
+  }
+
+  /**
+   * Policy guidance that is real and needed but not checkable: Genuine Student
+   * assessment notes, region/board restrictions we hold no student field for, and
+   * country-tier rules the type itself documents as "never evaluated as a
+   * pass/fail check".
+   */
+  private advisoryNotes(policy: AdmissionPolicy): AdvisoryNote[] {
+    const out: AdvisoryNote[] = [];
+    for (const t of policy.gs_notes ?? []) {
+      out.push({ label: 'Genuine Student (GS)', text: t });
+    }
+    for (const t of policy.excluded_regions ?? []) {
+      out.push({ label: 'Region / board restriction', text: t });
+    }
+    for (const t of policy.country_tier_notes ?? []) {
+      out.push({ label: 'Country tier', text: t });
+    }
+    return out;
   }
 
   private overallVerdict(checks: EligibilityCheck[]): EligibilityVerdict['overall'] {

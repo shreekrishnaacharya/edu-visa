@@ -656,6 +656,33 @@ function AdmissionEligibilityPanel({
           </Stack>
         ))}
       </Stack>
+
+      {eligibility.matched_band && (
+        <Typography variant="caption" color="text.secondary" sx={{ display: "block", mt: 1 }}>
+          Assessed against the <strong>{eligibility.matched_band.label}</strong> band
+          {eligibility.matched_band.source_expression
+            ? ` — the source states "${eligibility.matched_band.source_expression}"`
+            : ""}
+          .
+        </Typography>
+      )}
+
+      {/* Policy guidance that is real but not checkable — shown separately from
+          the checks precisely because it must not read as a pass or a fail. */}
+      {!!eligibility.advisory_notes?.length && (
+        <Box sx={{ mt: 1.5 }}>
+          <Typography variant="caption" sx={{ fontWeight: 600 }}>
+            Also worth knowing (not assessed automatically)
+          </Typography>
+          <Stack spacing={0.5} sx={{ mt: 0.5 }}>
+            {eligibility.advisory_notes.map((n, i) => (
+              <Typography key={i} variant="caption" color="text.secondary">
+                <strong>{n.label}:</strong> {n.text}
+              </Typography>
+            ))}
+          </Stack>
+        </Box>
+      )}
     </Box>
   );
 }

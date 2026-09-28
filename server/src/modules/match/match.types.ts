@@ -38,6 +38,13 @@ export interface AdmissionEligibility {
     min_ielts_band: number | null;
   } | null;
   /**
+   * Policy guidance a counsellor must read but that is not checkable — GS notes,
+   * region/board restrictions (no student field exists for them), country-tier
+   * rules. Never affects `overall`: modelling them as `info` checks would have
+   * downgraded every verdict at those institutions to conditionally_eligible.
+   */
+  advisory_notes?: { label: string; text: string }[];
+  /**
    * Scholarship terms the institution's briefing states. Carried because the
    * scored `scholarship_potential` can only read `course.scholarships`, of which
    * the register supplies none — so a provider with real published scholarships
