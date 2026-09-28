@@ -35,6 +35,33 @@ const clamp = (n: number, lo = 0, hi = 100) =>
 
 const PLANNING_WINDOW_MONTHS = 18;
 
+/**
+ * Words that appear in nearly every prerequisite sentence and name no subject.
+ * Stripped before looking for overlap with a student's background, so that
+ * "Undergraduate degree in any discipline" is recognised as naming no subject
+ * rather than as a subject the student failed to evidence.
+ */
+const PREREQ_SCAFFOLDING = new Set([
+  'undergraduate', 'postgraduate', 'graduate', 'bachelor', 'bachelors', 'master',
+  'masters', 'degree', 'diploma', 'certificate', 'qualification', 'qualifications',
+  'discipline', 'disciplines', 'field', 'fields', 'study', 'studies', 'area',
+  'areas', 'subject', 'subjects', 'equivalent', 'relevant', 'related', 'cognate',
+  'completed', 'completion', 'recognised', 'recognized', 'accredited', 'award',
+  'from', 'with', 'were', 'have', 'been', 'must', 'this', 'that', 'other',
+  'above', 'least', 'minimum', 'requirement', 'requirements', 'entry', 'level',
+  'years', 'year', 'work', 'experience', 'prior', 'plus', 'required', 'require',
+  'requires', 'essential', 'desirable', 'preferred', 'demonstrated', 'evidence',
+  'including', 'additional', 'standard', 'appropriate', 'suitable', 'approved',
+  'satisfactory', 'successful', 'applicants', 'applicant', 'candidates',
+  'candidate', 'students', 'student', 'program', 'programme', 'course',
+  'courses', 'school', 'college', 'university', 'institution',
+]);
+
+// NOTE: this is a stopword heuristic, not parsing. It is deliberately biased
+// towards "unknown" — a word wrongly kept here makes the rule reject someone,
+// while a word wrongly added only defers to a human. Add to it rather than
+// tightening the overlap test.
+
 export interface KnockoutCheck {
   rule: string;
   status: 'pass' | 'fail' | 'unknown';
@@ -159,8 +186,8 @@ export function knockout(
   }
 
   // --- ADDED (PRODUCT_PLAN §4.1): unmet prerequisite ----------------------
-  // Conservative: only knock out when the course lists prerequisites AND there
-  // is zero lexical overlap with the student's academic background / goal.
+  // Conservative: only knock out when the course names a SPECIFIC subject and
+  // there is zero lexical overlap with the student's academic background/goal.
   if (course.entry.prerequisites.length) {
     const haystack = [
       ...student.academic.map((a) => a.course),
@@ -169,23 +196,38 @@ export function knockout(
     ]
       .join(' ')
       .toLowerCase();
-    const anyOverlap = course.entry.prerequisites.some((p) =>
+    const subjectTerms = (p: string) =>
       p
         .toLowerCase()
         .split(/[^a-z0-9]+/)
-        .filter((w) => w.length > 3)
-        .some((w) => haystack.includes(w)),
-    );
-    if (!anyOverlap) {
-      const detail = `Prerequisite not evidenced: ${course.entry.prerequisites.join(', ')}.`;
-      reasons.push(detail);
-      checks.push({ rule: 'prerequisites', status: 'fail', detail });
-    } else {
+        .filter((w) => w.length > 3 && !PREREQ_SCAFFOLDING.has(w));
+    // A prerequisite that names no subject at all ("Undergraduate degree in any
+    // discipline") cannot be confirmed OR refuted by comparing words, and
+    // matching on the scaffolding alone got this exactly backwards: the more
+    // permissive the requirement, the more certain the rejection, so the single
+    // most open entry rule in the catalogue knocked out every applicant who held
+    // precisely the degree it asked for. Report it for a human instead — the
+    // same "unknown, not assumed" rule the unsourced entry bands follow.
+    const specific = course.entry.prerequisites.filter((p) => subjectTerms(p).length > 0);
+    if (!specific.length) {
       checks.push({
         rule: 'prerequisites',
-        status: 'pass',
-        detail: `Prerequisites evidenced: ${course.entry.prerequisites.join(', ')}.`,
+        status: 'unknown',
+        detail: `Prerequisite names no specific subject (${course.entry.prerequisites.join(', ')}) — confirm the qualification is accepted.`,
       });
+    } else {
+      const anyOverlap = specific.some((p) => subjectTerms(p).some((w) => haystack.includes(w)));
+      if (!anyOverlap) {
+        const detail = `Prerequisite not evidenced: ${specific.join(', ')}.`;
+        reasons.push(detail);
+        checks.push({ rule: 'prerequisites', status: 'fail', detail });
+      } else {
+        checks.push({
+          rule: 'prerequisites',
+          status: 'pass',
+          detail: `Prerequisites evidenced: ${course.entry.prerequisites.join(', ')}.`,
+        });
+      }
     }
   } else {
     checks.push({ rule: 'prerequisites', status: 'pass', detail: 'No prerequisites listed for this course.' });
