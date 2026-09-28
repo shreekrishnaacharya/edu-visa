@@ -59,9 +59,21 @@ export const POLICY_KEY_BY_CODE: Record<string, string> = {
   '00219C': 'cqu', // Central Queensland University
   '01328A': 'acap-navitas', // ACAP University College
   '03906M': 'sydney-met', // Sydney Metropolitan Institute of Technology ("Sydney Met, formerly MIT Sydney")
-  // One combined briefing covers three providers, so all three codes point at it.
-  '00301J': 'curtin-griffith-eynesbury', // Curtin University
-  '00233E': 'curtin-griffith-eynesbury', // Griffith University
+  // This briefing is a Curtin COLLEGE document — its own `institution` is
+  // "Curtin College" and it also covers Griffith College and Eynesbury College,
+  // all three Navitas pathway providers. It was previously mapped onto Curtin
+  // University (00301J) and Griffith University (00233E), which handed 643
+  // degree courses at two universities the GS, sponsor and income rules of the
+  // pathway colleges that feed them — and, because the document carries no
+  // academic bands at all, made those 643 courses the single largest
+  // "no requirement on file" gap in the catalogue. Neither university is in
+  // scope, so neither is mapped.
+  //
+  // 00561M is Educational Enterprises Australia Pty Ltd, which is Eynesbury's
+  // own registered entity, so that one is a genuine match. Curtin College is
+  // carried as its own catalogue row (no provider code of its own in the
+  // register) and is linked there. Griffith College has no row yet; when one is
+  // added, it belongs here.
   '00561M': 'curtin-griffith-eynesbury', // Educational Enterprises Australia (Eynesbury)
 };
 

@@ -12,6 +12,7 @@ import { SourcePage } from './entities/source-page.entity';
 import { CricosRegistryService } from './cricos-registry.service';
 import { DiffService } from './diff.service';
 import { SiteScrapeService, SiteScrapeParams } from './site-scrape.service';
+import { ConsistencyService } from './consistency.service';
 
 export const SYNC_QUEUE = 'data-sync';
 
@@ -39,6 +40,7 @@ export class SyncService {
     private readonly registry: CricosRegistryService,
     private readonly diff: DiffService,
     private readonly scraper: SiteScrapeService,
+    private readonly consistency: ConsistencyService,
   ) {}
 
   /**
@@ -481,7 +483,54 @@ export class SyncService {
       'info',
       `Applied ${totals.applied} change(s), ${totals.failed} failed, ${stillPending} still pending`,
     );
+    await this.reportPolicyDrift(run);
     return this.getRun(id);
+  }
+
+  /**
+   * An applied `admission_policy` change can move a band that courses were
+   * already carrying a copy of, so the two can silently fall out of step the
+   * moment a policy is approved — the drift that produced Newcastle courses
+   * advertising 6.0 while its own briefing said 6.5.
+   *
+   * Reports it into the run log as a DRY RUN only. Writing the courses here
+   * would be an unreviewed catalogue write triggered by a different decision,
+   * which is exactly what the staged-change model exists to prevent; the log
+   * line tells the reviewer to run reconcile, and `POST
+   * /data-sync/consistency/reconcile?apply=true` stays the deliberate act.
+   */
+  private async reportPolicyDrift(run: SyncRun): Promise<void> {
+    const appliedPolicies = await this.changes.count({
+      where: { sync_run_id: run.id, entity_type: 'admission_policy', decision: 'applied' },
+    });
+    if (!appliedPolicies) return;
+
+    try {
+      const drift = await this.consistency.reconcileEntryFromPolicies(true);
+      if (!drift.updated && !drift.skipped_stronger_source) {
+        await this.appendLog(
+          run,
+          'info',
+          `${appliedPolicies} policy change(s) applied; course English bands are consistent with them.`,
+        );
+        return;
+      }
+      await this.appendLog(
+        run,
+        'warn',
+        `${appliedPolicies} policy change(s) applied. ${drift.updated} course band(s) now disagree with ` +
+          `the policy that governs them and would be updated by reconcile; ` +
+          `${drift.skipped_stronger_source} have stronger evidence and would be left alone. ` +
+          `Nothing was written — run Consistency > Reconcile to apply.`,
+      );
+    } catch (err) {
+      // A reporting step must never fail an apply that already succeeded.
+      await this.appendLog(
+        run,
+        'warn',
+        `Could not check policy/course consistency after apply: ${err instanceof Error ? err.message : String(err)}`,
+      );
+    }
   }
 
   async cancelRun(id: string): Promise<SyncRun> {

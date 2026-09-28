@@ -290,6 +290,34 @@ async function main() {
     return "deleted";
   });
 
+  await check("data-sync: coverage gaps account for every course checked", async () => {
+    const { data } = await A.get("/data-sync/coverage-gaps");
+    // Every policy-linked course is either assessable or blocked — a course
+    // counted in neither (or in both) means the report understates the gap,
+    // which is the one thing it exists to get right.
+    if (data.courses_assessable + data.courses_blocked !== data.courses_checked) {
+      throw new Error(
+        `${data.courses_assessable} + ${data.courses_blocked} != ${data.courses_checked}`,
+      );
+    }
+    // `band_without_english_figure` is deliberately NOT a blocker: the academic
+    // verdict still works without a test score, so it may exceed the blocked
+    // count and must not be summed into it.
+    const blocking =
+      data.by_kind.no_band_at_level +
+      data.by_kind.ambiguous_bands +
+      data.by_kind.band_without_academic_figure;
+    if (blocking !== data.courses_blocked) {
+      throw new Error(`blocking kinds ${blocking} != blocked ${data.courses_blocked}`);
+    }
+    for (const g of data.gaps) {
+      if (g.kind === "no_band_at_level" && g.bands_defined !== 0) {
+        throw new Error(`${g.policy_key}/${g.program_level}: no_band_at_level with ${g.bands_defined} bands`);
+      }
+    }
+    return `${data.courses_assessable} assessable / ${data.courses_blocked} blocked, ${data.gaps.length} gaps`;
+  });
+
   await check("reference: fx-rates (public)", async () => {
     const { data } = await axios.get(`${BASE}/reference/fx-rates`);
     if (!data.AUD) throw new Error("missing AUD rate");

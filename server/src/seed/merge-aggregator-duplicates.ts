@@ -10,8 +10,11 @@
 //
 // HOW THE TARGET IS CHOSEN: by CRICOS code, never by name similarity and never
 // by shared `policy_key`. policy_key is unsafe here because one combined
-// briefing (`curtin-griffith-eynesbury`) is shared by four rows, so matching on
-// it would merge Curtin College's course into Griffith University.
+// briefing (`curtin-griffith-eynesbury`) is shared by several rows, so matching
+// on it would merge Curtin College's course into another institution entirely.
+// That briefing covers the Navitas pathway colleges only; it was for a while
+// also mapped onto Curtin and Griffith *Universities*, which is exactly the kind
+// of confusion this rule exists to avoid (see POLICY_KEY_BY_CODE).
 //
 // Curtin College is deliberately NOT merged: it is a distinct institution (a
 // Navitas pathway college), not Curtin University, and it is legitimately absent

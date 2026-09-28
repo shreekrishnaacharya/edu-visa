@@ -37,7 +37,11 @@ import { RefineListView } from "@components/view/list";
 import { AppBreadcrumbs } from "@components/breadcrumb/app.breadcrumb";
 import {
   ConsistencyReport,
+  CoverageGap,
+  CoverageGapKind,
+  CoverageReport,
   getConsistency,
+  getCoverageGaps,
   reconcileConsistency,
   BLOCKED_REASON_LABELS,
   BlockedInstitution,
@@ -52,6 +56,44 @@ import {
   startSiteScrape,
   updateSourcePage,
 } from "./api";
+
+/**
+ * Why a course cannot be assessed. Worth spelling out in the UI rather than
+ * showing the raw kind: the fix is different for each, and two of them are not
+ * fixable by scraping the same page again.
+ */
+const GAP_LABELS: Record<CoverageGapKind, { title: string; fix: string }> = {
+  no_band_at_level: {
+    title: "No requirement on file for this level",
+    fix: "The briefing covers other levels but is silent on this one — a new source is needed.",
+  },
+  ambiguous_bands: {
+    title: "Several requirements could apply",
+    fix: "The policy has bands at this level but none names these courses, so the matcher refuses to guess. Naming the courses, or adding a general band, resolves it.",
+  },
+  band_without_academic_figure: {
+    title: "Requirement found, but no academic figure stated",
+    fix: "A band governs these courses and the source never gave a mark. Re-reading the same page will not help.",
+  },
+  band_without_english_figure: {
+    title: "Requirement found, but no English figure stated",
+    fix: "The academic mark is usable; only the test score is missing. These courses still get an academic verdict.",
+  },
+};
+
+const GAP_ORDER: CoverageGapKind[] = [
+  "no_band_at_level",
+  "ambiguous_bands",
+  "band_without_academic_figure",
+  "band_without_english_figure",
+];
+
+const LEVEL_LABELS: Record<string, string> = {
+  UG: "Undergraduate",
+  PG: "Postgraduate",
+  PG_RESEARCH: "Research (PhD)",
+  PATHWAY: "Pathway",
+};
 
 const STATUS_COLOUR: Record<FetchStatus, "success" | "default" | "warning" | "error"> = {
   ok: "success",
@@ -92,6 +134,8 @@ export function SourceRegistryPage() {
   const [blocked, setBlocked] = useState<BlockedInstitution[]>([]);
   const [showBlocked, setShowBlocked] = useState(false);
   const [consistency, setConsistency] = useState<ConsistencyReport | null>(null);
+  const [coverage, setCoverage] = useState<CoverageReport | null>(null);
+  const [showGaps, setShowGaps] = useState(false);
   const [reconciling, setReconciling] = useState(false);
 
   const load = useCallback(async () => {
@@ -100,11 +144,12 @@ export function SourceRegistryPage() {
       // previously rejected the whole Promise.all and left the page blank with
       // only a validation message. A secondary panel failing should cost that
       // panel, not the page.
-      const [sRes, pRes, bRes, cRes] = await Promise.allSettled([
+      const [sRes, pRes, bRes, cRes, gRes] = await Promise.allSettled([
         getSourcesStatus(),
         listSourcePages({ fetch_status: statusFilter || undefined, q: query || undefined, take: 100 }),
         listBlockedInstitutions(),
         getConsistency(),
+        getCoverageGaps(),
       ]);
       if (sRes.status === "fulfilled") setStatus(sRes.value);
       else throw sRes.reason;
@@ -114,6 +159,7 @@ export function SourceRegistryPage() {
       }
       setBlocked(bRes.status === "fulfilled" ? bRes.value.items : []);
       setConsistency(cRes.status === "fulfilled" ? cRes.value : null);
+      setCoverage(gRes.status === "fulfilled" ? gRes.value : null);
     } catch (e: any) {
       setError(e?.response?.data?.message ?? e?.message ?? "Could not load the source registry");
     } finally {
@@ -275,6 +321,127 @@ export function SourceRegistryPage() {
                 />
               </Tooltip>
             </Stack>
+
+            {coverage && coverage.courses_checked > 0 && (
+              <Paper variant="outlined" sx={{ p: 2, borderRadius: 2, mb: 2 }}>
+                <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
+                  <Typography variant="subtitle2">Assessment coverage</Typography>
+                  <Box flex={1} />
+                  <Button size="small" onClick={() => setShowGaps((v) => !v)}>
+                    {showGaps ? "Hide breakdown" : "What is missing"}
+                  </Button>
+                </Stack>
+                <Typography variant="caption" color="text.secondary">
+                  Of the courses at institutions we hold an admission policy for, how many can
+                  actually be given an academic verdict. A course with no requirement on file still
+                  produces a report — it just says "unknown" and comes out{" "}
+                  <em>conditionally eligible</em>, so a low number here is invisible in day-to-day
+                  use.
+                </Typography>
+                <Stack direction="row" spacing={1} sx={{ mt: 1 }} flexWrap="wrap" useFlexGap>
+                  <Chip
+                    size="small"
+                    color="success"
+                    label={`${coverage.courses_assessable} assessable`}
+                  />
+                  <Chip
+                    size="small"
+                    color="warning"
+                    variant="outlined"
+                    label={`${coverage.courses_blocked} cannot be assessed`}
+                  />
+                  <Chip
+                    size="small"
+                    variant="outlined"
+                    label={`${coverage.courses_checked} courses at policy-linked institutions`}
+                  />
+                </Stack>
+                <Tooltip
+                  title={`${Math.round((coverage.courses_assessable / coverage.courses_checked) * 100)}% of policy-linked courses can be assessed`}
+                >
+                  <LinearProgress
+                    variant="determinate"
+                    value={(coverage.courses_assessable / coverage.courses_checked) * 100}
+                    sx={{ mt: 1.5, height: 8, borderRadius: 4 }}
+                  />
+                </Tooltip>
+
+                {showGaps && (
+                  <Box sx={{ mt: 2 }}>
+                    {GAP_ORDER.filter((kind) => coverage.by_kind[kind] > 0).map((kind) => {
+                      const rows = coverage.gaps.filter((g) => g.kind === kind);
+                      return (
+                        <Box key={kind} sx={{ mb: 2 }}>
+                          <Typography variant="body2" fontWeight={600}>
+                            {GAP_LABELS[kind].title} — {coverage.by_kind[kind]} course
+                            {coverage.by_kind[kind] === 1 ? "" : "s"}
+                          </Typography>
+                          <Typography variant="caption" color="text.secondary">
+                            {GAP_LABELS[kind].fix}
+                          </Typography>
+                          <Table size="small" sx={{ mt: 0.5 }}>
+                            <TableHead>
+                              <TableRow>
+                                <TableCell>Institution policy</TableCell>
+                                <TableCell>Level</TableCell>
+                                <TableCell align="right">Courses</TableCell>
+                                <TableCell align="right">Bands at level</TableCell>
+                                <TableCell>For example</TableCell>
+                              </TableRow>
+                            </TableHead>
+                            <TableBody>
+                              {rows.map((g: CoverageGap) => (
+                                <TableRow key={`${g.policy_key}-${g.program_level}-${g.kind}`}>
+                                  <TableCell>
+                                    <Link
+                                      component="button"
+                                      variant="body2"
+                                      underline="hover"
+                                      textAlign="left"
+                                      onClick={() => navigate(`/admission/${g.policy_key}`)}
+                                    >
+                                      {g.institution}
+                                    </Link>
+                                    {g.universities.length > 1 && (
+                                      <Typography
+                                        variant="caption"
+                                        color="text.secondary"
+                                        display="block"
+                                      >
+                                        also governs {g.universities.length - 1} other institution
+                                        {g.universities.length === 2 ? "" : "s"}:{" "}
+                                        {g.universities.slice(1).join(", ")}
+                                      </Typography>
+                                    )}
+                                  </TableCell>
+                                  <TableCell>
+                                    {LEVEL_LABELS[g.program_level] ?? g.program_level}
+                                    <Typography
+                                      variant="caption"
+                                      color="text.secondary"
+                                      display="block"
+                                    >
+                                      {g.degree_levels.join(", ")}
+                                    </Typography>
+                                  </TableCell>
+                                  <TableCell align="right">{g.courses}</TableCell>
+                                  <TableCell align="right">{g.bands_defined}</TableCell>
+                                  <TableCell>
+                                    <Typography variant="caption" color="text.secondary">
+                                      {g.example_courses.join("; ")}
+                                    </Typography>
+                                  </TableCell>
+                                </TableRow>
+                              ))}
+                            </TableBody>
+                          </Table>
+                        </Box>
+                      );
+                    })}
+                  </Box>
+                )}
+              </Paper>
+            )}
 
             {consistency && (
               <Paper variant="outlined" sx={{ p: 2, borderRadius: 2, mb: 2 }}>

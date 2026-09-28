@@ -444,6 +444,42 @@ export async function sendCurationMessage(
 }
 
 // ---------------------------------------------------------------------------
+// Assessment coverage — what the catalogue cannot answer, and why
+// ---------------------------------------------------------------------------
+
+export type CoverageGapKind =
+  | "no_band_at_level"
+  | "ambiguous_bands"
+  | "band_without_academic_figure"
+  | "band_without_english_figure";
+
+export interface CoverageGap {
+  policy_key: string;
+  institution: string;
+  /** Every catalogue institution the gap applies to — one briefing can govern several. */
+  universities: string[];
+  program_level: "UG" | "PG" | "PG_RESEARCH" | "PATHWAY";
+  degree_levels: string[];
+  kind: CoverageGapKind;
+  courses: number;
+  bands_defined: number;
+  example_courses: string[];
+}
+
+export interface CoverageReport {
+  courses_checked: number;
+  courses_assessable: number;
+  courses_blocked: number;
+  by_kind: Record<CoverageGapKind, number>;
+  gaps: CoverageGap[];
+}
+
+export async function getCoverageGaps(): Promise<CoverageReport> {
+  const { data } = await axiosInstance.get<CoverageReport>(url("/coverage-gaps"));
+  return data;
+}
+
+// ---------------------------------------------------------------------------
 // Policy <-> course consistency
 // ---------------------------------------------------------------------------
 

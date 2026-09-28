@@ -49,6 +49,17 @@ export class SyncController {
     return this.consistency.checkEntryConsistency();
   }
 
+  /**
+   * What the catalogue cannot assess and which briefing to go fix — absences
+   * rather than disagreements. Ordered by how many courses each gap blocks, so
+   * the worklist is ranked by impact rather than by institution.
+   */
+  @Roles(Role.SuperAdmin, Role.BranchAdmin, Role.Counsellor)
+  @Get('coverage-gaps')
+  coverageGaps() {
+    return this.consistency.policyCoverageGaps();
+  }
+
   /** Dry run by default; pass `?apply=true` to write. */
   @Roles(Role.SuperAdmin)
   @Post('consistency/reconcile')

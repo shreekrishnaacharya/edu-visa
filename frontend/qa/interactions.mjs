@@ -2,7 +2,10 @@
 import { spawn } from "child_process";
 import axios from "axios";
 import WebSocket from "ws";
-const API="http://localhost:3000", WEB="http://localhost:5173", PORT=9334;
+// Overridable like pages.mjs: the dev server lands on 5174 whenever another
+// project already holds 5173, and hardcoding it plants the auth tokens on the
+// wrong origin — every check then fails as an unauthenticated redirect.
+const API=process.env.API||"http://localhost:3000", WEB=process.env.WEB||"http://localhost:5173", PORT=9334;
 const sleep=(ms)=>new Promise(r=>setTimeout(r,ms));
 const chrome=spawn("/usr/bin/google-chrome",["--headless=new",`--remote-debugging-port=${PORT}`,"--no-sandbox","--disable-gpu","--disable-dev-shm-usage","--window-size=1500,2400","about:blank"],{stdio:"ignore"});
 process.on("exit",()=>chrome.kill());
@@ -70,6 +73,37 @@ await sleep(2500);
 const afterCampus = await rowCount();
 check("catalogue: 'Taught in' filter narrows to courses taught there",
       beforeCampus !== afterCampus, `${beforeCampus} -> ${afterCampus}`);
+
+// ---- coverage gap breakdown --------------------------------------------------
+// The worklist is behind a disclosure button, so the page-level `expect` list
+// cannot reach it; without this the table could silently render empty.
+await s.goto("/data-sync/sources");
+await sleep(2500);
+const gapsHidden = await s.ev(`/No requirement on file for this level/.test(document.body.innerText)`);
+check("coverage: breakdown is collapsed until asked for", !gapsHidden);
+await s.ev(`(()=>{const b=[...document.querySelectorAll('button')].find(x=>/What is missing/i.test(x.textContent)); if(b){b.click();return true;}return false;})()`);
+await sleep(1200);
+const gapRows = await s.ev(`(()=>{const t=[...document.querySelectorAll('table')].filter(t=>/Bands at level/.test(t.innerText)); return t.reduce((n,x)=>n+x.querySelectorAll('tbody tr').length,0);})()`);
+check("coverage: breakdown lists the blocking gaps", gapRows>0, `${gapRows} gap rows`);
+const namesLevel = await s.ev(`/Research \\(PhD\\)/.test(document.body.innerText)`);
+check("coverage: PhD gap is named in plain language", namesLevel);
+// One briefing can govern several institutions, and the row must then name them
+// all rather than whichever one the server saw first. Whether any such gap
+// exists is a property of the data, not of the UI — after the Navitas
+// pathway briefing was unlinked from Curtin and Griffith Universities, no gap
+// spans more than one institution. So ask the API what to expect instead of
+// asserting a string that is correctly absent.
+const {data:cov} = await axios.get(`${API}/data-sync/coverage-gaps`, {headers:{Authorization:`Bearer ${login.access_token}`}});
+const shared = cov.gaps.filter(g=>g.universities.length>1);
+const spansMany = await s.ev(`(()=>{const m=document.body.innerText.match(/also governs \\d+ other institutions?: [^\\n]+/); return m?m[0]:'';})()`);
+check("coverage: a shared briefing names every institution it governs",
+      shared.length ? spansMany.length>0 : spansMany.length===0,
+      shared.length ? spansMany : "no gap spans >1 institution; line correctly absent");
+const linksPolicy = await s.ev(`(()=>{const t=[...document.querySelectorAll('table')].find(t=>/Bands at level/.test(t.innerText));
+  const b=t&&[...t.querySelectorAll('tbody tr td:first-child button')][0]; if(!b)return ''; b.click(); return 'clicked';})()`);
+await sleep(2200);
+const wentToPolicy = await s.ev(`location.pathname`);
+check("coverage: a gap row opens the policy to fix", wentToPolicy.startsWith("/admission/") && wentToPolicy.length>"/admission/".length, `${linksPolicy} -> ${wentToPolicy}`);
 
 // ---- admission policy list -> detail navigation ------------------------------
 await s.goto("/admission");

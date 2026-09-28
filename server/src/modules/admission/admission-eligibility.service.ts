@@ -224,9 +224,36 @@ export class AdmissionEligibilityService {
     title: string,
     field?: string,
   ): Promise<{ band: AcademicBand | null; level: ProgramLevel }> {
-    const policy = await this.getPolicy(policyKey);
+    return this.bandForCourseIn(await this.getPolicy(policyKey), degreeLevel, title, field);
+  }
+
+  /**
+   * The same resolution against a policy the caller already holds.
+   *
+   * `getPolicy` reads the row every time, so resolving a band per course across
+   * the whole catalogue would issue thousands of queries for the same nine
+   * policies. Deliberately not solved with a cache inside `getPolicy`: policies
+   * are edited and applied in this very flow, and a stale read there would be a
+   * correctness bug rather than a slow page.
+   */
+  bandForCourseIn(
+    policy: AdmissionPolicy,
+    degreeLevel: DegreeLevel,
+    title: string,
+    field?: string,
+  ): { band: AcademicBand | null; level: ProgramLevel } {
     const level = this.programLevelFor(degreeLevel);
     return { band: this.pickBand(policy, level, title, field), level };
+  }
+
+  /**
+   * Every academic band a policy defines at one program level. Coverage
+   * reporting needs to tell "this policy says nothing at this level" apart from
+   * "it defines several and none of them unambiguously governs this course" —
+   * `bandForCourse` returns null for both, and they need different fixes.
+   */
+  bandsAtLevel(policy: AdmissionPolicy, level: ProgramLevel): AcademicBand[] {
+    return policy.academics.filter((b) => b.level === level);
   }
 
   private pickBand(
