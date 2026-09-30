@@ -56,6 +56,7 @@ export class AdmissionController {
     return this.eligibility.evaluate(dto.policy_key, student, profile, {
       level: dto.level,
       courseLabel: dto.course_label,
+      courseField: dto.course_field,
     });
   }
 }
