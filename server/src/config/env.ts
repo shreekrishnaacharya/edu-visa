@@ -35,6 +35,19 @@ export const env = {
 
   engineVersion: process.env.ENGINE_VERSION ?? 'v1.0.0',
 
+  /**
+   * The country this consultancy's applicants come from. Australia is the
+   * DESTINATION and was already stated everywhere; the origin was not stated
+   * anywhere, so the assistant could not know that a figure in "lakh" is NPR,
+   * that a 4.0 CGPA is the Nepali university convention, or that a rule written
+   * for Indian state boards does not apply to the person asking.
+   *
+   * Declared here rather than hardcoded so a second market does not need a code
+   * change. Per-student advice keys off `student.nationality`, which is real
+   * data; this is only the default market framing.
+   */
+  homeMarket: process.env.HOME_MARKET ?? 'Nepal',
+
   openRouterApiKey: process.env.OPENROUTER_API_KEY ?? '',
   openRouterChatModel: process.env.OPENROUTER_CHAT_MODEL ?? 'google/gemma-4-26b-a4b-it',
   openRouterChatModelFallback: process.env.OPENROUTER_CHAT_MODEL_FALLBACK ?? 'google/gemma-4-26b-a4b-it:free',

@@ -6,6 +6,13 @@ export interface AdmissionCheck {
   rule: string;
   status: AdmissionCheckStatus;
   detail: string;
+  /**
+   * On an `unknown` check: the requirement's main threshold is already met and
+   * only this named evidence is outstanding. Distinguishes "pending one
+   * document" from "cannot be assessed", which is what decides whether the
+   * verdict reads `conditionally_eligible` or `insufficient_data`.
+   */
+  missing_evidence?: string;
 }
 
 /**
@@ -43,7 +50,20 @@ export interface AdmissionEligibility {
    * rules. Never affects `overall`: modelling them as `info` checks would have
    * downgraded every verdict at those institutions to conditionally_eligible.
    */
-  advisory_notes?: { label: string; text: string }[];
+  /**
+   * What the institution's briefing states it covers — e.g. "Nepalese applicants
+   * with a provisional offer". Applicability a counsellor needs to weigh the
+   * document; only present for a real_policy verdict.
+   */
+  policy_scope?: string | null;
+  advisory_notes?: {
+    label: string;
+    text: string;
+    /** The country the note scopes itself to, when it names one. */
+    scope_country: string | null;
+    /** False when the note is scoped to a country other than this applicant's. */
+    applies_to_applicant: boolean;
+  }[];
   /**
    * Scholarship terms the institution's briefing states. Carried because the
    * scored `scholarship_potential` can only read `course.scholarships`, of which

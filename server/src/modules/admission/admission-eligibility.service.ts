@@ -14,6 +14,19 @@ export interface EligibilityCheck {
   rule: string;
   status: CheckStatus;
   detail: string;
+  /**
+   * Set on an `unknown` check when the requirement's PRIMARY threshold is
+   * already met and only a named piece of supporting evidence is outstanding.
+   *
+   * This is the difference between "we cannot assess this" and "this passes,
+   * pending one document". 182 of 192 IELTS records on file carry no per-skill
+   * breakdown, and most policy bands state a per-skill floor, so an applicant
+   * with IELTS 7.0 against a 6.5/6.0 requirement was reported as
+   * `insufficient_data` — a verdict that reads as "we know nothing about this
+   * student" when the overall band clears the bar comfortably and the only
+   * outstanding item is the score breakdown.
+   */
+  missing_evidence?: string;
 }
 
 /**
@@ -31,12 +44,49 @@ export interface EligibilityCheck {
 export interface AdvisoryNote {
   label: string;
   text: string;
+  /**
+   * The country this note scopes itself to, when it names one ("India: only
+   * these state boards are accepted"), else null for notes that apply to
+   * everyone.
+   */
+  scope_country: string | null;
+  /**
+   * False when `scope_country` names a country other than this applicant's
+   * nationality. Every applicant in this consultancy is Nepali, so both
+   * `excluded_regions` notes on file — Newcastle's Indian state-board list and
+   * CQU's Haryana/Punjab/Rajasthan exclusion — were being printed on every
+   * report they could never apply to. Carried as a flag rather than filtered
+   * away so the same policy still reads correctly for an applicant it does
+   * apply to.
+   */
+  applies_to_applicant: boolean;
 }
+
+/**
+ * Origin countries this consultancy's applicants come from, used only to decide
+ * whether a note that opens with a country name is scoped to someone else.
+ * A deliberately short list: anything not on it (e.g. "Study gaps: ...") is
+ * treated as prose, not a country scope, so a note is never hidden by accident.
+ */
+const ORIGIN_COUNTRIES = new Set([
+  'nepal', 'india', 'bangladesh', 'bhutan', 'pakistan', 'sri lanka',
+  'afghanistan', 'myanmar', 'china', 'vietnam', 'philippines', 'indonesia',
+]);
 
 export interface EligibilityVerdict {
   policy_key: string;
   institution: string;
   source: string;
+  /**
+   * What the briefing itself says it covers. Three of the nine are written
+   * specifically for Nepalese applicants ("Nepalese applicants with a
+   * provisional offer", "Offshore applicants, Assessment Level 3 countries
+   * (Bangladesh, Bhutan, Nepal)"), and Newcastle's notes its Nepal-relevant
+   * sponsor rules. That is exactly the applicability a counsellor in this market
+   * needs in order to weigh the document, and it was being carried in the data
+   * and shown nowhere.
+   */
+  policy_scope: string | null;
   matched_band: AcademicBand | null;
   overall: 'eligible' | 'not_eligible' | 'conditionally_eligible' | 'insufficient_data';
   checks: EligibilityCheck[];
@@ -149,7 +199,8 @@ export class AdmissionEligibilityService {
       matched_band: band,
       overall: this.overallVerdict(checks),
       checks,
-      advisory_notes: this.advisoryNotes(policy),
+      advisory_notes: this.advisoryNotes(policy, student),
+      policy_scope: policy.scope ?? null,
     };
   }
 
@@ -326,6 +377,9 @@ export class AdmissionEligibilityService {
           rule: 'English score (IELTS)',
           status: bandOk == null ? (overallOk ? 'unknown' : 'fail') : ok ? 'pass' : 'fail',
           detail: `Requires IELTS overall ${band.min_ielts_overall}${band.min_ielts_band != null ? `, no band below ${band.min_ielts_band}` : ''} — student has overall ${ielts.overall}${minBand != null ? `, lowest band ${minBand}` : ' (per-skill scores not on file)'}.`,
+          ...(bandOk == null && overallOk
+            ? { missing_evidence: 'per-skill IELTS scores (listening, reading, writing, speaking)' }
+            : {}),
         },
       ];
     }
@@ -340,6 +394,9 @@ export class AdmissionEligibilityService {
           rule: 'English score (PTE)',
           status: bandOk == null ? (overallOk ? 'unknown' : 'fail') : ok ? 'pass' : 'fail',
           detail: `Requires PTE overall ${band.min_pte_overall}${band.min_pte_band != null ? `, no band below ${band.min_pte_band}` : ''} — student has overall ${pte.overall}${minBand != null ? `, lowest band ${minBand}` : ' (per-skill scores not on file)'}.`,
+          ...(bandOk == null && overallOk
+            ? { missing_evidence: 'per-skill PTE scores (listening, reading, writing, speaking)' }
+            : {}),
         },
       ];
     }
@@ -693,24 +750,47 @@ export class AdmissionEligibilityService {
    * country-tier rules the type itself documents as "never evaluated as a
    * pass/fail check".
    */
-  private advisoryNotes(policy: AdmissionPolicy): AdvisoryNote[] {
+  private advisoryNotes(policy: AdmissionPolicy, student?: Student | null): AdvisoryNote[] {
+    const nationality = (student?.nationality ?? '').trim().toLowerCase();
+    const note = (label: string, text: string): AdvisoryNote => {
+      const scope = this.scopeCountry(text);
+      return {
+        label,
+        text,
+        scope_country: scope,
+        // With no nationality on file nothing is hidden — an unknown applicant
+        // is shown everything rather than having notes silently dropped.
+        applies_to_applicant: !scope || !nationality || scope.toLowerCase() === nationality,
+      };
+    };
+
     const out: AdvisoryNote[] = [];
-    for (const t of policy.gs_notes ?? []) {
-      out.push({ label: 'Genuine Student (GS)', text: t });
-    }
-    for (const t of policy.excluded_regions ?? []) {
-      out.push({ label: 'Region / board restriction', text: t });
-    }
-    for (const t of policy.country_tier_notes ?? []) {
-      out.push({ label: 'Country tier', text: t });
-    }
+    for (const t of policy.gs_notes ?? []) out.push(note('Genuine Student (GS)', t));
+    for (const t of policy.excluded_regions ?? []) out.push(note('Region / board restriction', t));
+    for (const t of policy.country_tier_notes ?? []) out.push(note('Country tier', t));
     return out;
+  }
+
+  /**
+   * The country a note scopes itself to, from a leading "Country: ..." prefix.
+   * Only recognised against ORIGIN_COUNTRIES, so ordinary prose that happens to
+   * use a colon is never mistaken for a country scope.
+   */
+  private scopeCountry(text: string): string | null {
+    const m = /^([A-Za-z][A-Za-z ]{2,30}?)\s*:/.exec(text.trim());
+    if (!m) return null;
+    const candidate = m[1].trim();
+    return ORIGIN_COUNTRIES.has(candidate.toLowerCase()) ? candidate : null;
   }
 
   private overallVerdict(checks: EligibilityCheck[]): EligibilityVerdict['overall'] {
     if (checks.some((c) => c.status === 'fail')) return 'not_eligible';
     const mandatory = checks.filter((c) => c.rule === 'academic score' || c.rule.startsWith('English score'));
-    if (mandatory.some((c) => c.status === 'unknown')) return 'insufficient_data';
+    // `insufficient_data` is reserved for a mandatory requirement we genuinely
+    // cannot assess. A mandatory check that clears its threshold and names the
+    // one document still outstanding is a CONDITIONAL pass: the counsellor has
+    // something to act on, which "Insufficient data" actively hides.
+    if (mandatory.some((c) => c.status === 'unknown' && !c.missing_evidence)) return 'insufficient_data';
     if (checks.some((c) => c.status === 'info' || c.status === 'unknown')) return 'conditionally_eligible';
     return 'eligible';
   }

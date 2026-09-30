@@ -88,6 +88,9 @@ describe('advisory notes never change the verdict', () => {
     expect(v.advisory_notes[0]).toEqual({
       label: 'Country tier',
       text: 'Assessment Level 3 applies.',
+      // Names no country, so it is nobody-specific and always shown.
+      scope_country: null,
+      applies_to_applicant: true,
     });
   });
 

@@ -10,6 +10,7 @@ import { DocType } from '../knowledge/doc.entity';
 import { AdmissionEligibilityService } from '../admission/admission-eligibility.service';
 import { AdmissionPolicy } from '../admission/admission-policy.types';
 import { FollowUpService } from '../follow-up/follow-up.service';
+import { env } from '../../config/env';
 import { MatchResult } from '../match/match.types';
 
 export interface OrchestratorResult {
@@ -304,6 +305,31 @@ export class OrchestratorService {
     return keywords.length ? keywords : message.split(/\s+/).slice(0, 3);
   }
 
+  /**
+   * Who the applicants ARE. "Australia-first" told the model the destination;
+   * nothing told it the origin, so it had no reason to read a figure in "lakh"
+   * as NPR, to treat a 4.0 CGPA as the Nepali university convention, or to skip
+   * a rule written for Indian state boards when advising a Nepali applicant.
+   *
+   * Deliberately framing only. It states how to READ and PRIORITISE the sourced
+   * material, and adds no requirement of its own — every factual claim still has
+   * to come from a numbered source, which is what stops this turning into a
+   * licence to invent local rules.
+   */
+  private originMarketContext(student?: { nationality?: string } | null): string {
+    const nationality = student?.nationality?.trim();
+    const market = nationality || env.homeMarket;
+    return [
+      `APPLICANT ORIGIN — this consultancy operates in ${env.homeMarket}${
+        nationality && nationality !== env.homeMarket ? `, and THIS applicant is a national of ${nationality}` : ''
+      }. Australia is the destination, ${market} is the origin. Read every source with that in mind:`,
+      `- Money stated in lakh is Nepali rupees (1 lakh = 100,000 NPR). Our engine has already converted any income or funds figure quoted to you into AUD; quote both when a source gives the local figure, and never re-derive the conversion yourself.`,
+      `- Academic results come from Nepali institutions (Tribhuvan, Pokhara, Kathmandu University, NEB and similar) on a 4.0 CGPA, percentage or division basis. The canonical /100 GPA you are given has already been converted from whichever of those the student holds — use it as given and do not restate it in another scale.`,
+      `- A requirement that names a country other than the applicant's is NOT their requirement. Do not repeat another country's accepted-board or excluded-region list to this applicant, and do not present it as a risk to them.`,
+      `- Where a source is specific to ${market} applicants, prefer it over a generic one and say so. Where you only have generic guidance on a point that you know varies by origin country, say the ${market}-specific position is unconfirmed rather than presenting the generic rule as if it were.`,
+    ].join('\n');
+  }
+
   /** Age, not DOB; affordability band, not balances — plan appendix B.3. */
   private piiMinimisedProfileSummary(profile: any, student: any): string {
     if (!profile) return 'No derived profile yet (intake incomplete).';
@@ -314,6 +340,11 @@ export class OrchestratorService {
       : null;
     return [
       age != null ? `Age: ${age}` : null,
+      // Country of nationality, not address or any identifying detail. Needed
+      // because almost every requirement that differs by applicant origin —
+      // evidence level, accepted boards, income thresholds stated in local
+      // currency — is meaningless without it.
+      student?.nationality ? `Nationality: ${student.nationality}` : null,
       `Canonical GPA: ${profile.canonical_gpa}/100`,
       `English: ${profile.english_band != null ? `IELTS-equivalent ${profile.english_band} (${profile.english_source})` : 'no test on file'}`,
       `Relevant work experience: ${profile.relevant_experience_months} months`,
@@ -741,6 +772,7 @@ ${escalated ? `- This question has been flagged for a counsellor to follow up ($
 Always end with: "${DISCLAIMER}"`;
 
     const userPrompt = [
+      this.originMarketContext(student),
       student ? `Student profile summary:\n${this.piiMinimisedProfileSummary(profile, student)}` : 'No student context provided (exploratory question).',
       matchContext,
       `Grounded sources:\n${contextBlock}`,
@@ -783,6 +815,7 @@ Always end with: "${DISCLAIMER}"`;
     const system = `You are drafting an email/message reply on behalf of a study/migration counsellor at an education consultancy (Australia-first), replying to their student's question. Write in the counsellor's voice, addressed to the student directly ("you"), warm but professional — this is a human-reviewed draft, NOT sent automatically. Ground every factual claim (a rule, requirement, fee, or right) in the numbered sources below using [n]; if a claim can't be supported by a source, say it needs confirming rather than stating it as fact. Keep it concise — a real counsellor email, not an essay. Sources tagged "OUR CATALOGUE" are our own live course database; "OUR CATALOGUE, UNVERIFIED" is a real course whose fee came from a third-party aggregator, not the institution directly — hedge any number from it explicitly rather than stating it as confirmed; "ADMISSION ELIGIBILITY CHECK" is an already-computed pass/fail result for this student, report it directly. End with a natural sign-off, no disclaimer boilerplate — the counsellor reviews and sends this themselves.`;
 
     const userPrompt = [
+      this.originMarketContext(student),
       student ? `Student profile summary:\n${this.piiMinimisedProfileSummary(profile, student)}` : 'No student context provided.',
       matchContext,
       `Grounded sources:\n${contextBlock}`,

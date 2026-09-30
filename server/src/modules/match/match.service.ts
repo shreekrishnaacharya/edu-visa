@@ -170,6 +170,7 @@ export class MatchService {
               }
             : null,
           advisory_notes: verdict.advisory_notes ?? [],
+          policy_scope: verdict.policy_scope ?? null,
           scholarship_notes: policy.scholarships ?? [],
         });
       }

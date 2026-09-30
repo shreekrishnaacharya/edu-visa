@@ -652,10 +652,28 @@ function AdmissionEligibilityPanel({
             {CHECK_ICON[c.status]}
             <Typography variant="caption" color="text.secondary">
               <strong>{c.rule}:</strong> {c.detail}
+              {/* The threshold is met and one named document is outstanding —
+                  an action for the counsellor, not an unassessable requirement. */}
+              {c.missing_evidence && (
+                <>
+                  {" "}
+                  <Box component="span" sx={{ color: "warning.main", fontWeight: 600 }}>
+                    Needed to confirm: {c.missing_evidence}.
+                  </Box>
+                </>
+              )}
             </Typography>
           </Stack>
         ))}
       </Stack>
+
+      {/* What the briefing says it covers. In this market that is the difference
+          between a document written for Nepalese applicants and a generic one. */}
+      {eligibility.policy_scope && eligibility.policy_scope !== "General" && (
+        <Typography variant="caption" color="text.secondary" sx={{ display: "block", mt: 1 }}>
+          This briefing covers: <strong>{eligibility.policy_scope}</strong>
+        </Typography>
+      )}
 
       {eligibility.matched_band && (
         <Typography variant="caption" color="text.secondary" sx={{ display: "block", mt: 1 }}>
@@ -669,20 +687,42 @@ function AdmissionEligibilityPanel({
 
       {/* Policy guidance that is real but not checkable — shown separately from
           the checks precisely because it must not read as a pass or a fail. */}
-      {!!eligibility.advisory_notes?.length && (
-        <Box sx={{ mt: 1.5 }}>
-          <Typography variant="caption" sx={{ fontWeight: 600 }}>
-            Also worth knowing (not assessed automatically)
-          </Typography>
-          <Stack spacing={0.5} sx={{ mt: 0.5 }}>
-            {eligibility.advisory_notes.map((n, i) => (
-              <Typography key={i} variant="caption" color="text.secondary">
-                <strong>{n.label}:</strong> {n.text}
+      {!!eligibility.advisory_notes?.length && (() => {
+        // A note scoped to another country is not this applicant's requirement.
+        // Newcastle's Indian state-board list was appearing on every report for
+        // a Nepali applicant it could never apply to. Counted, not deleted, so
+        // the omission is visible and the same policy still reads correctly for
+        // an applicant it does apply to.
+        const notes = eligibility.advisory_notes!;
+        const mine = notes.filter((n) => n.applies_to_applicant);
+        const others = notes.filter((n) => !n.applies_to_applicant);
+        const otherCountries = [...new Set(others.map((n) => n.scope_country).filter(Boolean))];
+        return (
+          <Box sx={{ mt: 1.5 }}>
+            {mine.length > 0 && (
+              <>
+                <Typography variant="caption" sx={{ fontWeight: 600 }}>
+                  Also worth knowing (not assessed automatically)
+                </Typography>
+                <Stack spacing={0.5} sx={{ mt: 0.5 }}>
+                  {mine.map((n, i) => (
+                    <Typography key={i} variant="caption" color="text.secondary">
+                      <strong>{n.label}:</strong> {n.text}
+                    </Typography>
+                  ))}
+                </Stack>
+              </>
+            )}
+            {others.length > 0 && (
+              <Typography variant="caption" color="text.disabled" sx={{ display: "block", mt: mine.length ? 0.75 : 0 }}>
+                {others.length} further note{others.length === 1 ? "" : "s"} on file appl
+                {others.length === 1 ? "ies" : "y"} only to applicants from{" "}
+                {otherCountries.join(", ")} — not shown.
               </Typography>
-            ))}
-          </Stack>
-        </Box>
-      )}
+            )}
+          </Box>
+        );
+      })()}
     </Box>
   );
 }
