@@ -160,7 +160,13 @@ function deadlineInfo(course?: Course) {
 interface AiAnalysisState {
   loading: boolean;
   answer?: string;
-  cites?: { chunk_id: string; source_url: string }[];
+  cites?: {
+    chunk_id: string;
+    /** Real clickable URL, or empty for a source with no public link (a computed check, a catalogue row). */
+    source_url: string;
+    /** Human-readable label — the only thing identifying a source with no URL. */
+    title?: string;
+  }[];
   degraded?: boolean;
   error?: boolean;
 }
@@ -915,26 +921,73 @@ function DeadlineChip({ course }: { course?: Course }) {
   return <Chip size="small" color={color === "default" ? undefined : color} variant="outlined" label={label} />;
 }
 
-function CiteChips({ cites }: { cites?: { chunk_id: string; source_url: string }[] }) {
+/**
+ * The reference list for an AI analysis. The [n] markers in the prose are
+ * renumbered server-side to match this list exactly, so position n here is
+ * what the answer's [n] means.
+ *
+ * Shows each source's NAME. A row of bare "[1] [2] [3]" chips was not a
+ * reference list: most sources in an analysis have no public URL — a computed
+ * eligibility check, the match result itself, a catalogue row — so the reader
+ * got numbered chips that named nothing and, being rendered as anchors with an
+ * empty href, went nowhere when clicked. Typically one chip in nine was real.
+ *
+ * A source without a URL is therefore labelled as what it is rather than
+ * dressed up as a link, and only a genuine http(s) URL is clickable. Opened
+ * with window.open rather than an anchor because Chip's component/href
+ * composition falls through to the SPA router and 404s on our own domain —
+ * the same fix already made in the AI-consultant tab.
+ */
+function isRealUrl(url?: string) {
+  return !!url && /^https?:\/\//i.test(url);
+}
+
+function CiteList({ cites }: { cites?: AiAnalysisState["cites"] }) {
   if (!cites?.length) return null;
   return (
-    <Stack direction="row" spacing={0.5} flexWrap="wrap" useFlexGap sx={{ mt: 0.75 }}>
-      {cites.map((c, i) => (
-        <Tooltip key={c.chunk_id + i} title={c.source_url}>
-          <Chip
-            size="small"
-            variant="outlined"
-            clickable
-            component="a"
-            href={c.source_url}
-            target="_blank"
-            rel="noreferrer"
-            label={`[${i + 1}]`}
-            icon={<OpenInNewIcon sx={{ fontSize: 12 }} />}
-          />
-        </Tooltip>
-      ))}
-    </Stack>
+    <Box sx={{ mt: 1 }}>
+      <Typography variant="caption" sx={{ fontWeight: 600, display: "block", mb: 0.25 }}>
+        Sources
+      </Typography>
+      <Stack spacing={0.15}>
+        {cites.map((c, i) => {
+          const linkable = isRealUrl(c.source_url);
+          const label = c.title?.trim() || c.source_url || "unnamed source";
+          return (
+            <Stack key={c.chunk_id + i} direction="row" spacing={0.5} alignItems="flex-start">
+              <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600, minWidth: 22 }}>
+                [{i + 1}]
+              </Typography>
+              {linkable ? (
+                <Typography
+                  variant="caption"
+                  component="span"
+                  onClick={() => window.open(c.source_url, "_blank", "noopener,noreferrer")}
+                  sx={{
+                    color: "primary.main",
+                    cursor: "pointer",
+                    textDecoration: "underline",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 0.25,
+                  }}
+                >
+                  {label}
+                  <OpenInNewIcon sx={{ fontSize: 11 }} />
+                </Typography>
+              ) : (
+                <Typography variant="caption" color="text.secondary">
+                  {label}{" "}
+                  <Box component="span" sx={{ color: "text.disabled" }}>
+                    — computed by this system, no external page
+                  </Box>
+                </Typography>
+              )}
+            </Stack>
+          );
+        })}
+      </Stack>
+    </Box>
   );
 }
 
@@ -986,7 +1039,7 @@ function AiAnalysisSection({
         {ai.degraded && <Chip size="small" color="warning" variant="outlined" label="Degraded" />}
       </Stack>
       <AiMarkdown>{ai.answer ?? ""}</AiMarkdown>
-      <CiteChips cites={ai.cites} />
+      <CiteList cites={ai.cites} />
       <Button size="small" startIcon={<ForumOutlinedIcon />} onClick={onContinueInChat} sx={{ mt: 1 }}>
         Continue in AI Consultant
       </Button>

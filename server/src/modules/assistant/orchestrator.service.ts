@@ -109,6 +109,7 @@ export class OrchestratorService {
   private async route(message: string): Promise<RouteDecision> {
     const system = `Classify one question for an Australia-focused study/visa consultancy assistant. Output ONLY strict JSON, no prose: {"passes": string[], "wants_catalogue": boolean, "catalogue_keywords": string[], "wants_human": boolean, "handoff_reason": string}.
 "passes": choose zero or more from exactly ["visa_guidance","cost_of_living","scholarship_terms","entry_requirement","visa_statistics"] — whichever knowledge-base topics the question touches (visa_statistics = grant/approval-rate/success-chance questions specifically). Empty array is fine.
+"visa_guidance" covers BOTH destination and origin-country rules on studying abroad: the Australian student visa, and also the applicant's own government's requirements to leave and to pay — exit or study permission, a No Objection Certificate (NOC), ministry approval, an approved-institution list, and sending tuition or living expenses abroad through a home-country bank. A question about permission to go, or about whether a bank may remit tuition, is visa_guidance — add cost_of_living only if it also asks what things actually cost.
 "wants_catalogue": true only if the question asks about specific real courses, subjects, fees, or universities that a database of actual Australian course listings could answer (not visa rules, not general advice).
 "catalogue_keywords": if wants_catalogue, 1-4 short search terms to look up — use the FULL real name/spelling where you know it (RMIT -> "Royal Melbourne Institute of Technology", UQ -> "University of Queensland", USYD -> "University of Sydney", Cybersecurity -> "Cyber Security" since Australian course titles spell it as two words). Otherwise empty array.
 "wants_human": true ONLY if the student is explicitly asking to talk to a real person/counsellor/advisor, or explicitly asking to be contacted/called — not just asking a hard or personal question. False for ordinary questions, even emotional or complex ones.
@@ -176,6 +177,16 @@ export class OrchestratorService {
     const m = message.toLowerCase();
     const passes = new Set<DocType>();
     if (/visa|refus|deport|breach|genuine student|gte|deadline|deportation/.test(m)) passes.add('visa_guidance');
+    // Origin-country rules: permission to leave, and permission to pay. Without
+    // these the question "do I need government permission, and can my bank send
+    // my tuition?" matched only /bank/ and routed to cost_of_living alone, so the
+    // NOC document could not be reached however well it was indexed.
+    if (
+      /no objection|\bnoc\b|permission|approval|ministry of education|moest|\bexit\b|remit|foreign exchange|rastra bank|(transfer|send|pay|paying)\s+(my |the |our |his |her |their )?(money|funds|tuition|fees|fee)/.test(
+        m,
+      )
+    )
+      passes.add('visa_guidance');
     if (/grant rate|success rate|chance|approval|likely to (get|be granted)|statistic/.test(m)) passes.add('visa_statistics');
     if (/afford|fund|money|financ|cost|living|budget|expense|rent|saving|bank|income/.test(m)) passes.add('cost_of_living');
     if (/scholarship|discount|waiver/.test(m)) passes.add('scholarship_terms');
@@ -303,6 +314,29 @@ export class OrchestratorService {
     const keywords = [...new Set([...phrases, ...looseWords])];
     if (fallbackField) keywords.push(fallbackField);
     return keywords.length ? keywords : message.split(/\s+/).slice(0, 3);
+  }
+
+  /**
+   * ISO-2 codes for the origin markets, so an origin country's own rules can be
+   * retrieved alongside the destination's. Only the markets this consultancy
+   * actually serves; an unrecognised nationality simply adds no extra filter
+   * rather than silently narrowing the search.
+   */
+  private static readonly ORIGIN_ISO2: Record<string, string> = {
+    nepal: 'NP', india: 'IN', bangladesh: 'BD', bhutan: 'BT', pakistan: 'PK',
+    'sri lanka': 'LK', china: 'CN', vietnam: 'VN', philippines: 'PH',
+  };
+
+  /**
+   * The countries a student's question can span: Australia (destination) plus
+   * the applicant's own country, whose rules on studying abroad — exit
+   * permission, tuition remittance, credential recognition — are just as binding
+   * on them as the visa rules and live under their own country code.
+   */
+  private retrievalCountries(student?: { nationality?: string } | null): string[] {
+    const name = (student?.nationality ?? env.homeMarket ?? '').trim().toLowerCase();
+    const iso = OrchestratorService.ORIGIN_ISO2[name];
+    return iso && iso !== 'AU' ? ['AU', iso] : ['AU'];
   }
 
   /**
@@ -565,7 +599,11 @@ export class OrchestratorService {
     const retrievedByPass = new Map<string, RetrievedChunk[]>();
     for (const pass of passes) {
       try {
-        const chunks = await this.retrieval.retrieve(structuredQuery, { country: 'AU', doc_type: pass }, 4);
+        const chunks = await this.retrieval.retrieve(
+          structuredQuery,
+          { country: this.retrievalCountries(student), doc_type: pass },
+          4,
+        );
         if (chunks.length) retrievedByPass.set(pass, chunks);
       } catch (e) {
         this.logger.warn(`retrieval pass ${pass} failed: ${(e as Error).message}`);
@@ -704,6 +742,9 @@ export class OrchestratorService {
    * citation per source document (see inline comment below), and looks up
    * the cited chunks by their [n] index into `allChunks`. Shared by `answer()`
    * and `draftReply()` — same numbered-source contract either way.
+   *
+   * Returns the cites in the order the text first refers to them, which is what
+   * lets `finaliseCitations` renumber the prose to match the rendered list.
    */
   private extractCites(text: string, allChunks: RetrievedChunk[]): OrchestratorResult['cites'] {
     const citedIndices = [...text.matchAll(/\[(\d+(?:\s*,\s*\d+)*)\]/g)]
@@ -728,6 +769,75 @@ export class OrchestratorService {
         return true;
       })
       .map((c) => ({ chunk_id: c.id, source_url: c.source_url, title: c.title }));
+  }
+
+  /**
+   * Makes the [n] markers in the prose mean the same thing as the citation list
+   * shown under it.
+   *
+   * They did not. The model is handed sources numbered 1..N and cites them by
+   * that number, so it legitimately writes "[10]" and "[11]". But the list the
+   * reader sees is the DEDUPED set of cited sources, relabelled from 1 by
+   * position — so an answer citing [1], [2], [10], [11] rendered four links
+   * labelled [1]-[4], and "[10]" pointed at nothing. Two separate causes: chunks
+   * of the same document collapse into one citation, and the surviving ones are
+   * ordered by first mention rather than by original index.
+   *
+   * So the numbers are rewritten to the final positions here, on the server,
+   * where the mapping is actually known — rather than having the UI guess, which
+   * is what produced the mismatch.
+   *
+   * A reference to a source that does not exist (a number past the end of the
+   * list) is removed rather than left dangling: the sentence keeps its claim and
+   * loses a citation it never had, which is the honest outcome. That also means
+   * the surviving [n] markers are exactly the ones a reader can follow.
+   */
+  private finaliseCitations(
+    text: string,
+    allChunks: RetrievedChunk[],
+  ): { text: string; cites: OrchestratorResult['cites'] } {
+    const cites = this.extractCites(text, allChunks);
+    if (!cites.length) {
+      // Nothing resolved — strip any markers so the reader is not sent looking
+      // for a list that will not be rendered.
+      return { text: this.stripCitationMarkers(text), cites };
+    }
+
+    // Original prompt index -> 1-based position in the rendered list. Built via
+    // the same identity `extractCites` dedupes on, so two chunks of one document
+    // both land on that document's single chip.
+    const positionByIndex = new Map<number, number>();
+    allChunks.forEach((c, i) => {
+      const key = c.source_url || c.title || c.id;
+      const pos = cites.findIndex((cite) => (cite.source_url || cite.title || cite.chunk_id) === key);
+      if (pos !== -1) positionByIndex.set(i + 1, pos + 1);
+    });
+
+    const renumbered = text.replace(/\[(\d+(?:\s*,\s*\d+)*)\]/g, (whole, group: string) => {
+      const mapped = [
+        ...new Set(
+          group
+            .split(',')
+            .map((n) => positionByIndex.get(parseInt(n.trim(), 10)))
+            .filter((n): n is number => n != null),
+        ),
+      ].sort((a, b) => a - b);
+      return mapped.length ? `[${mapped.join(', ')}]` : '';
+    });
+
+    return { text: this.tidySpacing(renumbered), cites };
+  }
+
+  private stripCitationMarkers(text: string): string {
+    return this.tidySpacing(text.replace(/\[\d+(?:\s*,\s*\d+)*\]/g, ''));
+  }
+
+  /** Removes the gap a deleted marker leaves before punctuation or between words. */
+  private tidySpacing(text: string): string {
+    return text
+      .replace(/[ \t]+([.,;:!?)])/g, '$1')
+      .replace(/([ \t]){2,}/g, '$1')
+      .replace(/[ \t]+$/gm, '');
   }
 
   async answer(message: string, studentId: string | null, matchResult?: MatchResult): Promise<OrchestratorResult> {
@@ -793,9 +903,13 @@ Always end with: "${DISCLAIMER}"`;
         : `I could not generate a grounded answer right now (AI service unavailable). Please try again shortly.\n\n${DISCLAIMER}`;
     }
 
+    // Renumber before returning: the [n] the model wrote are indices into the
+    // prompt's source list, not positions in the list the reader is shown.
+    const finalised = this.finaliseCitations(text, allChunks);
+
     return {
-      answer: text,
-      cites: this.extractCites(text, allChunks),
+      answer: finalised.text,
+      cites: finalised.cites,
       confidence: allChunks.length ? (degraded ? 0.5 : 0.75) : 0.3,
       passes_run: passes,
       degraded,
@@ -833,6 +947,7 @@ Always end with: "${DISCLAIMER}"`;
       throw e;
     }
 
-    return { draft, cites: this.extractCites(draft, allChunks) };
+    const finalisedDraft = this.finaliseCitations(draft, allChunks);
+    return { draft: finalisedDraft.text, cites: finalisedDraft.cites };
   }
 }

@@ -7,7 +7,14 @@ import { DocType } from './doc.entity';
 import { OpenRouterService } from './openrouter.service';
 
 export interface RetrievalFilters {
-  country?: string;
+  /**
+   * One country code, or several. Several matters because a student's question
+   * spans two jurisdictions: the DESTINATION's visa and institution rules and
+   * the ORIGIN country's own rules on studying abroad. The assistant used to
+   * pin this to 'AU', so a document about Nepal's own requirements could be
+   * ingested and embedded and would then never be retrieved.
+   */
+  country?: string | string[];
   doc_type?: DocType;
   institution?: string;
 }
@@ -52,8 +59,11 @@ export class RetrievalService {
     const where: string[] = [];
     const params: unknown[] = [vec, query];
     if (filters.country) {
-      params.push(filters.country);
-      where.push(`dc.country = $${params.length}`);
+      const countries = Array.isArray(filters.country) ? filters.country : [filters.country];
+      if (countries.length) {
+        params.push(countries);
+        where.push(`dc.country = ANY($${params.length}::text[])`);
+      }
     }
     if (filters.doc_type) {
       params.push(filters.doc_type);

@@ -105,6 +105,118 @@ await sleep(2200);
 const wentToPolicy = await s.ev(`location.pathname`);
 check("coverage: a gap row opens the policy to fix", wentToPolicy.startsWith("/admission/") && wentToPolicy.length>"/admission/".length, `${linksPolicy} -> ${wentToPolicy}`);
 
+// ---- AI analysis: prose markers must match the rendered reference list -------
+// The answer cites its sources as [n], where n indexes the sources given to the
+// model. The list under it is the DEDUPED set, renumbered from 1 — so an answer
+// citing [10] used to render four chips labelled [1]-[4] and point at nothing.
+// Most of those sources have no public URL either, so the chips named nothing
+// and went nowhere when clicked.
+const aiStudent = (await axios.get(`${API}/students?_start=0&_end=1`, {headers:{Authorization:`Bearer ${login.access_token}`}})).data;
+const aiId = (aiStudent.elements ?? aiStudent)[0].id;
+await s.goto(`/students/${aiId}/matches`);
+await sleep(3000);
+const clicked = await s.ev(`(()=>{const b=[...document.querySelectorAll('button')].find(x=>/Get AI analysis/i.test(x.textContent)); if(b){b.click();return true;} return false;})()`);
+check("AI analysis: the trigger is present", clicked);
+// The model call is slow; poll until the Sources block appears.
+let sourcesText = "";
+for (let i = 0; i < 40; i++) {
+  await sleep(3000);
+  sourcesText = await s.ev(`(()=>{const el=[...document.querySelectorAll('*')].find(e=>e.children.length===0 && /^Sources$/.test((e.textContent||'').trim())); return el ? el.parentElement.innerText : '';})()`);
+  if (sourcesText) break;
+}
+check("AI analysis: a named Sources list is rendered", /\[1\]/.test(sourcesText) && sourcesText.length > 30,
+      sourcesText ? sourcesText.split("\n").slice(1,3).join(" | ").slice(0,110) : "no Sources block appeared");
+
+const cmp = await s.ev(`(()=>{
+  const all=[...document.querySelectorAll('*')];
+  const head=all.find(e=>e.children.length===0 && /^Sources$/.test((e.textContent||'').trim()));
+  if(!head) return null;
+  const list=head.parentElement.innerText;
+  const listed=[...new Set([...list.matchAll(/\\[(\\d+)\\]/g)].map(m=>+m[1]))];
+  // The answer body is the block before the Sources heading.
+  const body=head.parentElement.parentElement.innerText.replace(list,'');
+  const used=[...new Set([...body.matchAll(/\\[(\\d+(?:\\s*,\\s*\\d+)*)\\]/g)].flatMap(m=>m[1].split(',').map(x=>+x.trim())))];
+  return {listed, used, max: used.length?Math.max(...used):0, count: listed.length};
+})()`);
+check("AI analysis: no marker points past the end of the list",
+      !!cmp && cmp.max <= cmp.count && cmp.count > 0,
+      cmp ? `markers up to [${cmp.max}], ${cmp.count} sources listed` : "could not read the panel");
+
+// ---- AI consultant: history list and one conversation at a time ------------
+// Was single-threaded, then briefly a split pane which left the chat squeezed
+// and the history half-visible. It is a drill-down: history first, open one,
+// back out. These checks pin that only ONE of the two is ever on screen.
+const convStudent = (await axios.get(`${API}/students?_start=0&_end=1`, {headers:{Authorization:`Bearer ${login.access_token}`}})).data;
+const convId = (convStudent.elements ?? convStudent)[0].id;
+await s.goto(`/students/${convId}`);
+await sleep(1500);
+await s.ev(`(()=>{const t=[...document.querySelectorAll('[role="tab"],button')].find(x=>/AI Consultant/i.test(x.textContent)); if(t){t.click();return true;} return false;})()`);
+await sleep(3500);
+
+// A "view" is identified by what only that view has: the composer (chat) and
+// the New-conversation button (history).
+const viewState = () => s.ev(`(()=>({
+  composer: !!document.querySelector('textarea[placeholder^="Ask about courses"]'),
+  newBtn: [...document.querySelectorAll('button')].some(x=>/New conversation/i.test(x.textContent)),
+  back: !!document.querySelector('button[aria-label="Back to all conversations"]'),
+  rows: document.querySelectorAll('.MuiListItemButton-root').length,
+}))()`);
+
+let v = await viewState();
+check("AI consultant: opens on the conversation history, not a chat", v.newBtn && !v.composer, JSON.stringify(v));
+check("AI consultant: past conversations are listed", v.rows > 0, `${v.rows} rows`);
+
+// Opening one must replace the history rather than sit beside it.
+await s.ev(`(()=>{const r=[...document.querySelectorAll('.MuiListItemButton-root')].find(x=>/message/.test(x.innerText)&&!/^0 message/.test(x.innerText)); if(r){r.click();return true;} return false;})()`);
+await sleep(3000);
+v = await viewState();
+check("AI consultant: opening a conversation replaces the history", v.composer && v.back && !v.newBtn, JSON.stringify(v));
+const restored = await s.ev(`document.querySelectorAll('.MuiPaper-root .MuiAvatar-root').length`);
+check("AI consultant: the opened conversation shows its messages", restored > 0, `${restored} message avatars`);
+
+// And back must return to the history, not leave both showing.
+await s.ev(`(()=>{const b=document.querySelector('button[aria-label="Back to all conversations"]'); if(b){b.click();return true;} return false;})()`);
+await sleep(2500);
+v = await viewState();
+check("AI consultant: back returns to the history", v.newBtn && !v.composer, JSON.stringify(v));
+
+// New conversation opens an empty composer.
+await s.ev(`(()=>{const b=[...document.querySelectorAll('button')].find(x=>/New conversation/i.test(x.textContent)); if(b){b.click();return true;} return false;})()`);
+await sleep(1800);
+v = await viewState();
+const emptyState = await s.ev(`/Ask the AI consultant about this student/.test(document.body.innerText)`);
+check("AI consultant: New conversation opens an empty chat", v.composer && !v.newBtn && emptyState, JSON.stringify(v));
+
+// Rename / delete reachable per row, and delete confirms first.
+await s.ev(`(()=>{const b=document.querySelector('button[aria-label="Back to all conversations"]'); if(b){b.click();return true;} return false;})()`);
+await sleep(2200);
+await s.ev(`(()=>{const b=document.querySelector('.MuiListItemButton-root button[aria-label^="Options for"]'); if(b){b.click();return true;} return false;})()`);
+await sleep(900);
+const menuText = await s.ev(`(()=>{const m=document.querySelector('.MuiMenu-root'); return m?m.innerText.replace(/\\n/g,'|'):'';})()`);
+check("AI consultant: each conversation offers rename and delete", /Rename/.test(menuText) && /Delete/.test(menuText), menuText);
+
+await s.ev(`(()=>{const i=[...document.querySelectorAll('.MuiMenu-root li')].find(x=>/Delete/.test(x.textContent)); if(i){i.click();return true;} return false;})()`);
+await sleep(900);
+const confirmText = await s.ev(`(()=>{const d=document.querySelector('.MuiDialog-root'); return d?d.innerText.replace(/\\n/g,' '):'';})()`);
+check("AI consultant: delete asks before destroying a transcript", /cannot be undone/i.test(confirmText), confirmText.slice(0,80));
+await s.ev(`(()=>{const b=[...document.querySelectorAll('.MuiDialog-root button')].find(x=>/Cancel/i.test(x.textContent)); if(b){b.click();return true;} return false;})()`);
+await sleep(600);
+
+// The transcript panel is the tab's main working surface, so measure THAT
+// rather than the tallest Paper on the page (which is the page container and
+// would pass whatever height the panel had).
+await s.ev(`(()=>{const r=[...document.querySelectorAll('.MuiListItemButton-root')].find(x=>/message/.test(x.innerText)); if(r){r.click();return true;} return false;})()`);
+await sleep(2800);
+const panelH = await s.ev(`(()=>{
+  const ta=document.querySelector('textarea[placeholder^="Ask about courses"]');
+  if(!ta) return 0;
+  // The scrollable transcript is the Paper in the same flex column as the composer.
+  const col=ta.closest('.MuiStack-root')?.parentElement;
+  const panel=col && [...col.querySelectorAll('.MuiPaper-root')].find(e=>getComputedStyle(e).overflowY==='auto');
+  return panel ? Math.round(panel.getBoundingClientRect().height) : 0;
+})()`);
+check("AI consultant: the transcript panel is given real height", panelH >= 420, `${panelH}px tall`);
+
 // ---- admission policy list -> detail navigation ------------------------------
 await s.goto("/admission");
 const hasRows = await s.ev(`document.querySelectorAll('table tbody tr').length`);
